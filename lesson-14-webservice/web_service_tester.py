@@ -40,8 +40,8 @@ def dataframe_to_html_table(df):
     <h3>Service Tester Report</h2>
     %s
     
-    <p> Contact <a href="mailto:wen.gong@oracle.com">
-    wen.gong@oracle.com</a> for question on this report.
+    <p> Contact <a href="mailto:wen.gong@gmail.com">
+    wen.gong@gmail.com</a> for question on this report.
     </body>
     </html>    
     """
