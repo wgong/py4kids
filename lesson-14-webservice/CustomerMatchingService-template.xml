@@ -1,0 +1,32 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+   <soapenv:Header/>
+   <soapenv:Body>
+   
+   <GecInbound>
+    <MatchToken>{MatchToken}</MatchToken>
+    <CommonAttributes>
+        <TransactionID>{TransactionID}</TransactionID>
+        <SourceSystem>CRAUI</SourceSystem>
+    </CommonAttributes>
+    <PartyRecord>
+        <PartyName>{PartyName}</PartyName>
+        <DnBAtributes>
+            <DUNSNumber>{DUNSNumber}</DUNSNumber>
+        </DnBAtributes>
+    </PartyRecord>
+    <AddressRecords>
+        <AddressRecord>
+            <Address1>{Address1}</Address1>
+            <Address2>{Address2}</Address2>
+            <City>{City}</City>
+            <State>{State}</State>
+            <Province>{Province}</Province>
+            <County>{County}</County>
+            <PostalCode>{PostalCode}</PostalCode>
+            <Country>{Country}</Country>
+        </AddressRecord>
+    </AddressRecords>
+    </GecInbound>
+
+   </soapenv:Body>
+</soapenv:Envelope>

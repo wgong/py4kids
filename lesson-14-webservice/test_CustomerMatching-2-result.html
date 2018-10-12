@@ -1,0 +1,33 @@
+﻿
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <style>
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+    th, td {
+    padding: 15px;
+    }
+    table#wen tr:nth-child(even) {
+        background-color: #eee;
+    }
+    table#wen tr:nth-child(odd) {
+       background-color: #fff;
+    }
+    table#wen th {
+        background-color: blue;
+        color: white;
+    }
+    </style>
+    </head>
+    <body>
+    <h3>Service Tester Report</h2>
+    <table id='wen'><tr><th>TESTCASEID</th><th>MatchToken</th><th>ACCOUNT_NAME</th><th>DUNS_NUMBER</th><th>ADDRESS1</th><th>ADDRESS2</th><th>CITY</th><th>COUNTY</th><th>STATE</th><th>PROVINCE</th><th>POSTAL_CODE</th><th>COUNTRY</th><th>Expected Match Result</th><th>Match Result</th><th>Match RegID</th><th>Match Rule</th><th>Request_XML</th><th>Response_XML</th><th>Elapsed Time (sec)</th><th>Batch_ID</th></tr><tr><td>100000221539589</td><td>PartyMatching</td><td>주식회사 유젠스에스앤씨</td><td></td><td>1110 Hyoryeong Bldg.</td><td>1 Mugyo-dong Jung-gu</td><td>Jung-gu</td><td>N/A</td><td></td><td>Seoul</td><td>100-170</td><td>KR</td><td></td><td>NO_MATCH</td><td></td><td></td><td><a href='req-100000221539589-20181011190624.xml'>req-100000221539589-20181011190624.xml</a></td><td><a href='res-100000221539589-20181011190624.xml'>res-100000221539589-20181011190624.xml</a></td><td>5.0</td><td>100000221539589015515126879072</td></tr><tr><td>100000221544573</td><td>PartyMatching</td><td>Indra Italia S.p.A.</td><td></td><td>via Milanese, 20</td><td></td><td>Sesto San Giovanni</td><td></td><td></td><td>MILANO</td><td>20099</td><td>IT</td><td></td><td>MATCH</td><td>1121497</td><td>name:Exact,address:Exact</td><td><a href='req-100000221544573-20181011190629.xml'>req-100000221544573-20181011190629.xml</a></td><td><a href='res-100000221544573-20181011190629.xml'>res-100000221544573-20181011190629.xml</a></td><td>19.0</td><td>100000221544573022558998287205</td></tr></table>
+    
+    <p> Contact <a href="mailto:wen.gong@gmail.com">
+    wen.gong@gmail.com</a> for question on this report.
+    </body>
+    </html>    
+    
