@@ -1,0 +1,13 @@
+compile_and_lint:
+    stage: build
+    script:
+        - python3 -m py_compile pa7/*.py
+        - pylint -E -d unsubscriptable-object pa7/*.py
+
+run_tests:
+    stage: test
+    script:
+        - cd pa7/data && ./get_files.sh
+        - cd .. && py.test -v
+    after_script:
+        - cd pa7/ && ../common/grader.py

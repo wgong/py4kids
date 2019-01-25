@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<!-- saved from url=(0054)https://www.dataquest.io/blog/python-pandas-databases/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Working with SQLite Databases using Python and Pandas</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="./Working with SQLite Databases using Python and Pandas_files/prism.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="./Working with SQLite Databases using Python and Pandas_files/screen.css">
+
+    <meta name="description" content="In this post, you&#39;ll learn to query, update, and create SQLite databases in Python.  And learn how to use the pandas package to speed up your workflow.">
+    <link rel="shortcut icon" href="https://www.dataquest.io/blog/favicon.png" type="image/png">
+    <link rel="canonical" href="http://www.dataquest.io/blog/python-pandas-databases/">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta property="og:site_name" content="Dataquest">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Working with SQLite Databases using Python and Pandas">
+    <meta property="og:description" content="In this post, you&#39;ll learn to query, update, and create SQLite databases in Python.  We&#39;ll also show you how to use the pandas package to speed up your workflow.">
+    <meta property="og:url" content="http://www.dataquest.io/blog/python-pandas-databases/">
+    <meta property="article:published_time" content="2016-10-03T00:00:00.000Z">
+    <meta property="article:modified_time" content="2017-12-15T01:37:02.000Z">
+    <meta property="article:tag" content="Sqlite">
+    <meta property="article:tag" content="Python">
+    <meta property="article:tag" content="Pandas">
+    <meta property="article:tag" content="Tutorials">
+    
+    <meta property="article:publisher" content="https://www.facebook.com/dataquestio/">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="SQLite with Python and pandas">
+    <meta name="twitter:description" content="Learn to query, update, and create #SQLite databases in #Python.  Use #pandas to speed up your workflow.">
+    <meta name="twitter:url" content="http://www.dataquest.io/blog/python-pandas-databases/">
+    <meta name="twitter:image" content="http://www.dataquest.io/blog/content/images/2017/11/database-schema-1895779_1280.png">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Vik Paruchuri">
+    <meta name="twitter:label2" content="Filed under">
+    <meta name="twitter:data2" content="Sqlite, Python, Pandas, Tutorials">
+    <meta name="twitter:site" content="@dataquestio">
+    
+    <script src="./Working with SQLite Databases using Python and Pandas_files/identity.js.download" async=""></script><script src="./Working with SQLite Databases using Python and Pandas_files/1208964489120563" async=""></script><script type="text/javascript" async="" src="./Working with SQLite Databases using Python and Pandas_files/fbevents.js.download"></script><script type="text/javascript" async="" src="./Working with SQLite Databases using Python and Pandas_files/analytics.js.download"></script><script type="text/javascript" async="" src="./Working with SQLite Databases using Python and Pandas_files/qevents.js.download"></script><script type="text/javascript" async="" src="./Working with SQLite Databases using Python and Pandas_files/analytics.min.js.download"></script><script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Dataquest",
+        "logo": "http://www.dataquest.io/blog/content/images/2017/12/Logo-On-Dark--2-.png"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Vik Paruchuri",
+        "url": "http://www.dataquest.io/blog/author/vik/",
+        "sameAs": []
+    },
+    "headline": "Working with SQLite Databases using Python and Pandas",
+    "url": "https://www.dataquest.io/blog/python-pandas-databases/",
+    "datePublished": "2016-10-03T00:00:00.000Z",
+    "dateModified": "2017-12-15T01:37:02.000Z",
+    "keywords": "Sqlite, Python, Pandas, Tutorials",
+    "description": "In this post, you&#x27;ll learn to query, update, and create SQLite databases in Python.  We&#x27;ll also show you how to use the pandas package to speed up your workflow.",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://www.dataquest.io/blog/"
+    }
+}
+    </script>
+
+    <script type="text/javascript" src="./Working with SQLite Databases using Python and Pandas_files/ghost-sdk.min.js.download"></script>
+<script type="text/javascript">
+ghost.init({
+	clientId: "ghost-frontend",
+	clientSecret: "2e84fde6d9c4"
+});
+</script>
+    <meta name="generator" content="Ghost 1.20">
+    <link rel="alternate" type="application/rss+xml" title="Dataquest" href="https://www.dataquest.io/blog/rss/">
+
+<style type="text/css">#boxzilla-overlay{position:fixed;background:rgba(0,0,0,.65);width:100%;height:100%;left:0;top:0;z-index:99999}.boxzilla-center-container{position:fixed;top:0;left:0;right:0;height:0;text-align:center;z-index:999999;line-height:0}.boxzilla-center-container .boxzilla{display:inline-block;text-align:left;position:relative;line-height:normal}.boxzilla{position:fixed;z-index:999999;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;background:#fff;padding:25px}.boxzilla.boxzilla-top-left{top:0;left:0}.boxzilla.boxzilla-top-right{top:0;right:0}.boxzilla.boxzilla-bottom-left{bottom:0;left:0}.boxzilla.boxzilla-bottom-right{bottom:0;right:0}.boxzilla-content>:first-child{margin-top:0;padding-top:0}.boxzilla-content>:last-child{margin-bottom:0;padding-bottom:0}.boxzilla-close-icon{position:absolute;right:0;top:0;text-align:center;padding:6px;cursor:pointer;-webkit-appearance:none;font-size:28px;font-weight:700;line-height:20px;color:#000;opacity:.5}.boxzilla-close-icon:focus,.boxzilla-close-icon:hover{opacity:.8}</style><style id="fit-vids-style">.fluid-width-video-container{flex-grow: 1;width:100%;}.fluid-width-video-wrapper{width:100%;position:relative;padding:0;}.fluid-width-video-wrapper iframe,.fluid-width-video-wrapper object,.fluid-width-video-wrapper embed {position:absolute;top:0;left:0;width:100%;height:100%;}</style><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head>
+<body class="post-template tag-sqlite tag-python tag-pandas tag-tutorials" style=""><div id="MathJax_Message" style="display: none;"></div>
+
+    <div class="site-wrapper">
+
+        
+
+<header class="site-header outer">
+    <div class="inner">
+        <nav class="site-nav">
+    <div class="site-nav-left">
+                <a class="site-nav-logo" href="https://www.dataquest.io/blog"><img src="./Working with SQLite Databases using Python and Pandas_files/Logo-On-Dark--2-.png" alt="Dataquest"></a>
+            <ul class="nav" role="menu">
+    <li class="nav-blog" role="menuitem"><a href="https://www.dataquest.io/blog/">Blog</a></li>
+</ul>
+
+    </div>
+    <div class="site-nav-right">
+        <div class="social-links">
+                <a class="social-link social-link-fb" href="https://www.facebook.com/dataquestio/" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"></path></svg>
+</a>
+                <a class="social-link social-link-tw" href="https://twitter.com/dataquestio" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"></path></svg>
+</a>
+        </div>
+            <a class="rss-button" href="http://cloud.feedly.com/#subscription/feed/https://www.dataquest.io/blog/rss/" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="6.18" cy="17.82" r="2.18"></circle><path d="M4 4.44v2.83c7.03 0 12.73 5.7 12.73 12.73h2.83c0-8.59-6.97-15.56-15.56-15.56zm0 5.66v2.83c3.9 0 7.07 3.17 7.07 7.07h2.83c0-5.47-4.43-9.9-9.9-9.9z"></path></svg>
+</a>
+    </div>
+</nav>
+    </div>
+</header>
+
+
+<main id="site-main" class="site-main outer" role="main">
+    <div class="inner">
+
+        <article class="post-full post tag-sqlite tag-python tag-pandas tag-tutorials no-image">
+
+            <header class="post-full-header">
+                <section class="post-full-meta">
+                    <time class="post-full-meta-date" datetime="2016-10-03">3 October 2016</time>
+                        <span class="date-divider">/</span> <a href="https://www.dataquest.io/blog/tag/sqlite/">Sqlite</a>
+                </section>
+                <h1 class="post-full-title">Working with SQLite Databases using Python and Pandas</h1>
+            </header>
+
+
+            <section class="post-full-content">
+                <div class="kg-card-markdown"><p><a href="https://www.sqlite.org/">SQLite</a> is a database engine that makes it simple to store and work with relational data.  Much like the <em>csv</em> format, SQLite stores data in a single file that can be easily shared with others.  Most programming languages and environments have good support for working with SQLite databases.  Python is no exception, and a library to access SQLite databases, called <code>sqlite3</code>, has been included with Python since version <code>2.5</code>.</p>
+<p>In this post, we'll walk through how to use <code>sqlite3</code> to create, query, and update databases.  We'll also cover how to simplify working with SQLite databases using the <a href="http://pandas.pydata.org/">pandas</a> package.  We'll be using Python <code>3.5</code>, but this same approach should work with Python <code>2</code>.</p>
+<p>If you want to learn the basics of SQL, you might like to checkout our <a href="https://www.dataquest.io/blog/sql-basics/">SQL basics blogpost</a> first.</p>
+<p>Before we get started, let's take a quick look at the data we'll be working with.  We'll be looking at airline flight data, which contains information on airlines, airports, and routes between airports.  Each route represents a repeated flight that an airline flies between a source and a destination airport.</p>
+<p>All of the data is in a SQLite database called <code>flights.db</code>, which contains three tables -- <code>airports</code>, <code>airlines</code>, and <code>routes</code>.  You can download the data <a href="https://www.dropbox.com/s/a2wax843eniq12g/flights.db?dl=0">here</a>.</p>
+<p>Here are two rows from the <code>airlines</code> table:</p>
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>name</th>
+      <th>alias</th>
+      <th>iata</th>
+      <th>icao</th>
+      <th>callsign</th>
+      <th>country</th>
+      <th>active</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>10</th>
+      <td> 11</td>
+      <td>                 4D Air</td>
+      <td> \N</td>
+      <td> NaN</td>
+      <td> QRT</td>
+      <td> QUARTET</td>
+      <td> Thailand</td>
+      <td> N</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td> 12</td>
+      <td> 611897 Alberta Limited</td>
+      <td> \N</td>
+      <td> NaN</td>
+      <td> THD</td>
+      <td>   DONUT</td>
+      <td>   Canada</td>
+      <td> N</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<p>As you can see above, each row is a different airline, and each column is a property of that airline, such as <code>name</code>, and <code>country</code>.  Each airline also has a unique <code>id</code>, so we can easily look it up when we need to.</p>
+<p>Here are two rows from the <code>airports</code> table:</p>
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>name</th>
+      <th>city</th>
+      <th>country</th>
+      <th>code</th>
+      <th>icao</th>
+      <th>latitude</th>
+      <th>longitude</th>
+      <th>altitude</th>
+      <th>offset</th>
+      <th>dst</th>
+      <th>timezone</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td> 1</td>
+      <td> Goroka</td>
+      <td> Goroka</td>
+      <td> Papua New Guinea</td>
+      <td> GKA</td>
+      <td> AYGA</td>
+      <td> -6.081689</td>
+      <td> 145.391881</td>
+      <td> 5282</td>
+      <td> 10</td>
+      <td> U</td>
+      <td> Pacific/Port_Moresby</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td> 2</td>
+      <td> Madang</td>
+      <td> Madang</td>
+      <td> Papua New Guinea</td>
+      <td> MAG</td>
+      <td> AYMD</td>
+      <td> -5.207083</td>
+      <td>   145.7887</td>
+      <td>   20</td>
+      <td> 10</td>
+      <td> U</td>
+      <td> Pacific/Port_Moresby</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<p>As you can see, each row corresponds to an airport, and contains information on the location of the airport.  Each airport also has a unique <code>id</code>, so we can easily look it up.</p>
+<p>Here are two rows from the <code>routes</code> table:</p>
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>airline</th>
+      <th>airline_id</th>
+      <th>source</th>
+      <th>source_id</th>
+      <th>dest</th>
+      <th>dest_id</th>
+      <th>codeshare</th>
+      <th>stops</th>
+      <th>equipment</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td> 2B</td>
+      <td> 410</td>
+      <td> AER</td>
+      <td> 2965</td>
+      <td> KZN</td>
+      <td> 2990</td>
+      <td> NaN</td>
+      <td> 0</td>
+      <td> CR2</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td> 2B</td>
+      <td> 410</td>
+      <td> ASF</td>
+      <td> 2966</td>
+      <td> KZN</td>
+      <td> 2990</td>
+      <td> NaN</td>
+      <td> 0</td>
+      <td> CR2</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<p>Each route contains an <code>airline_id</code>, which the <code>id</code> of the airline that flies the route, as well as <code>source_id</code>, which is the id of the airport that the route originates from, and <code>dest_id</code>, which is the id of the destination airport for the flight.</p>
+<p>Now that we know what kind of data we're working with, let's start by connecting to the database and running a query.</p>
+<h2 id="queryingdatabaserowsinpython">Querying database rows in Python</h2>
+<p>In order to work with a SQLite database from Python, we first have to connect to it.  We can do that using the <a href="https://docs.python.org/3/library/sqlite3.html?highlight=connect#sqlite3.connect">connect</a> function, which returns a <a href="https://docs.python.org/3/library/sqlite3.html?highlight=connect#sqlite3.Connection">Connection</a> object:</p>
+<pre class=" language-python"><code class=" language-python"><span class="token keyword">import</span> sqlite3
+
+conn <span class="token operator">=</span> sqlite3<span class="token punctuation">.</span>connect<span class="token punctuation">(</span><span class="token string">"flights.db"</span><span class="token punctuation">)</span>
+</code></pre>
+<p>Once we have a Connection object, we can then create a <a href="https://docs.python.org/3/library/sqlite3.html#cursor-objects">Cursor</a> object.  Cursors allow us to execute SQL queries against a database:</p>
+<pre class=" language-python"><code class=" language-python">cur <span class="token operator">=</span> conn<span class="token punctuation">.</span>cursor<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+<p>Once we have a Cursor object, we can use it to execute a query against the database with the aptly named <a href="https://docs.python.org/3/library/sqlite3.html?highlight=connect#sqlite3.Cursor.execute">execute</a> method.  The below code will fetch the first <code>5</code> rows from the <code>airlines</code> table:</p>
+<pre class=" language-python"><code class=" language-python">cur<span class="token punctuation">.</span>execute<span class="token punctuation">(</span><span class="token string">"select * from airlines limit 5;"</span><span class="token punctuation">)</span>
+</code></pre>
+<p>You may have noticed that we didn't assign the result of the above query to a variable.  This is because we need to run another command to actually fetch the results.  We can use the <a href="https://docs.python.org/3/library/sqlite3.html?highlight=connect#sqlite3.Cursor.fetchall">fetchall</a> method to fetch all of the results of a query:</p>
+<pre class=" language-python"><code class=" language-python">results <span class="token operator">=</span> cur<span class="token punctuation">.</span>fetchall<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>results<span class="token punctuation">)</span>
+</code></pre>
+<pre><code>[(0, '1', 'Private flight', '\\N', '-', None, None, None, 'Y'),
+ (1, '2', '135 Airways', '\\N', None, 'GNL', 'GENERAL', 'United States', 'N'),
+ (2, '3', '1Time Airline', '\\N', '1T', 'RNX', 'NEXTIME', 'South Africa', 'Y'),
+ (3, '4', '2 Sqn No 1 Elementary Flying Training School', '\\N', None, 'WYT', None, 'United Kingdom', 'N'),
+ (4, '5', '213 Flight Unit', '\\N', None, 'TFU', None, 'Russia', 'N')]
+</code></pre>
+<p>As you can see, the results are formatted as a list of <a href="https://docs.python.org/3.5/tutorial/datastructures.html#tuples-and-sequences">tuples</a>.  Each tuple corresponds to a row in the database that we accessed.  Dealing with data this way is fairly painful.  We'd need to manually add column heads, and manually parse the data.  Luckily, the pandas library has an easier way, which we'll look at in the next section.</p>
+<p>Before we move on, it's good practice to close Connection objects and Cursor objects that are open.  This prevents the SQLite database from being locked.  When a SQLite database is locked, you may be unable to update the database, and may get errors.  We can close the Cursor and the Connection like this:</p>
+<pre class=" language-python"><code class=" language-python">cur<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span>
+conn<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+<h3 id="mappingairports">Mapping airports</h3>
+<p>Using our newfound knowledge of queries, we can create a plot that shows where all the airports in the world are.  First, we query latitudes and longitudes:</p>
+<pre class=" language-python"><code class=" language-python"><span class="token keyword">import</span> sqlite3
+
+conn <span class="token operator">=</span> sqlite3<span class="token punctuation">.</span>connect<span class="token punctuation">(</span><span class="token string">"flights.db"</span><span class="token punctuation">)</span>
+cur <span class="token operator">=</span> conn<span class="token punctuation">.</span>cursor<span class="token punctuation">(</span><span class="token punctuation">)</span>
+coords <span class="token operator">=</span> cur<span class="token punctuation">.</span>execute<span class="token punctuation">(</span><span class="token triple-quoted-string string">"""
+  select cast(longitude as float), 
+  cast(latitude as float) 
+  from airports;"""</span>
+<span class="token punctuation">)</span><span class="token punctuation">.</span>fetchall<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+<p>The above query will retrieve the <code>latitude</code> and <code>longitude</code> columns from <code>airports</code>, and convert both of them to floats.  We then call the <code>fetchall</code> method to retrieve them.</p>
+<p>We then need to setup our plotting by importing <a href="http://matplotlib.org/">matplotlib</a>, the primary plotting library for Python.  Combined with the <a href="http://matplotlib.org/basemap/">basemap</a> package, this allows us to create maps only using Python.</p>
+<p>We first need to import the libraries:</p>
+<pre class=" language-python"><code class=" language-python"><span class="token keyword">from</span> mpl_toolkits<span class="token punctuation">.</span>basemap <span class="token keyword">import</span> Basemap
+<span class="token keyword">import</span> matplotlib<span class="token punctuation">.</span>pyplot <span class="token keyword">as</span> plt
+</code></pre>
+<p>Then, we setup our map, and draw the continents and coastlines that will form the background of our map:</p>
+<pre class=" language-python"><code class=" language-python">m <span class="token operator">=</span> Basemap<span class="token punctuation">(</span>
+  projection<span class="token operator">=</span><span class="token string">'merc'</span><span class="token punctuation">,</span>
+  llcrnrlat<span class="token operator">=</span><span class="token operator">-</span><span class="token number">80</span><span class="token punctuation">,</span>
+  urcrnrlat<span class="token operator">=</span><span class="token number">80</span><span class="token punctuation">,</span>
+  llcrnrlon<span class="token operator">=</span><span class="token operator">-</span><span class="token number">180</span><span class="token punctuation">,</span>
+  urcrnrlon<span class="token operator">=</span><span class="token number">180</span><span class="token punctuation">,</span>
+  lat_ts<span class="token operator">=</span><span class="token number">20</span><span class="token punctuation">,</span>
+  resolution<span class="token operator">=</span><span class="token string">'c'</span>
+<span class="token punctuation">)</span>
+
+m<span class="token punctuation">.</span>drawcoastlines<span class="token punctuation">(</span><span class="token punctuation">)</span>
+m<span class="token punctuation">.</span>drawmapboundary<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+<p>Finally, we plot the coordinates of each airport onto the map.  We retrieved a list of tuples from the SQLite database.  The first element in each tuple is the longitude of the airport, and the second is the latitude.  We'll convert the longitudes and latitudes into their own lists, and then plot them on the map:</p>
+<pre class=" language-python"><code class=" language-python">x<span class="token punctuation">,</span> y <span class="token operator">=</span> m<span class="token punctuation">(</span>
+  <span class="token punctuation">[</span>l<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token keyword">for</span> l <span class="token keyword">in</span> coords<span class="token punctuation">]</span><span class="token punctuation">,</span> 
+  <span class="token punctuation">[</span>l<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token keyword">for</span> l <span class="token keyword">in</span> coords<span class="token punctuation">]</span>
+<span class="token punctuation">)</span>
+
+m<span class="token punctuation">.</span>scatter<span class="token punctuation">(</span>
+  x<span class="token punctuation">,</span>
+  y<span class="token punctuation">,</span>
+  <span class="token number">1</span><span class="token punctuation">,</span>
+  marker<span class="token operator">=</span><span class="token string">'o'</span><span class="token punctuation">,</span>
+  color<span class="token operator">=</span><span class="token string">'red'</span>
+<span class="token punctuation">)</span>
+</code></pre>
+<p>We end up with a map that shows every airport in the world:</p>
+<p><img src="./Working with SQLite Databases using Python and Pandas_files/mplmap.png" alt="mplmap"></p>
+<p>As you may have noticed, working with data from the database is a bit painful.  We needed to remember which position in each tuple corresponded to what database column, and manually parse out individual lists for each column.  Luckily, the pandas library gives us an easier way to work with the results of SQL queries.</p>
+<h3 id="readingresultsintoapandasdataframe">Reading results into a pandas DataFrame</h3>
+<p>We can use the pandas <a href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.read_sql_query.html">read_sql_query</a> function to read the results of a SQL query directly into a pandas DataFrame.  The below code will execute the same query that we just did, but it will return a DataFrame.  It has several advantages over the query we did above:</p>
+<ul>
+<li>It doesn't require us to create a Cursor object or call <code>fetchall</code> at the end.</li>
+<li>It automatically reads in the names of the headers from the table.</li>
+<li>It creates a DataFrame, so we can quickly explore the data.</li>
+</ul>
+<pre class=" language-python"><code class=" language-python"><span class="token keyword">import</span> pandas <span class="token keyword">as</span> pd
+<span class="token keyword">import</span> sqlite3
+
+conn <span class="token operator">=</span> sqlite3<span class="token punctuation">.</span>connect<span class="token punctuation">(</span><span class="token string">"flights.db"</span><span class="token punctuation">)</span>
+df <span class="token operator">=</span> pd<span class="token punctuation">.</span>read_sql_query<span class="token punctuation">(</span><span class="token string">"select * from airlines limit 5;"</span><span class="token punctuation">,</span> conn<span class="token punctuation">)</span>
+df
+</code></pre>
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>index</th>
+      <th>id</th>
+      <th>name</th>
+      <th>alias</th>
+      <th>iata</th>
+      <th>icao</th>
+      <th>callsign</th>
+      <th>country</th>
+      <th>active</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td> 0</td>
+      <td> 1</td>
+      <td>                               Private flight</td>
+      <td> \N</td>
+      <td>    -</td>
+      <td> None</td>
+      <td>    None</td>
+      <td>           None</td>
+      <td> Y</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td> 1</td>
+      <td> 2</td>
+      <td>                                  135 Airways</td>
+      <td> \N</td>
+      <td> None</td>
+      <td>  GNL</td>
+      <td> GENERAL</td>
+      <td>  United States</td>
+      <td> N</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td> 2</td>
+      <td> 3</td>
+      <td>                                1Time Airline</td>
+      <td> \N</td>
+      <td>   1T</td>
+      <td>  RNX</td>
+      <td> NEXTIME</td>
+      <td>   South Africa</td>
+      <td> Y</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td> 3</td>
+      <td> 4</td>
+      <td> 2 Sqn No 1 Elementary Flying Training School</td>
+      <td> \N</td>
+      <td> None</td>
+      <td>  WYT</td>
+      <td>    None</td>
+      <td> United Kingdom</td>
+      <td> N</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td> 4</td>
+      <td> 5</td>
+      <td>                              213 Flight Unit</td>
+      <td> \N</td>
+      <td> None</td>
+      <td>  TFU</td>
+      <td>    None</td>
+      <td>         Russia</td>
+      <td> N</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<p>As you can see, we get a nicely formatted DataFrame as the result.  We could easily manipulate the columns:</p>
+<pre class=" language-python"><code class=" language-python">df<span class="token punctuation">[</span><span class="token string">"country"</span><span class="token punctuation">]</span>
+</code></pre>
+<pre><code>  0              None
+  1     United States
+  2      South Africa
+  3    United Kingdom
+  4            Russia
+  Name: country, dtype: object
+</code></pre>
+<p>It's highly recommended to use the <code>read_sql_query</code> function when possible.</p>
+<h3 id="mappingroutes">Mapping routes</h3>
+<p>Now that we know how to read queries into pandas DataFrames, we can create a map of every airline route in the world.  We first start by querying the data.  The below query will:</p>
+<ul>
+<li>Get the latitude and longitude for the source airport for each route.</li>
+<li>Get the latitude and longitude for the destination airport for each route.</li>
+<li>Convert all the coordinate values to floats.</li>
+<li>Read the results into a DataFrame, and store them to the variable <code>routes</code>.</li>
+</ul>
+<pre class=" language-python"><code class=" language-python">routes <span class="token operator">=</span> pd<span class="token punctuation">.</span>read_sql_query<span class="token punctuation">(</span><span class="token triple-quoted-string string">"""
+                           select cast(sa.longitude as float) as source_lon, 
+                           cast(sa.latitude as float) as source_lat,
+                           cast(da.longitude as float) as dest_lon,
+                           cast(da.latitude as float) as dest_lat
+                           from routes 
+                           inner join airports sa on
+                           sa.id = routes.source_id
+                           inner join airports da on
+                           da.id = routes.dest_id;
+                           """</span><span class="token punctuation">,</span> 
+                           conn<span class="token punctuation">)</span>
+</code></pre>
+<p>We then setup our map:</p>
+<pre class=" language-python"><code class=" language-python">m <span class="token operator">=</span> Basemap<span class="token punctuation">(</span>projection<span class="token operator">=</span><span class="token string">'merc'</span><span class="token punctuation">,</span>llcrnrlat<span class="token operator">=</span><span class="token operator">-</span><span class="token number">80</span><span class="token punctuation">,</span>urcrnrlat<span class="token operator">=</span><span class="token number">80</span><span class="token punctuation">,</span>llcrnrlon<span class="token operator">=</span><span class="token operator">-</span><span class="token number">180</span><span class="token punctuation">,</span>urcrnrlon<span class="token operator">=</span><span class="token number">180</span><span class="token punctuation">,</span>lat_ts<span class="token operator">=</span><span class="token number">20</span><span class="token punctuation">,</span>resolution<span class="token operator">=</span><span class="token string">'c'</span><span class="token punctuation">)</span>
+m<span class="token punctuation">.</span>drawcoastlines<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+<p>We iterate through the first <code>3000</code> rows, and draw them. The below code will:</p>
+<ul>
+<li>Loop through the first <code>3000</code> rows in <code>routes</code>.</li>
+<li>Figure out if the route is too long.</li>
+<li>If the route isn't too long:
+<ul>
+<li>Draw a circle between the origin and the destination.</li>
+</ul>
+</li>
+</ul>
+<pre class=" language-python"><code class=" language-python"><span class="token keyword">for</span> name<span class="token punctuation">,</span> row <span class="token keyword">in</span> routes<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token number">3000</span><span class="token punctuation">]</span><span class="token punctuation">.</span>iterrows<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> <span class="token builtin">abs</span><span class="token punctuation">(</span>row<span class="token punctuation">[</span><span class="token string">"source_lon"</span><span class="token punctuation">]</span> <span class="token operator">-</span> row<span class="token punctuation">[</span><span class="token string">"dest_lon"</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token number">90</span><span class="token punctuation">:</span>
+        <span class="token comment"># Draw a great circle between source and dest airports.</span>
+        m<span class="token punctuation">.</span>drawgreatcircle<span class="token punctuation">(</span>
+            row<span class="token punctuation">[</span><span class="token string">"source_lon"</span><span class="token punctuation">]</span><span class="token punctuation">,</span> 
+            row<span class="token punctuation">[</span><span class="token string">"source_lat"</span><span class="token punctuation">]</span><span class="token punctuation">,</span> 
+            row<span class="token punctuation">[</span><span class="token string">"dest_lon"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+            row<span class="token punctuation">[</span><span class="token string">"dest_lat"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+            linewidth<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span>
+            color<span class="token operator">=</span><span class="token string">'b'</span>
+        <span class="token punctuation">)</span>
+</code></pre>
+<p>We end up with the following map:</p>
+<img class="full-width" src="./Working with SQLite Databases using Python and Pandas_files/mplmap2.png">
+<p>The above is much more efficient when we use pandas to turn the results of the SQL query into a DataFrame, instead of working with the raw results from <code>sqlite3</code>.</p>
+<p>Now that we know how to query database rows, let's move on to modifying them.</p>
+<h2 id="modifyingdatabaserows">Modifying database rows</h2>
+<p>We can use the <code>sqlite3</code> package to modify a SQLite database by inserting, updating, or deleting rows.  Creating the Connection is the same for this as it is when you're querying a table, so we'll skip that part.</p>
+<h3 id="insertingrowswithpython">Inserting rows with Python</h3>
+<p>To insert a row, we need to write an <code>INSERT</code> query.  The below code will add a new row to the <code>airlines</code> table.  We specify <code>9</code> values to insert, one for each column in <code>airlines</code>.  This will add a new row to the table.</p>
+<pre class=" language-python"><code class=" language-python">cur <span class="token operator">=</span> conn<span class="token punctuation">.</span>cursor<span class="token punctuation">(</span><span class="token punctuation">)</span>
+cur<span class="token punctuation">.</span>execute<span class="token punctuation">(</span><span class="token string">"insert into airlines values (6048, 19846, 'Test flight', '', '', null, null, null, 'Y')"</span><span class="token punctuation">)</span>
+</code></pre>
+<p>If you try to query the table now, you actually won't see the new row yet.  Instead you'll see that a file was created called <code>flights.db-journal</code>.  <code>flights.db-journal</code> is storing the new row until you're ready to <code>commit</code> it to the main database, <code>flights.db</code>.</p>
+<p>SQLite doesn't write to the database until you commit a <a href="https://www.sqlite.org/lang_transaction.html">transaction</a>.  A transaction consists of 1 or more queries that all make changes to the database at once.  This is designed to make it easier to recover from accidental changes, or errors.  Transactions allow you to run several queries, then finally alter the database with the results of all of them.  This ensures that if one of the queries fails, the database isn't partially updated.</p>
+<p>A good example is if you have two tables, one of which contains charges made to people's bank accounts (<code>charges</code>), and another which contains the dollar amount in the bank accounts (<code>balances</code>).  Let's say a bank customer, Roberto, wants to send $50 to his sister, Luisa.  In order to make this work, the bank would need to:</p>
+<ul>
+<li>Create a row in <code>charges</code> that says $50 is being taken from Roberto's account and sent to Luisa.</li>
+<li>Update Roberto's row in the <code>balances</code> table and remove $50.</li>
+<li>Update Luisa's row in the <code>balances</code> table and add $50.</li>
+</ul>
+<p>These will require three separate SQL queries to update all of the tables.  If a query fails, we'll be stuck with bad data in our database.  For example, if the first two queries work, then the third fails, Roberto will lose his money, but Luisa won't get it.  Transactions mean that the main database isn't updated unless all the queries succeed.  This prevents the system from getting into a bad state, where customers lose their money.</p>
+<p>By default, <code>sqlite3</code> opens a transaction when you do any query that modifies the database.  You can read more about it <a href="https://docs.python.org/3/library/sqlite3.html#sqlite3-controlling-transactions">here</a>.  We can commit the transaction, and add our new row to the <code>airlines</code> table, using the <a href="https://docs.python.org/3/library/sqlite3.html#sqlite3.Connection.commit">commit</a> method:</p>
+<pre class=" language-python"><code class=" language-python">conn<span class="token punctuation">.</span>commit<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+<p>Now, when we query <code>flights.db</code>, we'll see the extra row that contains our test flight:</p>
+<pre class=" language-python"><code class=" language-python">pd<span class="token punctuation">.</span>read_sql_query<span class="token punctuation">(</span><span class="token string">"select * from airlines where id=19846;"</span><span class="token punctuation">,</span> conn<span class="token punctuation">)</span>
+</code></pre>
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>index</th>
+      <th>id</th>
+      <th>name</th>
+      <th>alias</th>
+      <th>iata</th>
+      <th>icao</th>
+      <th>callsign</th>
+      <th>country</th>
+      <th>active</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td> 1</td>
+      <td> 19846</td>
+      <td> Test flight</td>
+      <td> </td>
+      <td> </td>
+      <td> None</td>
+      <td> None</td>
+      <td> None</td>
+      <td> Y</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<h3 id="passingparametersintoaquery">Passing parameters into a query</h3>
+<p>In the last query, we hardcoded the values we wanted to insert into the database.  Most of the time, when you insert data into a database, it won't be hardcoded, it will be dynamic values you want to pass in.  These dynamic values might come from downloaded data, or might come from user input.</p>
+<p>When working with dynamic data, it might be tempting to insert values using Python string formatting:</p>
+<pre class=" language-python"><code class=" language-python">cur <span class="token operator">=</span> conn<span class="token punctuation">.</span>cursor<span class="token punctuation">(</span><span class="token punctuation">)</span>
+name <span class="token operator">=</span> <span class="token string">"Test Flight"</span>
+cur<span class="token punctuation">.</span>execute<span class="token punctuation">(</span><span class="token string">"insert into airlines values (6049, 19847, {0}, '', '', null, null, null, 'Y')"</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">)</span>
+conn<span class="token punctuation">.</span>commit<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+<p>You want to avoid doing this!  Inserting values with Python string formatting makes your program vulnerable to <a href="https://en.wikipedia.org/wiki/SQL_injection">SQL Injection</a> attacks.  Luckily, <code>sqlite3</code> has a straightforward way to inject dynamic values without relying on string formatting:</p>
+<pre class=" language-python"><code class=" language-python">cur <span class="token operator">=</span> conn<span class="token punctuation">.</span>cursor<span class="token punctuation">(</span><span class="token punctuation">)</span>
+values <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token string">'Test Flight'</span><span class="token punctuation">,</span> <span class="token string">'Y'</span><span class="token punctuation">)</span>
+cur<span class="token punctuation">.</span>execute<span class="token punctuation">(</span><span class="token string">"insert into airlines values (6049, 19847, ?, '', '', null, null, null, ?)"</span><span class="token punctuation">,</span> values<span class="token punctuation">)</span>
+conn<span class="token punctuation">.</span>commit<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+<p>Any <code>?</code> value in the query will be replaced by a value in <code>values</code>.  The first <code>?</code> will be replaced by the first item in <code>values</code>, the second by the second, and so on.  This works for any type of query.  This created a SQLite <a href="https://www.sqlite.org/lang_expr.html">parameterized query</a>, which avoids SQL injection issues.</p>
+<h3 id="updatingrows">Updating rows</h3>
+<p>We can modify rows in a SQLite table using the <code>execute</code> method:</p>
+<pre class=" language-python"><code class=" language-python">cur <span class="token operator">=</span> conn<span class="token punctuation">.</span>cursor<span class="token punctuation">(</span><span class="token punctuation">)</span>
+values <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token string">'USA'</span><span class="token punctuation">,</span> <span class="token number">19847</span><span class="token punctuation">)</span>
+cur<span class="token punctuation">.</span>execute<span class="token punctuation">(</span><span class="token string">"update airlines set country=? where id=?"</span><span class="token punctuation">,</span> values<span class="token punctuation">)</span>
+conn<span class="token punctuation">.</span>commit<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+<p>We can then verify that the update happened:</p>
+<pre class=" language-python"><code class=" language-python">pd<span class="token punctuation">.</span>read_sql_query<span class="token punctuation">(</span><span class="token string">"select * from airlines where id=19847;"</span><span class="token punctuation">,</span> conn<span class="token punctuation">)</span>
+</code></pre>
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>index</th>
+      <th>id</th>
+      <th>name</th>
+      <th>alias</th>
+      <th>iata</th>
+      <th>icao</th>
+      <th>callsign</th>
+      <th>country</th>
+      <th>active</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td> 6049</td>
+      <td> 19847</td>
+      <td> Test Flight</td>
+      <td> </td>
+      <td> </td>
+      <td> None</td>
+      <td> None</td>
+      <td> USA</td>
+      <td> Y</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<h3 id="deletingrows">Deleting rows</h3>
+<p>Finally, we can delete the rows in a database using the <code>execute</code> method:</p>
+<pre class=" language-python"><code class=" language-python">cur <span class="token operator">=</span> conn<span class="token punctuation">.</span>cursor<span class="token punctuation">(</span><span class="token punctuation">)</span>
+values <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">19847</span><span class="token punctuation">,</span> <span class="token punctuation">)</span>
+cur<span class="token punctuation">.</span>execute<span class="token punctuation">(</span><span class="token string">"delete from airlines where id=?"</span><span class="token punctuation">,</span> values<span class="token punctuation">)</span>
+conn<span class="token punctuation">.</span>commit<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+<p>We can then verify that the deletion happened, by making sure no rows match our query:</p>
+<pre class=" language-python"><code class=" language-python">pd<span class="token punctuation">.</span>read_sql_query<span class="token punctuation">(</span><span class="token string">"select * from airlines where id=19847;"</span><span class="token punctuation">,</span> conn<span class="token punctuation">)</span>
+</code></pre>
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>index</th>
+      <th>id</th>
+      <th>name</th>
+      <th>alias</th>
+      <th>iata</th>
+      <th>icao</th>
+      <th>callsign</th>
+      <th>country</th>
+      <th>active</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+</div>
+<h2 id="creatingtables">Creating tables</h2>
+<p>We can create tables by executing a SQL query.  We can create a table to represent each daily flight on a route, with the following columns:</p>
+<ul>
+<li><code>id</code> — integer</li>
+<li><code>departure</code> — date, when the flight left the airport</li>
+<li><code>arrival</code> — date, when the flight arrived at the destination</li>
+<li><code>number</code> — text, the flight number</li>
+<li><code>route_id</code> — integer, the id of the route the flight was flying</li>
+</ul>
+<pre class=" language-python"><code class=" language-python">cur <span class="token operator">=</span> conn<span class="token punctuation">.</span>cursor<span class="token punctuation">(</span><span class="token punctuation">)</span>
+cur<span class="token punctuation">.</span>execute<span class="token punctuation">(</span><span class="token string">"create table daily_flights (id integer, departure date, arrival date, number text, route_id integer)"</span><span class="token punctuation">)</span>
+conn<span class="token punctuation">.</span>commit<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+<p>Once we create a table, we can insert data into it normally:</p>
+<pre class=" language-python"><code class=" language-python">cur<span class="token punctuation">.</span>execute<span class="token punctuation">(</span><span class="token string">"insert into daily_flights values (1, '2016-09-28 0:00', '2016-09-28 12:00', 'T1', 1)"</span><span class="token punctuation">)</span>
+conn<span class="token punctuation">.</span>commit<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+<p>When we query the table, we'll now see the row:</p>
+<pre class=" language-python"><code class=" language-python">pd<span class="token punctuation">.</span>read_sql_query<span class="token punctuation">(</span><span class="token string">"select * from daily_flights;"</span><span class="token punctuation">,</span> conn<span class="token punctuation">)</span>
+</code></pre>
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>departure</th>
+      <th>arrival</th>
+      <th>number</th>
+      <th>route_id</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td> 1</td>
+      <td> 2016-09-28 0:00</td>
+      <td> 2016-09-28 12:00</td>
+      <td> T1</td>
+      <td> 1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<h3 id="creatingtableswithpandas">Creating tables with pandas</h3>
+<p>The pandas package gives us a much faster way to create tables.  We just have to create a DataFrame first, then export it to a SQL table.  First, we'll create a DataFrame:</p>
+<pre class=" language-python"><code class=" language-python"><span class="token keyword">from</span> datetime <span class="token keyword">import</span> datetime
+df <span class="token operator">=</span> pd<span class="token punctuation">.</span>DataFrame<span class="token punctuation">(</span>
+    <span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> datetime<span class="token punctuation">(</span><span class="token number">2016</span><span class="token punctuation">,</span> <span class="token number">9</span><span class="token punctuation">,</span> <span class="token number">29</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">,</span> datetime<span class="token punctuation">(</span><span class="token number">2016</span><span class="token punctuation">,</span> <span class="token number">9</span><span class="token punctuation">,</span> <span class="token number">29</span><span class="token punctuation">,</span> <span class="token number">12</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">'T1'</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span> 
+    columns<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">"id"</span><span class="token punctuation">,</span> <span class="token string">"departure"</span><span class="token punctuation">,</span> <span class="token string">"arrival"</span><span class="token punctuation">,</span> <span class="token string">"number"</span><span class="token punctuation">,</span> <span class="token string">"route_id"</span><span class="token punctuation">]</span>
+<span class="token punctuation">)</span>
+</code></pre>
+<p>Then, we'll be able to call the <a href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.to_sql.html">to_sql</a> method to convert <code>df</code> to a table in a database.  We set the <code>keep_exists</code> parameter to <code>replace</code> to delete and replace any existing tables named <code>daily_flights</code>:</p>
+<pre class=" language-python"><code class=" language-python">df<span class="token punctuation">.</span>to_sql<span class="token punctuation">(</span><span class="token string">"daily_flights"</span><span class="token punctuation">,</span> conn<span class="token punctuation">,</span> if_exists<span class="token operator">=</span><span class="token string">"replace"</span><span class="token punctuation">)</span>
+</code></pre>
+<p>We can then verify that everything worked by querying the database:</p>
+<pre class=" language-python"><code class=" language-python">pd<span class="token punctuation">.</span>read_sql_query<span class="token punctuation">(</span><span class="token string">"select * from daily_flights;"</span><span class="token punctuation">,</span> conn<span class="token punctuation">)</span>
+</code></pre>
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>index</th>
+      <th>id</th>
+      <th>departure</th>
+      <th>arrival</th>
+      <th>number</th>
+      <th>route_id</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td> 0</td>
+      <td> 1</td>
+      <td> 2016-09-29 00:00:00</td>
+      <td> 2016-09-29 12:00:00</td>
+      <td> T1</td>
+      <td> 1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<h2 id="alteringtableswithpandas">Altering tables with Pandas</h2>
+<p>One of the hardest parts of working with real-world data science is that the data you have per record changes often.  Using our airline example, we may decide to add an <code>airplanes</code> field to the <code>airlines</code> table that indicates how many airplanes each airline owns.  Luckily, there's a way to alter a table to add columns in SQLite:</p>
+<pre class=" language-python"><code class=" language-python">cur<span class="token punctuation">.</span>execute<span class="token punctuation">(</span><span class="token string">"alter table airlines add column airplanes integer;"</span><span class="token punctuation">)</span>
+</code></pre>
+<p>Note that we don't need to call commit — <code>alter table</code> queries are immediately executed, and aren't placed into a transaction.  We can now query and see the extra column:</p>
+<pre class=" language-python"><code class=" language-python">pd<span class="token punctuation">.</span>read_sql_query<span class="token punctuation">(</span><span class="token string">"select * from airlines limit 1;"</span><span class="token punctuation">,</span> conn<span class="token punctuation">)</span>
+</code></pre>
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>index</th>
+      <th>id</th>
+      <th>name</th>
+      <th>alias</th>
+      <th>iata</th>
+      <th>icao</th>
+      <th>callsign</th>
+      <th>country</th>
+      <th>active</th>
+      <th>airplanes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td> 0</td>
+      <td> 1</td>
+      <td> Private flight</td>
+      <td> \N</td>
+      <td> -</td>
+      <td> None</td>
+      <td> None</td>
+      <td> None</td>
+      <td> Y</td>
+      <td> None</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<p>Note that all the columns are set to <code>null</code> in SQLite (which translates to <code>None</code> in Python) because there aren't any values for the column yet.</p>
+<h3 id="alteringtableswithpandas">Altering tables with Pandas</h3>
+<p>It's also possible to use Pandas to alter tables by exporting the table to a DataFrame, making modifications to the DataFrame, then exporting the DataFrame to a table:</p>
+<pre class=" language-python"><code class=" language-python">df <span class="token operator">=</span> pd<span class="token punctuation">.</span>read_sql<span class="token punctuation">(</span><span class="token string">"select * from daily_flights"</span><span class="token punctuation">,</span> conn<span class="token punctuation">)</span>
+df<span class="token punctuation">[</span><span class="token string">"delay_minutes"</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token boolean">None</span>
+df<span class="token punctuation">.</span>to_sql<span class="token punctuation">(</span><span class="token string">"daily_flights"</span><span class="token punctuation">,</span> conn<span class="token punctuation">,</span> if_exists<span class="token operator">=</span><span class="token string">"replace"</span><span class="token punctuation">)</span>
+</code></pre>
+<p>The above code will add a column called <code>delay_minutes</code> to the <code>daily_flights</code> table.</p>
+<h2 id="nextsteps">Next Steps</h2>
+<p>You should now have a good grasp on how to work with data in a SQLite database using Python and pandas.  We covered querying databases, updating rows, inserting rows, deleting rows, creating tables, and altering tables.  This covers all of the major SQL operations, and almost everything you'd work with on a day to day basis.</p>
+<p>If you're interested in learning more about how to work with Python and SQL, you can check out our <a href="https://www.dataquest.io/course/sql-fundamentals">interactive SQL course</a> at Dataquest.</p>
+<p>Here are some supplemental resources if you want to dive deeper:</p>
+<ul>
+<li><a href="https://docs.python.org/3/library/sqlite3.html">sqlite3 documentation</a></li>
+<li><a href="http://pandas.pydata.org/pandas-docs/stable/comparison_with_sql.html">Comparing pandas and SQL</a></li>
+<li><a href="http://sebastianraschka.com/Articles/2014_sqlite_in_python_tutorial.html">sqlite3 operations guide</a></li>
+</ul>
+<p>Lastly, if you want to keep practicing, you can download the file we used in this blog post, <code>flights.db</code>, <a href="https://www.dropbox.com/s/a2wax843eniq12g/flights.db?dl=0">here</a>.</p>
+</div>
+            </section>
+
+
+            <footer class="post-full-footer">
+                <div class="newsletter-block">
+                    <div>
+                        <h3 class="tutorial-header">Get data science tutorials weekly</h3>
+                        <p>
+                            Subscribe to the Dataquest newsletter to stay current with data.  Get new data science tutorials in your inbox every week.
+                        </p>
+                    </div>
+                    <!-- Begin MailChimp Signup Form -->
+                    <div id="mc_embed_signup">
+                        <form action="https://dataquest.us11.list-manage.com/subscribe/post?u=cc077c9f74950452d59292c41&amp;id=9436fa3dc8" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate="">
+                            <div class="mc-field-group">
+                                <label for="mce-EMAIL" class="email-label">Email Address
+                                </label>
+                                <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL">
+                            </div>
+                            <div id="mce-responses" class="clear">
+                                <div class="response" id="mce-error-response" style="display:none"></div>
+                                <div class="response" id="mce-success-response" style="display:none"></div>
+                            </div>
+                            <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                            <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_cc077c9f74950452d59292c41_9436fa3dc8" tabindex="-1" value=""></div>
+                            <input type="submit" onclick="ga(&#39;send&#39;, &#39;event&#39;, { eventCategory: &#39;All&#39;, eventAction: &#39;blog-email-signup&#39;});" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="author-card-button">
+                        </form>
+                    </div>
+                    <!--End mc_embed_signup-->
+                </div>
+                <div class="author-block">
+
+                    <section class="author-card">
+                        <section class="author-card-content">
+                            <h4 class="author-card-name"><a href="https://www.dataquest.io/blog/author/vik/">Vik Paruchuri</a></h4>
+                                <p>Read <a href="https://www.dataquest.io/blog/author/vik/">more posts</a> by this author.</p>
+                        </section>
+                    </section>
+                    <div class="post-full-footer-right">
+                        <a class="author-card-button" href="https://www.dataquest.io/blog/author/vik/">Read More</a>
+                    </div>
+                </div>
+
+
+            </footer>
+
+
+        </article>
+
+    </div>
+    <div id="ad-box-content" style="display: none;">
+        <h3>Commit to learning data science in 2018</h3>
+        <p>
+            Get <b>50% off</b> a Dataquest premium subscription in January. Make this the year you advance your career, and join 200,000+ Dataquest students who've been hired at companies like Amazon, SpaceX, and Microsoft.
+        </p>
+        <p>
+            <a class="learning-cta" href="https://www.dataquest.io/subscribe?discount=2018new_year&amp;only_yearly=true">Start Learning Now</a>
+        </p>
+    </div>
+    <div id="ad-box-content-2" style="display: none;">
+        <h3>Learn data science with Dataquest</h3>
+        <p>
+            Advance your career with data science and data analysis skills.  Get started for free and join 200,000+ students who've been hired at companies like Amazon, SpaceX, and Microsoft.
+        </p>
+        <p>
+            <a class="learning-cta" href="https://www.dataquest.io/">Start Learning</a>
+        </p>
+    </div>
+</main>
+
+<aside class="read-next outer">
+    <div class="inner">
+        <div class="read-next-feed">
+
+                <article class="post-card post tag-jupyter tag-python tag-r tag-resources no-image">
+    <div class="post-card-content">
+        <a class="post-card-content-link" href="https://www.dataquest.io/blog/jupyter-notebook-tips-tricks-shortcuts/">
+            <header class="post-card-header">
+                    <span class="post-card-tags">Jupyter</span>
+                <h2 class="post-card-title">28 Jupyter Notebook tips, tricks, and shortcuts</h2>
+            </header>
+            <section class="post-card-excerpt">
+                <p>Jupyter Notebook is a powerful tool for data analysis.  We share with you 28 tips, tricks, and shortcuts to turn you into a Jupyter power user!</p>
+            </section>
+        </a>
+        <footer class="post-card-meta">
+                <img class="author-profile-image" src="./Working with SQLite Databases using Python and Pandas_files/josh_profile.png" alt="Josh Devlin">
+            <span class="post-card-author"><a href="https://www.dataquest.io/blog/author/josh/">Josh Devlin</a></span>
+        </footer>
+    </div>
+</article>
+
+                <article class="post-card post tag-python tag-tutorials tag-motivation no-image">
+    <div class="post-card-content">
+        <a class="post-card-content-link" href="https://www.dataquest.io/blog/learn-python-the-right-way/">
+            <header class="post-card-header">
+                    <span class="post-card-tags">Python</span>
+                <h2 class="post-card-title">Learn Python the right way in 5 steps</h2>
+            </header>
+            <section class="post-card-excerpt">
+                <p>Python is a great language for beginners and experienced programmers. We'll teach you how to learn Python the right way in 5 easy steps.</p>
+            </section>
+        </a>
+        <footer class="post-card-meta">
+            <span class="post-card-author"><a href="https://www.dataquest.io/blog/author/vik/">Vik Paruchuri</a></span>
+        </footer>
+    </div>
+</article>
+
+        </div>
+    </div>
+</aside>
+
+<div class="floating-header floating-active">
+    <div class="floating-header-logo">
+        <a href="https://www.dataquest.io/blog">
+                <img src="./Working with SQLite Databases using Python and Pandas_files/ms-icon-144x144.png" alt="Dataquest icon">
+            <span>Dataquest</span>
+        </a>
+    </div>
+    <span class="floating-header-divider">—</span>
+    <div class="floating-header-title">Working with SQLite Databases using Python and Pandas</div>
+    <div class="floating-header-signup">
+        <a class="author-card-button" href="https://www.dataquest.io/">Learn Data Science Online</a>
+    </div>
+    <div class="floating-header-share">
+        <div class="floating-header-share-label">Share this <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"></path>
+</svg>
+</div>
+        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Working%20with%20SQLite%20Databases%20using%20Python%20and%20Pandas&amp;url=https://www.dataquest.io/blog/python-pandas-databases/" onclick="window.open(this.href, &#39;share-twitter&#39;, &#39;width=550,height=235&#39;);return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"></path></svg>
+        </a>
+        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://www.dataquest.io/blog/python-pandas-databases/" onclick="window.open(this.href, &#39;share-facebook&#39;,&#39;width=580,height=296&#39;);return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"></path></svg>
+        </a>
+    </div>
+    <progress class="progress" value="18600" max="19446">
+        <div class="progress-container">
+            <span class="progress-bar"></span>
+        </div>
+    </progress>
+</div>
+
+
+
+
+        <footer class="site-footer outer">
+            <div class="site-footer-content inner">
+                <section class="copyright"><a href="https://www.dataquest.io/blog">Dataquest</a> © 2018</section>
+                <nav class="site-footer-nav">
+                    <a href="https://www.dataquest.io/blog">Latest Posts</a>
+                    <a href="https://www.facebook.com/dataquestio/" target="_blank" rel="noopener">Facebook</a>
+                    <a href="https://twitter.com/dataquestio" target="_blank" rel="noopener">Twitter</a>
+                </nav>
+            </div>
+        </footer>
+
+    </div>
+
+
+    <script src="./Working with SQLite Databases using Python and Pandas_files/jquery-3.2.1.min.js.download" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous">
+    </script>
+    <script type="text/javascript" src="./Working with SQLite Databases using Python and Pandas_files/jquery.fitvids.js.download"></script>
+
+    <script type="text/javascript" src="./Working with SQLite Databases using Python and Pandas_files/prism.min.js.download"></script>
+    <script type="text/javascript" src="./Working with SQLite Databases using Python and Pandas_files/prism-python.min.js.download"></script>
+    <script type="text/javascript" src="./Working with SQLite Databases using Python and Pandas_files/prism-r.min.js.download"></script>
+    <script type="text/javascript" src="./Working with SQLite Databases using Python and Pandas_files/prism-sql.min.js.download"></script>
+    <script type="text/javascript" src="./Working with SQLite Databases using Python and Pandas_files/prism-bash.min.js.download"></script>
+    <script type="text/javascript" async="" src="./Working with SQLite Databases using Python and Pandas_files/MathJax.js.download">
+    </script>
+    <script type="text/x-mathjax-config;executed=true">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                processEscapes: true,
+                processEnvironments: true
+            },
+            // Center justify equations in code and markdown cells. Elsewhere
+            // we use CSS to left justify single line equations in code cells.
+            displayAlign: 'center',
+            "HTML-CSS": {
+                styles: {'.MathJax_Display': {"margin": 0}},
+                linebreaks: { automatic: true }
+            }
+        });
+    </script>
+
+    <script type="text/javascript">
+      !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+      analytics.load("AshBDDdcjA4D5pxKTMHzKN0dCzbjfTc3");
+      analytics.page()
+      }}();
+    </script>
+
+
+    <script>
+
+// NOTE: Scroll performance is poor in Safari
+// - this appears to be due to the events firing much more slowly in Safari.
+//   Dropping the scroll event and using only a raf loop results in smoother
+//   scrolling but continuous processing even when not scrolling
+$(document).ready(function () {
+    // Start fitVids
+    var $postContent = $(".post-full-content");
+    $postContent.fitVids();
+    // End fitVids
+
+    var progressBar = document.querySelector('progress');
+    var header = document.querySelector('.floating-header');
+    var title = document.querySelector('.post-full-title');
+
+    var lastScrollY = window.scrollY;
+    var lastWindowHeight = window.innerHeight;
+    var lastDocumentHeight = $(document).height();
+    var ticking = false;
+
+    function onScroll() {
+        lastScrollY = window.scrollY;
+        requestTick();
+    }
+
+    function onResize() {
+        lastWindowHeight = window.innerHeight;
+        lastDocumentHeight = $(document).height();
+        requestTick();
+    }
+
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(update);
+        }
+        ticking = true;
+    }
+
+    function update() {
+        var trigger = title.getBoundingClientRect().top + window.scrollY;
+        var triggerOffset = title.offsetHeight + 35;
+        var progressMax = lastDocumentHeight - lastWindowHeight;
+
+        // show/hide floating header
+        if (lastScrollY >= trigger + triggerOffset) {
+            header.classList.add('floating-active');
+        } else {
+            header.classList.remove('floating-active');
+        }
+
+        progressBar.setAttribute('max', progressMax);
+        progressBar.setAttribute('value', lastScrollY);
+
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', onScroll, {passive: true});
+    window.addEventListener('resize', onResize, false);
+
+    update();
+});
+</script>
+<script src="./Working with SQLite Databases using Python and Pandas_files/boxzilla.js.download"></script>
+<script>
+    Boxzilla.init();
+    Boxzilla.create('ad-box', {
+        content: document.getElementById('ad-box-content').innerHTML,
+        trigger: {
+            method: 'percentage',
+            value: 50
+        },
+        'cookie': {
+            'dismissed': 6,        // hours that a box should stay hidden after being dismissed
+            'triggered': 1          // hours that a box should stay hidden after being triggered
+        },
+        position: "bottom-right"
+    });
+</script><div id="boxzilla-overlay" style="display: none;"></div><div class="boxzilla-container boxzilla-bottom-right-container"><div id="boxzilla-ad-box" class="boxzilla boxzilla-ad-box boxzilla-bottom-right" style="overflow-y: auto; max-height: none; display: none;"><div class="boxzilla-content">
+        <h3>Commit to learning data science in 2018</h3>
+        <p>
+            Get <b>50% off</b> a Dataquest premium subscription in January. Make this the year you advance your career, and join 200,000+ Dataquest students who've been hired at companies like Amazon, SpaceX, and Microsoft.
+        </p>
+        <p>
+            <a class="learning-cta" href="https://www.dataquest.io/subscribe?discount=2018new_year&amp;only_yearly=true">Start Learning Now</a>
+        </p>
+    </div><span class="boxzilla-close-icon">×</span></div></div>
+<script src="./Working with SQLite Databases using Python and Pandas_files/dq_post_box.js.download"></script>
+
+
+    
+
+
+
+</body></html>

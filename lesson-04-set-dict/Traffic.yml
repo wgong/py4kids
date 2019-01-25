@@ -1,0 +1,25 @@
+meta:
+  files: '%Trafficspeed%'   # The filename pattern that is used for lookups in PostgreSQL
+  version: '2017-06-26T23:13:00Z'
+  description: 'Data from traffic speed and flow sensors, source - ndw.nu'
+processing:
+  prefixes:
+    xsi: 'http://www.w3.org/2001/XMLSchema-instance'
+    ns0: 'http://schemas.xmlsoap.org/soap/envelope/'
+    ns1: 'http://datex2.eu/schema/2/2_0'
+  data:
+    ns1.siteMeasurements[]:
+      ns1.measurementSiteReference: _.id, str, measurementSiteReference
+      ns1.measurementTimeDefault: text, timestamp, measurementTimeDefault
+      ns1.measuredValue[]:     # Lists in the schema describe alternatives
+      - _: '.[@index]'         # An underscore refers to the parent node
+        _.index: int, Channel  # E.g., `_.index` refers to the `index` attribute of the parent
+        ns1.basicData:
+        - _: '.[@xsi:type="TrafficFlow"]'
+          _.xsi.type: text, Type
+          ns1.vehicleFlowRate: text, float, Flow
+        - _: '.[@xsi:type="TrafficSpeed"]'
+          _.xsi.type: text, Type
+          ns1.averageVehicleSpeed:
+            _.numberOfInputValuesUsed: int, InputSize
+            ns1.speed: text, float, Speed
