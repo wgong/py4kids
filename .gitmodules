@@ -1,0 +1,3 @@
+[submodule "lesson-17-pandas/lesson-17-pandas/Pandas_Cookbook_Packt"]
+	path = lesson-17-pandas/lesson-17-pandas/Pandas_Cookbook_Packt
+	url = https://github.com/PacktPublishing/Pandas-Cookbook.git
