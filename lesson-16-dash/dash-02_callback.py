@@ -3,7 +3,9 @@ import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
 
-app = dash.Dash()
+external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
+
+app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
 app.layout = html.Div([
     dcc.Input(id='my-id', value='Cool Dash App', type='text'),
@@ -20,4 +22,4 @@ def update_output_div(input_value):
 
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server(debug=True, host = "127.0.0.1", port = 8050)
