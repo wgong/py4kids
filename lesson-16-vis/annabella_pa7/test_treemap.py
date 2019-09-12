@@ -138,7 +138,8 @@ def test_compute_internal_counts(datasets, d, levels):
     test_file = "data/tree-" + d + "_" + "-".join(levels) + ".json"
     error_prefix = "Error when testing {}\n".format(test_file)
 
-    test_data = json.load(open(test_file))
+    with open(test_file) as f:
+        test_data = json.load(f)
     tree = tr.data_to_tree(datasets[d], levels)
 
     total_count = treemap.compute_internal_counts(tree)
@@ -160,7 +161,8 @@ def test_compute_verbose_labels(datasets, d, levels):
     test_file = "data/tree-" + d + "_" + "-".join(levels) + ".json"
     error_prefix = "Error when testing {}\n".format(test_file)
 
-    test_data = json.load(open(test_file))
+    with open(test_file) as f:
+        test_data = json.load(f)
     tree = tr.data_to_tree(datasets[d], levels)
 
     treemap.compute_verbose_labels(tree)
@@ -172,7 +174,8 @@ def test_compute_verbose_labels(datasets, d, levels):
 def test_prune_tree(datasets, test_file):
     error_prefix = "Error when testing {}\n".format(test_file)
 
-    test_data = json.load(open(test_file))
+    with open(test_file) as f:
+        test_data = json.load(f)
 
     tree = tr.data_to_tree(datasets[test_data["dataset"]], test_data["levels"])
     pruned_tree = treemap.prune_tree(tree, test_data["prune"])
@@ -185,7 +188,8 @@ def test_compute_rectangles(datasets, d, levels):
     test_file = "data/rectangles-" + d + "_" + "-".join(levels) + ".json"
     error_prefix = "Error when testing {}\n".format(test_file)
 
-    expected_rects = json.load(open(test_file))
+    with open(test_file) as f:
+        expected_rects = json.load(f)
     tree = tr.data_to_tree(datasets[d], levels)
 
     rects = treemap.compute_rectangles(tree)
