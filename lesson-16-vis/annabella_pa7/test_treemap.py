@@ -54,15 +54,15 @@ def datasets():
 
     # Make sure the test files are there
     task1_files = glob.glob("data/tree-*.json")
-    if len(task1_files) == 0:
+    if not task1_files:
         pytest.fail("Could not find the test files for Task 1. Did you remember to run get_files.sh?")
 
     task2_files = glob.glob("data/pruned-*.json")
-    if len(task2_files) == 0:
+    if not task2_files:
         pytest.fail("Could not find the test files for Task 2. Did you remember to run get_files.sh?")
 
     task3_files = glob.glob("data/rectangles-*.json")
-    if len(task3_files) == 0:
+    if not task3_files:
         pytest.fail("Could not find the test files for Task 3. Did you remember to run get_files.sh?")
 
     return d

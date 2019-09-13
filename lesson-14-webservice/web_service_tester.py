@@ -213,7 +213,7 @@ def main():
 	if len(sys.argv) < 4:
 		print("Missing Inputs")
 		print("Usage: python sys.argv[0] <service_name> <config_file> <data_file>")
-		exit(1)
+		sys.exit(1)
 
 	#p_service_name = "CustomerMatchingService"
 	p_service_name    = sys.argv[1]
@@ -222,15 +222,15 @@ def main():
 	
 	if not p_service_name in LIST_OF_SERVICES:
 		print("%s tester not implemented" % p_service_name)
-		exit(1)
+		sys.exit(1)
 
 	if not os.path.exists(filename_config):
 		print("Config file %s not found" % filename_config)
-		exit(1)
+		sys.exit(1)
 
 	if not os.path.exists(filename_data):
 		print("Data file %s not found" % filename_data)
-		exit(1)
+		sys.exit(1)
 		
 
 	df_config = pd.read_excel(filename_config, keep_default_na = False)
@@ -238,14 +238,14 @@ def main():
 		df_config_1 = df_config[df_config.service_name == p_service_name].iloc[0]
 	except:
 		print("service name %s not found in config file %s" % (p_service_name, filename_config))
-		exit(1)
+		sys.exit(1)
 	
 	#p_service_name = "CustomerMatchingService"
 	if p_service_name == "CustomerMatchingService":
 		test_CustomerMatchingService(df_config_1, filename_data)
 
 	
-	exit(0)
+	sys.exit(0)
 
 
 if __name__ == "__main__":
