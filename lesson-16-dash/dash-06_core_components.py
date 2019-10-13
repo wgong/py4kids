@@ -13,7 +13,6 @@ df_solar = pd.read_csv('https://raw.githubusercontent.com/plotly/datasets/master
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
-
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
 header_txt = """
