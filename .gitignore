@@ -4,3 +4,4 @@
 **/metastore_db/
 **/data/
 **/spark-warehouse/
+**/__pycache__
