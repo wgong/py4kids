@@ -1,0 +1,5 @@
+<Button>:
+    text: 'Press me'
+    size_hint: (.5, .5)
+    pos_hint: {'center_x': .5, 'center_y': .5}
+    on_press: app.on_press_button()
