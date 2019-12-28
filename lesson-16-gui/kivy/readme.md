@@ -5,4 +5,4 @@ RealPython tutorial
 https://realpython.com/mobile-app-kivy-python/
 
 start conda prompt terminal
-$ conda activate kivy
+`$ conda activate kivy`
