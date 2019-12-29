@@ -23,3 +23,15 @@ Review widget catalog
 
 Review kivy showcase
 ..\projects\kivy\kivy\examples\demo\showcase>python main.py
+
+Sample app by Dirk Sandberg
+https://github.com/Dirk-Sandberg
+
+fork https://github.com/wgong/Friendly-Fitness-App
+wen@gong.com / kivyboy
+
+Firebase project
+https://firebase.google.com/docs/projects/learn-more
+
+https://github.com/Dirk-Sandberg/KivyMD
+python -m pip install --force-reinstall git+https://github.com/HeaTTheatR/KivyMD.git
