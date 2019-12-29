@@ -20,3 +20,6 @@ installed in c:\users\19196\anaconda3\envs\kivy\lib\site-packages (from requests
 
 Review widget catalog
 ..\projects\kivy\kivy\examples\demo\kivycatalog>python main.py
+
+Review kivy showcase
+..\projects\kivy\kivy\examples\demo\showcase>python main.py
