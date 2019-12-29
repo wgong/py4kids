@@ -1,15 +1,15 @@
-Install on Windows
+### Install on Windows
 https://kivy.org/doc/stable/installation/installation-windows.html#install-win-dist
 
 Kivy 1.11.1
 Installed at "C:\Users\<user>\Anaconda3\envs\kivy\lib\site-packages\kivy
 Python 3.7.5
 
-RealPython tutorial
-https://realpython.com/mobile-app-kivy-python/
 
 start conda prompt terminal
-`$ conda activate kivy`
+` $ conda activate kivy `
+` $ pip install kivy`
+` $ pip install --force-reinstall git+https://github.com/HeaTTheatR/KivyMD.git `
 
 install example wheel file
 $ cd ..\projects\kivy\examples
@@ -18,14 +18,20 @@ installed in c:\users\19196\anaconda3\envs\kivy\lib\site-packages (from requests
 
 ..\projects\kivy\kivy\examples
 
+
 Review widget catalog
 ..\projects\kivy\kivy\examples\demo\kivycatalog>python main.py
 
 Review kivy showcase
 ..\projects\kivy\kivy\examples\demo\showcase>python main.py
 
-Sample app by Dirk Sandberg
-https://github.com/Dirk-Sandberg
+### Examples
+[Kivy Crash Course](https://github.com/inclement/kivycrashcourse)
+
+[RealPython tutorial](https://realpython.com/mobile-app-kivy-python/)
+
+[Sample app by Dirk Sandberg](https://github.com/Dirk-Sandberg)
+
 
 fork https://github.com/wgong/Friendly-Fitness-App
 wen@gong.com / kivyboy
@@ -33,5 +39,3 @@ wen@gong.com / kivyboy
 Firebase project
 https://firebase.google.com/docs/projects/learn-more
 
-https://github.com/Dirk-Sandberg/KivyMD
-python -m pip install --force-reinstall git+https://github.com/HeaTTheatR/KivyMD.git
