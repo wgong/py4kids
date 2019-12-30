@@ -28,6 +28,7 @@ Review kivy showcase
 ### Examples
 [Kivy Crash Course](https://github.com/inclement/kivycrashcourse)
 
+[Kivy Tutorial – Build Desktop GUI Apps Using Python](https://likegeeks.com/kivy-tutorial/)
 [RealPython tutorial](https://realpython.com/mobile-app-kivy-python/)
 
 [Sample app by Dirk Sandberg](https://github.com/Dirk-Sandberg)
