@@ -7,9 +7,12 @@ Python 3.7.5
 
 
 start conda prompt terminal
-` $ conda activate kivy `
-` $ pip install kivy`
-` $ pip install --force-reinstall git+https://github.com/HeaTTheatR/KivyMD.git `
+```
+$ conda create -n kivy python=3.7 anaconda
+$ conda activate kivy 
+$ pip install kivy
+$ pip install --force-reinstall git+https://github.com/HeaTTheatR/KivyMD.git 
+```
 
 install example wheel file
 $ cd ..\projects\kivy\examples
@@ -26,10 +29,17 @@ Review kivy showcase
 ..\projects\kivy\kivy\examples\demo\showcase>python main.py
 
 ### Examples
+
+~/anaconda3/envs/kivy/share
+
+
 [Kivy Crash Course](https://github.com/inclement/kivycrashcourse)
 
 [Kivy Tutorial – Build Desktop GUI Apps Using Python](https://likegeeks.com/kivy-tutorial/)
 [RealPython tutorial](https://realpython.com/mobile-app-kivy-python/)
+
+[Samuel Course](https://github.com/qodzero/silverpos/)
+
 
 [Sample app by Dirk Sandberg](https://github.com/Dirk-Sandberg)
 
