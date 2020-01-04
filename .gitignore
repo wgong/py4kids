@@ -2,6 +2,9 @@
 **/.ipynb_checkpoints/
 **/.vscode/
 **/*.log
+**/*.mpg
+**/*.mp3
+**/*.mp4
 **/metastore_db/
 **/data/
 **/spark-warehouse/

@@ -2,6 +2,7 @@ from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.uix.textinput import TextInput
+from math import exp,sin,pi
 
 class MainApp(App):
     def build(self):
@@ -14,10 +15,10 @@ class MainApp(App):
         )
         main_layout.add_widget(self.solution)
         buttons = [
-            ["7", "8", "9", "/"],
-            ["4", "5", "6", "*"],
-            ["1", "2", "3", "-"],
-            [".", "0", "C", "+"],
+            ["7", "8", "9", "/", "sin"],
+            ["4", "5", "6", "*", "exp"],
+            ["1", "2", "3", "-", "("],
+            ["C", ".", "0", "+", ")"],
         ]
         for row in buttons:
             h_layout = BoxLayout()
@@ -62,7 +63,18 @@ class MainApp(App):
     def on_solution(self, instance):
         text = self.solution.text
         if text:
-            solution = str(eval(self.solution.text))
+            try:
+                expr = self.solution.text
+                # preprocess sin()
+                if "sin" in expr:
+                    tmp = expr.split("(")
+                    expr = "(" + tmp[-1] + "/180.*pi"
+                    expr = f"sin({expr})"
+
+                solution = str(eval(expr))
+            except Exception as ex:
+                print(ex)
+                solution = ""
             self.solution.text = solution
 
 

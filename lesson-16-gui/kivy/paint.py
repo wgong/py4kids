@@ -13,7 +13,7 @@ class MyPaintWidget(Widget):
         color = (random(), 1., 1.)
         with self.canvas:
             Color(*color, mode='hsv')
-            d = 10.
+            d = 4.  # mark starting point with a small circle dot
             Ellipse(pos=(touch.x - d / 2, touch.y - d / 2), size=(d, d))
             touch.ud['line'] = Line(points=(touch.x, touch.y))
 

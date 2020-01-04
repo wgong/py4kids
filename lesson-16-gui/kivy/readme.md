@@ -15,18 +15,24 @@ $ pip install --force-reinstall git+https://github.com/HeaTTheatR/KivyMD.git
 ```
 
 install example wheel file
-$ cd ..\projects\kivy\examples
+$ cd ~/projects/kivy/examples
 $ pip install Kivy_examples-2.0.0.dev0-py2.py3-none-any.whl
-installed in c:\users\19196\anaconda3\envs\kivy\lib\site-packages (from requests->Kivy-Garden>=0.1.4->Kivy-examples==2.0.0.dev0) (3.0.4)
+installed in c:/users/19196\anaconda3\envs\kivy\lib\site-packages (from requests->Kivy-Garden>=0.1.4->Kivy-examples==2.0.0.dev0) (3.0.4)
 
-..\projects\kivy\kivy\examples
+cd ~/projects/kivy/kivy/examples
 
 
 Review widget catalog
-..\projects\kivy\kivy\examples\demo\kivycatalog>python main.py
+```
+$ cd~/projects/kivy/kivy/examples/demo/kivycatalog
+$ python main.py
+```
 
 Review kivy showcase
-..\projects\kivy\kivy\examples\demo\showcase>python main.py
+```
+$ cd ~/projects/kivy/kivy/examples/demo/showcase
+$ python main.py
+```
 
 ### Examples
 
