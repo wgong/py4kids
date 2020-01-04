@@ -30,7 +30,7 @@ Review kivy showcase
 
 ### Examples
 
-~/anaconda3/envs/kivy/share
+~/anaconda3/envs/kivy/share/kivy-examples/demo/showcase
 
 
 [Kivy Crash Course](https://github.com/inclement/kivycrashcourse)
