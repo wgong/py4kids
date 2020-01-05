@@ -1,4 +1,6 @@
-### Install on Windows
+## Install 
+
+### on Windows
 https://kivy.org/doc/stable/installation/installation-windows.html#install-win-dist
 
 Kivy 1.11.1
@@ -34,25 +36,62 @@ $ cd ~/projects/kivy/kivy/examples/demo/showcase
 $ python main.py
 ```
 
-### Examples
+## Learn Kivy
+
+### Step 0 - Watch YouTube
+[Kivy Crash Course](https://github.com/inclement/kivycrashcourse)
+
+```
+$ cd ~/projects/kivy/tutorials/kivycrashcourse/video2-building_an_android_apk
+$ pip install buildozer
+$ buildozer init
+$ buildozer -v android debug deploy
+```
+manually copy .apk file to S9 phone Download/kivy folder, run .apk file to install
+
+### Step 1 - Read Book/Docs
+[Creating Apps in Kivy](https://www.oreilly.com/library/view/creating-apps-in/9781491947333/ch01.html) - [Source](https://github.com/oreillymedia/creating_apps_in_kivy)
+
+[Kivy Docs](https://buildmedia.readthedocs.org/media/pdf/kivy/latest/kivy.pdf)
+
+[Kivy API](https://kivy.org/doc/stable/api-kivy.html)
+
+### Step 2 - Build Apps
+
+#### Calculator
+[RealPython tutorial](https://realpython.com/mobile-app-kivy-python/)
+
+#### POS
+[Samuel Course](https://github.com/qodzero/silverpos/)
+~/projects/kivy/tutorials/silverpos
+
+#### Weather
+~/projects/kivy/tutorials/creating_apps_in_kivy
+
+
+## Examples & Tutorials
+
+~/projects/kivy/kivy/examples/demo
+~/projects/kivy/kivy/examples/tutorials/notes/final
+~/projects/kivy/kivy/examples/tutorials/notes/pong
+~/projects/kivy/KivyMD/demos/kitchen_sink/main.py
 
 ~/anaconda3/envs/kivy/share/kivy-examples/demo/showcase
 
 
-[Kivy Crash Course](https://github.com/inclement/kivycrashcourse)
+https://www.edureka.co/blog/kivy-tutorial/
 
 [Kivy Tutorial – Build Desktop GUI Apps Using Python](https://likegeeks.com/kivy-tutorial/)
-[RealPython tutorial](https://realpython.com/mobile-app-kivy-python/)
 
-[Samuel Course](https://github.com/qodzero/silverpos/)
+http://www.newthinktank.com/2016/10/kivy-tutorial-5/
 
 
 [Sample app by Dirk Sandberg](https://github.com/Dirk-Sandberg)
-
-
 fork https://github.com/wgong/Friendly-Fitness-App
 wen@gong.com / kivyboy
 
+
+## Misc
 Firebase project
 https://firebase.google.com/docs/projects/learn-more
 
