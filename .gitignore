@@ -5,6 +5,8 @@
 **/*.mpg
 **/*.mp3
 **/*.mp4
+**/*.zip
+**/*.gz
 **/metastore_db/
 **/data/
 **/spark-warehouse/
