@@ -49,8 +49,27 @@ $ buildozer -v android debug deploy
 ```
 manually copy .apk file to S9 phone Download/kivy folder, run .apk file to install
 
+[Kivy - Creating Desktop and Mobile Apps with Python](https://youtu.be/8zSNzUAfohA)
+
+
+[Kivy Tutorial by Tech With Tim](https://techwithtim.net/tutorials/kivy-tutorial/the-kv-design-language-kv-file/)
+
+[Learn to Make Beautiful Mobile Apps in Python by Erik Sandberg](https://youtu.be/-9VnIy6cS_E)
+
+
+[KivyTips: KV language by KeyWeeUsr](https://youtu.be/ktgPQRTHyw0)
+
+
+[Build Desktop Applications with Python/Kivy by Samuel Course](https://youtu.be/dZkZ_AQg15M)
+
+[Top 5 kivy tutorials : Build the first simple application](https://youtu.be/e9nGgUMQlgA)
+
+
+
 ### Step 1 - Read Book/Docs
 [Creating Apps in Kivy](https://www.oreilly.com/library/view/creating-apps-in/9781491947333/ch01.html) - [Source](https://github.com/oreillymedia/creating_apps_in_kivy)
+
+[Kivy Blueprint](http://1.droppdf.com/files/VbtGL/kivy-blueprints-mark-vasilkov.pdf)
 
 [Kivy Docs](https://buildmedia.readthedocs.org/media/pdf/kivy/latest/kivy.pdf)
 
