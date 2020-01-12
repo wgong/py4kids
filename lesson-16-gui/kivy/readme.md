@@ -64,12 +64,13 @@ manually copy .apk file to S9 phone Download/kivy folder, run .apk file to insta
 
 [Top 5 kivy tutorials : Build the first simple application](https://youtu.be/e9nGgUMQlgA)
 
-
+[Developing_Apps_for_Android_with_Kivy](https://elib.dlr.de/86231/1/20130409-1_Developing_Apps_for_Android_with_Kivy.pdf)
 
 ### Step 1 - Read Book/Docs
 [Creating Apps in Kivy](https://www.oreilly.com/library/view/creating-apps-in/9781491947333/ch01.html) - [Source](https://github.com/oreillymedia/creating_apps_in_kivy)
 
-[Kivy Blueprint](http://1.droppdf.com/files/VbtGL/kivy-blueprints-mark-vasilkov.pdf)
+[Kivy Blueprint](http://1.droppdf.com/files/VbtGL/kivy-blueprints-mark-vasilkov.pdf), 
+ [Source](https://github.com/mvasilkov/kb), [Color Images](http://www.packtpub.com/sites/default/files/downloads/7849OS_ColorImages.pdf)
 
 [Kivy Docs](https://buildmedia.readthedocs.org/media/pdf/kivy/latest/kivy.pdf)
 
