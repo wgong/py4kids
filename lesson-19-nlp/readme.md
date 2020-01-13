@@ -36,7 +36,9 @@ $ conda install -c conda-forge wordcloud
 $ conda install -c conda-forge textblob
 
 # topic modeling
-$ conda install -c conda-forge gensim  # took long time 30mins: cancel
+$ conda install -c conda-forge gensim  
+# took long time over 30mins: cancel
+# conda is very slow in resolving pkg dependencies/conflicts, use pip instead
 $ pip install gensim
 
 Successfully built gensim smart-open
