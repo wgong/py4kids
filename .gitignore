@@ -7,6 +7,7 @@
 **/*.mp4
 **/*.zip
 **/*.gz
+**/*.db
 **/metastore_db/
 **/data/
 **/spark-warehouse/
