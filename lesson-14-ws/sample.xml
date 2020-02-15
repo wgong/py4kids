@@ -1,0 +1,18 @@
+
+<?xml version="1.0" encoding="UTF-8"?>
+<root testAttr="testValue">
+The Tree
+<children>
+<child name="Jack">First</child>
+<child name="Rose">Second</child>
+<child name="Blue Ivy">
+Third
+<grandchildren>
+<data>One</data>
+<data>Two</data>
+<unique>Twins</unique>
+</grandchildren>
+</child>
+<child name="Jane">Fourth</child>
+</children>
+</root>
