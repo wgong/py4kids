@@ -4,7 +4,8 @@ we will be focusing on the use of AWS Kinesis with Python and Node.js to stream 
 
 
 ## Resources
-https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-aws-integrations.html
+* https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-aws-integrations.html
+* https://aws.amazon.com/solutions/centralized-logging/
 
 ### built-in support:
 * Amazon Kinesis Data Firehose 
