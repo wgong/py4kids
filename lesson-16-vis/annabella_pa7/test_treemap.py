@@ -54,15 +54,15 @@ def datasets():
 
     # Make sure the test files are there
     task1_files = glob.glob("data/tree-*.json")
-    if len(task1_files) == 0:
+    if not task1_files:
         pytest.fail("Could not find the test files for Task 1. Did you remember to run get_files.sh?")
 
     task2_files = glob.glob("data/pruned-*.json")
-    if len(task2_files) == 0:
+    if not task2_files:
         pytest.fail("Could not find the test files for Task 2. Did you remember to run get_files.sh?")
 
     task3_files = glob.glob("data/rectangles-*.json")
-    if len(task3_files) == 0:
+    if not task3_files:
         pytest.fail("Could not find the test files for Task 3. Did you remember to run get_files.sh?")
 
     return d
@@ -138,7 +138,8 @@ def test_compute_internal_counts(datasets, d, levels):
     test_file = "data/tree-" + d + "_" + "-".join(levels) + ".json"
     error_prefix = "Error when testing {}\n".format(test_file)
 
-    test_data = json.load(open(test_file))
+    with open(test_file) as f:
+        test_data = json.load(f)
     tree = tr.data_to_tree(datasets[d], levels)
 
     total_count = treemap.compute_internal_counts(tree)
@@ -160,7 +161,8 @@ def test_compute_verbose_labels(datasets, d, levels):
     test_file = "data/tree-" + d + "_" + "-".join(levels) + ".json"
     error_prefix = "Error when testing {}\n".format(test_file)
 
-    test_data = json.load(open(test_file))
+    with open(test_file) as f:
+        test_data = json.load(f)
     tree = tr.data_to_tree(datasets[d], levels)
 
     treemap.compute_verbose_labels(tree)
@@ -172,7 +174,8 @@ def test_compute_verbose_labels(datasets, d, levels):
 def test_prune_tree(datasets, test_file):
     error_prefix = "Error when testing {}\n".format(test_file)
 
-    test_data = json.load(open(test_file))
+    with open(test_file) as f:
+        test_data = json.load(f)
 
     tree = tr.data_to_tree(datasets[test_data["dataset"]], test_data["levels"])
     pruned_tree = treemap.prune_tree(tree, test_data["prune"])
@@ -185,7 +188,8 @@ def test_compute_rectangles(datasets, d, levels):
     test_file = "data/rectangles-" + d + "_" + "-".join(levels) + ".json"
     error_prefix = "Error when testing {}\n".format(test_file)
 
-    expected_rects = json.load(open(test_file))
+    with open(test_file) as f:
+        expected_rects = json.load(f)
     tree = tr.data_to_tree(datasets[d], levels)
 
     rects = treemap.compute_rectangles(tree)

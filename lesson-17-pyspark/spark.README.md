@@ -1,3 +1,5 @@
+[Databricks Sandbox](https://community.cloud.databricks.com)
+
 2019-07-30
 
 reinstall Anaconda
@@ -132,3 +134,4 @@ MASTER="spark://127.0.0.1:7077" SPARK_EXECUTOR_MEMORY="4G" PYSPARK_DRIVER_PYTHON
 
 Apache Toree is a kernel for the Jupyter Notebook platform providing interactive access to Apache Spark
 https://toree.incubator.apache.org/
+

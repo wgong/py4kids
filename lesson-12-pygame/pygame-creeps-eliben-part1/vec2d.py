@@ -8,7 +8,7 @@ class vec2d(object):
     __slots__ = ['x', 'y']
  
     def __init__(self, x_or_pair, y = None):
-        if y == None:
+        if y is None:
             self.x = x_or_pair[0]
             self.y = x_or_pair[1]
         else:

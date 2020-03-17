@@ -1,6 +1,5 @@
-import os, sys
-from random import randint, choice
-from math import sin, cos, radians
+import sys
+from random import choice
 
 import pygame
 from pygame import Rect, Color

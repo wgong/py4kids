@@ -57,7 +57,6 @@ print(random.randint(1, 100))     # pick a number randomly between 1 and 100
 print(random.randint(100, 1000))  # pick a number randomly between 100 and 1000
 
 # Guess a number between 1 and 100
-import random
 num = random.randint(1, 100)
 while True:
     print('Guess a number between 1 and 100')
@@ -71,7 +70,6 @@ while True:
     elif i > num:
         print('Try lower')
         
-import random
 desserts = ['ice cream', 'pancakes', 'brownies', 'cookies', 'candy']
 print(random.choice(desserts))
 

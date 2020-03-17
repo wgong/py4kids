@@ -1,0 +1,14 @@
+import PySimpleGUI as sg
+import re
+import hashlib
+def hash(fname, algo):
+    if algo == 'MD5':
+        hash = hashlib.md5()
+    elif algo == 'SHA1':
+        hash = hashlib.sha1()
+    elif algo == 'SHA256':
+        hash = hashlib.sha256()
+    with open(fname) as handle: #opening the file one line at a time for memory considerations
+        for line in handle:
+            hash.update(line.encode(encoding = 'utf-8'))
+    return(hash.hexdigest())
