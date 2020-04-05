@@ -15,34 +15,26 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 from urllib.request import urlopen, HTTPError
 from webbrowser import open_new
 import json
-import os
-import re
 
-REDIRECT_URL = 'http://localhost:8080/'
+import utils
+import configuration as cfg
 
-def parse_url(url):
-    """assume 4 parts: proto://host:port/path
-    """
-    z = re.match(r"^(.*:)//([A-Za-z0-9\-\.]+)(:[0-9]+)?(/.*)$", url)
-    if not z:
-        return None
-
-    return z.group(1)[:-1], z.group(2), z.group(3)[1:], z.group(4)
+REDIRECT_URL = cfg.CONFIG['redirect_uri']
 
 class HTTPServerHandler(BaseHTTPRequestHandler):
 
     """
     HTTP Server callbacks to handle Facebook OAuth redirects
     """
-    def __init__(self, request, address, server, a_id, a_secret):
-        self.app_id = a_id
-        self.app_secret = a_secret
+    def __init__(self, request, address, server, client_id, client_secret):
+        self._id = client_id
+        self._secret = client_secret
         super().__init__(request, address, server)
 
     def do_GET(self):
-        GRAPH_API_AUTH_URI = ('https://graph.facebook.com/v2.2/oauth/' 
-            + 'access_token?client_id=' + self.app_id + '&redirect_uri=' 
-            + REDIRECT_URL + '&client_secret=' + self.app_secret + '&code=')
+        GRAPH_API_AUTH_URI = (cfg.CONFIG['token_url']
+            + '?client_id=' + self._id + '&redirect_uri=' 
+            + REDIRECT_URL + '&client_secret=' + self._secret + '&code=')
 
         self.send_response(200)
         self.send_header('Content-type', 'text/html')
@@ -71,16 +63,16 @@ class HTTPServerHandler(BaseHTTPRequestHandler):
             a dict containing the access_token 
         """
         return json.loads(str(urlopen(url).read(), 'utf-8'))
-        #return token.split('=')[1].split('&')[0]
+
 
 
 class TokenHandler:
     """
     Functions used to handle Facebook oAuth
     """
-    def __init__(self, a_id, a_secret):
-        self._id = a_id
-        self._secret = a_secret
+    def __init__(self, client_id, client_secret):
+        self._id = client_id
+        self._secret = client_secret
 
     def get_access_token(self):
         """
@@ -90,9 +82,9 @@ class TokenHandler:
                 appId:      The Facebook assigned App ID
                 appSecret:  The Facebook assigned App Secret
         """
-        proto, host, port, path = parse_url(REDIRECT_URL)
-        ACCESS_URI = ('https://www.facebook.com/dialog/' 
-            + 'oauth?client_id=' +self._id + '&redirect_uri='
+        proto, host, port, path = utils.parse_url(REDIRECT_URL)
+        ACCESS_URI = (cfg.CONFIG['auth_url']
+            + '?client_id=' +self._id + '&redirect_uri='
             + REDIRECT_URL + "&scope=ads_management")
         open_new(ACCESS_URI)
         httpServer = HTTPServer((host, int(port)),
@@ -104,7 +96,7 @@ class TokenHandler:
 
 if __name__ == "__main__":
     import os
-    th = TokenHandler(os.environ['FB_APP_ID'],os.environ['FB_APP_SECRET'])
+    th = TokenHandler(cfg.CONFIG['client_id'],cfg.CONFIG['client_secret'])
     at = th.get_access_token()
-    print(f"{at['token_type']} access_token: \n\t{at['access_token']}")
+    print(f"{at['token_type']} access_token: \n\t{at['access_token']} ")
     print(f"will expire in {at['expires_in']/(3600*24):.2f} days")
