@@ -1,6 +1,7 @@
 **/__pycache__
 **/__MACOSX/
-**/.ipynb_checkpoints/*
+**/.ipynb_checkpoints/
+**/.ipynb_checkpoints/*.ipynb
 **/.vscode/
 **/*.dat
 **/*.log
@@ -14,3 +15,6 @@
 **/metastore_db/
 **/data/
 **/spark-warehouse/
+**/*.json
+**/configuration.py
+**/config-*.py
