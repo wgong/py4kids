@@ -1,0 +1,18 @@
+<html>
+{% if idp_provider_url %}
+<h1>Welcome to {{idp_provider_url}}</h1>
+{% endif %}
+
+{% if info %}
+<p>
+info: {{info}}
+</p>
+{% endif %}
+
+{% if transfers %}
+<p>
+Your last transfer:
+{{transfers}}
+{% endif %}
+</p>
+</html>
