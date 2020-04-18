@@ -32,12 +32,12 @@ rm chromedriver_linux64.zip
 
 
 ### run tests
+```
 pytest tests/step_defs/test_web.py
 pytest tests/step_defs/test_service.py
 pytest tests/step_defs/test_unit_basic.py
 pytest tests/step_defs/test_unit_outlines.py
+```
 
-
-pros/cons
-pytest-bdd is best suited for black-box testing because it forces the developer to write test cases in plain, descriptive language. In my opinion, it is arguably the best BDD framework currently available for Python because it rests on the strength and extendability of pytest.
-However, it can be more cumbersome to use than behave due to the extra code needed for declaring scenarios, implementing scenario outlines, and sharing steps.
+### pros/cons
+pytest-bdd is best suited for black-box testing because it forces the developer to write test cases in plain, descriptive language. In my opinion, it is arguably the best BDD framework currently available for Python because it rests on the strength and extendability of pytest. However, it can be more cumbersome to use than behave due to the extra code needed for declaring scenarios, implementing scenario outlines, and sharing steps.
