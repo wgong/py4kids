@@ -4,13 +4,17 @@ import os, glob
 from pathlib import Path
 from urllib.request import urlopen, Request
 
-logger = logging.getLogger(__name__)
-
 TYPES = {'image/jpeg', 'image/png'}
 
+def get_logger(logger_name):
+    logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    return logging.getLogger(logger_name)
 
-def rm_thumbnail():
-    for f in glob.glob("images/*_thumbnail.*"):
+logger = get_logger(__name__)
+
+
+def rm_thumbnail(image_folder="images"):
+    for f in glob.glob(f"{image_folder}/*_thumbnail.*"):
         os.remove(f)
 
 def get_links(client_id):
@@ -21,7 +25,8 @@ def get_links(client_id):
     return [item['link'] for item in data['data'] if 'type' in item and item['type'] in TYPES]
 
 
-def download_link(directory, link):
+def download_link(dir_link):
+    directory, link = dir_link
     download_path = directory / os.path.basename(link)
     with urlopen(link) as image, download_path.open('wb') as f:
         f.write(image.read())

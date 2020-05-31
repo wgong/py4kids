@@ -1,17 +1,16 @@
 import asyncio
-import logging
+
 import os
 from time import time
 
 import aiohttp
 
-from download import setup_download_dir, get_links
+from downloader import setup_download_dir, get_links, get_logger
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-logger = logging.getLogger(__name__)
+logger = get_logger(__name__)
 
 
-async def async_download_link(session, directory, link):
+async def async_download_link(session, dir_link):
     """
     Async version of the download_link method we've been using in the other examples.
     :param session: aiohttp ClientSession
@@ -19,6 +18,7 @@ async def async_download_link(session, directory, link):
     :param link: the url of the link to download
     :return:
     """
+    directory, link = dir_link
     download_path = directory / os.path.basename(link)
     async with session.get(link) as response:
         with download_path.open('wb') as f:
@@ -39,12 +39,13 @@ async def main():
         raise Exception("Couldn't find IMGUR_CLIENT_ID environment variable!")
     download_dir = setup_download_dir()
     links = get_links(client_id)
+    dir_links = [(download_dir, link) for link in links]
     logger.info(f"num of links = {len(links)}")
     
     # We use a session to take advantage of tcp keep-alive
     # Set a 3 second read and connect timeout. Default is 5 minutes
     async with aiohttp.ClientSession(timeout=3) as session:
-        tasks = [(async_download_link(session, download_dir, l)) for l in links]
+        tasks = [(async_download_link(session, dl)) for dl in dir_links]
         # gather aggregates all the tasks and schedules them in the event loop
         await asyncio.gather(*tasks, return_exceptions=True)
 

@@ -1,15 +1,15 @@
-import logging
+
 from pathlib import Path
 from time import time
 from functools import partial
 
 from concurrent.futures import ProcessPoolExecutor
-from download import rm_thumbnail
+
 from PIL import Image
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+from downloader import rm_thumbnail, get_logger
 
-logger = logging.getLogger(__name__)
+logger = get_logger(__name__)
 
 
 def create_thumbnail(size, path):
@@ -44,7 +44,7 @@ def main():
     # is exited.
     with ProcessPoolExecutor() as executor:
         executor.map(thumbnail_128, Path('images').iterdir())
-    logging.info('Took %s', time() - ts)
+    logger.info('Took %s', time() - ts)
 
 
 if __name__ == '__main__':

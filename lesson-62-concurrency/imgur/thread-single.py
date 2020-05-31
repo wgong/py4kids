@@ -1,11 +1,10 @@
-import logging
+
 import os
 from time import time
 
-from download import setup_download_dir, get_links, download_link
+from downloader import setup_download_dir, get_links, download_link, get_logger
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-logger = logging.getLogger(__name__)
+logger = get_logger(__name__)
 
 def main():
     ts = time()
@@ -15,8 +14,8 @@ def main():
     download_dir = setup_download_dir()
     links = get_links(client_id)
     for link in links:
-        download_link(download_dir, link)
-    logging.info(f'Downloading {len(links)} images took {time() - ts} seconds')
+        download_link((download_dir, link))
+    logger.info(f'Downloading {len(links)} images took {time() - ts} seconds')
 
 if __name__ == '__main__':
     main()
