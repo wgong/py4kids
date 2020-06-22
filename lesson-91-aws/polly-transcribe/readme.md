@@ -1,16 +1,19 @@
 
-## evaluate AWS Polly and Transcribe
+## Evaluate AWS Polly and Transcribe
 
 1) download a text file from https://www.infoplease.com/primary-sources/government/presidential-speeches, e.g., Lincohn's famous Gettysburg address
 
 2) use AWS Polly to convert text to speech using lang=en-US voice=Matthew
+
 `$ python run_polly.py lincohn-gettysburg.txt Matthew `       
 
 3) use AWS Transcribe to convert mp3 voice to text
+
 `$ python run_transcribe.py lincohn-gettysburg-Matthew.mp3 `
 
 4) Compare the original text with the transcribed text using cosine_similarity algorithm, 
 we get a score of 0.9838, this suggests that AWS transcribe is pretty good.
+
 `$ python compare_2text_files.py lincohn-gettysburg.txt lincohn-gettysburg-Matthew-tx.txt ` 
 
 
