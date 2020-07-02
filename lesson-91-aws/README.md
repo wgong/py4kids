@@ -10,7 +10,17 @@ https://boto3.amazonaws.com/v1/documentation/api/latest/guide/quickstart.html
 
 ## AWS Glue Get Database Tables
 
+https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/glue.html
+
+```
 glue_client = sess.client("glue")
+
+# test
+responseGetTables = glue_client.get_tables(DatabaseName="test")
+responseGetTables.keys()
+responseGetTables['TableList']
+
+# use paginator
 database_list = []
 StartingToken = None
 
@@ -25,4 +35,4 @@ for page in page_iterator:
 		StartingToken = page["NextToken"]
 	except KeyError:
 		break
-    
+```
