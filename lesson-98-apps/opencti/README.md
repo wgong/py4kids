@@ -39,6 +39,11 @@ $ docker-compose --version
 $ env $(cat .env | grep ^[A-Z] | xargs) docker stack deploy --compose-file docker-compose.yml opencti
 ## above not working
 
+```
+
+### Start OpenCTI docker
+
+```
 $ env $(cat .env | grep ^[A-Z] | xargs) sudo docker-compose up
 
 ```
@@ -67,6 +72,26 @@ df73bb3b5c51        docker.elastic.co/elasticsearch/elasticsearch:7.8.0   "/tini
 ec63f8b1e883        opencti/connector-export-file-stix:3.3.2              "/entrypoint.sh"         23 minutes ago      Up 22 minutes                                                                   docker_connector-export-file-stix_1
 75896ed5ab08        opencti/connector-import-file-stix:3.3.2              "/entrypoint.sh"         23 minutes ago      Up 22 minutes                                                                   docker_connector-import-file-stix_1
 ```
+
+### Stop OpenCTI docker
+
+```
+$ cd ~/openCTI/docker
+
+$ docker-compose down
+Stopping docker_worker_1                                ... done
+Stopping docker_opencti_1                               ... done
+Stopping docker_connector-mitre_1                       ... done
+Stopping docker_rabbitmq_1                              ... done
+Stopping docker_connector-import-file-pdf-observables_1 ... done
+Stopping docker_connector-opencti_1                     ... done
+Stopping docker_connector-export-file-csv_1             ... done
+Stopping docker_minio_1                                 ... done
+Stopping docker_redis_1                                 ... done
+Stopping docker_grakn_1                                 ... done
+Stopping docker_elasticsearch_1                         ... done
+Stopping docker_connector-export-file-stix_1            ... done
+Stopping docker_connector-import-file-stix_1            ... done
 
 
 
