@@ -1,4 +1,4 @@
-# VirtualBox
+# VirtualBox Setup
 
 https://www.notion.so/luatix/Virtual-machine-template-1789b4442b414dbf87f748db51c85aa5
 
@@ -14,7 +14,7 @@ https://askubuntu.com/questions/703746/how-to-completely-remove-virtualbox
 
 https://www.tecmint.com/install-virtualbox-guest-additions-in-ubuntu/
 
-# Docker
+# Docker Setup
 https://www.notion.so/Using-Docker-03d5c0592b9d4547800cc9f4ff7be2b8
 
 
@@ -51,7 +51,7 @@ pwd = opencti
 
 
 `$ docker ps`
-
+```
 CONTAINER ID        IMAGE                                                 COMMAND                  CREATED             STATUS                    PORTS                                                 NAMES
 fe47c2e95e8e        opencti/worker:3.3.2                                  "/entrypoint.sh"         23 minutes ago      Up 22 minutes                                                                   docker_worker_1
 027b9a23014b        opencti/platform:3.3.2                                "/entrypoint.sh"         23 minutes ago      Up 23 minutes             0.0.0.0:8080->8080/tcp                                docker_opencti_1
@@ -66,10 +66,11 @@ a4593c54538e        redis:6.0.5                                           "docke
 df73bb3b5c51        docker.elastic.co/elasticsearch/elasticsearch:7.8.0   "/tini -- /usr/local…"   23 minutes ago      Up 23 minutes             9200/tcp, 9300/tcp                                    docker_elasticsearch_1
 ec63f8b1e883        opencti/connector-export-file-stix:3.3.2              "/entrypoint.sh"         23 minutes ago      Up 22 minutes                                                                   docker_connector-export-file-stix_1
 75896ed5ab08        opencti/connector-import-file-stix:3.3.2              "/entrypoint.sh"         23 minutes ago      Up 22 minutes                                                                   docker_connector-import-file-stix_1
+```
 
 
 
-# Manual
+# Manual Setup
 https://www.notion.so/Manual-deployment-b911beba44234f179841582ab3894bb1
 
 
