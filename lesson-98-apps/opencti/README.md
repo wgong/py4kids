@@ -48,7 +48,7 @@ $ env $(cat .env | grep ^[A-Z] | xargs) docker stack deploy --compose-file docke
 $ env $(cat .env | grep ^[A-Z] | xargs) sudo docker-compose up
 
 ```
-start = 22.36, stop = 
+start = 22.36, stop = 22.48
 
 open browser at 
 
