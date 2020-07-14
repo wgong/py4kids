@@ -17,6 +17,7 @@ https://www.tecmint.com/install-virtualbox-guest-additions-in-ubuntu/
 # Docker Setup
 https://www.notion.so/Using-Docker-03d5c0592b9d4547800cc9f4ff7be2b8
 
+use https://www.uuidgenerator.net/version4 to generate uuid4 strings to set "ChangeMe" in .env file
 
 git clone https://github.com/OpenCTI-Platform/docker.git
 
@@ -47,12 +48,13 @@ $ env $(cat .env | grep ^[A-Z] | xargs) docker stack deploy --compose-file docke
 $ env $(cat .env | grep ^[A-Z] | xargs) sudo docker-compose up
 
 ```
+start = 22.36, stop = 
 
 open browser at 
 
 http://localhost:8080/
 login = admin@opencti.io
-pwd = opencti
+pwd = <password>
 
 
 `$ docker ps`
