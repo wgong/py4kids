@@ -14,14 +14,16 @@ installing: python-3.7.3-h0371630_0 ...
 Apache Spark
 http://spark.apache.org/
 
+```
 $ mkdir -p ~/spark
 $ cd spark
 $ tar zxvf ~/Downloads/spark-2.4.3-bin-hadoop2.7.tgz
 
-tar zxvf filename.tar.gz -gzipped files
-tar jxvf filename.tar.bz2 - bzipped files
+$ tar zxvf filename.tar.gz -gzipped files
+$ tar jxvf filename.tar.bz2 -bzipped files
 
 $ pip install pyspark
+```
 Successfully built pyspark
 Installing collected packages: py4j, pyspark
 Successfully installed py4j-0.10.7 pyspark-2.4.3
@@ -49,6 +51,7 @@ $ cd ~/spark
 $ ./bin/pyspark
 Using Python version 3.7.1 (default, Dec 14 2018 19:28:38)
 SparkSession available as 'spark'.
+```
 >>> textFile = spark.read.text("README.md")  # textFile is DataFrame
 >>> textFile.take(5)   # Number of rows in this DataFrame
 >>> textFile.first()   # First row in this DataFrame
@@ -72,8 +75,10 @@ SparkSession available as 'spark'.
 >>> linesWithSpark.count()
 >>> linesWithSpark.take(5)
 >>> linesWithSpark.collect()
+```
 
 $ cd ~/spark/examples/src/main/python
+
 create a wordcount.py
 
 invoke with python after `pip install pyspark`
