@@ -38,7 +38,7 @@ dynamodb_client = boto3.client('dynamodb', endpoint_url='http://localhost:8000',
 
 # Constants
 TABLE_NAME='UserImages'
-LSI_NAME='LatestLkes'
+LSI_NAME='LatestLikes'
 userids = ['parijat', 'james', 'marcus']
 N = 10 # each user has uploaded many images previously
 M = 5  # each user will randomly like these many other users' images
@@ -49,11 +49,11 @@ def create_table():
     try:
         response = dynamodb_client.describe_table(TableName=TABLE_NAME)
         # table exists...bail
-        print ("Table [{}] already exists. Skipping table creation.".format(TABLE_NAME))
+        print (f"Table [{TABLE_NAME}] already exists. Skipping table creation.")
         return
     except:
         pass # no table... good
-    print ("Creating table [{}]".format(TABLE_NAME))
+    print (f"Creating table [{TABLE_NAME}]")
     response = dynamodb_client.create_table(
         TableName=TABLE_NAME,
         KeySchema=[
@@ -107,7 +107,7 @@ def create_table():
             'WriteCapacityUnits': 2
         }
     )
-    print ("Waiting for table [{}] to be created".format(TABLE_NAME))
+    print (f"Waiting for table [{TABLE_NAME}] to be created")
     waiter = dynamodb_client.get_waiter('table_exists')
     waiter.wait(TableName=TABLE_NAME)
     # if no exception, continue
@@ -131,7 +131,7 @@ def populate_UserImageInfo():
             time.sleep(1) # pace the writes to respect provisioned capacity, and to ensure last_like_time changes
             userid = random.choice(candidate_userids)
             num = random.randint(1, N)
-            imageid = "{}-{}".format(userid, str(num))
+            imageid = f"{userid}-{str(num)}"
             last_like_time = int(time.time())
 
             # insert or update a record with PK={userid, imageid}
@@ -174,10 +174,11 @@ def populate_UserImageInfo():
             n_total_likes = new_attrs['total_likes']['N']
             print ("%10s | %15s | %15s | %24s | %10s | %4.0f | %4.0f" % \
                 (n_userid, n_imageid, n_last_like_userid, n_last_like_time_str, n_total_likes, t_wcu, i_wcu))
+
 def query_LatestLikes():
     # for each user, query last Y liked images
     for userid in userids:
-        print ("Querying latest [{}] liked images for user [{}]".format(Y, userid))
+        print (f"Querying latest [{Y}] liked images for user [{userid}]")
         response = dynamodb_client.query(
             TableName=TABLE_NAME,
             IndexName=LSI_NAME,
@@ -195,7 +196,7 @@ def query_LatestLikes():
         else:
             t_rcu = 0.0
             i_rcu = 0.0
-        print ("Query consumed [{}] RCUs on table, [{}] RCUs on Index.".format(t_rcu, i_rcu))
+        print (f"Query consumed [{t_rcu}] RCUs on table, [{i_rcu}] RCUs on Index.")
         print ("%15s | %15s | %24s | %10s" % ('ImageId', 'LastLikeUserId', 'LastLikeTime', 'TotalLikes'))
         for item in response['Items']:
             imageid = item['imageid']['S']

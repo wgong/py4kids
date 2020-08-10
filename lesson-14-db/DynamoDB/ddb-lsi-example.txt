@@ -1,0 +1,40 @@
+$ python ddb-lsi-example.py 
+Creating table [UserImages]
+Waiting for table [UserImages] to be created
+Table created
+Updating likes...
+    Userid |         ImageId |  LastLikeUserId |             LastLikeTime | TotalLikes | TWCU | IWCU
+    marcus |        marcus-6 |         parijat | Sun Aug  9 21:59:15 2020 |          1 |    1 |    1
+     james |         james-9 |         parijat | Sun Aug  9 21:59:17 2020 |          1 |    1 |    1
+     james |         james-1 |         parijat | Sun Aug  9 21:59:18 2020 |          1 |    1 |    1
+    marcus |        marcus-6 |         parijat | Sun Aug  9 21:59:19 2020 |          2 |    1 |    2
+     james |         james-3 |         parijat | Sun Aug  9 21:59:20 2020 |          1 |    1 |    1
+   parijat |      parijat-10 |           james | Sun Aug  9 21:59:21 2020 |          1 |    1 |    1
+   parijat |       parijat-7 |           james | Sun Aug  9 21:59:22 2020 |          1 |    1 |    1
+    marcus |        marcus-6 |           james | Sun Aug  9 21:59:23 2020 |          3 |    1 |    2
+   parijat |       parijat-4 |           james | Sun Aug  9 21:59:24 2020 |          1 |    1 |    1
+   parijat |       parijat-1 |           james | Sun Aug  9 21:59:25 2020 |          1 |    1 |    1
+   parijat |       parijat-1 |          marcus | Sun Aug  9 21:59:26 2020 |          2 |    1 |    2
+   parijat |       parijat-8 |          marcus | Sun Aug  9 21:59:27 2020 |          1 |    1 |    1
+   parijat |       parijat-8 |          marcus | Sun Aug  9 21:59:28 2020 |          2 |    1 |    2
+     james |        james-10 |          marcus | Sun Aug  9 21:59:29 2020 |          1 |    1 |    1
+   parijat |       parijat-3 |          marcus | Sun Aug  9 21:59:30 2020 |          1 |    1 |    1
+Querying latest [5] liked images for user [parijat]
+Query consumed [0.0] RCUs on table, [1.0] RCUs on Index.
+        ImageId |  LastLikeUserId |             LastLikeTime | TotalLikes
+      parijat-3 |          marcus | Sun Aug  9 21:59:30 2020 |          1
+      parijat-8 |          marcus | Sun Aug  9 21:59:28 2020 |          2
+      parijat-1 |          marcus | Sun Aug  9 21:59:26 2020 |          2
+      parijat-4 |           james | Sun Aug  9 21:59:24 2020 |          1
+      parijat-7 |           james | Sun Aug  9 21:59:22 2020 |          1
+Querying latest [5] liked images for user [james]
+Query consumed [0.0] RCUs on table, [1.0] RCUs on Index.
+        ImageId |  LastLikeUserId |             LastLikeTime | TotalLikes
+       james-10 |          marcus | Sun Aug  9 21:59:29 2020 |          1
+        james-3 |         parijat | Sun Aug  9 21:59:20 2020 |          1
+        james-1 |         parijat | Sun Aug  9 21:59:18 2020 |          1
+        james-9 |         parijat | Sun Aug  9 21:59:17 2020 |          1
+Querying latest [5] liked images for user [marcus]
+Query consumed [0.0] RCUs on table, [1.0] RCUs on Index.
+        ImageId |  LastLikeUserId |             LastLikeTime | TotalLikes
+       marcus-6 |           james | Sun Aug  9 21:59:23 2020 |          3
