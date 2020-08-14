@@ -1,6 +1,5 @@
 // in Scala
-val df = spark.read.format("json")
-  .load("/data/flight-data/json/2015-summary.json")
+val df = spark.read.format("json").load("/databricks-datasets/definitive-guide/data/flight-data/json/2015-summary.json")
 
 
 // COMMAND ----------
@@ -11,7 +10,7 @@ df.printSchema()
 // COMMAND ----------
 
 // in Scala
-spark.read.format("json").load("/data/flight-data/json/2015-summary.json").schema
+spark.read.format("json").load("/databricks-datasets/definitive-guide/data/flight-data/json/2015-summary.json").schema
 
 
 // COMMAND ----------
