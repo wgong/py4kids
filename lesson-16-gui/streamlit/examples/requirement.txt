@@ -1,0 +1,8 @@
+streamlit
+wave
+plotly
+matplotlib
+tensorflow
+scikit-learn
+keras
+scipy
