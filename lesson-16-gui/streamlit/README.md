@@ -20,12 +20,15 @@ $ streamlit run https://raw.githubusercontent.com/streamlit/demo-self-driving/ma
 
 - How to run streamlit examples
 ```
+$ . ~/projects/streamlit_venv/bin/activate
+$ source ~/projects/streamlit_venv/bin/activate
+
 $ cd ~/projects/streamlit/examples
-$ . ~/projects/streamlit_tutorials/streamlit/bin/activate
-# $ source ~/projects/streamlit_tutorials/streamlit/bin/activate
+
 $ streamlit run animation.py
 $ streamlit run audio.py
 $ streamlit run image.py
+$ streamlit run video.py
 ```
 
 
