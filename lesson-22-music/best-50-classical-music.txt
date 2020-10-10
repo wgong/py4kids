@@ -1,3 +1,10 @@
+## YouTube metadata
+vid : mlMz-x1zstI
+vid_name : 50 Best Tracks of Classical Music
+channel_id : UCyoYFNMkbkA3QQXjtonJACA
+channel_name : Classical Experience
+
+## YouTube description
 00:00 - Antonín Dvořák - Symphony No. 9 in E Minor, Op. 95, B. 178 From the New World: IV. Allegro con fuoco
 11:11 - Carl Orff - Carmina burana: O fortuna
 13:21 - Gustav Mahler - Symphony No. 5 in C-Sharp Minor: IV. Adagietto
