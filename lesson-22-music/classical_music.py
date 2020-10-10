@@ -1,44 +1,6 @@
 # use full-name to lookup Wikiwand
-name_map = {
-    'Strauss I': 'Johann Strauss I',
-    'Mozart': 'Wolfgang Amadeus Mozart',
-    'Vivaldi': 'Antonio Vivaldi',
-    'Mendelssohn': 'Felix Mendelssohn',
-    'Tchaikovsky': 'Piotr Ilyich Tchaikovsky',
-    'Tchaikovsy': 'Piotr Ilyich Tchaikovsky',
-    'Tchaikowsky': 'Piotr Ilyich Tchaikovsky',
-    'Strauss II': 'Johann Strauss II',
-    'Bach': 'Johann Sebastian Bach',
-    'Bizet': 'George Bizet',
-    'Beethoven': 'Ludwig van Beethoven',
-    'Grieg': 'Edvard Grieg',
-    'Barber': 'Samuel Barber',
-    'Haydn': 'Joseph Haydn',
-    'Sibelius': 'Jean Sibelius',
-    'Dvorak': 'Antonín Dvořák',
-    'Brahms': 'Johannes Brahms',
-    'Prokofiev': 'Sergei Prokofiev',
-    'Schubert': 'Franz Schubert',
-    'Puccini': 'Giacomo Puccini',
-    'Rossini': 'Gioachino Rossini',
-    'Verdi': 'Giuseppe Verdi',
-    "Telemann": "Georg Philipp Telemann",
-    "Corelli": "Arcangelo Corelli",
-    "Afternova": "Fred Buscaglione",
-    "Chopin": "Frédéric Chopin",
-    "Debussy": "Claude Debussy",
-    "Liszt": "Franz Liszt",
-    "Schubert-Liszt": "Franz Liszt",
-    "Litvinovsky": "Alexander Litvinovsky",
-    "Morricone": "Ennio Morricone",
-    "Piazzolla": "Astor Piazzolla",
-    "Rachmaninoff": "Sergei Rachmaninoff",
-    "Rosetti": "Antonio Rosetti",
-    "Saint-Saëns": "Camille Saint-Saëns",
-    "Satie": "Erik Satie",
-    "Schumann": "Robert Schumann",
-    "Scriabin": "Alexander Scriabin",
-}
+import json
+
 
 def ts2sec(ts):
     tmp = ts.split(":")
@@ -62,13 +24,33 @@ def make_wikiwand_url(name):
 
 def make_youtube_link(vid, ts):
     youtube_url = make_youtube_url_with_ts(vid, ts)
-    ts = "00:"+ts if len(ts) < 8 else ts
-    return f"""<a href={youtube_url}>{ts}</a>"""
+    tmp = []
+    for i in ts.split(":"):
+        i = i.strip()
+        if len(i) == 0:
+            tmp.append("00")
+        elif len(i) == 1:
+            tmp.append("0"+i)
+        elif len(i) == 2:
+            tmp.append(i)
+        else:
+            print(f"[ERROR] invalid ts - {i}")
+    return f"""<a href={youtube_url} target=new>{":".join(tmp)}</a>"""
 
 def make_wikiwand_link(name):
     wiki_url = make_wikiwand_url(name)
-    return f"""<a href={wiki_url}>{name}</a>"""
+    return f"""<a href={wiki_url} target=new>{name}</a>"""
 
+def make_href(name, url):
+    return f"""<a href={url} target=new>{name}</a>"""
+
+def read_namemap(file_json="namemap.json"):
+    with open(file_json) as f:
+        return json.loads(f.read())
+
+def write_namemap(namemap, file_json="namemap.json"):
+    with open(file_json, "w") as f:
+        return f.write(json.dumps(namemap))
 
 def parse_file_txt(file_txt, meta_marker="## YouTube metadata", desc_marker="## YouTube description"):
     with open(file_txt) as f:
