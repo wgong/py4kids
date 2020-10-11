@@ -1,0 +1,72 @@
+## YouTube metadata
+vid : T_Dy9OvgjHY
+vid_name : 8 Hours The Best of Classical Music
+channel_id : UC0KnpsNHuZPwJnF_RVbTrLw
+channel_name : Classical Music Compilation
+
+## YouTube description
+00:00 - Vivaldi - Violin Concerto in E major, RV 269 'Spring' - I. Allegro
+03:35 - Vivaldi - Violin Concerto in E major, RV 269 'Spring' - II. Largo
+06:27 - Vivaldi - Violin Concerto in E major, RV 269 'Spring' - III. Allegro
+10:31 - Grieg - Peer Gynt Suite no. 1, Op. 46 - I. Morning
+14:53 - Bach - Air on the G string from orchestral suite BWV1068
+17:57 - Mozart - Magic Flute Overture
+24:43 - Smetana - Má vlast - Vltava
+37:40 - Vivaldi - Violin Concerto in G minor, RV 315 'Summer' - I. Allegro
+42:42 - Vivaldi - Violin Concerto in G minor, RV 315 'Summer' - II. Adagio
+44:30 - Vivaldi - Violin Concerto in G minor, RV 315 'Summer' - III. Presto
+47:09 - Mendelssohn - Hebrides Overture Fingal's Cave
+58:37 - Rossini - The Italian Girl in Algiers Overture
+1:06:59 - Saint-Saëns - The Swan
+1:09:59 - Chopin - Ballade no. 1 in G minor, Op. 23
+1:18:30 - Tchaikovsky - The Nutcracker Suite - Act II, No.12. Pas de Deux variations
+1:22:43 - Beethoven - Piano Concerto No. 5 in E-flat major, Op. 73 1 Mov.
+1:41:48 - Beethoven - Piano Concerto No. 5 in E-flat major, Op. 73 2 Mov.
+1:48:48 - Beethoven - Piano Concerto No. 5 in E-flat major, Op. 73 3 Mov.
+1:58:07 - Vivaldi - Violin Concerto in F major, RV 293 'Autumn' - I. Allegro
+2:03:11 - Vivaldi - Violin Concerto in F major, RV 293 'Autumn' - II. Adagio Molto
+2:05:44 - Vivaldi - Violin Concerto in F major, RV 293 'Autumn' - III. Allegro
+2:09:05 - Bach - Siloti Prelude in B minor, based in BWV 855a
+2:13:31 - Rossini - Le Berbier De Seville Overture
+2:20:38 - Brahms - Symphony No. 4 in E Minor, Op. 98 - I. Allegro Non Troppo
+2:33:24 - Chopin - Fantaisie - Impromptu, Op. 66
+2:40:09 - Mozart - Violin Concerto no.3 II. - Adagio
+2:48:11 - Saint-Saëns - Samson and Dalilah, Op. 47 - Danse Baccanale
+2:55:39 - Bach - Prelude no1 in C Major BWV 846.
+3:00:30 - Beethoven - Coriolan Overture, Op. 62
+3:08:55 - Vivaldi - Violin Concerto in F minor, RV 297 'Winter' - I. Allegro non molto
+3:12:24 - Vivaldi - Violin Concerto in F minor, RV 297 'Winter' - II. Largo
+3:14:36 - Vivaldi - Violin Concerto in F minor, RV 297 'Winter' - III. Allegro
+3:17:49 - Saint-Saëns - Aquarium
+3:20:18 - Offenbach - Overture to Orpheus in the underworld
+3:32:55 - Beethoven - Sonata No. 14 in C Sharp Minor Moonlight, Op. 27 No. 2 - I. Adagio sostenuto
+3:38:31 - Dvorak - Humoresque no. 7 in Gb Op. 1017 (Violin and Piano arr.)
+3:41:32 - Mozart - Marriage of Figaro Overture
+3:45:39 - Liszt - Hungarian Rhapsody No. 4 in E-flat major
+3:58:39 - Paganini - Violin Concerto no. 1 in E flat major, Op. 6 - I. Allegro maestoso
+4:18:48 - Grieg - Peer Gynt Suite no. 1, Op. 46 - IV. In the Hall Of The Mountain King
+4:23:42 - Albinoni - Adagio in G minor - Guitar arr.
+4:26:14 - Beethoven - Symphony No. 3 in E Flat Major Eroica, Op. 55 - I. Allegro con brio
+4:41:31 - Mozart - Clarinet Concerto in A major, K. 622 - II. Adagio
+4:49:04 - Mendelssohn - Songe D'une Nuit D'ete - II. Scherzo
+4:54:02 - Bach - Violin Partita no. 2, BWV 1004 - Chaconne
+5:09:25 - Albinoni - Oboe Concerto in D minor, Op. 9, no.2 - II. Adagio
+5:13:43 - Rimsky-Korsakov - Russian Easter Festival Overture, Op. 36
+5:29:25 - Borodin - String Quartet No. 2 in D Major - III. Nocturne Andante
+5:38:37 - Mozart - Piano Concerto No.2 in B flat major - I. Allegro spiritoso
+5:43:43 - Mozart - Piano Concerto No.2 in B flat major - II. Andante
+5:49:12 - Mozart - Piano Concerto No.2 in B flat major - III. Molto allegro
+5:52:55 - Tchaikovsky - The Nutcracker Suite - Act I, No.3. Dance of the Sugar Plum Fairy
+5:54:36 - Rachmaninoff - Prelude in G Sharp Minor, Op. 32 No. 12
+5:57:19 - Brahms - Hungarian Dance no. 5 - Allegro in F sharp minor (orchestral arr.)
+6:01:08 - Ravel - Adagio from Piano Concerto in G -Piano Solo
+6:10:20 - Haydn - Symphony No.45 in F sharp minor (Farewell) - I. Allegro assai
+6:14:35 - Anderson - The Typewriter
+6:16:17 - Mozart - Symphony No. 40 in G Minor, K. 550 - I. Molto Allegro
+6:22:21 - Chopin - Preludes, Op. 28 - No. 4 'Suffocation'
+6:24:11 - Bach - Sheep May Safely Graze
+6:28:46 - Mendelssohn - Symphon No. 4 in A Major, Op. 90 'Italian' - I. Allegro vivace
+6:36:35 - Beethoven - Violin Concerto in D, Op. 61 - II. Larghetto
+6:46:38 - Grieg - Peer Gynt Suite no. 1, Op. 46 - III. Anitra's Dream
+6:51:10 - Mozart - Piano concerto No. 21 in C major, K.467
+7:19:55 - Beethoven - Sonata No. 8 in C Minor Pathetique, Op. 13 - II. Adagio cantabile

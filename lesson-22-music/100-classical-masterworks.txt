@@ -1,0 +1,108 @@
+## YouTube metadata
+vid : mVju10GtMXI
+vid_name : 100 Classical Masterworks
+channel_id : UClScm1QV2xecmZrAuADnP9g
+channel_name : Essential Classic
+
+## YouTube description
+
+### CLASSICAL PERIOD
+1 Mozart - Eine Kleine Nachtmusik: I. Allegro 00:00
+2 Beethoven - Symphony No. 3, Op. 55 ‘Eroica’: I. Allegro con brio 06:02
+3 Mozart - Le Nozze di Figaro: Non Più Andrai, Farfallone Amoroso 20:55
+4 Mozart - The Magic Flute: Ouverture 24:15
+5 Beethoven - Symphony No. 6, Op. 68 ‘Pastoral’: I. 31:30
+6 Haydn - Cello Concerto No. 2 42:22
+7 Haydn - London Trio No. 1: I. Allegro moderato 46:51
+8 Mozart - Symphony No. 41 ‘Jupiter’: IV. Molto Allegro 50:27
+9 Mozart - Symphony No. 40: I. Molto allegro 59:24
+10 Beethoven - Symphony No. 7, Op. 92: II. Allegretto 1:07:37
+
+### BAROQUE PERIOD
+1-3 Vivaldi - ‘Spring’ I. Allegro 01:16:38 
+1-3 Vivaldi - ‘Spring’ II. Largo e pianissimo sempre 1:19:53 
+1-3 Vivaldi - ‘Spring’ III. Allegro pastorale 1:22:16
+4-7 Telemann - Viola Concerto I. Largo 1:26:01 
+4-7 Telemann - Viola Concerto II. Allegro 1:29:33 
+4-7 Telemann - Viola Concerto III. Andante 1:32:40 
+4-7 Telemann - Viola Concerto IV. Presto 1:37:22
+8-10: Vivaldi - Symphony, RV. 112 I. Allegro 1:40:28 
+8-10: Vivaldi - Symphony, RV. 112 II. Andante 1:42:24 
+8-10: Vivaldi - Symphony, RV. 112 III. Presto 1:44:16
+11-13: Bach - Harpsichord Concerto No. 1 I. Allegro 1:44:57 
+11-13: Bach - Harpsichord Concerto No. 1 II. Adagio 1:53:10 
+11-13: Bach - Harpsichord Concerto No. 1 III. Allegro 1:59:46
+14-16 Vivaldi - Concerto for Strings, RV. 164 I. Allegro 2:07:47 
+14-16 Vivaldi - Concerto for Strings, RV. 164 II. Adagio 2:09:44 
+14-16 Vivaldi - Concerto for Strings, RV. 164 III. Allegro 2:10:40
+17-22: Corelli - Concerto Grosso No. 9, Op. 6 I. Preludio 2:12:01 
+17-22: Corelli - Concerto Grosso No. 9, Op. 6 II. Allemanda 2:14:07 
+17-22: Corelli - Concerto Grosso No. 9, Op. 6 III. Corrente 2:17:00 
+17-22: Corelli - Concerto Grosso No. 9, Op. 6 IV. Gavotta 2:18:52 
+17-22: Corelli - Concerto Grosso No. 9, Op. 6 V. Adagio 2:19:56 
+17-22: Corelli - Concerto Grosso No. 9, Op. 6 VI. Minuetto 2:21:10
+23-25 Bach - Brandenburg Concerto No. 3 I. Allegro moderato 2:23:09 
+23-25 Bach - Brandenburg Concerto No. 3 II. Adagio 2:29:05 
+23-25 Bach - Brandenburg Concerto No. 3 III. Allegro 2:29:31
+
+### ROMANTIC PERIOD
+1 Strauss II - Voices of Spring 2:34:14
+2 Tchaikovsky - Nutcracker Suite, Russian Dance 2:41:46
+3 Bizet - Carmen Suite No. 1: VI. Les Toréadors 2:42:58
+4 Tchaikovsky - Swan Lake, Spanish Dance 2:45:00
+5 Tchaikovsky - Serenade for Strings, Op. 48: II. Valse 2:47:09
+6 Grieg - Holberg Suite, Op. 40: I. Praeludium 2:51:06
+7 Tchaikovsky - Symphony No. 6, Op. 74 ‘Pathétique’: IV. Adagio lamentoso 2:53:50
+8 Schumann - Fantasy Pieces, Op. 73: I. 3:03:52
+9 Saint-Saëns - The Carnival of the Animals: The Swan 3:06:54
+10 Rachmaninoff - Rhapsody on a Theme by Paganini: Var. XVIII 3:09:32
+11 Schumann - 5 Pieces in Folk Style, Op. 102: No. 2, Langsam 3:12:27
+12 Mendelssohn - Songs Without Words, Book 1, Op. 19b: No. 1 3:16:57
+13 Chopin - Prelude No. 4, Op. 28 3:20:46
+14 Schubert-Liszt - Ständchen (Serenade), No. 7 3:23:04
+15 Mendelssohn - Songs Without Words, Book 2, Op. 30: No. 6, Venetian Boat Song 3:28:50
+16 Scriabin - ‘Étude Pathétique’ 3:32:22
+
+### PIANO
+1 Chopin - ‘Aeolian Harp’ 3:35:03
+2 Debussy - Arabesque No. 1 3:37:31
+3 Liszt - Consolations: No. 3, Lento placido 3:41:38
+4 Beethoven - ‘Moonlight Sonata’: I. Adagio sostenuto 3:45:40
+5 Satie - Trois Gymnopédies: No. 1, Lent et doloreux 3:50:33
+6 Tchaikovsky - The Seasons,  June. Barcarolle 3:53:23
+7 Chopin - Waltz in F Minor, Op. Posth. 70, No. 2 3:58:39
+8 Debussy - Clair de Lune 4:02:00
+9 Grieg - Lyric Pieces, Book I, Op. 12: No. 1, Arietta 4:06:44
+10 Chopin - Nocturnes, Op. 9: No. 2 4:08:16
+11 Liszt - Liebesträume: No. 3 4:12:59
+12 Schumann - Träumerei 4:18:49
+13 Chopin - Nocturne 4:22:02
+14 Chopin - ‘Raindrop’ 4:26:54 
+15 Satie - Trois Gymnopédies: No. 2, Lent et triste 4:32:06 
+16 Satie - Trois Gymnopédies: No. 3, Lent et grave 4:34:21
+17 Rachmaninoff - Six Moments Musicaux, Op. 16: No. 3, Andante cantabile 4:36:27
+18 Beethoven - ‘Für Elise’ 4:41:52
+19 Bach - Notebooks for Anna Magdalena Bach: Menuet 4:45:39
+20 Mozart - Alla Turca 4:46:57
+21 Rosetti - Piano Sonata: III. Rondeaux. Allegretto 4:50:36
+
+### STRINGS
+1 Einaudi - Nuvole Bianche (two cellos) 4:52:33
+2 Piazzolla - Oblivion 4:59:07
+3 Afternova - Heartfelt 5:02:43
+4 Sibelius - Andante Festivo 5:06:43
+5 Morricone - Gabriel’s Oboe 5:10:48
+6 Vivaldi - Concerto for Strings, RV 152: II. Andante molto 5:13:18
+7 Puccini - Tosca: Vissi D’Arte (instr) 5:15:07
+8-17 Litvinovsky - ‘Le Grand Cahier’ 5:17:44
+18 Corelli - Concerto Grosso No. 10, Op. 6: I. Preludio 5:43:51
+19 Vivaldi - The Four Seasons, "Winter": II. Largo 5:46:31
+20 Litvinovsky - Tales of the Magic Tree: Lost in the Blossoming Gardens 5:48:28
+21 Piazzolla - Libertango 5:52:44
+22 Morricone - The Falls 5:55:34
+23 Prokofiev - Suite No. 2 from Romeo and Juliet, Op. 64ter: No. 3, Friar Laurence 5:58:56
+24 Rota - Valzer del Commiato 6:01:05
+25 Lanzetta - Trio per Archi 6:04:06
+26 Rota - Valzer (The Leopard) 6:07:29
+27 Mozart - La finta Giardiniera 6:09:36
+28 Barber - Adagio for strings 6:15:42
