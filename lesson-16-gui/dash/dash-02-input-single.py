@@ -18,7 +18,7 @@ app.layout = html.Div([
     [Input(component_id='my-id', component_property='value')]
 )
 def update_output_div(input_value):
-    return 'You\'ve entered: {}'.format(input_value)
+    return f'You\'ve entered: {input_value}'
 
 
 if __name__ == '__main__':
