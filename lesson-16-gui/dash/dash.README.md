@@ -1,5 +1,8 @@
+- [Dash-by-Plotly](https://github.com/Coding-with-Adam/Dash-by-Plotly)
 
-[Dash for Beginners](https://www.datacamp.com/community/tutorials/learn-build-dash-python)
+- [Dash for Beginners](https://www.datacamp.com/community/tutorials/learn-build-dash-python)
+
+- `jupyter-dash` allows one to run Dash in Jupyter Notebook
 
 * install Dash
 $ pip install dash
