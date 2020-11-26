@@ -48,9 +48,7 @@ def set_cities_value(available_options):
     [Input('countries-dropdown', 'value'),
      Input('cities-dropdown', 'value')])
 def set_display_children(selected_country, selected_city):
-    return u'{} is a city in {}'.format(
-        selected_city, selected_country,
-    )
+    return f'City {selected_city} is located in Country {selected_country}'
 
 
 if __name__ == '__main__':

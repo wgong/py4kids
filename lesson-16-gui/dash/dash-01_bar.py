@@ -18,10 +18,12 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
             'color': colors['text']
         }
     ),
-    html.Div(children='Dash: A web application framework for Python.', style={
-        'textAlign': 'center',
-        'color': colors['text']
-    }),
+    html.Div(
+        children='Dash: A web application framework for Python.', 
+        style={
+            'textAlign': 'center',
+            'color': colors['text']
+        }),
     dcc.Graph(
         id='Graph1',
         figure={
