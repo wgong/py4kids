@@ -1,0 +1,34 @@
+# survey
+- https://analyzingalpha.com/python-trading-tools
+
+# Framework
+
+## zipline 
+
+- https://github.com/quantopian/zipline
+
+## Pyalgotrade 
+
+- https://gbeced.github.io/pyalgotrade/docs/v0.20/html/tutorial.html
+- https://github.com/gbeced/pyalgotrade/tree/master/samples
+
+
+## stocksharp 
+- https://github.com/StockSharp/StockSharp
+
+## Tradologics
+- https://tradologics.com/blog/public-beta-launch
+
+# Data feed
+
+## IEX cloud API
+
+## Alpha Vantange
+
+# books
+- https://github.com/souzatharsis/open-quant-live-book
+- https://github.com/chrisconlan/algorithmic-trading-with-python
+
+# resources
+- https://awesomeopensource.com/projects/trading-algorithms
+
