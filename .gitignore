@@ -19,3 +19,4 @@
 **/configuration.py
 **/config-*.py
 **/db_params.ipynb
+**/database.ini
