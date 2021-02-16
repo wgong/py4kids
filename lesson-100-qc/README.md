@@ -26,6 +26,7 @@
 ## Groups
 
 - [IBM Roadmap](https://www.youtube.com/watch?v=bp7UFdtwdTw)
+- [AWS Braket](https://aws.amazon.com/braket/)
 
 
 ## Resources

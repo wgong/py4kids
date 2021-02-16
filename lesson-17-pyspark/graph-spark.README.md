@@ -5,6 +5,9 @@
 ## complete study of book - Graph Algorithms
     - /home/wengong/spark/databrick-cert/books/Graph-Algorithms/Neo4j_Graph_Algorithms_r3.pdf
 
+    - [Source Code](https://resources.oreilly.com/examples/0636920233145)
+
+    - [GraphFrames in Jupyter: a practical guide](https://towardsdatascience.com/graphframes-in-jupyter-a-practical-guide-9b3b346cebc5)
 
 # PySpark
 
