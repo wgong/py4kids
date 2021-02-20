@@ -1,5 +1,3 @@
-
-
 # Quantum Computing
 
 [Overview](https://www.wikiwand.com/en/Quantum_computing)
@@ -10,6 +8,8 @@
 
 ## Videos
 
+- [Quantum Computing 2020 Update](https://www.youtube.com/watch?v=9AfG2nI0Hn4)
+- [Lunch & Learn: Quantum Computing](https://www.youtube.com/watch?v=7susESgnDv8)
 - [A beginner's guide to quantum computing | Shohini Ghose](https://www.youtube.com/watch?v=QuR969uMICM&t=26s)
 - [Quantum Computers - FULLY Explained!](https://www.youtube.com/watch?v=PzL-oXxNGVM&t=16s)
 
@@ -26,7 +26,10 @@
 ## Groups
 
 - [IBM Roadmap](https://www.youtube.com/watch?v=bp7UFdtwdTw)
-- [AWS Braket](https://aws.amazon.com/braket/)
+- [Amazon - AWS Braket](https://aws.amazon.com/braket/)
+- Google
+- Microsoft
+- Honeywell
 
 
 ## Resources
