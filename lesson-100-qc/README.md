@@ -5,6 +5,7 @@
 ## Courses
 
 - [Introduction to Quantum Computing and Quantum Hardware](https://qiskit.org/learn/intro-qc-qh/)
+    - [Qiskit Global Summer School 2020 - YouTube channel](https://www.youtube.com/playlist?list=PLOFEBzvs-VvrXTMy5Y2IqmSaUjfnhvBHR)
 
 ## Videos
 
