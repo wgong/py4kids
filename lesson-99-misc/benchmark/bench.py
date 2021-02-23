@@ -1,3 +1,5 @@
+# https://gist.github.com/apalala/3fbbeb5305584d2abe05
+
 from __future__ import print_function
 from math import sin, cos, radians
 import timeit
@@ -18,6 +20,14 @@ $ pypy -OO bench.py
 $ pypy3 -OO bench.py
 1.1291401386260986 1.1360960006713867 1.1375579833984375
 1.2108190059661865 1.2172389030456543 1.2178328037261963
+
+
+old ubuntu desktop
+$ python bench.py
+2.4891282159999264 2.4943858320000345 2.49669725800004
+
+$ python -OO bench.py
+2.487754242000392 2.497233943000083 2.514756731000034
 '''
 
 
