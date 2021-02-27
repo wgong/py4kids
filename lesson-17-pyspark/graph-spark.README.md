@@ -1,20 +1,33 @@
 2021 Goal - Learn Graph and Spark
 
-# Graph Algo
+# Graph 
 
-## complete study of book - Graph Algorithms
+## Graph Theory YouTube by William Fiset
+    - see folder Graph-Algorithms
+
+## study book - Graph Algorithms
     - /home/wengong/spark/databrick-cert/books/Graph-Algorithms/Neo4j_Graph_Algorithms_r3.pdf
 
     - [Source Code](https://resources.oreilly.com/examples/0636920233145)
 
+    - my working folder:
+        - ~/projects/py4kids/lesson-17-pyspark/graph
+
     - [GraphFrames in Jupyter: a practical guide](https://towardsdatascience.com/graphframes-in-jupyter-a-practical-guide-9b3b346cebc5)
+
 
 # PySpark
 
 ## Learn Spark Graph-API to process big data
-    - https://spark.apache.org/docs/latest/api/python/index.html
+
+    - [Spark SQL Guide](https://spark.apache.org/docs/latest/sql-programming-guide.html)
+        - [Data Sources](https://spark.apache.org/docs/latest/sql-data-sources.html)
+        - [Performance Tuning](https://spark.apache.org/docs/latest/sql-performance-tuning.html)
+        - [SQL Reference](https://spark.apache.org/docs/latest/sql-ref.html)
+    - [PySpark Guide](https://spark.apache.org/docs/latest/api/python/index.html)
 
 ### Create a PySpark Cheat Sheet Notebook
+    - ~/projects/py4kids/lesson-17-pyspark/databrick/pyspark-cheat-sheet.ipynb
 
 
 ## Get certified as Databrick Spark Developer
@@ -34,7 +47,7 @@
 
     - [How To Get Certified in Spark by Databricks](https://www.sicara.ai/blog/2019-10-07-how-to-get-certified-in-spark-by-databricks)
 
-### Definite Guide
+### Spark - the Definitive Guide
 
     - /home/wengong/projects/py4kids/lesson-17-pyspark/spark-guide
     - https://github.com/wgong/py4kids/tree/master/lesson-17-pyspark/spark-guide
