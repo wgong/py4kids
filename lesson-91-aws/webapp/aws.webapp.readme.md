@@ -1,4 +1,5 @@
 https://aws.amazon.com/getting-started/projects/build-serverless-web-app-lambda-apigateway-s3-dynamodb-cognito/
+https://aws.amazon.com/getting-started/projects/build-serverless-web-app-lambda-apigateway-s3-dynamodb-cognito/module-4/
 
 
 download https://github.com/awslabs/aws-serverless-workshops/archive/master.zip to local
