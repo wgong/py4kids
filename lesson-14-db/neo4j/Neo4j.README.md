@@ -350,3 +350,5 @@ RETURN DISTINCT cust.contactName as CustomerName, SUM(o.quantity) AS TotalProduc
 ### [Neo4j Cypher Refcard](https://neo4j.com/docs/cypher-refcard/4.2/)
 
 ### [The Neo4j Cypher Manual v4.2](https://neo4j.com/docs/cypher-manual/4.2/)
+
+### [LearningNeo4j](https://github.com/Wabri/LearningNeo4j)
