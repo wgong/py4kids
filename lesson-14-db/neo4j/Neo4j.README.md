@@ -153,15 +153,19 @@ create database movies
 :source movies.cyp
 
 // list  20 movies played by Tom Hanks with director
+
 Match (a:Person {name:'Tom Hanks'})-[:ACTED_IN]->(m)<-[:DIRECTED]-(d) RETURN a,m,d LIMIT 20;
 
 // list  20 movies played by Tom Hanks 
+
 Match (a:Person {name:'Tom Hanks'})-[:ACTED_IN]->(m)RETURN a,m LIMIT 5;
 
 // find actor Tom Hanks
+
 MATCH (tom:Person {name: "Tom Hanks"}) RETURN tom;
 
 return
+
 ```
 {
   "identity": 71,
@@ -213,19 +217,12 @@ MATCH p=shortestPath(
 (bacon:Person {name:"Kevin Bacon"})-[*]-(meg:Person {name:"Meg Ryan"})
 )
 RETURN p;
-```
 
-│[{"name":"Kevin Bacon","born":1958},{"roles":["Jack Swigert"]},{"tagli│
-│ne":"Houston, we have a problem.","title":"Apollo 13","released":1995}│
-│,{"tagline":"Houston, we have a problem.","title":"Apollo 13","release│
-│d":1995},{"roles":["Jim Lovell"]},{"name":"Tom Hanks","born":1956},{"n│
-│ame":"Tom Hanks","born":1956},{"roles":["Sam Baldwin"]},{"tagline":"Wh│
-│at if someone you never met, someone you never saw, someone you never │
-│knew was the only someone for you?","title":"Sleepless in Seattle","re│
-│leased":1993},{"tagline":"What if someone you never met, someone you n│
-│ever saw, someone you never knew was the only someone for you?","title│
-│":"Sleepless in Seattle","released":1993},{"roles":["Annie Reed"]},{"n│
-│ame":"Meg Ryan","born":1961}]  
+
+[{"name":"Kevin Bacon","born":1958},{"roles":["Jack Swigert"]},{"tagline":"Houston, we have a problem.","title":"Apollo 13","released":1995}
+,{"tagline":"Houston, we have a problem.","title":"Apollo 13","released":1995},{"roles":["Jim Lovell"]},{"name":"Tom Hanks","born":1956},{"name":"Tom Hanks","born":1956},{"roles":["Sam Baldwin"]},{"tagline":"What if someone you never met, someone you never saw, someone you never knew was the only someone for you?","title":"Sleepless in Seattle","released":1993},{"tagline":"What if someone you never met, someone you never saw, someone you never knew was the only someone for you?","title":"Sleepless in Seattle","released":1993},{"roles":["Annie Reed"]},{"name":"Meg Ryan","born":1961}]  
+
+```
 
 //Extend Tom Hanks co-actors, to find co-co-actors who haven't worked with Tom Hanks...
 ```
