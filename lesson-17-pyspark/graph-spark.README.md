@@ -7,6 +7,8 @@
 
 ## study book - Graph Algorithms
     - /home/wengong/spark/databrick-cert/books/Graph-Algorithms/Neo4j_Graph_Algorithms_r3.pdf
+    - /home/wengong/projects/graph/graph-algo/Neo4j_Graph_Algorithms_r3.pdf
+    
 
     - [Source Code](https://resources.oreilly.com/examples/0636920233145)
 
@@ -23,6 +25,7 @@
     - [Spark SQL Guide](https://spark.apache.org/docs/latest/sql-programming-guide.html)
         - [Data Sources](https://spark.apache.org/docs/latest/sql-data-sources.html)
         - [Performance Tuning](https://spark.apache.org/docs/latest/sql-performance-tuning.html)
+        - [pyspark.sql module](https://spark.apache.org/docs/latest/api/python/pyspark.sql.html)
         - [SQL Reference](https://spark.apache.org/docs/latest/sql-ref.html)
     - [PySpark Guide](https://spark.apache.org/docs/latest/api/python/index.html)
 
