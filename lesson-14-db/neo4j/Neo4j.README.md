@@ -352,3 +352,15 @@ RETURN DISTINCT cust.contactName as CustomerName, SUM(o.quantity) AS TotalProduc
 ### [The Neo4j Cypher Manual v4.2](https://neo4j.com/docs/cypher-manual/4.2/)
 
 ### [LearningNeo4j](https://github.com/Wabri/LearningNeo4j)
+
+How to query Neo4j from Python
+https://towardsdatascience.com/neo4j-cypher-python-7a919a372be7
+
+APOC: An Introduction to User-Defined Procedures and APOC
+https://neo4j.com/blog/intro-user-defined-procedures-apoc/
+
+Neo4j Procedures
+http://neo4j.com/docs/developer-manual/current/#procedures
+https://github.com/neo4j-contrib/neo4j-apoc-procedures
+
+Cypher Fundamentals
