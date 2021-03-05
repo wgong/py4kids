@@ -42,6 +42,25 @@ Examples:	:play movie graph
             :play northwind graph
 
             :clear
+
+:dbs  # list all available databases
+:use system  # switch to a db
+:use neo4j
+
+:play movie
+
+CALL db.labels() YIELD label
+RETURN count(label) AS count;
+
+CALL db.labels() YIELD label
+RETURN label;
+
+Movie
+Person
+
+match (p:Movie) return p.title;
+
+
 ```
 
 :play intro
@@ -139,9 +158,6 @@ WHERE js.name = "Johan" AND surfer.hobby = "surfing"
 RETURN DISTINCT surfer
 ```
 
-:dbs  # list all available databases
-:use system  # switch to a db
-:use neo4j
 
 
 ### Movies Graph DB
@@ -150,7 +166,7 @@ RETURN DISTINCT surfer
 
 create database movies
 
-:source movies.cyp
+:source movies.cql
 
 // list  20 movies played by Tom Hanks with director
 
