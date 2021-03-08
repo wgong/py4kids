@@ -6,11 +6,60 @@
 ### Download - https://neo4j.com/download
 
 ### Install 
+
+#### Ubuntu
+- https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-neo4j-on-ubuntu-20-04
+
+```
+sudo apt update
+sudo apt install apt-transport-https ca-certificates curl software-properties-common
+curl -fsSL https://debian.neo4j.com/neotechnology.gpg.key | sudo apt-key add -
+sudo add-apt-repository "deb https://debian.neo4j.com stable 4.1"
+sudo apt install neo4j
+sudo systemctl enable|disable neo4j.service
+sudo systemctl status|start|stop neo4j.service
+
+which cypher-shell
+/usr/bin/cypher-shell
+
+cypher-shell
+cypher-shell -a 'neo4j://localhost:7687'
+
+Connected to Neo4j 4.1.0 at neo4j://localhost:7687 as user neo4j.
+
+neo4j browser: http://localhost:7474/browser/
+
+GraphQL server is running @ http://127.0.0.1:11001
+Relate management API is running @ http://127.0.0.1:12630
+
+
+:help
+
+Available commands:
+  :begin    Open a transaction
+  :commit   Commit the currently open transaction
+  :exit     Exit the logger
+  :help     Show this help message
+  :history  Print a list of the last commands executed
+  :param    Set the value of a query parameter
+  :params   Print all currently set query parameters and their values
+  :rollback Rollback the currently open transaction
+  :source   Interactively executes cypher statements from a file
+  :use      Set the active database
+
+
+:exit
+
+```
+
+#### AppImage
 $ chmod a+x ~/Downloads/neo4j-desktop-1.4.1-x86_64.AppImage
+$ mv ~/Downloads/neo4j-desktop-1.4.1-x86_64.AppImage ~/neo4j
+$ cd ~/new4j
+$ ./neo4j-desktop-1.4.1-x86_64.AppImage
+
 
 Install Guide - https://neo4j.com/download-thanks-desktop/?edition=desktop&flavour=unix&release=1.4.1&offline=true#installation-guide
-
-Create `graphalgo` db (pwd=graphalgo)
 
 [Explore New Worlds — Adding Plugins to Neo4j](https://medium.com/neo4j/explore-new-worlds-adding-plugins-to-neo4j-26e6a8e5d37e)
 
@@ -43,6 +92,8 @@ Examples:	:play movie graph
 
             :clear
 
+:play intro-neo4j-exercises
+
 :dbs  # list all available databases
 :use system  # switch to a db
 :use neo4j
@@ -59,6 +110,10 @@ Movie
 Person
 
 match (p:Movie) return p.title;
+
+
+CALL db.schema.visualization()   // to view schemaw
+
 
 
 ```
@@ -254,6 +309,17 @@ MATCH (tom:Person {name:"Tom Hanks"})-[:ACTED_IN]->(m)<-[:ACTED_IN]-(coActors),
 RETURN tom, m, coActors, m2, cruise;
 ```
 
+
+collect() aggregates values into a list:
+
+```
+MATCH (p:Person)-[:ACTED_IN]->(m:Movie)
+WHERE p.name = 'Tom Cruise'
+RETURN collect(m.title) AS `movies by Tom Cruise`
+
+```
+
+
 //Delete all Movie and Person nodes, and their relationships
 
 MATCH (n) DETACH DELETE n;
@@ -363,8 +429,37 @@ RETURN DISTINCT cust.contactName as CustomerName, SUM(o.quantity) AS TotalProduc
 
 ```
 
+### py2neo and jupyter notebook
+
+- https://link.medium.com/aVCya6Pgneb 
+- https://nicolewhite.github.io/neo4j-jupyter/hello-world.html
+- https://github.com/merqurio/neo4jupyter
+- https://community.neo4j.com/t/neo4j-graph-visualization-in-jupyterlab/24219
+
+- Py2neo V4:
+https://medium.com/neo4j/py2neo-v4-2bedc8afef2
+
+- Py2neo Handbook
+https://py2neo.org/2021.0/
+
+#### neo4j-jupyter
+installed at ~/projects/graph/graph-db/neo4j/neo4j-jupyter
+
+https://ipython-cypher.readthedocs.io/en/latest/introduction.html
+
+
+
+
+
 ### [Neo4j Cypher Refcard](https://neo4j.com/docs/cypher-refcard/4.2/)
 
 ### [The Neo4j Cypher Manual v4.2](https://neo4j.com/docs/cypher-manual/4.2/)
 
 ### [LearningNeo4j](https://github.com/Wabri/LearningNeo4j)
+
+https://github.com/elena/py2neo-quickstart
+https://community.neo4j.com/t/py2neo-tutorial-converting-movie-example/4458
+
+http://www.numericalexpert.com/blog/neo4j_python/
+
+https://nbviewer.jupyter.org/github/versae/ipython-cypher/blob/master/docs/examples.ipynb
