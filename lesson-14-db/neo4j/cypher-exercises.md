@@ -21,7 +21,7 @@ neo4j browser URL = http://localhost:7474
 - Functions should be written in lower camel case.
 
 
-### MATCH (READ/QUERY)
+### MATCH (Read/Query) - R
 
 //MATCH
 MATCH (m:Movie)
@@ -95,6 +95,7 @@ WHERE p.name = 'Meg Ryan'
 RETURN other.name, m.title
 ORDER BY other.name;
 
+// multiple match
 MATCH (p:Person)-[:ACTED_IN]->(m:Movie),
       (other:Person)-[:ACTED_IN]->(m),
       (director:Person)-[:DIRECTED]->(m)
@@ -115,6 +116,7 @@ WITH p, collect(m.title) AS movies
 WHERE size(movies) > 5
 RETURN p.name, movies;
 
+// WITH Clause
 MATCH (p:Person)-[:ACTED_IN]->(m:Movie)
 WITH p, m
 ORDER BY m.title
@@ -231,23 +233,8 @@ Weight
 ORDER BY Weight DESC
 LIMIT 3;
 
-### CONSTRAINT and INDEX
 
-
-:schema 
-
-// unique
-CREATE CONSTRAINT ON (p:Person) ASSERT p.name IS UNIQUE;
-
-// exists
-CREATE CONSTRAINT ON (p:Person) ASSERT exists(p.name);
-
-// INDEX
-CREATE INDEX ON :Person(born);
-CREATE INDEX ON :Movie(released);
-
-
-### WRITE - CREATE, MERGE
+### CREATE & MERGE (Write) - CU
 
 // CREATE (INSERT)
 CREATE (m:Movie {title:'Mystic River', released:2003})
@@ -301,7 +288,7 @@ MATCH (a:Person)-[:ACTED_IN]->()<-[:ACTED_IN]-(b:Person)
 MERGE (a)-[:KNOWS]->(b)
 MERGE (a)<-[:KNOWS]-(b);
 
-### DELETE
+### DELETE (D)
 
 MATCH (p:Person {name: 'Emil Eifrem'})
 DELETE p;
@@ -310,7 +297,7 @@ MATCH (p:Person {name: 'Emil Eifrem'})
 DETACH DELETE p;
 
 
-### Modeling
+### Modeling (M)
 
 // Labels are upper camel case.
 - CREATE(n:Person);
@@ -366,6 +353,22 @@ RETURN m1, m2, g;
 MATCH (m:Movie {title:"The Matrix"}),
       (m)-[:IN_GENRE]->(g:Genre)
 RETURN g.name;
+
+### CONSTRAINT and INDEX
+
+
+:schema 
+
+// unique
+CREATE CONSTRAINT ON (p:Person) ASSERT p.name IS UNIQUE;
+
+// exists
+CREATE CONSTRAINT ON (p:Person) ASSERT exists(p.name);
+
+// INDEX
+CREATE INDEX ON :Person(born);
+CREATE INDEX ON :Movie(released);
+
 
 ### Data Import
 

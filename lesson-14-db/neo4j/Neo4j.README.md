@@ -19,6 +19,9 @@ sudo apt install neo4j
 sudo systemctl enable|disable neo4j.service
 sudo systemctl status|start|stop neo4j.service
 
+cd ~/neo4j
+./neo4j-desktop-1.4.1-x86_64.AppImage &  # launch Desktop
+
 which cypher-shell
 /usr/bin/cypher-shell
 
@@ -457,23 +460,12 @@ https://ipython-cypher.readthedocs.io/en/latest/introduction.html
 
 ### [LearningNeo4j](https://github.com/Wabri/LearningNeo4j)
 
-<<<<<<< HEAD
 https://github.com/elena/py2neo-quickstart
 https://community.neo4j.com/t/py2neo-tutorial-converting-movie-example/4458
+
+https://community.neo4j.com/t/py2neo-tutorial-converting-movie-example/4458
+
 
 http://www.numericalexpert.com/blog/neo4j_python/
 
 https://nbviewer.jupyter.org/github/versae/ipython-cypher/blob/master/docs/examples.ipynb
-=======
-How to query Neo4j from Python
-https://towardsdatascience.com/neo4j-cypher-python-7a919a372be7
-
-APOC: An Introduction to User-Defined Procedures and APOC
-https://neo4j.com/blog/intro-user-defined-procedures-apoc/
-
-Neo4j Procedures
-http://neo4j.com/docs/developer-manual/current/#procedures
-https://github.com/neo4j-contrib/neo4j-apoc-procedures
-
-Cypher Fundamentals
->>>>>>> c19a111c9daa54a90d98b56e81b7ce27314dda5e
