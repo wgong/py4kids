@@ -250,7 +250,8 @@ RETURN p, r, m;
 
 // SET (UPDATE)
 MATCH (m:Movie {title: 'Mystic River'})
-SET m.tagline = 'We bury our sins here, Dave. We wash them clean.' RETURN m;
+SET m.tagline = 'We bury our sins here, Dave. We wash them clean.' 
+RETURN m;
 
 // MERGE
 MERGE (p:Person {name: 'Tom Hanks'})
@@ -288,13 +289,6 @@ MATCH (a:Person)-[:ACTED_IN]->()<-[:ACTED_IN]-(b:Person)
 MERGE (a)-[:KNOWS]->(b)
 MERGE (a)<-[:KNOWS]-(b);
 
-### DELETE (D)
-
-MATCH (p:Person {name: 'Emil Eifrem'})
-DELETE p;
-
-MATCH (p:Person {name: 'Emil Eifrem'})
-DETACH DELETE p;
 
 
 ### Modeling (M)
@@ -354,6 +348,15 @@ MATCH (m:Movie {title:"The Matrix"}),
       (m)-[:IN_GENRE]->(g:Genre)
 RETURN g.name;
 
+### DELETE (D)
+
+MATCH (p:Person {name: 'Emil Eifrem'})
+DELETE p;
+
+MATCH (p:Person {name: 'Emil Eifrem'})
+DETACH DELETE p;
+
+
 ### CONSTRAINT and INDEX
 
 
@@ -368,7 +371,6 @@ CREATE CONSTRAINT ON (p:Person) ASSERT exists(p.name);
 // INDEX
 CREATE INDEX ON :Person(born);
 CREATE INDEX ON :Movie(released);
-
 
 ### Data Import
 
