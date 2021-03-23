@@ -58,7 +58,7 @@ Available commands:
 #### AppImage
 $ chmod a+x ~/Downloads/neo4j-desktop-1.4.1-x86_64.AppImage
 $ mv ~/Downloads/neo4j-desktop-1.4.1-x86_64.AppImage ~/neo4j
-$ cd ~/new4j
+$ cd ~/neo4j
 $ ./neo4j-desktop-1.4.1-x86_64.AppImage
 
 
@@ -461,8 +461,6 @@ https://ipython-cypher.readthedocs.io/en/latest/introduction.html
 ### [LearningNeo4j](https://github.com/Wabri/LearningNeo4j)
 
 https://github.com/elena/py2neo-quickstart
-https://community.neo4j.com/t/py2neo-tutorial-converting-movie-example/4458
-
 https://community.neo4j.com/t/py2neo-tutorial-converting-movie-example/4458
 
 
