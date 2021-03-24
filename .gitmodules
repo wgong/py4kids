@@ -1,3 +1,9 @@
 [submodule "lesson-17-pandas/lesson-17-pandas/Pandas_Cookbook_Packt"]
 	path = lesson-17-pandas/lesson-17-pandas/Pandas_Cookbook_Packt
 	url = https://github.com/PacktPublishing/Pandas-Cookbook.git
+[submodule "lesson-10-test/pytest/mock3/lesson-10-test/pytest/mock3/pytest-mock-examples"]
+	path = lesson-10-test/pytest/mock3/lesson-10-test/pytest/mock3/pytest-mock-examples
+	url = https://github.com/changhsinlee/pytest-mock-examples.git
+[submodule "lesson-10-test/pytest/mock3/changhsinlee"]
+	path = lesson-10-test/pytest/mock3/changhsinlee
+	url = https://github.com/changhsinlee/pytest-mock-examples.git
