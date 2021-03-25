@@ -43,6 +43,10 @@ curl -X PUT -H "Content-Type: application/json"  'localhost:9200/tutorial/hellow
 }'
 
 
+### Tutorial
+
+#### pip install elasticsearch
+
 ### Docs
 
 [Elasticsearch API](https://www.elastic.co/guide/en/elasticsearch/reference/current/docs.html)
