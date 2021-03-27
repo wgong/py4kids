@@ -1,4 +1,4 @@
-cd ~/projects/graph/graph-algo/Graph-Algo-git/notebooks
+# cd ~/projects/graph/graph-algo/Graph-Algo-git/notebooks
 export PYSPARK_DRIVER_PYTHON=jupyter
 export PYSPARK_DRIVER_PYTHON_OPTS=notebook
 pyspark \
