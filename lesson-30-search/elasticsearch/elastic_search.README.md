@@ -50,3 +50,53 @@ curl -X PUT -H "Content-Type: application/json"  'localhost:9200/tutorial/hellow
 ### Docs
 
 [Elasticsearch API](https://www.elastic.co/guide/en/elasticsearch/reference/current/docs.html)
+
+
+#### Search multiple docs in one request
+
+```
+# create an index
+$ curl -X PUT -H "Content-Type: application/json"  'localhost:9200/test_index'
+
+$ curl -X PUT -H "Content-Type: application/json"  'localhost:9200/test_index/_mapping' -d '
+{
+  "properties": {
+    "code": {
+        "type": "string"
+    }
+  }
+}
+'
+
+$ curl -X PUT -H "Content-Type: application/json"  'localhost:9200/test_index/_mapping' -d '
+{
+  "properties": {
+    "date_of_birth": {
+      "type": "date",
+      "format": "dd/MM/yyyy"
+    }
+  }
+}
+'
+
+$ curl -X POST -H "Content-Type: application/json"  'localhost:9200/test_index/_bulk' -d '
+{"index":{"_index":"test_index","_type":"doc","_id":1}}
+{"code":"0Qr7EjzE943Q"}
+{"index":{"_index":"test_index","_type":"doc","_id":2}}
+{"code":"GsPVbMMbVr4s"}
+'
+
+$ curl -X POST -H "Content-Type: application/json"  'localhost:9200/test_index/_search' -d '
+{
+    "query": {
+        "terms": {
+           "code": [
+              "0Qr7EjzE943Q",
+              "GsPVbMMbVr4s"
+           ]
+        }
+    }
+}
+'
+
+```
