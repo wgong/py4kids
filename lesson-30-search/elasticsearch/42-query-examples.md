@@ -44,6 +44,11 @@ $ curl -X POST 'localhost:9200/employees/_bulk' -H "Content-Type: application/js
 {"id" : 4,"name" : "Alan Thomas","email" : "athomas2@example.com","gender" : "male","ip_address" : "200.47.210.95","date_of_birth" : "11/12/1985","company" : "Yamaha","position" : "Resources Manager","experience" : 12,"country" : "China","phrase" : "Emulation of roots heuristic coherent systems","salary" : 300000}
 '
 
+# bulk load json file - https://stackoverflow.com/questions/23798433/json-bulk-import-to-elasticstearch
+
+$ curl -X POST -H "Content-Type: application/json"  'localhost:9200/employees/_bulk' --data-binary @employees_docs.json 
+
+
 $ curl -X GET 'localhost:9200/employees/_count'
 
 $ curl -X GET 'localhost:9200/employees/_doc/1?pretty'
