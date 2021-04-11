@@ -37,6 +37,9 @@
     - see /home/wengong/spark/databrick-cert
 
     - [5 Tips for Cracking Databricks Apache Spark Certification](https://www.linkedin.com/pulse/5-tips-cracking-databricks-apache-spark-certification-vivek-bombatkar/)
+        - Focus on Spark architecture and dataframe APIs (70% of exam syllabus)
+        - Write spark code
+        - Try to schedule second attempt in a week, if you failed in first attempt.
 
     - [10 recommendations after getting the Databricks Certification for Apache Spark](https://towardsdatascience.com/my-10-recommendations-after-getting-the-databricks-certification-for-apache-spark-53cd3690073)
 
