@@ -20,6 +20,9 @@
 
 # PySpark
 
+## Learning PySpark
+    - git@github.com:wgong/LearningApacheSpark.git
+
 ## Learn Spark Graph-API to process big data
 
     - [Spark SQL Guide](https://spark.apache.org/docs/latest/sql-programming-guide.html)
@@ -42,6 +45,7 @@
         - Try to schedule second attempt in a week, if you failed in first attempt.
 
     - [10 recommendations after getting the Databricks Certification for Apache Spark](https://towardsdatascience.com/my-10-recommendations-after-getting-the-databricks-certification-for-apache-spark-53cd3690073)
+        - Practice ‘executing’ code with Spark Dataframes and SQL on your head
 
     - [Crack Databricks Certified Associate Developer for Apache Spark 3.0](https://medium.com/@sriramn84_34423/crack-databricks-certified-associate-developer-for-apache-spark-3-0-cf4cb89df61d)
 
