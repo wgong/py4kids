@@ -1,0 +1,68 @@
+---
+# the name is used as the Application Name in Spark/YARN
+name: multi_stage_sql_test
+jobs:
+- name: get_data
+  sources:
+  # a reference to each source element is loaded in sequence the a temporary view
+  - table: tickit.users
+    view: vw_users
+    # you can limit the columns to be projected in the source view here
+    columns:
+    - userid
+    - username
+    - firstname
+    - lastname
+    - city
+    # you can filter rows to be included in the source view here using WHERE conditions
+    filters:
+    - "city = 'San Diego'"
+  - table: tickit.date
+    view: vw_dates
+    columns:
+    - dateid
+    - year
+    filters:
+    - "year = 2008"
+  # alternatively you can project all columns and include all rows
+  - table: tickit.sales
+    view: vw_sales
+  transforms:
+  # transforms contain a list of sql statements to be processed in sequence
+  - sql: >-
+        CREATE TEMPORARY VIEW vw_sales_dates AS
+        SELECT s.sellerid, s.qtysold FROM vw_sales s
+        INNER JOIN vw_dates d
+        ON s.dateid = d.dateid
+  # each SQL transform creates a temporary view by referencing views created by previous statements
+  - sql: >-
+        CREATE TEMPORARY VIEW vw_sales_users AS
+        SELECT s.sellerid, u.username,
+        (u.firstname ||' '|| u.lastname) AS name,
+        u.city, s.qtysold
+        FROM vw_sales_dates s
+        INNER JOIN vw_users u
+        ON s.sellerid = u.userid
+  # the final transform element should create the final object which you intend to publish
+  - sql: >-
+        CREATE TEMPORARY VIEW vw_final AS
+        SELECT sellerid, username, name, city,
+        SUM(qtysold) as total_sales
+        FROM vw_sales_users
+        GROUP BY sellerid, username, name, city
+  targets:
+  # the final view is used to create a DataFrame which is then written out to the target_location
+    final_object: vw_final
+    target_location: s3://<yourbucket>/sales_by_users
+# add a second processing step, for example to de-dupe the results from the first query
+- name: remove_dups
+  sources:
+  - object: "s3://<yourbucket>/sales_by_users"
+    view: vw_sales
+  transforms:
+  - sql: >-
+        CREATE OR REPLACE TEMPORARY VIEW vw_final AS
+        SELECT DISTINCT * FROM vw_sales
+  targets:
+   final_object: vw_final
+   target_location: "s3://<yourbucket>/sales_by_users_deduped"
