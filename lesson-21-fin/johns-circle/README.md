@@ -1,4 +1,5 @@
 https://wealthbucket.clickfunnels.com/membership-area26075457
+https://wealthbucket.clickfunnels.com/new-trading-course-2021?cf_uvid=b6f487ead551109c2a84574f5b4d8ad9
 
 ### What is it about - 10,000 Foot View
 
