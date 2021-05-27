@@ -20,3 +20,7 @@
 **/config-*.py
 **/db_params.ipynb
 **/database.ini
+lesson-17-pyspark/databrick/csv/
+lesson-17-pyspark/databrick/emp_dept1/
+lesson-17-pyspark/databrick/emp_dept2/
+lesson-17-pyspark/databrick/txt_csv/
