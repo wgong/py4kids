@@ -1,3 +1,6 @@
+see /home/wengong/spark/databrick-cert
+
+
 2021 Goal - Learn Graph and Spark
 
 # Graph 
@@ -21,6 +24,7 @@
 # PySpark
 
 ## Learning PySpark
+    - https://github.com/runawayhorse001/LearningApacheSpark
     - git@github.com:wgong/LearningApacheSpark.git
 
 ## Learn Spark Graph-API to process big data
@@ -32,12 +36,11 @@
         - [SQL Reference](https://spark.apache.org/docs/latest/sql-ref.html)
     - [PySpark Guide](https://spark.apache.org/docs/latest/api/python/index.html)
 
-### Create a PySpark Cheat Sheet Notebook
-    - ~/projects/py4kids/lesson-17-pyspark/databrick/pyspark-cheat-sheet.ipynb
-
-
 ## Get certified as Databrick Spark Developer
-    - see /home/wengong/spark/databrick-cert
+
+    - Spark Certification Study Guide
+        - [Part 1 (Core)](https://www.rakirahman.me/spark-certification-study-guide-part-1)
+        - [Part 2 (Application)](https://www.rakirahman.me/spark-certification-study-guide-part-2)
 
     - [5 Tips for Cracking Databricks Apache Spark Certification](https://www.linkedin.com/pulse/5-tips-cracking-databricks-apache-spark-certification-vivek-bombatkar/)
         - Focus on Spark architecture and dataframe APIs (70% of exam syllabus)
