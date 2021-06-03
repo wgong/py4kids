@@ -12,8 +12,8 @@
 
 - http://zetcode.com/python/pytest/
 
+- [pytest-tut by Nikhil Kumar Singh](https://github.com/wgong/pytest-tut)
 
-Mock an item where it is used, not where it came from.
 
 
 ```
