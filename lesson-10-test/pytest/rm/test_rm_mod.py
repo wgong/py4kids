@@ -9,19 +9,15 @@ from rm_mod import rm
 
 @patch("rm_mod.os.path")
 @patch("rm_mod.os")
-def test_rm(mock_path, mock_os):
+def test_rm(mock_os, mock_os_path):
     dummy_file = "dummy.txt"
 
-    mock_path.isfile.return_value = False
-
+    mock_os_path.isfile.return_value = False
     # remove the file
     rm(dummy_file)
-
     assert not mock_os.remove.called
 
-    mock_path.isfile.return_value = True
-
+    mock_os_path.isfile.return_value = True
     # remove the file
     rm(dummy_file)
-
     assert mock_os.remove.called_with(dummy_file)
