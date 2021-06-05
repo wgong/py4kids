@@ -69,6 +69,13 @@ see /home/wengong/spark/databrick-cert
 
     - /home/wengong/spark/databrick-cert/books/Learning-Spark-v2/LearningSpark2.0.pdf
 
+### Spark Sample Apps
+    - [Reference Apps by DataBricks](https://github.com/databricks/reference-apps)
+    - [RealTime Streaming example](https://github.com/RichardAfolabi/Realtime-Data-Analytics-Using-Spark)
+    - [ETL example](https://github.com/AlexIoannides/pyspark-example-project)
+    - [Collection of Spark projects](https://awesomeopensource.com/projects/pyspark)
+    - [Spark-NLP](https://awesomeopensource.com/project/JohnSnowLabs/spark-nlp)
+
 # GraphDB
 
 ## Evaluate/use Graph-DB such as neo4j
