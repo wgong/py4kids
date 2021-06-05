@@ -75,6 +75,7 @@ see /home/wengong/spark/databrick-cert
     - [ETL example](https://github.com/AlexIoannides/pyspark-example-project)
     - [Collection of Spark projects](https://awesomeopensource.com/projects/pyspark)
     - [Spark-NLP](https://awesomeopensource.com/project/JohnSnowLabs/spark-nlp)
+    - [PySpark Log Analysis](https://www.r-bloggers.com/2019/05/big-data-4-webserver-log-analysis-with-rdds-pyspark-sparkr-and-sparklyr/)
 
 # GraphDB
 
