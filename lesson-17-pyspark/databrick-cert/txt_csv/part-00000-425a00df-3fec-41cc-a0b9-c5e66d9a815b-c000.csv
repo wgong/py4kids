@@ -1,0 +1,83 @@
+text	line_id
+2021 Goal - Learn Graph and Spark	0
+""	1
+"# Graph"	2
+""	3
+"## Graph Theory YouTube by William Fiset"	4
+- see folder Graph-Algorithms	5
+""	6
+"## study book - Graph Algorithms"	7
+- /home/wengong/spark/databrick-cert/books/Graph-Algorithms/Neo4j_Graph_Algorithms_r3.pdf	8
+- /home/wengong/projects/graph/graph-algo/Neo4j_Graph_Algorithms_r3.pdf	9
+""	10
+""	11
+- [Source Code](https://resources.oreilly.com/examples/0636920233145)	12
+""	13
+- my working folder:	14
+- ~/projects/py4kids/lesson-17-pyspark/graph	15
+""	16
+- [GraphFrames in Jupyter: a practical guide](https://towardsdatascience.com/graphframes-in-jupyter-a-practical-guide-9b3b346cebc5)	17
+""	18
+""	19
+"# PySpark"	20
+""	21
+"## Learning PySpark"	22
+- git@github.com:wgong/LearningApacheSpark.git	23
+""	24
+"## Learn Spark Graph-API to process big data"	25
+""	26
+- [Spark SQL Guide](https://spark.apache.org/docs/latest/sql-programming-guide.html)	27
+- [Data Sources](https://spark.apache.org/docs/latest/sql-data-sources.html)	28
+- [Performance Tuning](https://spark.apache.org/docs/latest/sql-performance-tuning.html)	29
+- [pyspark.sql module](https://spark.apache.org/docs/latest/api/python/pyspark.sql.html)	30
+- [SQL Reference](https://spark.apache.org/docs/latest/sql-ref.html)	31
+- [PySpark Guide](https://spark.apache.org/docs/latest/api/python/index.html)	32
+""	33
+"### Create a PySpark Cheat Sheet Notebook"	34
+- ~/projects/py4kids/lesson-17-pyspark/databrick/pyspark-cheat-sheet.ipynb	35
+""	36
+""	37
+"## Get certified as Databrick Spark Developer"	38
+- see /home/wengong/spark/databrick-cert	39
+""	40
+- [5 Tips for Cracking Databricks Apache Spark Certification](https://www.linkedin.com/pulse/5-tips-cracking-databricks-apache-spark-certification-vivek-bombatkar/)	41
+- Focus on Spark architecture and dataframe APIs (70% of exam syllabus)	42
+- Write spark code	43
+- Try to schedule second attempt in a week, if you failed in first attempt.	44
+""	45
+- [10 recommendations after getting the Databricks Certification for Apache Spark](https://towardsdatascience.com/my-10-recommendations-after-getting-the-databricks-certification-for-apache-spark-53cd3690073)	46
+- Practice ‘executing’ code with Spark Dataframes and SQL on your head	47
+""	48
+- [Crack Databricks Certified Associate Developer for Apache Spark 3.0](https://medium.com/@sriramn84_34423/crack-databricks-certified-associate-developer-for-apache-spark-3-0-cf4cb89df61d)	49
+""	50
+- [Passing the DataBricks Apache Spark Certification](https://fares.codes/posts/passing-the-databricks-apache-spark-certification/)	51
+- [sample questions](https://databricks-prod-cloudfront.cloud.databricks.com/public/793177bc53e528530b06c78a4fa0e086/0/6221173/100020/latest.html)	52
+""	53
+- [Tips on cracking the Databricks Spark Developer certification](https://medium.com/@22.gautam/tips-on-cracking-the-databricks-spark-developer-certification-ba40672a4a2)	54
+""	55
+""	56
+- [How To Get Certified in Spark by Databricks](https://www.sicara.ai/blog/2019-10-07-how-to-get-certified-in-spark-by-databricks)	57
+""	58
+"### Spark - the Definitive Guide"	59
+""	60
+- /home/wengong/projects/py4kids/lesson-17-pyspark/spark-guide	61
+- https://github.com/wgong/py4kids/tree/master/lesson-17-pyspark/spark-guide	62
+""	63
+"### Learning Spark"	64
+""	65
+- /home/wengong/spark/databrick-cert/books/Learning-Spark-v2/LearningSpark2.0.pdf	66
+""	67
+"# GraphDB"	68
+""	69
+"## Evaluate/use Graph-DB such as neo4j"	70
+""	71
+""	72
+"## AWS Neptune"	73
+""	74
+""	75
+"# GraphQL"	76
+""	77
+"## Learn GraphQL - how to develop App"	78
+- /home/wengong/projects/graph/graphql/Learn-GraphQL	79
+""	80
+""	81
