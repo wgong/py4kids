@@ -70,11 +70,15 @@ see /home/wengong/spark/databrick-cert
     - /home/wengong/spark/databrick-cert/books/Learning-Spark-v2/LearningSpark2.0.pdf
 
 ### Spark Sample Apps
+    - [ETL example](https://github.com/AlexIoannides/pyspark-example-project)
+        - ~/spark/apps/pyspark-example-project
+
+    - [PySpark Log Analysis](https://www.r-bloggers.com/2019/05/big-data-4-webserver-log-analysis-with-rdds-pyspark-sparkr-and-sparklyr/)
+        - ~/spark/apps/WebServerLogsAnalysis/logsAnalysiswithPyspark.ipynb
+
     - [Reference Apps by DataBricks](https://github.com/databricks/reference-apps)
 
     - [RealTime Streaming example](https://github.com/RichardAfolabi/Realtime-Data-Analytics-Using-Spark)
-
-    - [ETL example](https://github.com/AlexIoannides/pyspark-example-project)
 
     - [Collection of Spark projects](https://awesomeopensource.com/projects/pyspark)
 
@@ -82,7 +86,6 @@ see /home/wengong/spark/databrick-cert
         - [github](https://github.com/JohnSnowLabs/spark-nlp)
         - [John Snow Lab](http://nlp.johnsnowlabs.com/)
         - [spark-nlp-workshop](https://github.com/JohnSnowLabs/spark-nlp-workshop)
-    - [PySpark Log Analysis](https://www.r-bloggers.com/2019/05/big-data-4-webserver-log-analysis-with-rdds-pyspark-sparkr-and-sparklyr/)
 
 # GraphDB
 
