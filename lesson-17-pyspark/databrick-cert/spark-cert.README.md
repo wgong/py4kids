@@ -1,14 +1,8 @@
-see /home/wengong/spark/databrick-cert
+Learn Spark, Graph, GraphQL
 
+# Graph
 
-2021 Goal - Learn Graph and Spark
-
-# Graph 
-
-## Graph Theory YouTube by William Fiset
-    - see folder Graph-Algorithms
-
-## study book - Graph Algorithms
+## Graph Algorithms
     - /home/wengong/spark/databrick-cert/books/Graph-Algorithms/Neo4j_Graph_Algorithms_r3.pdf
     - /home/wengong/projects/graph/graph-algo/Neo4j_Graph_Algorithms_r3.pdf
     
@@ -21,11 +15,43 @@ see /home/wengong/spark/databrick-cert
     - [GraphFrames in Jupyter: a practical guide](https://towardsdatascience.com/graphframes-in-jupyter-a-practical-guide-9b3b346cebc5)
 
 
-# PySpark
+## Graph Theory YouTube by William Fiset
+    - see folder Graph-Algorithms
+
+
+## Graph-DB
+
+### Neo4j
+
+    - ~/projects/py4kids/lesson-14-db/neo4j
+
+    - ~/projects/graph/graph-db/neo4j/pluralsight-intro-graph
+
+
+### AWS Neptune
+
+# GraphQL
+
+## Learn GraphQL
+
+    - ~/projects/graph/graphql/Pluralsight-GraphQL-Big-Picture
+
+    - ~/projects/graph/graphql/Learn-GraphQL
+
+## develop App 
+
+
+# Apache Spark
+
+## Spark - the Definitive Guide
+
+    - /home/wengong/projects/py4kids/lesson-17-pyspark/spark-guide
+    - https://github.com/wgong/py4kids/tree/master/lesson-17-pyspark/spark-guide
 
 ## Learning PySpark
     - https://github.com/runawayhorse001/LearningApacheSpark
     - git@github.com:wgong/LearningApacheSpark.git
+    - /home/wengong/spark/databrick-cert/books/Learning-Spark-v2/LearningSpark2.0.pdf
 
 ## Learn Spark Graph-API to process big data
 
@@ -37,6 +63,9 @@ see /home/wengong/spark/databrick-cert
     - [PySpark Guide](https://spark.apache.org/docs/latest/api/python/index.html)
 
 ## Get certified as Databrick Spark Developer
+
+    - ~/projects/py4kids/lesson-17-pyspark/databrick-cert
+        - ~/spark/databrick-cert
 
     - Spark Certification Study Guide
         - [Part 1 (Core)](https://www.rakirahman.me/spark-certification-study-guide-part-1)
@@ -60,16 +89,12 @@ see /home/wengong/spark/databrick-cert
 
     - [How To Get Certified in Spark by Databricks](https://www.sicara.ai/blog/2019-10-07-how-to-get-certified-in-spark-by-databricks)
 
-### Spark - the Definitive Guide
+    - passed the test on 2021-06-11 
 
-    - /home/wengong/projects/py4kids/lesson-17-pyspark/spark-guide
-    - https://github.com/wgong/py4kids/tree/master/lesson-17-pyspark/spark-guide
+## Spark Sample Apps
 
-### Learning Spark
+    - ~/spark/apps
 
-    - /home/wengong/spark/databrick-cert/books/Learning-Spark-v2/LearningSpark2.0.pdf
-
-### Spark Sample Apps
     - [ETL example](https://github.com/AlexIoannides/pyspark-example-project)
         - ~/spark/apps/pyspark-example-project
 
@@ -86,18 +111,5 @@ see /home/wengong/spark/databrick-cert
         - [github](https://github.com/JohnSnowLabs/spark-nlp)
         - [John Snow Lab](http://nlp.johnsnowlabs.com/)
         - [spark-nlp-workshop](https://github.com/JohnSnowLabs/spark-nlp-workshop)
-
-# GraphDB
-
-## Evaluate/use Graph-DB such as neo4j
-
-
-## AWS Neptune
-
-
-# GraphQL
-
-## Learn GraphQL - how to develop App 
-    - /home/wengong/projects/graph/graphql/Learn-GraphQL
 
 
