@@ -160,7 +160,7 @@ Both Node and Rel can have properties
 | RETURN   | SELECT  |
 | MATCH                  | FROM, JOIN  |
 | WHERE    | WHERE  |
-| SET    | UPDATE  |
+| SET      | UPDATE  |
 | MERGE    | INSERT, UPDATE  |
 | DELETE, DETACH DELETE |  DELETE  |
 
@@ -474,13 +474,13 @@ https://ipython-cypher.readthedocs.io/en/latest/introduction.html
 - Training:
   - Intro to Graph Databases series: https://www.youtube.com/playlist?
 list=PL9Hl4pk2FsvWM9GWaguRhlCQ-pa-ERd4U
-  - Get started : https://neo4j.com/graphacademy/online-training/gettingstarted-graph-databases-using-neo4j/
+  - [Get started with Neo4j: ](https://neo4j.com/graphacademy/training-overview-40/01-overview40-neo4j-graph-database/)
   - [LearningNeo4j](https://github.com/Wabri/LearningNeo4j)
 
 - Become Neo4j Certified: 
-  - https://neo4j.com/graphconnect-2018/session/pass-like-pro-neo4j-certified-professional-exam 
-  - https://data-xtractor.com/blog/databases/neo4j-certified-professionals/
-  - https://medium.com/neo4j/neo4j-certification-how-to-pass-like-a-proeed6daa7c6f7  (by jennifer.reif@neo4j.com , @JMHReif)
+  - [Become a Neo4j Certified Professional (for FREE!)](https://data-xtractor.com/blog/databases/neo4j-certified-professionals/)
+  - [Neo4j Certification — Pass Like a Pro, by jennifer.reif@neo4j.com , @JMHReif](https://medium.com/neo4j/neo4j-certification-how-to-pass-like-a-pro-eed6daa7c6f7)
+    - https://neo4j.com/graphconnect-2018/session/pass-like-pro-neo4j-certified-professional-exam 
 
 
 
