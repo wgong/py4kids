@@ -467,3 +467,13 @@ https://community.neo4j.com/t/py2neo-tutorial-converting-movie-example/4458
 http://www.numericalexpert.com/blog/neo4j_python/
 
 https://nbviewer.jupyter.org/github/versae/ipython-cypher/blob/master/docs/examples.ipynb
+
+#### Become Neo4j Certified
+
+- https://neo4j.com/graphconnect-2018/session/pass-like-pro-neo4j-certified-professional-exam 
+
+- https://data-xtractor.com/blog/databases/neo4j-certified-professionals/
+
+# RedisGraph
+
+https://docs.redis.com/latest/modules/redisgraph/redisgraph-quickstart/
