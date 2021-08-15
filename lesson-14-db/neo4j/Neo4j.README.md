@@ -133,11 +133,12 @@ ctrl-enter to run a query
 ### :play concept
 A graph database can store any kind of data using a few simple concepts:
 
-* Nodes - graph data records
-* Relationships - connect nodes
-* Properties - named data values
+* Nodes - graph data records      :annotated by ()
+* Relationships - connect nodes   :annotated by []
+* Properties - named data values  :annotated by {}
 
-Nodes can be grouped together by applying a Label to each member. In our social graph, we'll label each node that represents a Person.  (Label is like Node-type)
+Nodes can be grouped together by applying a Label to each member. 
+In our social graph, we'll label each node that represents a Person.  (Label is like Node-type)
 
 A node can have zero or more labels
 Labels do not have any properties
@@ -153,7 +154,15 @@ Both Node and Rel can have properties
 ### Cypher Fundamentals
 :play cypher
 
-
+|  CYPHER  |  SQL  |
+| ---------------------- | ----------- |
+| CREATE   | INSERT  |
+| RETURN   | SELECT  |
+| MATCH                  | FROM, JOIN  |
+| WHERE    | WHERE  |
+| SET    | UPDATE  |
+| MERGE    | INSERT, UPDATE  |
+| DELETE, DETACH DELETE |  DELETE  |
 
 Neo4j's Cypher language is purpose built for working with graph data.  
 Like SQL in RDBMS, Cypher is declarative, describing what to find, not how to find it; 
@@ -163,8 +172,8 @@ CREATE (ee:Person { name: "Emil", from: "Sweden", klout: 99 })
 ```
 CREATE clause to create data
 () parenthesis to indicate a node
-ee:Person a variable 'ee' and label 'Person' for the new node
-brackets to add properties to the node
+ee:Person : variable 'ee' and label 'Person' for the new node
+curly brackets to add properties to the node
 
 ```
 MATCH (ee:Person) WHERE ee.name = "Emil" RETURN ee;
