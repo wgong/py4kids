@@ -11,9 +11,9 @@ neo4j browser URL = http://localhost:7474
 
 ### [Cypher Styles](https://github.com/opencypher/openCypher/blob/master/docs/style-guide.adoc)
 - Case Sensitive
-    - Node labels
+    - Node labels (entity types)
     - Relationship types
-    - Property keys
+    - Property keys (attributes)
 - Case Insensitive
     - Cypher keywords
     
@@ -21,9 +21,9 @@ neo4j browser URL = http://localhost:7474
 - Functions should be written in lower camel case.
 
 
-### MATCH (Read/Query) - R
+### MATCH (Read/Query) - (R)
 
-//MATCH
+// query
 MATCH (m:Movie)
 RETURN m;
 
@@ -34,7 +34,7 @@ RETURN p, r, m;
 MATCH p = (:Person)-[:ACTED_IN]->(:Movie)
 RETURN p;
 
-//WHERE
+// filter
 MATCH (p:Person)
 WHERE p.name = 'Tom Hanks'
 RETURN p;
@@ -66,7 +66,7 @@ RETURN p, m;
 // multiple Rel types
 MATCH (p:Person)-[r:ACTED_IN|:DIRECTED]->(m:Movie)
 WHERE p.name = 'Danny DeVito'
-RETURN p.name, type(r), m.title;
+RETURN p.name, r, type(r), m.title;
 
 
 MATCH (m:Movie)
@@ -88,7 +88,7 @@ RETURN p.name, count(*) AS movies
 ORDER BY movies DESC
 LIMIT 5;
 
-// multiple match
+// multiple match - co-actors with Meg Ryan
 MATCH (p:Person)-[:ACTED_IN]->(m:Movie),
       (other:Person)-[:ACTED_IN]->(m)
 WHERE p.name = 'Meg Ryan'
@@ -144,18 +144,19 @@ MATCH (p:Person)-[:ACTED_IN]->(m:Movie),
 WHERE p.name = 'Meg Ryan'
 RETURN DISTINCT other.name;
 
-// collect to array
+// collect to array - movie title and actor list
 MATCH (p:Person)-[:ACTED_IN]->(m:Movie)
 WHERE m.title STARTS WITH 'The Matrix'
 RETURN m.title, collect(p.name) AS actors;
 
-// size
+// size - top 5 producers
 MATCH (p:Person)
 RETURN p.name, 
        size((p)-[:PRODUCED]->(:Movie)) AS prod
 ORDER BY prod DESC
 LIMIT 5;
 
+// person produced more than 5 titles
 MATCH (p:Person)
 WHERE size((p)-[:PRODUCED]->(:Movie)) > 5
 RETURN p.name;
@@ -204,7 +205,7 @@ RETURN [x IN nodes(p) |
   ELSE '' END
 ];
 
-// shortest path
+// shortest path between 2 actors
 MATCH p = shortestPath((p1:Person)-[*]-(p2:Person))
 WHERE p1.name = 'Tom Cruise' AND      
       p2.name = 'Kevin Bacon'
@@ -234,7 +235,7 @@ ORDER BY Weight DESC
 LIMIT 3;
 
 
-### CREATE & MERGE (Write) - CU
+### CREATE & MERGE/Update (Write) - (C) (U)
 
 // CREATE (INSERT)
 CREATE (m:Movie {title:'Mystic River', released:2003})

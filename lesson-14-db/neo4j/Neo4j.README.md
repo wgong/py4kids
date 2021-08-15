@@ -114,9 +114,9 @@ Person
 
 match (p:Movie) return p.title;
 
-
-CALL db.schema.visualization()   // to view schemaw
-
+CALL db.schema()
+CALL db.schema.visualization()   // to view schema
+CALL dbms.procedures()   // to view functions
 
 
 ```
@@ -432,18 +432,20 @@ RETURN DISTINCT cust.contactName as CustomerName, SUM(o.quantity) AS TotalProduc
 
 ```
 
-### py2neo and jupyter notebook
+### Python
 
-- https://link.medium.com/aVCya6Pgneb 
+#### py2neo and jupyter notebook
+
+- https://github.com/elena/py2neo-quickstart
+- https://community.neo4j.com/t/py2neo-tutorial-converting-movie-example/4458
+- http://www.numericalexpert.com/blog/neo4j_python/
+- https://nbviewer.jupyter.org/github/versae/ipython-cypher/blob/master/docs/examples.ipynb
+- https://link.medium.com/aVCya6Pgneb
 - https://nicolewhite.github.io/neo4j-jupyter/hello-world.html
 - https://github.com/merqurio/neo4jupyter
 - https://community.neo4j.com/t/neo4j-graph-visualization-in-jupyterlab/24219
-
-- Py2neo V4:
-https://medium.com/neo4j/py2neo-v4-2bedc8afef2
-
-- Py2neo Handbook
-https://py2neo.org/2021.0/
+- Py2neo V4: https://medium.com/neo4j/py2neo-v4-2bedc8afef2
+- Py2neo Handbook: https://py2neo.org/2021.0/
 
 #### neo4j-jupyter
 installed at ~/projects/graph/graph-db/neo4j/neo4j-jupyter
@@ -451,28 +453,27 @@ installed at ~/projects/graph/graph-db/neo4j/neo4j-jupyter
 https://ipython-cypher.readthedocs.io/en/latest/introduction.html
 
 
+### Learning Resources
+
+- Documentations:
+  - [Developer guides](https://neo4j.com/developer/get-started/)
+  - [Developer Manual](https://neo4j.com/docs/developer-manual/current/)
+  - [Operations Manual](https://neo4j.com/docs/operations-manual/current/)
+  - [Neo4j Cypher Refcard](https://neo4j.com/docs/cypher-refcard/4.2/)
+  - [The Neo4j Cypher Manual v4.2](https://neo4j.com/docs/cypher-manual/4.2/)
+
+- Training:
+  - Intro to Graph Databases series: https://www.youtube.com/playlist?
+list=PL9Hl4pk2FsvWM9GWaguRhlCQ-pa-ERd4U
+  - Get started : https://neo4j.com/graphacademy/online-training/gettingstarted-graph-databases-using-neo4j/
+  - [LearningNeo4j](https://github.com/Wabri/LearningNeo4j)
+
+- Become Neo4j Certified: 
+  - https://neo4j.com/graphconnect-2018/session/pass-like-pro-neo4j-certified-professional-exam 
+  - https://data-xtractor.com/blog/databases/neo4j-certified-professionals/
+  - https://medium.com/neo4j/neo4j-certification-how-to-pass-like-a-proeed6daa7c6f7  (by jennifer.reif@neo4j.com , @JMHReif)
 
 
-
-### [Neo4j Cypher Refcard](https://neo4j.com/docs/cypher-refcard/4.2/)
-
-### [The Neo4j Cypher Manual v4.2](https://neo4j.com/docs/cypher-manual/4.2/)
-
-### [LearningNeo4j](https://github.com/Wabri/LearningNeo4j)
-
-https://github.com/elena/py2neo-quickstart
-https://community.neo4j.com/t/py2neo-tutorial-converting-movie-example/4458
-
-
-http://www.numericalexpert.com/blog/neo4j_python/
-
-https://nbviewer.jupyter.org/github/versae/ipython-cypher/blob/master/docs/examples.ipynb
-
-#### Become Neo4j Certified
-
-- https://neo4j.com/graphconnect-2018/session/pass-like-pro-neo4j-certified-professional-exam 
-
-- https://data-xtractor.com/blog/databases/neo4j-certified-professionals/
 
 # RedisGraph
 
