@@ -90,7 +90,7 @@ Guides:	    :play intro
             :play start
             :play concepts 
             :play cypher
-Examples:	:play movie graph 
+Examples:	  :play movie graph 
             :play northwind graph
 
             :clear
@@ -101,21 +101,23 @@ Examples:	:play movie graph
 :use system  # switch to a db
 :use neo4j
 
-:play movie
+:play movie  // walk-thru tour
 
-CALL db.labels() YIELD label
-RETURN count(label) AS count;
+CALL db.schema.visualization()   // to visualize schema
 
-CALL db.labels() YIELD label
-RETURN label;
+CALL db.labels();
 
 Movie
 Person
 
-match (p:Movie) return p.title;
 
+CALL db.labels() YIELD label
+RETURN label;
 
-CALL db.schema.visualization()   // to view schemaw
+MATCH (m:Movie) RETURN m.title;
+
+CALL db.labels() YIELD label
+RETURN count(label) AS count;
 
 
 
@@ -175,9 +177,12 @@ WHERE clause to constrain the results
 ee.name = "Emil" compares name property to the value "Emil"
 RETURN clause used to request particular results
 
+
+Create relationships for `Emil`, persons he knows
 ```
 MATCH (ee:Person) WHERE ee.name = "Emil"
-CREATE (js:Person { name: "Johan", from: "Sweden", learn: "surfing" }),
+CREATE 
+(js:Person { name: "Johan", from: "Sweden", learn: "surfing" }),
 (ir:Person { name: "Ian", from: "England", title: "author" }),
 (rvb:Person { name: "Rik", from: "Belgium", pet: "Orval" }),
 (ally:Person { name: "Allison", from: "California", hobby: "surfing" }),
@@ -187,12 +192,14 @@ CREATE (js:Person { name: "Johan", from: "Sweden", learn: "surfing" }),
 (js)-[:KNOWS]->(rvb),
 (ir)-[:KNOWS]->(js),
 (ir)-[:KNOWS]->(ally),
-(rvb)-[:KNOWS]->(ally)
+(rvb)-[:KNOWS]->(ally);
 ```
+Added 4 labels, created 4 nodes, set 14 properties, created 7 relationships, completed after 33 ms.
 
 ```
 MATCH (ee:Person)-[:KNOWS]-(friends)
-WHERE ee.name = "Emil" RETURN ee, friends
+WHERE ee.name = "Emil" 
+RETURN ee, friends;
 ```
 MATCHclause to describe the pattern from known Nodes to found Nodes
 (ee)starts the pattern with a Person (qualified by WHERE)
@@ -203,18 +210,31 @@ MATCHclause to describe the pattern from known Nodes to found Nodes
 ```
 MATCH (js:Person)-[:KNOWS]-()-[:KNOWS]-(surfer)
 WHERE js.name = "Johan" AND surfer.hobby = "surfing"
-RETURN DISTINCT surfer
+RETURN DISTINCT surfer;
 ```
 ()empty parenthesis to ignore these nodes
-DISTINCTbecause more than one path will match the pattern
-surferwill contain Allison, a friend of a friend who surfs
+DISTINCT because more than one path will match the pattern
+surfer will contain Allison, a friend of a friend who surfs
 
 
 ```
-PROFILE MATCH (js:Person)-[:KNOWS]-()-[:KNOWS]-(surfer)
+MATCH (p1:Person)-[:KNOWS]->(p2:Person) RETURN p1, p2;
+```
+
+```
+MATCH (p1:Person)-[:KNOWS]->(p2:Person) 
+WHERE NOT (p1:Person)-[]->(:Movie)
+RETURN p1, p2;
+```
+use NOT predicate to exclude others
+
+```
+PROFILE 
+MATCH (js:Person)-[:KNOWS]-()-[:KNOWS]-(surfer)
 WHERE js.name = "Johan" AND surfer.hobby = "surfing"
-RETURN DISTINCT surfer
+RETURN DISTINCT surfer;
 ```
+Use PROFILE / EXPLAIN to analyze the performance of your queries
 
 
 
