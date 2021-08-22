@@ -11,9 +11,9 @@ neo4j browser URL = http://localhost:7474
 
 ### [Cypher Styles](https://github.com/opencypher/openCypher/blob/master/docs/style-guide.adoc)
 - Case Sensitive
-    - Node labels
+    - Node labels (entity types)
     - Relationship types
-    - Property keys
+    - Property keys (attributes)
 - Case Insensitive
     - Cypher keywords
     
@@ -21,9 +21,9 @@ neo4j browser URL = http://localhost:7474
 - Functions should be written in lower camel case.
 
 
-### MATCH (Read/Query) - R
+### MATCH (Read/Query) - (R)
 
-//MATCH
+// query
 MATCH (m:Movie)
 RETURN m;
 
@@ -34,7 +34,7 @@ RETURN p, r, m;
 MATCH p = (:Person)-[:ACTED_IN]->(:Movie)
 RETURN p;
 
-//WHERE
+// filter
 MATCH (p:Person)
 WHERE p.name = 'Tom Hanks'
 RETURN p;
@@ -66,7 +66,7 @@ RETURN p, m;
 // multiple Rel types
 MATCH (p:Person)-[r:ACTED_IN|:DIRECTED]->(m:Movie)
 WHERE p.name = 'Danny DeVito'
-RETURN p.name, type(r), m.title;
+RETURN p.name, r, type(r), m.title;
 
 
 MATCH (m:Movie)
@@ -88,7 +88,7 @@ RETURN p.name, count(*) AS movies
 ORDER BY movies DESC
 LIMIT 5;
 
-// multiple match
+// multiple match - co-actors with Meg Ryan
 MATCH (p:Person)-[:ACTED_IN]->(m:Movie),
       (other:Person)-[:ACTED_IN]->(m)
 WHERE p.name = 'Meg Ryan'
@@ -144,18 +144,19 @@ MATCH (p:Person)-[:ACTED_IN]->(m:Movie),
 WHERE p.name = 'Meg Ryan'
 RETURN DISTINCT other.name;
 
-// collect to array
+// collect to array - movie title and actor list
 MATCH (p:Person)-[:ACTED_IN]->(m:Movie)
 WHERE m.title STARTS WITH 'The Matrix'
 RETURN m.title, collect(p.name) AS actors;
 
-// size
+// size - top 5 producers
 MATCH (p:Person)
 RETURN p.name, 
        size((p)-[:PRODUCED]->(:Movie)) AS prod
 ORDER BY prod DESC
 LIMIT 5;
 
+// person produced more than 5 titles
 MATCH (p:Person)
 WHERE size((p)-[:PRODUCED]->(:Movie)) > 5
 RETURN p.name;
@@ -204,7 +205,7 @@ RETURN [x IN nodes(p) |
   ELSE '' END
 ];
 
-// shortest path
+// shortest path between 2 actors
 MATCH p = shortestPath((p1:Person)-[*]-(p2:Person))
 WHERE p1.name = 'Tom Cruise' AND      
       p2.name = 'Kevin Bacon'
@@ -223,18 +224,21 @@ WHERE c.name = 'Charlize Theron' AND
 RETURN length(p) AS Bacon_Number, [n IN nodes(p) | n.name] AS Names;
 
 // Recommend: 3 actors that Keanu Reeves should work with, but hasn’t
-MATCH (p:Person)-[:ACTED_IN]->()<-[:ACTED_IN]-(c),
-(c)-[:ACTED_IN]->()<-[:ACTED_IN]-(coc)
-WHERE p.name = 'Keanu Reeves' 
+MATCH 
+      (p:Person)-[:ACTED_IN]->()<-[:ACTED_IN]-(c),
+      (c)-[:ACTED_IN]->()<-[:ACTED_IN]-(coc)
+WHERE 
+      p.name = 'Keanu Reeves' 
 	AND coc <> p
  	AND NOT (p)-[:ACTED_IN]->()<-[:ACTED_IN]-(coc) 
-RETURN coc.name as Colleague_of_colleague, count(coc) as 
-Weight
+RETURN 
+      coc.name as Colleague_of_colleague, 
+      count(coc) as Weight
 ORDER BY Weight DESC
 LIMIT 3;
 
 
-### CREATE & MERGE (Write) - CU
+### CREATE & MERGE/Update (Write) - (C) (U)
 
 // CREATE (INSERT)
 CREATE (m:Movie {title:'Mystic River', released:2003})
@@ -253,7 +257,7 @@ MATCH (m:Movie {title: 'Mystic River'})
 SET m.tagline = 'We bury our sins here, Dave. We wash them clean.' 
 RETURN m;
 
-// MERGE
+// MERGE (UPDATE/INSERT)
 MERGE (p:Person {name: 'Tom Hanks'})
 RETURN p;
 
@@ -269,6 +273,7 @@ RETURN p;
 MERGE (p:Person {name: 'Tom Hanks'})-[:ACTED_IN]->(m:Movie {title: 'The Terminal'})
 RETURN p, m;
 
+// MERGE (UPDATE/INSERT)
 MERGE (p:Person {name: 'Tom Hanks'})
 MERGE (m:Movie {title: 'The Terminal'})
 MERGE (p)-[r:ACTED_IN]->(m)
@@ -283,7 +288,7 @@ RETURN p.created, p.updated;
 
 // Create KNOWS relationships between all actors who have worked together on the same movie
 MATCH (a:Person)-[:ACTED_IN]->()<-[:ACTED_IN]-(b:Person)
-MERGE (a)-[:KNOWS]-(b);
+MERGE (a)-[:KNOWS]-(b);          // bi-directional
 
 MATCH (a:Person)-[:ACTED_IN]->()<-[:ACTED_IN]-(b:Person)
 MERGE (a)-[:KNOWS]->(b)
@@ -294,23 +299,23 @@ MERGE (a)<-[:KNOWS]-(b);
 ### Modeling (M)
 
 // Labels are upper camel case.
-- CREATE(n:Person);
-- CREATE(n:GraphDatabase);
-- CREATE(n:VeryDescriptiveLabel);
+- CREATE (n:Person);
+- CREATE (n:GraphDatabase);
+- CREATE (n:VeryDescriptiveLabel);
 
 // Relationships are upper case with underscores to separate words.
-- CREATE(n)-[:LOVES]->(m);
-- CREATE(n)-[:REALLY_LOVES]->(m);
-- CREATE(n)-[:IS_IN_LOVE_WITH]->(m);
+- CREATE (n)-[:LOVES]->(m);
+- CREATE (n)-[:REALLY_LOVES]->(m);
+- CREATE (n)-[:IS_IN_LOVE_WITH]->(m);
 
 // Properties are written in lower camel case
-CREATE(n)
+CREATE (n)
 SET n.name = ’Dave';
 
-CREATE(n)
+CREATE (n)
 SET n.firstName = ’Dave';
  
-CREATE(n)
+CREATE (n)
 SET n.firstAndLastName = ’Dave Gordon';
 
 // Adding Movie Genres
@@ -356,6 +361,12 @@ DELETE p;
 MATCH (p:Person {name: 'Emil Eifrem'})
 DETACH DELETE p;
 
+- [difference between DETACH DELETE and DELETE](https://neo4j.com/docs/cypher-manual/current/clauses/delete/#:~:text=4.-,Delete%20a%20node%20with%20all%20its%20relationships,from%20it%2C%20use%20DETACH%20DELETE%20.&text=For%20DETACH%20DELETE%20for%20users,%E2%86%92%20Fine%2Dgrained%20access%20control.)
+
+
+### REMOVE 
+
+[to remove properties from nodes and relationships, and to remove labels from nodes](https://neo4j.com/docs/cypher-manual/current/clauses/remove/)
 
 ### CONSTRAINT and INDEX
 

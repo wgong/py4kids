@@ -1,4 +1,19 @@
-# Neo4j Graph DB
+# [Neo4j Graph DB](https://www.youtube.com/watch?v=urO5FyP9PoI)
+
+## Intro
+The support for properties on both nodes and relationships is what makes Neo4j a property graph. 
+This provides a flexible way of defining varying amounts of data.
+
+Neo4j can store billions of nodes
+
+A graph database is an online database management system with Create, Read, Update, and Delete (CRUD) operations working on a graph data model.
+
+The biggest value that graphs bring to an application is their ability to store relationships and connections as first-class entities.
+
+## [Common use cases](https://neo4j.com/use-cases/)
+
+[GraphGists](https://neo4j.com/graphgists/) - Use case and industry specific graph examples designed to inspire you towards your Graph epiphany.
+
 
 ## Setup
 
@@ -103,6 +118,7 @@ Examples:	  :play movie graph
 
 :play movie  // walk-thru tour
 
+CALL db.schema()
 CALL db.schema.visualization()   // to visualize schema
 
 CALL db.labels();
@@ -121,6 +137,9 @@ RETURN count(label) AS count;
 
 
 
+CALL dbms.procedures()   // to view functions
+
+
 ```
 
 :play intro
@@ -135,27 +154,49 @@ ctrl-enter to run a query
 ### :play concept
 A graph database can store any kind of data using a few simple concepts:
 
-* Nodes - graph data records
-* Relationships - connect nodes
-* Properties - named data values
+* Nodes - graph data records      :annotated by ()
+* Relationships - connect nodes   :annotated by []
+* Properties - named data values  :annotated by {}
 
-Nodes can be grouped together by applying a Label to each member. In our social graph, we'll label each node that represents a Person.  (Label is like Node-type)
+Nodes can be grouped together by applying a Label to each member. 
+In our social graph, we'll label each node that represents a Person.  (Label is like Node-type)
 
-A node can have zero or more labels
-Labels do not have any properties
 
-Neo4j can store billions of nodes
+Nodes
+- Represent objects or entities.
+- Can be labeled (0 or more).
+- May have properties.
 
-Relationships always have direction;
-Relationships always have a type;
-Relationships form patterns of data;
+Relationships 
+- always have direction;
+- always have a type;
+- form patterns of data;
+- May have properties.
 
-Both Node and Rel can have properties
+Nodes can share multiple relationships
+
+Graph traversal in 3 ways:
+- A walk is an ordered, alternating sequence of nodes and relationships where the nodes and relationships can be repeated.
+- A trail is a walk where no relationships are repeated, but nodes can be visited more than once.
+- A path is a trail where no nodes are repeated. That is, all items are unique.
+
+Traversal problems:
+- Shortest path (the path containing the fewest elements)
+- Longest path, Hamiltonian path (visits every node in the graph)
+- Cycle (“path” that ends at the same node it started on)
 
 ### Cypher Fundamentals
 :play cypher
 
-
+|  CYPHER  |  SQL  |
+| ---------------------- | ----------- |
+| CREATE   | INSERT  |
+| RETURN   | SELECT  |
+| MATCH                  | FROM, JOIN  |
+| WHERE    | WHERE  |
+| SET      | UPDATE  |
+| MERGE    | INSERT, UPDATE  |
+| DELETE, DETACH DELETE |  DELETE  |
 
 Neo4j's Cypher language is purpose built for working with graph data.  
 Like SQL in RDBMS, Cypher is declarative, describing what to find, not how to find it; 
@@ -165,8 +206,8 @@ CREATE (ee:Person { name: "Emil", from: "Sweden", klout: 99 })
 ```
 CREATE clause to create data
 () parenthesis to indicate a node
-ee:Person a variable 'ee' and label 'Person' for the new node
-brackets to add properties to the node
+ee:Person : variable 'ee' and label 'Person' for the new node
+curly brackets to add properties to the node
 
 ```
 MATCH (ee:Person) WHERE ee.name = "Emil" RETURN ee;
@@ -452,18 +493,20 @@ RETURN DISTINCT cust.contactName as CustomerName, SUM(o.quantity) AS TotalProduc
 
 ```
 
-### py2neo and jupyter notebook
+### Python
 
-- https://link.medium.com/aVCya6Pgneb 
+#### py2neo and jupyter notebook
+
+- https://github.com/elena/py2neo-quickstart
+- https://community.neo4j.com/t/py2neo-tutorial-converting-movie-example/4458
+- http://www.numericalexpert.com/blog/neo4j_python/
+- https://nbviewer.jupyter.org/github/versae/ipython-cypher/blob/master/docs/examples.ipynb
+- https://link.medium.com/aVCya6Pgneb
 - https://nicolewhite.github.io/neo4j-jupyter/hello-world.html
 - https://github.com/merqurio/neo4jupyter
 - https://community.neo4j.com/t/neo4j-graph-visualization-in-jupyterlab/24219
-
-- Py2neo V4:
-https://medium.com/neo4j/py2neo-v4-2bedc8afef2
-
-- Py2neo Handbook
-https://py2neo.org/2021.0/
+- Py2neo V4: https://medium.com/neo4j/py2neo-v4-2bedc8afef2
+- Py2neo Handbook: https://py2neo.org/2021.0/
 
 #### neo4j-jupyter
 installed at ~/projects/graph/graph-db/neo4j/neo4j-jupyter
@@ -471,19 +514,31 @@ installed at ~/projects/graph/graph-db/neo4j/neo4j-jupyter
 https://ipython-cypher.readthedocs.io/en/latest/introduction.html
 
 
+### Learning Resources
+
+- Become Neo4j Certified: 
+  - [Become a Neo4j Certified Professional (for FREE!)](https://data-xtractor.com/blog/databases/neo4j-certified-professionals/)
+  - [Neo4j Certification — Pass Like a Pro, by jennifer.reif@neo4j.com , @JMHReif](https://medium.com/neo4j/neo4j-certification-how-to-pass-like-a-pro-eed6daa7c6f7)
+    - https://neo4j.com/graphconnect-2018/session/pass-like-pro-neo4j-certified-professional-exam 
+
+
+- Training:
+  - [Get started with Neo4j: ](https://neo4j.com/graphacademy/training-overview-40/01-overview40-neo4j-graph-database/)
+  - [LearningNeo4j](https://github.com/Wabri/LearningNeo4j) (github)
+  - [Intro to Graph Databases series: ](https://www.youtube.com/playlist?
+list=PL9Hl4pk2FsvWM9GWaguRhlCQ-pa-ERd4U)  (YouTube playlist)
+
+
+- Documentations:
+  - [Developer guides](https://neo4j.com/developer/get-started/)
+  - [Developer Manual](https://neo4j.com/docs/developer-manual/current/)
+  - [Operations Manual](https://neo4j.com/docs/operations-manual/current/)
+  - [Neo4j Cypher Refcard](https://neo4j.com/docs/cypher-refcard/4.2/)
+  - [The Neo4j Cypher Manual v4.2](https://neo4j.com/docs/cypher-manual/4.2/)
 
 
 
-### [Neo4j Cypher Refcard](https://neo4j.com/docs/cypher-refcard/4.2/)
 
-### [The Neo4j Cypher Manual v4.2](https://neo4j.com/docs/cypher-manual/4.2/)
+# RedisGraph
 
-### [LearningNeo4j](https://github.com/Wabri/LearningNeo4j)
-
-https://github.com/elena/py2neo-quickstart
-https://community.neo4j.com/t/py2neo-tutorial-converting-movie-example/4458
-
-
-http://www.numericalexpert.com/blog/neo4j_python/
-
-https://nbviewer.jupyter.org/github/versae/ipython-cypher/blob/master/docs/examples.ipynb
+https://docs.redis.com/latest/modules/redisgraph/redisgraph-quickstart/
