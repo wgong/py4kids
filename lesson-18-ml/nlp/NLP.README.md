@@ -56,3 +56,26 @@ https://www.youtube.com/watch?v=VyDmQggfsZ0
 ### DataCamp
 
 https://learn.datacamp.com/skill-tracks/natural-language-processing-in-python
+
+
+### Topic Modeling
+
+- Topic Modeling: An Introduction - https://monkeylearn.com/blog/introduction-to-topic-modeling/
+- BERTopic : https://github.com/MaartenGr/BERTopic
+    -NLP with BERT Transformers - EXPLAINED! : - https://www.youtube.com/watch?v=TLPmlVeEf1k
+- Topic Modeling and Latent Dirichlet Allocation (LDA) using Gensim and Sklearn
+    - Part 1 https://www.analyticsvidhya.com/blog/2021/06/topic-modeling-and-latent-dirichlet-allocationlda-using-gensim-and-sklearn-part-1/
+    - Part 2: https://www.analyticsvidhya.com/blog/2021/06/part-2-topic-modeling-and-latent-dirichlet-allocation-lda-using-gensim-and-sklearn/
+    - Part 3 https://www.analyticsvidhya.com/blog/2021/06/part-3-topic-modeling-and-latent-dirichlet-allocation-lda-using-gensim-and-sklearn/
+
+- Beginners Guide to Topic Modeling in Python https://www.analyticsvidhya.com/blog/2016/08/beginners-guide-to-topic-modeling-in-python/
+
+
+#### BERTopic
+```
+cd ~/projects/NLP
+virtualenv bertopic
+source bertopic/bin/activate
+pip install numpy==1.20
+pip install huggingface-hub==0.0.12
+```
