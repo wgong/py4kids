@@ -62,7 +62,8 @@ https://learn.datacamp.com/skill-tracks/natural-language-processing-in-python
 
 - Topic Modeling: An Introduction - https://monkeylearn.com/blog/introduction-to-topic-modeling/
 - BERTopic : https://github.com/MaartenGr/BERTopic
-    -NLP with BERT Transformers - EXPLAINED! : - https://www.youtube.com/watch?v=TLPmlVeEf1k
+    - NLP with BERT Transformers - EXPLAINED! : - https://www.youtube.com/watch?v=TLPmlVeEf1k
+    - How to Use Bertopic for Topic Modeling and Content Analysis? - https://www.holisticseo.digital/python-seo/topic-modeling/
 - Topic Modeling and Latent Dirichlet Allocation (LDA) using Gensim and Sklearn
     - Part 1 https://www.analyticsvidhya.com/blog/2021/06/topic-modeling-and-latent-dirichlet-allocationlda-using-gensim-and-sklearn-part-1/
     - Part 2: https://www.analyticsvidhya.com/blog/2021/06/part-2-topic-modeling-and-latent-dirichlet-allocation-lda-using-gensim-and-sklearn/
