@@ -72,6 +72,9 @@ https://learn.datacamp.com/skill-tracks/natural-language-processing-in-python
 - Beginners Guide to Topic Modeling in Python https://www.analyticsvidhya.com/blog/2016/08/beginners-guide-to-topic-modeling-in-python/
 
 
+- Bert For Topic Modeling ( Bert vs LDA ) https://medium.com/analytics-vidhya/bert-for-topic-modeling-bert-vs-lda-8076e72c602b
+    - https://github.com/mcelikkaya/medium_articles2/blob/main/bertlda_topic_modeling.ipynb
+
 #### BERTopic
 ```
 cd ~/projects/NLP
