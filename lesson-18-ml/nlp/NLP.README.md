@@ -6,7 +6,6 @@ pip3 install -r requirements.txt
 cd ~/projects/NLP/
 
 virtualenv nlp
-
 source nlp/bin/activate
 
 cd ~/projects/NLP/nlp/bin
@@ -83,3 +82,36 @@ source bertopic/bin/activate
 pip install numpy==1.20
 pip install huggingface-hub==0.0.12
 ```
+
+#### Textnets
+
+- https://textnets.readthedocs.io/en/stable/
+- https://joss.theoj.org/papers/10.21105/joss.02594
+
+use `python-poetry` - https://github.com/python-poetry/poetry
+
+```
+$ make install  # run poetry on pyproject.toml config
+```
+
+
+
+
+##### Poetry
+
+`poetry` is a tool to handle dependency installation as well as building and packaging of Python packages. It only needs one file to do all of that: the new, standardized pyproject.toml.
+which replaces setup.py, requirements.txt, setup.cfg, MANIFEST.in and the newly added Pipfile
+
+```
+$ curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | python -
+$ poetry --version
+Poetry version 1.1.9
+```
+
+##### python-igraph
+https://igraph.org/python/doc/tutorial/tutorial.html
+
+```
+$ pip install python-igraph
+```
+
