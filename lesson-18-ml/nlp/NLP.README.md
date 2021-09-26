@@ -74,6 +74,10 @@ https://learn.datacamp.com/skill-tracks/natural-language-processing-in-python
 - Bert For Topic Modeling ( Bert vs LDA ) https://medium.com/analytics-vidhya/bert-for-topic-modeling-bert-vs-lda-8076e72c602b
     - https://github.com/mcelikkaya/medium_articles2/blob/main/bertlda_topic_modeling.ipynb
 
+#### Gensim
+
+https://radimrehurek.com/gensim/auto_examples/index.html
+
 #### BERTopic
 ```
 cd ~/projects/NLP
@@ -82,6 +86,12 @@ source bertopic/bin/activate
 pip install numpy==1.20
 pip install huggingface-hub==0.0.12
 ```
+
+#### PyData Tutorials
+
+- https://github.com/bhargavvader/personal.git
+    - needs work
+- https://github.com/mattilyra/pydataberlin-2017.git
 
 #### Textnets
 
