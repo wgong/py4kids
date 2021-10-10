@@ -1,6 +1,6 @@
 
 ### Benchmarking BigSQL Systems
-This master thesis compares Hive, Spark, Presto, Impala as of 2018:
+This master thesis compares Hive, Spark, Presto, Impala as of 2018 and shows that Presto is the winner:
 
 https://comserv.cs.ut.ee/home/files/aluko_software_engineering_2018.pdf?study=ATILoputoo&reference=F329B27E2ACD0736C78FE7E03DD9E6EE3FABC26A
 
