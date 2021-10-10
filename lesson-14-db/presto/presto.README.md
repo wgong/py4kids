@@ -7,6 +7,14 @@ https://comserv.cs.ut.ee/home/files/aluko_software_engineering_2018.pdf?study=AT
 
 ![tpch-compare-all-queries](tpch-compare-all-queries.png)
 
+![tpch-compare-5-fastest-quries](tpch-compare-5-fastest-quries.png)
+
+![tpch-compare-5-slow-quries](tpch-compare-5-slow-quries.png)
+
+![Presto Arch](presto-arch.png)
+![Spark SQL Arch](spark-SQL-arch.png)
+![Hive Arch](hive-arch.png)
+
 #### Benchmark Queries
 
 ##### TPC-DS - decision support
@@ -28,19 +36,28 @@ sudo systemctl stop apache2.service
 ```
 
 - Ahana docker image - https://hub.docker.com/r/ahanaio/prestodb-sandbox
-- Tutorial - https://towardsdatascience.com/presto-federated-queries-e8f06db95c29
-- Jupyter+Presto - https://ahana.io/integrations/jupyter-and-presto/
+- Tutorials
+    - Video - https://www.youtube.com/watch?v=MaYwcuZXMN8
+    - Hands-on Presto 101 - https://dzone.com/articles/hands-on-presto-tutorial-presto-102
+    - https://towardsdatascience.com/presto-federated-queries-e8f06db95c29
+    - Jupyter+Presto - https://ahana.io/integrations/jupyter-and-presto/
 
 ```
 sudo docker pull ahanaio/prestodb-sandbox
+sudo docker rename presto presto_1
 sudo docker run -p 8080:8080 --name presto ahanaio/prestodb-sandbox # Start Presto
 sudo docker ps  # check status
+
+$ sudo docker run -it ubuntu bash # remote into docker
 
 sudo docker exec -it presto  presto-cli  # launch presto-cli
 
 presto> show catalogs;
-presto> show schemas in tpcds;
-presto> use tpcds.sf10;
+
+
+
+presto> show schemas in tpcds;  # tpch has same schema as tpch
+presto> use tpcds.sf10; 
 presto> show tables;
 presto:sf10> select * from inventory limit 10;
 presto> quit
@@ -50,6 +67,9 @@ sudo docker container kill cfa4b9846f5c  # stop container image
 
 ```
 
+web-UI http://localhost:8080/ui/
+
+
 see benchmark SQL queries: 
 https://github.com/prestodb/presto/tree/master/presto-benchto-benchmarks/src/main/resources/sql/presto
 
@@ -58,18 +78,9 @@ https://github.com/prestodb/presto/tree/master/presto-benchto-benchmarks/src/mai
 ### Presto F8-2019 demo
 
 - github - https://github.com/prestodb/f8-2019-demo
-- youtube - https://www.youtube.com/watch?v=67gXN5697Vw
+- youtube 
+    - https://www.youtube.com/watch?v=67gXN5697Vw
 
-need to upgrade to python 3.9
-```
-// to update anaconda 
-conda update conda
-
-conda create --name py39 python=3.9
-
-conda activate py39
-
-```
 
 
 ```
@@ -77,10 +88,15 @@ git clone https://github.com/prestodb/f8-2019-demo.git
 
 cd f8-2019-demo
 
+change ./jupyter/Dockerfile to your own home dir
+
+$ sudo docker-compose build --pull --no-cache # fresh pull
+
 sudo docker-compose up
 
 The docker image failed to build locally
 
+Submit an issue - https://github.com/prestodb/f8-2019-demo/issues/5
 
 sudo docker exec -it f8-2019-demo_presto_1 bin/presto-cli
  # run presto CLI
