@@ -9,10 +9,12 @@ https://comserv.cs.ut.ee/home/files/aluko_software_engineering_2018.pdf?study=AT
 
 ![tpch-compare-5-fastest-quries](tpch-compare-5-fastest-quries.png)
 
-![tpch-compare-5-slow-quries](tpch-compare-5-slow-quries.png)
+![tpch-compare-5-slow-queries](tpch-compare-5-slow-queries.png)
 
 ![Presto Arch](presto-arch.png)
+
 ![Spark SQL Arch](spark-SQL-arch.png)
+
 ![Hive Arch](hive-arch.png)
 
 #### Benchmark Queries
