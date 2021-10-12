@@ -43,6 +43,10 @@ sudo systemctl stop apache2.service
     - Hands-on Presto 101 - https://dzone.com/articles/hands-on-presto-tutorial-presto-102
     - https://towardsdatascience.com/presto-federated-queries-e8f06db95c29
     - Jupyter+Presto - https://ahana.io/integrations/jupyter-and-presto/
+    - https://ahana.io/learn/how-to-write-python-script-to-connect-to-a-presto-cluster/
+
+
+#### presto-cli
 
 ```
 sudo docker pull ahanaio/prestodb-sandbox
@@ -50,13 +54,10 @@ sudo docker rename presto presto_1
 sudo docker run -p 8080:8080 --name presto ahanaio/prestodb-sandbox # Start Presto
 sudo docker ps  # check status
 
-$ sudo docker run -it ubuntu bash # remote into docker
-
-sudo docker exec -it presto  presto-cli  # launch presto-cli
+$ sudo docker exec -it presto bash # remote into docker
+$ sudo docker exec -it presto  presto-cli  # launch presto-cli
 
 presto> show catalogs;
-
-
 
 presto> show schemas in tpcds;  # tpch has same schema as tpch
 presto> use tpcds.sf10; 
@@ -69,12 +70,26 @@ sudo docker container kill cfa4b9846f5c  # stop container image
 
 ```
 
-web-UI http://localhost:8080/ui/
+#### web-UI 
+
+http://localhost:8080/ui/
 
 
-see benchmark SQL queries: 
+#### presto-python
+How to Write a Python Script to Connect to a Presto Cluster
+- https://ahana.io/learn/how-to-write-python-script-to-connect-to-a-presto-cluster/
+
+```
+$ conda create -n py39 python=3.9
+$ conda activate py39
+$ pip3 install SQLAlchemy
+$ pip3 install 'pyhive[presto]'
+$ ~/anaconda3/envs/py39/bin/python3.9 presto-test.py 
+('2021-10-12 19:21:47.348 UTC',)
+```
+
+### benchmark SQL queries: 
 https://github.com/prestodb/presto/tree/master/presto-benchto-benchmarks/src/main/resources/sql/presto
-
 
 
 ### Presto F8-2019 demo
@@ -137,4 +152,7 @@ total 1178896
 
 cp presto-server-0.264-SNAPSHOT.jar presto-server
 chmod a+x presto-server
+
+
+
 
