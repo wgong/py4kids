@@ -151,6 +151,13 @@ ctrl-enter to run a query
 
 ## Learn neo4j
 
+### Built-in guides
+:guide intro            // Navigating Neo4j Browser
+:guide concepts         // Property graph model concepts
+:guide cypher           // Cypher basics - create, match, delete
+:guide movie-graph       // Queries and recommendations with Cypher - movie use case
+:guide northwind-graph   // Translate and import relation data into graph
+
 ### :play concept
 A graph database can store any kind of data using a few simple concepts:
 
