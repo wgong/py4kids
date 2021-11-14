@@ -65,8 +65,8 @@ presto> show tables;
 presto:sf10> select * from inventory limit 10;
 presto> quit
 
-
-sudo docker container kill cfa4b9846f5c  # stop container image
+sudo docker ps
+sudo docker container kill 12f7edc58010  # stop container image
 
 ```
 

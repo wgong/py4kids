@@ -45,3 +45,15 @@ https://towardsdatascience.com/a-comprehensive-guide-to-downloading-stock-prices
 
 ## Research
 - https://analyzingalpha.com/python-trading-tools
+
+
+# projects
+
+## mom101
+- Work-dir: ~/projects/algorithmic-trading-python/mom101
+- README: algorithmic-trading-python/mom101/README-mom101.md
+
+- generate img2tf: algorithmic-trading-python/mom101/mpfchart.py
+
+- charting: 
+    - /home/wengong/projects/algorithmic-trading-python/mom101/finplot_watchlist.py
