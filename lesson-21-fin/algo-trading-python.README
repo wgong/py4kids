@@ -22,10 +22,26 @@
 
 # Data feeds
 
-https://towardsdatascience.com/a-comprehensive-guide-to-downloading-stock-prices-in-python-2cd93ff821d4
+- https://towardsdatascience.com/a-comprehensive-guide-to-downloading-stock-prices-in-python-2cd93ff821d4
 
+- https://towardsdatascience.com/best-5-free-stock-market-apis-in-2019-ad91dddec984
+
+## EODData
+https://eoddata.com/
+
+~/projects/algorithmic-trading-python/mom101/EODData
+
+current data:
+see ~/projects/algorithmic-trading-python/mom101/date2symbols_map.json
+
+## https://eodhistoricaldata.com/financial-apis/bulk-api-eod-splits-dividends/
+EOD Historical Data —
+All World
+$19.99
 
 ## IEX cloud API
+
+cancelled
 
 ## Alpha Vantange
 
