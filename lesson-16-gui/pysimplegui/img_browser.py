@@ -10,21 +10,21 @@ IMG_SIZE = (600, 600)
 PADDING = 10
 
 def parse_folder(path):
-    images = glob.glob(f'{path}/*.jpg') + glob.glob(f'{path}/*.png')
-    return images
+    files = glob.glob(f'{path}/*.*')
+    return [f for f in files if f.split(".")[-1].lower() in ["png", "jpg", "jpeg", "gif"]]
 
 def load_image(path, window):
     try:
-        image = Image.open(path)
-        image.thumbnail(IMG_SIZE)
-        photo_img = ImageTk.PhotoImage(image)
-        window["image"].update(data=photo_img)
+        img = Image.open(path)
+        img.thumbnail(IMG_SIZE)
+        photo_img = ImageTk.PhotoImage(img)
+        window["-IMAGE-"].update(data=photo_img)
     except:
         print(f"Unable to open {path}!")
         
 
 def main():
-    elements = [
+    layout = [
         [
             sg.Text("Image Folder: "),
             sg.Input(size=(25, 1), enable_events=True, key="file"),
@@ -38,10 +38,10 @@ def main():
             sg.Text("Image Name: "), 
             sg.Text(size=(120, 1), key="-IMG_PATH-")
         ],
-        [sg.Image(key="image")],
+        [sg.Image(key="-IMAGE-")],
     ]
 
-    window = sg.Window("Image Viewer", elements, size=(IMG_SIZE[0]+PADDING, IMG_SIZE[1]+PADDING))
+    window = sg.Window("Image Viewer", layout, size=(IMG_SIZE[0]+PADDING, IMG_SIZE[1]+PADDING))
     images = []
     location = 0
 
@@ -66,12 +66,11 @@ def main():
                 location -= 1
             load_image(images[location], window)
             
-        try:
-            window["-IMG_PATH-"].update(os.path.basename(images[location]))
-        except:
-            pass
+        if images:
+            window["-IMG_PATH-"].update(f"[{location}/{len(images)}]  {os.path.basename(images[location])}")
 
     window.close()
+    exit()
 
 
 if __name__ == "__main__":
