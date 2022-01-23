@@ -12,14 +12,14 @@ $ streamlit run [filename]   #  run your script
 
 ```
 
-- run a complete neural net (YOLO) in real time
-```
-$ pip install --upgrade streamlit opencv-python
-$ streamlit run https://raw.githubusercontent.com/streamlit/demo-self-driving/master/app.py
+- Examples
+
+my concept demo at 
+- https://share.streamlit.io/wgong/streamlitapp/main/demos/demo_concept.py
+- https://github.com/wgong/streamlitapp/blob/main/demos/demo_concept.py
+
 ```
 
-- How to run streamlit examples
-```
 $ . ~/projects/streamlit_venv/bin/activate
 $ source ~/projects/streamlit_venv/bin/activate
 
