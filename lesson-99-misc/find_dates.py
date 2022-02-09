@@ -1,3 +1,11 @@
+"""
+pip install dateparser dateutils
+"""
+from datetime import datetime
+import re
+from dateutil import parser
+from dateparser.search import search_dates
+
 _DATE_FORMAT = re.compile("((\d{4}[-/]\d{1,2}[-/]\d{1,2})|(\d{1,2}/\d{1,2}/\d{4})|((?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:[\.]?|[A-Z]+)\s*[\d]{1,2}\s*,\s*[\d]{4}))")
 
 def find_dates(s):
@@ -22,3 +30,7 @@ def find_dates(s):
     dates_extra = [dt[1] for dt in dt_extra] if dt_extra else []
         
     return [datetime.strftime(dt, '%Y%m%d') for dt in sorted(list(set([parser.parse(d) for d in dates] + dates_extra)))]
+
+if __name__ == "__main__":
+    d = "September 9, 1999  08/09/2000  8/8/2021 - 10/27/2021  2022-07-04  2022-7-5  2022/07/01  2022/7/7  Jul 4, 1980 july 14, 2011, August 18, 2021"
+    print(find_dates(d))
