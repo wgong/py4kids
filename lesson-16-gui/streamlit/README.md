@@ -41,6 +41,10 @@ tensorflow
 keras
 
 
+## convert ipynb to streamlit_book
+
+see ~/projects\PythonDataScienceHandbook\hbook
+
 - references
 
     * https://stackoverflow.com/questions/2229118/is-it-possible-to-play-shoutcast-internet-radio-streams-with-html5
