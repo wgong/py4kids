@@ -1,4 +1,6 @@
 
+- [Data Science Masters](https://github.com/datasciencemasters/go)
+
 - [7 Best Github Repositories For Learning Data Science](https://medium.com/pythoneers/7-best-github-repositories-for-learning-data-science-b9911199a7b7)
     - [data-science-ipython-notebooks github by donnemartin](https://github.com/donnemartin/data-science-ipython-notebooks)
     - [PythonDataScienceHandbook github by jakevdp](https://github.com/jakevdp/PythonDataScienceHandbook)
