@@ -15,6 +15,7 @@
 **/*.zip
 **/*.gz
 **/*.db
+**/*.csv
 **/Untitled.ipynb
 **/metastore_db/
 **/data/
