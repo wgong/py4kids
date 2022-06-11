@@ -12,18 +12,20 @@ How to run:
 4) browse to http://localhost:8501
 
 """
-__author__ = 'Wen_Gong@vanguard.com'
+
 
 
 import streamlit as st
 from streamlit_option_menu import option_menu
 
-from io import StringIO
+from io import StringIO, BytesIO
 # import pandas as pd
 # import platform
 # import socket
 import urllib
 from bs4 import BeautifulSoup
+from os.path import splitext
+import pdfplumber
 
 # Vanguard pkg
 # from identity import Identity as id_
@@ -88,11 +90,26 @@ def do_tts():
     with col_right:
         uploaded_file = st.file_uploader("Upload a text file (.txt, .doc, .pdf)")
         if uploaded_file is not None:
-            readme_text = StringIO(uploaded_file.getvalue().decode("utf-8")).read()
+            file_name = uploaded_file.name
+            file_ext = splitext(file_name)[-1]
+            file_type = uploaded_file.type
+            st.write(f"file_name={file_name}, file_ext={file_ext}, file_type = {file_type}")
+
+            # pdf2txt - https://stackoverflow.com/questions/55767511/how-to-extract-text-from-pdf-in-python-3-7
+            if file_type == "application/pdf" or file_ext == ".pdf":
+                pdf = pdfplumber.open(BytesIO(uploaded_file.getvalue()))
+                texts = []
+                for page in pdf.pages:
+                    text = page.extract_text()
+                    texts.append(text)
+                pdf.close()
+                # st.write(texts)
+                readme_text = "\n".join(texts)
+            elif file_type == "text/plain" or file_ext == ".txt":
+                readme_text = StringIO(uploaded_file.getvalue().decode("utf-8")).read()
 
             # TODO: add logic to extract text from .docx and .pdf
             # http://automatetheboringstuff.com/chapter13/
-            # pdf2txt - https://stackoverflow.com/questions/55767511/how-to-extract-text-from-pdf-in-python-3-7
             # 
             
     with col_left:
@@ -103,16 +120,17 @@ def do_tts():
         #         url_text = _fetch_text_from_url(webpage_url)
 
         with st.form(key='read_me'):
-            readme_text = st.text_area('Text to Read (*):', value=readme_text, height=200, key="readme_text")
-            if st.form_submit_button("ReadMe"): 
+            readme_text = st.text_area('', value=readme_text, height=200, key="readme_text")
+            if st.form_submit_button("Listen"): 
                 for txt in [l.strip() for l in readme_text.split('\n') if l.strip()]:
                     engine.setProperty('voice', voice_map[voice_name])
                     engine.say(txt)
                 engine.runAndWait()
 
-        if st.button("Stop"):
-            if engine.isBusy():
-                engine.stop()
+        # if st.button("Stop"):
+        #     if engine.isBusy():
+        #         engine.stop()
+        #     # st.stop()
 
 menu_dict = {
     "Welcome": {"fn": do_welcome, "icon": "caret-right-square"},
