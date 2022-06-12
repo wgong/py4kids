@@ -8,14 +8,12 @@ How to run:
     or
     $ pip install -r requirements-readaloud.txt
 
-3) launch the app via
+3) launch the app
     $ streamlit run ui_readaloud.py
 
 4) browse to http://localhost:8501
 
 """
-
-
 
 import streamlit as st
 from streamlit_option_menu import option_menu
@@ -41,7 +39,6 @@ st.set_page_config(
 def _rename_voice(nm):
     return ' - '.join(reversed([i.strip() for i in nm.split('-')]))
 
-# _CURRENT_USER = id_.username.casefold()
 SAMPLE_TEXT = """
 Thank you for using text-to-speech tool.
 感谢您使用文字转语音工具。
@@ -65,22 +62,16 @@ def _fetch_text_from_url(url):
     soup = BeautifulSoup(content)
     return soup.body.get_text()    
 
-def _parse_uids(uids):
-    return sorted(list(set([r.strip().upper() for r in uids.replace(","," ").replace(";"," ").split() if r.strip()])))
-
 def do_welcome():
-    st.header("Welcome to ReadAloud Tool")
+    st.subheader("Welcome to ReadAloud Tool")
     st.markdown("""
     This app is built on [<span style="color:red">__streamlit__ </span>](https://streamlit.io/) data app framework 
     and [pyttsx3](https://pyttsx3.readthedocs.io/en/latest/engine.html) python pkg
     to listen to text document rather than read.
-
     """, unsafe_allow_html=True)
 
-
-
 def do_tts():
-    st.header('Read Text to Me')
+    st.subheader('Read Text')
     engine, voice_map = get_engine()
     voice_name = st.session_state["voice_name"] if "voice_name" in st.session_state else list(voice_map.keys())[0]
     voice_rate = st.session_state["voice_rate"] if "voice_rate" in st.session_state else 200
@@ -119,18 +110,8 @@ def do_tts():
             # text
             elif file_type == "text/plain" or file_ext == ".txt":
                 readme_text = StringIO(uploaded_file.getvalue().decode("utf-8")).read()
-
-            # TODO: add logic to extract text from .docx and .pdf
-            # http://automatetheboringstuff.com/chapter13/
-            # 
             
     with col_left:
-
-        # with st.form(key='fetch_text'):
-        #     webpage_url = st.text_input("Webpage URL:", value="", key="webpage_url")
-        #     if st.form_submit_button("Fetch Text"):
-        #         url_text = _fetch_text_from_url(webpage_url)
-
         with st.form(key='read_me'):
             readme_text = st.text_area('', value=readme_text, height=200, key="readme_text")
             if st.form_submit_button("Listen"): 
@@ -146,9 +127,24 @@ def do_tts():
         #         engine.stop()
         #     # st.stop()
 
+def do_fetch_text():
+    st.subheader('Fetch Text from a Web URL')
+    with st.form(key='fetch_text'):
+        webpage_url = st.text_input("Web URL:", value="", key="webpage_url")
+        if st.form_submit_button("Fetch Text"):
+            st.session_state["url_text"] = _fetch_text_from_url(webpage_url)
+
+    url_text = st.text_area('Text:', value=st.session_state.get("url_text", ""), height=100, key="url_text")
+    with st.form(key='save_text'):
+        file_name = st.text_input("Filename", value="Untitled.txt", key="file_name")
+        if url_text.strip() and st.form_submit_button("Save"):
+            with open(file_name, "w", encoding="utf-8") as f:
+                f.write(url_text.strip()) 
+
 menu_dict = {
     "Welcome": {"fn": do_welcome, "icon": "caret-right-square"},
     "Text-to-Speech": {"fn": do_tts, "icon": "chat-text-fill"},
+    "Fetch Text": {"fn": do_fetch_text, "icon": "cloud-download"},
 }
 
 ## Menu
