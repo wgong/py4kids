@@ -3,11 +3,13 @@ How to run:
 
 1) download this script to your local environment
 
-2) install streamlit and readme via
-    $ pip install streamlit streamlit-option-menu readme identity 
+2) install streamlit 
+    $ pip install streamlit streamlit-option-menu pdfplumber python-docx
+    or
+    $ pip install -r requirements-readaloud.txt
 
 3) launch the app via
-    $ streamlit run ui_readme.py
+    $ streamlit run ui_readaloud.py
 
 4) browse to http://localhost:8501
 
@@ -17,7 +19,8 @@ How to run:
 
 import streamlit as st
 from streamlit_option_menu import option_menu
-
+import pdfplumber
+import docx
 from io import StringIO, BytesIO
 # import pandas as pd
 # import platform
@@ -25,10 +28,7 @@ from io import StringIO, BytesIO
 import urllib
 from bs4 import BeautifulSoup
 from os.path import splitext
-import pdfplumber
 
-# Vanguard pkg
-# from identity import Identity as id_
 import pyttsx3
 
 # Initial page config
@@ -69,7 +69,7 @@ def _parse_uids(uids):
     return sorted(list(set([r.strip().upper() for r in uids.replace(","," ").replace(";"," ").split() if r.strip()])))
 
 def do_welcome():
-    st.header("Welcome to ReadMe Tool")
+    st.header("Welcome to ReadAloud Tool")
     st.markdown("""
     This app is built on [<span style="color:red">__streamlit__ </span>](https://streamlit.io/) data app framework 
     and [pyttsx3](https://pyttsx3.readthedocs.io/en/latest/engine.html) python pkg
@@ -83,12 +83,14 @@ def do_tts():
     st.header('Read Text to Me')
     engine, voice_map = get_engine()
     voice_name = st.session_state["voice_name"] if "voice_name" in st.session_state else list(voice_map.keys())[0]
+    voice_rate = st.session_state["voice_rate"] if "voice_rate" in st.session_state else 200
+    voice_volume = st.session_state["voice_volume"] if "voice_volume" in st.session_state else 1.0
 
     col_left,col_right = st.columns([3,1])
 
     readme_text = SAMPLE_TEXT
     with col_right:
-        uploaded_file = st.file_uploader("Upload a text file (.txt, .doc, .pdf)")
+        uploaded_file = st.file_uploader("Upload a document file in .txt, .docx, .pdf format")
         if uploaded_file is not None:
             file_name = uploaded_file.name
             file_ext = splitext(file_name)[-1]
@@ -105,6 +107,16 @@ def do_tts():
                 pdf.close()
                 # st.write(texts)
                 readme_text = "\n".join(texts)
+
+            # docx2txt - http://automatetheboringstuff.com/chapter13/
+            elif file_type == "application/octet-stream" and file_ext == ".docx":
+                doc = docx.Document(BytesIO(uploaded_file.getvalue()))
+                texts = []
+                for para in doc.paragraphs:
+                    texts.append(para.text)
+                readme_text = "\n".join(texts)
+
+            # text
             elif file_type == "text/plain" or file_ext == ".txt":
                 readme_text = StringIO(uploaded_file.getvalue().decode("utf-8")).read()
 
@@ -124,6 +136,8 @@ def do_tts():
             if st.form_submit_button("Listen"): 
                 for txt in [l.strip() for l in readme_text.split('\n') if l.strip()]:
                     engine.setProperty('voice', voice_map[voice_name])
+                    engine.setProperty('rate', voice_rate)
+                    engine.setProperty('volume', voice_volume)
                     engine.say(txt)
                 engine.runAndWait()
 
@@ -145,7 +159,7 @@ def do_sidebar():
     # st.write(icons)
 
     with st.sidebar:
-        menu_item = option_menu("ReadMe", options, 
+        menu_item = option_menu("ReadAloud", options, 
             icons=icons, menu_icon="volume-down", 
             default_index=0, 
             styles={
@@ -158,8 +172,10 @@ def do_sidebar():
 
         if menu_item == "Text-to-Speech":
             _, voice_map = get_engine()
-            voice_name = st.radio("Which voice?", sorted(list(voice_map.keys())), index=1, key="voice_name")
-
+            st.radio("Voice", sorted(list(voice_map.keys())), index=1, key="voice_name")
+            st.slider("Rate", min_value=100, max_value=300, value=200, step=20, key="voice_rate")
+            st.slider("Volume", min_value=0.0, max_value=1.0, value=1.0, step=0.2, key="voice_volume")
+            
 ## Body
 def do_body():
     

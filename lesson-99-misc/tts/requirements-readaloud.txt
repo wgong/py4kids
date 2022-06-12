@@ -1,0 +1,4 @@
+streamlit 
+streamlit-option-menu 
+pdfplumber 
+python-docx
