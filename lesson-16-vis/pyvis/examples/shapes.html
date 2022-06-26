@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Vis Network | Node Styles | Shapes</title>
+
+    <style type="text/css">
+      #mynetwork {
+        width: 1000px;
+        height: 800px;
+        border: 1px solid lightgray;
+      }
+    </style>
+
+    <script
+      type="text/javascript"
+      src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
+    />
+
+    <script type="text/javascript">
+      var nodes = null;
+      var edges = null;
+      var network = null;
+
+      function draw() {
+        nodes = [
+          //circle
+          { id: 1, label: "circle-1", shape: "circle", color: "lime" },
+          { id: 21, label: "big circle-21", shape: "circle", font: { size: 30 },  color: "lime"},
+          { id: 2, label: "ellipse-2", shape: "ellipse", color: "lime" },
+
+          { id: 3, label: "database-3", shape: "database" },
+
+          // 4-sided
+          { id: 4, label: "box-4", shape: "box" }, 
+          { id: 5, label: "diamond-5", shape: "diamond", color: { background: "red", border: "blue" }, },
+          { id: 7, label: "square-7", shape: "square" },
+ 
+          { id: 6, label: "dot-6", shape: "dot" },
+
+          // 3-sided
+          { id: 8, label: "triangle-8", shape: "triangle" , color: "rgb(255,168,7)" },
+          { id: 9, label: "triangleDown-9", shape: "triangleDown" , color: "rgb(255,168,7)" },
+          {
+            id: 29,
+            font: { size: 30 },
+            size: 40,
+            label: "big triangle-29",
+            shape: "triangle",
+            color: "rgb(255,168,7)" 
+          },
+          {
+            id: 30,
+            font: { size: 30 },
+            size: 40,
+            label: "big triangleDown-30",
+            shape: "triangleDown", 
+            color: "rgb(255,168,7)" 
+          },
+
+
+          { id: 10, label: "text-10", shape: "text" },
+
+          // 5-sided
+          { id: 11, label: "star-11", shape: "star", color: "red" },
+          {
+            id: 32,
+            font: { size: 30 },
+            size: 40,
+            label: "big star-32",
+            shape: "star",color: "red"
+          },
+
+
+          // 6-sided
+          { id: 12, label: "hexagon-12", shape: "hexagon" },
+          {
+            id: 22,
+            font: { size: 30 },
+            label: "big ellipse-22",
+            shape: "ellipse",
+          },
+          {
+            id: 23,
+            font: { size: 30 },
+            label: "ellipse with a long label text-23",
+            shape: "ellipse",
+          },
+          {
+            id: 24,
+            font: { size: 30 },
+            label: "big database-24",
+            shape: "database",
+          },
+          { id: 25, label: "big box-25", shape: "box", font: { size: 30 } },
+          {
+            id: 26,
+            font: { size: 30 },
+            size: 40,
+            label: "big diamond-26",
+            shape: "diamond",
+          },
+          {
+            id: 27,
+            font: { size: 30 },
+            size: 40,
+            label: "big dot-27",
+            shape: "dot",
+          },
+          {
+            id: 28,
+            font: { size: 30 },
+            size: 40,
+            label: "big square-28",
+            shape: "square",
+          },
+          { id: 31, font: { size: 30 }, label: "big text-31", shape: "text" },
+          {
+            id: 33,
+            font: { size: 30 },
+            size: 40,
+            label: "big hexagon-33",
+            shape: "hexagon",
+          },
+          {
+            id: 34,
+            font: { size: 30 },
+            label: "icon square-34",
+            shape: "square",
+            icon: { code: "\uf164" },
+          },
+          {
+            id: 35,
+            font: { size: 30 },
+            label: "icon dot-35",
+            shape: "dot",
+            icon: { code: "\uf165" },
+          },
+          {
+            id: 36,
+            label: "custom-36",
+            shape: "custom",
+            ctxRenderer: ({
+              ctx,
+              id,
+              x,
+              y,
+              state: { selected, hover },
+              style,
+            }) => {
+              const r = style.size;
+              const drawNode = () => {
+                ctx.beginPath();
+                const sides = 6;
+                const a = (Math.PI * 2) / sides;
+                ctx.moveTo(x, y + r);
+                for (let i = 1; i < sides; i++) {
+                  ctx.lineTo(x + r * Math.sin(a * i), y + r * Math.cos(a * i));
+                }
+                ctx.closePath();
+                ctx.save();
+                ctx.fillStyle = "red";
+                ctx.fill();
+                ctx.stroke();
+                ctx.restore();
+
+                ctx.font = "normal 12px sans-serif";
+                ctx.fillStyle = "black";
+                ctx.fillText("custom shape", x - r + 10, y, 2 * r - 20);
+              };
+              return {
+                drawNode,
+                nodeDimensions: { width: 2 * r, height: 2 * r },
+              };
+            },
+          },
+          {
+            id: 37,
+            label: "FIELD---my value-37",
+            shape: "custom",
+            group: "a",
+            ctxRenderer: ({
+              ctx,
+              x,
+              y,
+              state: { selected, hover },
+              style,
+              label,
+            }) => {
+              const splittedLabel = label.split("---");
+              ctx.save();
+              ctx.restore();
+              const labelText = splittedLabel[0];
+              const valueText = splittedLabel[1];
+              const r = 5;
+
+              const labelWidth = ctx.measureText(labelText).width;
+              const valueWidth = ctx.measureText(valueText).width;
+
+              const wPadding = 10;
+              const hPadding = 10;
+
+              const w = 200;
+              const h = 60;
+              const drawNode = () => {
+                const r2d = Math.PI / 180;
+                if (w - 2 * r < 0) {
+                  r = w / 2;
+                } //ensure that the radius isn't too large for x
+                if (h - 2 * r < 0) {
+                  r = h / 2;
+                } //ensure that the radius isn't too large for y
+
+                const top = y - h / 2;
+                const left = x - w / 2;
+
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.moveTo(left + r, top);
+                ctx.lineTo(left + w - r, top);
+                ctx.arc(left + w - r, top + r, r, r2d * 270, r2d * 360, false);
+                ctx.lineTo(left + w, top + h - r);
+                ctx.arc(left + w - r, top + h - r, r, 0, r2d * 90, false);
+                ctx.lineTo(left + r, top + h);
+                ctx.arc(left + r, top + h - r, r, r2d * 90, r2d * 180, false);
+                ctx.lineTo(left, top + r);
+                ctx.arc(left + r, top + r, r, r2d * 180, r2d * 270, false);
+                ctx.closePath();
+                ctx.save();
+                ctx.fillStyle = style.color || "#56CCF2";
+                ctx.fill();
+                ctx.strokeStyle = "#FFFFFF";
+                ctx.stroke();
+
+                // label text
+                ctx.font = "normal 12px sans-serif";
+                ctx.fillStyle = "grey";
+                ctx.textAlign = "center";
+                ctx.textBaseline = "middle";
+                const textHeight1 = 12;
+                ctx.fillText(
+                  labelText,
+                  left + w / 2,
+                  top + textHeight1 + hPadding,
+                  w
+                );
+
+                // value text
+                ctx.font = "bold 14px sans-serif";
+                ctx.fillStyle = "black";
+                const textHeight2 = 12;
+
+                ctx.fillText(
+                  valueText,
+                  left + w / 2,
+                  top + h / 2 + hPadding,
+                  w
+                );
+              };
+
+              ctx.save();
+              ctx.restore();
+              return {
+                drawNode,
+                nodeDimensions: { width: w, height: h },
+              };
+            },
+          },
+        ];
+
+        edges = [
+          { from: 3, to: 24},
+          { from: 6, to: 27},
+          { from: 6, to: 35},
+          { from: 6, to: 1},
+          { from: 1, to: 2},
+          { from: 2, to: 22},
+          { from: 22, to: 23},
+          { from: 4, to: 25},
+          { from: 4, to: 5},
+          { from: 5, to: 26},
+          { from: 4, to: 7},
+          { from: 7, to: 28},
+          { from: 28, to: 34},
+          { from: 8, to: 9},
+          { from: 8, to: 29},
+          { from: 9, to: 30},
+          { from: 10, to: 31},
+          { from: 11, to: 32},   
+          { from: 12, to: 36},                
+          { from: 12, to: 33},          
+          { from: 1, to: 21},
+          { from: 34, to: 37},
+
+          { from: 36, to: 37, arrows: { to: { enabled: true } } }
+
+        ];
+
+        // create a network
+        var container = document.getElementById("mynetwork");
+        var data = {
+          nodes: nodes,
+          edges: edges,
+        };
+        var options = {
+          physics: { barnesHut: { gravitationalConstant: -4000 } },
+        };
+        network = new vis.Network(container, data, options);
+      }
+    </script>
+  </head>
+
+  <body onload="draw()">
+    <p>
+      Nodes can have all sorts of shapes. Note the exception where the nodes
+      with text inside and the text type's size are determined by the font size,
+      not the node size.
+    </p>
+    <div id="mynetwork"></div>
+
+    <div id="info"></div>
+  </body>
+</html>
