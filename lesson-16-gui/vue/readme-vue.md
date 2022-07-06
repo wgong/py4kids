@@ -1,3 +1,32 @@
+# Examplar repos
+
+- [todo-vue](https://github.com/mdn/todo-vue)
+	- [blogs by mozilla developers](https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Client-side_JavaScript_frameworks/Vue_first_component)
+- [bradtraversy-2021-crash-course: Task tracker](https://github.com/bradtraversy/vue-crash-2021)
+- [Intro-to-Vue-3-Product-Cart](https://youtu.be/bzlFvd0b65c)
+- [VueJS Examples](https://vuejs.org/examples/#counter)
+
+# Syntax
+
+### Project setup
+```
+npm install
+```
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
+### Compiles and minifies for production
+```
+npm run build
+npm install -g serve
+serve -s dist
+```
+### Lints and fixes files
+```
+npm run lint
+```
+
 
 # Learn Vue
 Dot -https://en.wikipedia.org/wiki/DOT_(graph_description_language)
