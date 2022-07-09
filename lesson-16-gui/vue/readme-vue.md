@@ -5,12 +5,22 @@
 - [bradtraversy-2021-crash-course: Task tracker](https://github.com/bradtraversy/vue-crash-2021)
 - [Intro-to-Vue-3-Product-Cart](https://youtu.be/bzlFvd0b65c)
 - [VueJS Examples](https://vuejs.org/examples/#counter)
+	- https://github.com/wgong/vuejs_examples
 
 # Syntax
 
+### Install Vue
+
+```
+npm init vue@latest
+```
+
 ### Project setup
 ```
+vue create <proj_1>
+cd <proj_1>
 npm install
+npm run dev
 ```
 ### Compiles and hot-reloads for development
 ```
@@ -26,9 +36,40 @@ serve -s dist
 ```
 npm run lint
 ```
+### upgrade vue/cli
+```
+npm i -g @vue/cli
+```
 
 
 # Learn Vue
+
+Vue or react: https://dzone.com/articles/react-vs-vue-in-2021-best-javascript-framework
+
+Vue mastery - Product Cart:
+https://youtu.be/bzlFvd0b65c
+
+Vue crash course by Brad Traversy
+https://youtu.be/qZXt1Aom3Cs
+
+Random User Generator
+https://codepen.io/bradtraversy/pen/LYbzJjK
+
+Task tracker:
+https://github.com/bradtraversy/vue-crash-2021/tree/master/src
+
+Vue.js Course for Beginners
+https://youtu.be/FXpIoQ_rT_c
+
+Contact management 
+https://youtu.be/_5Tw_oI9kKg
+
+Streamlit-agraph
+https://blog.streamlit.io/the-streamlit-agraph-component/
+ 
+https://discuss.streamlit.io/t/support-for-networkx-pyvis-and-folium/190
+
+
 Dot -https://en.wikipedia.org/wiki/DOT_(graph_description_language)
 
 visjs: http://Visjs.org/
@@ -40,24 +81,3 @@ https://github.com/visjs/awesome-visjs
 React : https://github.com/crubier/react-graph-vis
 
 Vue2vis : https://github.com/r3code/vue-vis-network
-
-
-Vue or react: https://dzone.com/articles/react-vs-vue-in-2021-best-javascript-framework
-
-Vue mastery :
-https://youtu.be/bzlFvd0b65c
-
-Vue crash course:
-https://youtu.be/qZXt1Aom3Cs
-
-https://youtu.be/FXpIoQ_rT_c
-Task tracker:
-https://github.com/bradtraversy/vue-crash-2021/tree/master/src
-
-Contact management 
-https://youtu.be/_5Tw_oI9kKg
-
-Streamlit-agraph
-https://blog.streamlit.io/the-streamlit-agraph-component/
- 
-https://discuss.streamlit.io/t/support-for-networkx-pyvis-and-folium/190
