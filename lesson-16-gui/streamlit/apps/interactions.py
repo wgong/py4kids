@@ -1,13 +1,12 @@
 """
 build ui on pyathena (instead of notebook) as an alternative to Hue 
 
-- see https://confluence.vanguard.com/display/CAPT/Athena+Jupyter+notebook+connection+in+Anaconda
 
 # bootstrap icons
 - https://icons.getbootstrap.com/
 
 """
-__author__ = 'Wen_Gong@vanguard.com'
+
 
 import streamlit as st
 from streamlit_option_menu import option_menu
@@ -32,29 +31,28 @@ import numpy as np
 import pandas as pd
 
 
-# vgi
+
 from identity import Identity as id_
 import antiphony
 from pyathena import connect
 from pyathena.pandas.util import as_pandas
 from sql_metadata import Parser
-import vg_sql_utils as vsu
-from hivo import HivoServer
+
 
 # my
 # import shutil
-# shutil.copy("C:/work/bitbucket_extra/coworkers/WEN_GONG/work/SQL/dst_query_utils.py", "./dst_query_utils.py")
-from dst_query_utils import Tealeaf
+# shutil.copy("C:/work/bitbucket_extra/coworkers/WEN_GONG/work/SQL/gwg_query_utils.py", "./gwg_query_utils.py")
+
 
 # Initial page config
 st.set_page_config(
-     page_title='Contact Event Report',
+     page_title='CE Report',
      layout="wide",
      initial_sidebar_state="expanded",
 )
 
 
-_APPNAME = "contact_event"
+_APPNAME = "ce"
 _CURRENT_USER = id_.username.casefold()
 
 
@@ -62,13 +60,11 @@ _CURRENT_USER = id_.username.casefold()
 
 
 SYS_LVL = {
-    "int": "e", "eng": "e", "test": "t", "prod": "p"
+    "int": "e", "eng": "e", "test": "t"
 }
 
 AWS_PROFILE = {
-    "vgi-ess-eng" : ["SIAPPENGINEER", "DSTANALYTICS"], 
-    "vgi-ess-test" : ["SIAPPDEVELOPER", "DSTANALYTICS"], 
-    "vgi-ess-prod" : ["DSTANALYTICS"],
+    "gwg-eng" : ["APPENGINEER"]
 }
 
 ##
@@ -79,10 +75,10 @@ def establish_conn(json_dict, master_dns, connection_trial=2):
     while connection_counter < connection_trial:
         try:
             # checking if the connection can be established
-            hconn = HivoServer(
+            hconn = IdServer(
                 host=master_dns,
                 **json_dict["hive_parameters"]).get_connection()
-            pconn = HivoServer(
+            pconn = IdServer(
                 host=master_dns,
                 query_engine="presto",
                 **json_dict["hive_parameters"],
@@ -128,9 +124,9 @@ def _is_valid_cred(username,passwd):
 
 
 def _clear_login_form():
-    keyring.delete_password(_APPNAME, st.session_state["vg_username"])
-    st.session_state["vg_username"] = ""
-    st.session_state["vg_password"] = ""
+    keyring.delete_password(_APPNAME, st.session_state["username"])
+    st.session_state["username"] = ""
+    st.session_state["password"] = ""
     
 def _validate_tablename(sql_stmt):
     for table in Parser(sql_stmt).tables:
@@ -298,8 +294,8 @@ def do_query_athena():
             ,CE.cntct_typ_nm Event_Code_Desc_level2
             ,CE.cntct_typ_abv_nm Event_Code_SN_level2
             ,CE.cntct_memo_txt Contact_Memo_Text
-        from platform_dst_transforms.Contact_Event CE
-        inner join platform_dst_transforms.Client_Merge CM
+        from ContactEvent CE
+        inner join ClientMerge CM
             on CE.clnt_po_id=CM.po_id
         where CM.rpt_po_id in {poid_clause}
             and CE.init_dt >= cast('{start_dt}' as date)  
@@ -329,7 +325,7 @@ def do_query_athena():
     if st.button('Execute Query'):
         _clear_cache(query_engine)        
         sql_stmt = f"""
-        insert into dstwork.snow_requests(request_item_id, request_type, ts, status, description)
+        insert into gwgwork.snow_requests(request_item_id, request_type, ts, status, description)
         values('{_request_id.strip()}', '{_request_type}',  LOCALTIMESTAMP, 'New', '{_request_desc.strip()}');
         """
         # st.info(sql_stmt)
@@ -350,7 +346,7 @@ def do_query_athena():
             _execute_athena(sql_queries[0])
 
         sql_stmt = f"""
-        insert into dstwork.snow_requests(request_item_id, request_type, ts, status, description)
+        insert into gwgwork.snow_requests(request_item_id, request_type, ts, status, description)
         values('{_request_id.strip()}', '{_request_type}',  LOCALTIMESTAMP, 'QueryCompleted', '');
         """
         # st.info(sql_stmt)
@@ -368,7 +364,7 @@ def do_query_athena():
 
 # place this after fn defined
 st_handler_map = {
-    "Contact Event": {"fn": do_query_athena, "icon": "file-earmark-spreadsheet"}, 
+    "CE": {"fn": do_query_athena, "icon": "file-earmark-spreadsheet"}, 
     "About": {"fn": do_welcome, "icon": "house"},
 }
 
@@ -376,21 +372,21 @@ def do_login():
 
     ## handle Login
     with st.sidebar.form(key='login_form'):
-        vg_username = st.text_input('Username', value=_CURRENT_USER, key="vg_username").casefold()
-        vg_password = st.text_input('Password', type="password", key="vg_password")
+        username = st.text_input('Username', value=_CURRENT_USER, key="username").casefold()
+        password = st.text_input('Password', type="password", key="password")
         col1,col2 = st.columns(2)
         with col1:
             if st.form_submit_button('Login'):
-                if _is_valid_cred(vg_username, vg_password):
+                if _is_valid_cred(username, password):
                     # update keyring
-                    keyring.set_password("vgidentity", vg_username, vg_password)
+                    keyring.set_password("identity", username, password)
                     # use keyring to store sailpoint login session
-                    keyring.set_password(_APPNAME, vg_username, "OK")
+                    keyring.set_password(_APPNAME, username, "OK")
                 else:
                     st.sidebar.warning("Invalid cred")
                     # remove sailpoint login session
                     try:
-                        keyring.delete_password(_APPNAME, vg_username)
+                        keyring.delete_password(_APPNAME, username)
                     except:
                         pass
         with col2:
@@ -401,7 +397,7 @@ def do_sidebar():
 
     do_login()
 
-    login_result = keyring.get_password(_APPNAME, st.session_state["vg_username"])
+    login_result = keyring.get_password(_APPNAME, st.session_state["username"])
     if login_result is not None and login_result == "OK":
         menu_item = st.empty()
         st.sidebar.text(f"Logged in")
@@ -427,13 +423,13 @@ def do_sidebar():
                     with st.form(key='conn_athena_form'):
                         col_left, col_right = st.columns(2)
                         with col_left:
-                            aws_account = st.text_input("Account:", value='vgi-ess-prod', key="aws_account")
-                            aws_role = st.text_input("Role:", value='DSTANALYTICS', key="aws_role")
+                            aws_account = st.text_input("Account:", value='gwg-test', key="aws_account")
+                            aws_role = st.text_input("Role:", value='ANALYTICS', key="aws_role")
                         with col_right:
                             aws_region = st.text_input("Region:", value='us-east-1', key="aws_region")
                             data_source = st.text_input("Catalog:", value='PlatformCatalog', key="data_source")
-                        athena_work_group = st.text_input("Work Group:", value='dst_athena_workgroup', key="athena_work_group")
-                        s3_loc = f'{aws_account}-{aws_region}-dstanalytics-sandbox/athena-query-results'
+                        athena_work_group = st.text_input("Work Group:", value='gwg_athena_workgroup', key="athena_work_group")
+                        s3_loc = f'{aws_account}-{aws_region}-gwganalytics-sandbox/athena-query-results'
                         s3_staging_dir = st.text_area("S3 Staging Dir:", value=s3_loc, key="s3_staging_dir")
 
                         aws_cfg = {
@@ -490,7 +486,7 @@ def do_sidebar():
 # Body
 def do_body():
 
-    login_result = keyring.get_password(_APPNAME, st.session_state["vg_username"])
+    login_result = keyring.get_password(_APPNAME, st.session_state["username"])
     if login_result == "OK" and "menu_item" in st.session_state:        
         menu_item = st.session_state["menu_item"]
         if menu_item and "fn" in st_handler_map[menu_item]:

@@ -1,13 +1,11 @@
 """
 build ui on pyathena (instead of notebook) as an alternative to Hue 
 
-- see https://confluence.vanguard.com/display/CAPT/Athena+Jupyter+notebook+connection+in+Anaconda
 
 # bootstrap icons
 - https://icons.getbootstrap.com/
 
 """
-__author__ = 'Wen_Gong@vanguard.com'
 
 import streamlit as st
 from streamlit_ace import st_ace
@@ -39,19 +37,14 @@ import numpy as np
 import pandas as pd
 import sqlite3
 
-# vgi
+# i
 from identity import Identity as id_
 import antiphony
 from pyathena import connect
 from pyathena.pandas.util import as_pandas
 from sql_metadata import Parser
-import vg_sql_utils as vsu
-from hivo import HivoServer
 
-# my
-# import shutil
-# shutil.copy("C:/work/bitbucket_extra/coworkers/WEN_GONG/work/SQL/dst_query_utils.py", "./dst_query_utils.py")
-# from dst_query_utils import *
+
 
 # Initial page config
 st.set_page_config(
@@ -107,9 +100,7 @@ SYS_LVL = {
 }
 
 AWS_PROFILE = {
-    "vgi-ess-eng" : ["SIAPPENGINEER", "DSTANALYTICS"], 
-    "vgi-ess-test" : ["SIAPPDEVELOPER", "DSTANALYTICS"], 
-    "vgi-ess-prod" : ["DSTANALYTICS"],
+    "gwg-eng" : ["ANALYTICS"],
 }
 
 # Aggrid options
@@ -263,9 +254,9 @@ def _is_valid_cred(username,passwd):
 
 
 def _clear_login_form():
-    keyring.delete_password(_APPNAME, st.session_state["vg_username"])
-    st.session_state["vg_username"] = ""
-    st.session_state["vg_password"] = ""
+    keyring.delete_password(_APPNAME, st.session_state["username"])
+    st.session_state["username"] = ""
+    st.session_state["password"] = ""
     
 def _validate_tablename(sql_stmt):
     for table in Parser(sql_stmt).tables:
@@ -569,21 +560,21 @@ def do_login():
 
     ## handle Login
     with st.sidebar.form(key='login_form'):
-        vg_username = st.text_input('Username', value=_CURRENT_USER, key="vg_username").casefold()
-        vg_password = st.text_input('Password', type="password", key="vg_password")
+        username = st.text_input('Username', value=_CURRENT_USER, key="username").casefold()
+        password = st.text_input('Password', type="password", key="password")
         col1,col2 = st.columns(2)
         with col1:
             if st.form_submit_button('Login'):
-                if _is_valid_cred(vg_username, vg_password):
+                if _is_valid_cred(username, password):
                     # update keyring
-                    keyring.set_password("vgidentity", vg_username, vg_password)
+                    keyring.set_password("identity", username, password)
                     # use keyring to store sailpoint login session
-                    keyring.set_password(_APPNAME, vg_username, "OK")
+                    keyring.set_password(_APPNAME, username, "OK")
                 else:
                     st.sidebar.warning("Invalid cred")
                     # remove sailpoint login session
                     try:
-                        keyring.delete_password(_APPNAME, vg_username)
+                        keyring.delete_password(_APPNAME, username)
                     except:
                         pass
         with col2:
@@ -594,7 +585,7 @@ def do_sidebar():
 
     do_login()
 
-    login_result = keyring.get_password(_APPNAME, st.session_state["vg_username"])
+    login_result = keyring.get_password(_APPNAME, st.session_state["username"])
     if login_result is not None and login_result == "OK":
         menu_item = st.empty()
         st.sidebar.text(f"Logged in")
@@ -619,13 +610,13 @@ def do_sidebar():
                 with st.form(key='conn_athena_form'):
                     col_left, col_right = st.columns(2)
                     with col_left:
-                        aws_account = st.text_input("Account:", value='vgi-ess-prod', key="aws_account")
-                        aws_role = st.text_input("Role:", value='DSTANALYTICS', key="aws_role")
+                        aws_account = st.text_input("Account:", value='gwg-prod', key="aws_account")
+                        aws_role = st.text_input("Role:", value='ANALYTICS', key="aws_role")
                     with col_right:
                         aws_region = st.text_input("Region:", value='us-east-1', key="aws_region")
                         data_source = st.text_input("Catalog:", value='PlatformCatalog', key="data_source")
-                    athena_work_group = st.text_input("Work Group:", value='dst_athena_workgroup', key="athena_work_group")
-                    s3_loc = f'{aws_account}-{aws_region}-dstanalytics-sandbox/athena-query-results'
+                    athena_work_group = st.text_input("Work Group:", value='gwg_athena_workgroup', key="athena_work_group")
+                    s3_loc = f'{aws_account}-{aws_region}-gwganalytics-sandbox/athena-query-results'
                     s3_staging_dir = st.text_area("S3 Staging Dir:", value=s3_loc, key="s3_staging_dir")
 
                     aws_cfg = {
@@ -682,12 +673,12 @@ def do_sidebar():
             if menu_item == "EMR":
 
                 json_dict = {'hive_parameters': {'hive.execution.engine': 'mr'}}
-                USE_DST_DAILY_CLUSTER = st.checkbox("Use DST Daily Cluster", value=True, key="USE_DST_DAILY_CLUSTER")
-                if USE_DST_DAILY_CLUSTER:
+                USE__DAILY_CLUSTER = st.checkbox("Use  Daily Cluster", value=True, key="USE__DAILY_CLUSTER")
+                if USE__DAILY_CLUSTER:
                     # Skip spin up cluster if you use existing cluster
-                    master_dns = 'dst-daily-cluster.us-east-1.essp.c1.vanguard.com'
+                    master_dns = 'daily-cluster.com'
                 else:
-                    master_dns = st.text_input("Master DNS:", value='dst-daily-cluster.us-east-1.essp.c1.vanguard.com', key="master_dns")
+                    master_dns = st.text_input("Master DNS:", value='daily-cluster.com', key="master_dns")
 
                 col_left, col_right = st.columns(2)
                 with col_left:
@@ -730,7 +721,7 @@ def do_sidebar():
 def do_body():
     _create_db_table()
 
-    login_result = keyring.get_password(_APPNAME, st.session_state["vg_username"])
+    login_result = keyring.get_password(_APPNAME, st.session_state["username"])
     if login_result == "OK" and "menu_item" in st.session_state:        
         menu_item = st.session_state["menu_item"]
         if menu_item and "fn" in st_handler_map[menu_item]:

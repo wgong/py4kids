@@ -8,7 +8,7 @@
 - https://icons.getbootstrap.com/
 
 """
-__author__ = "Wen_Gong@vanguard.com"
+
 
 import inspect
 import platform
@@ -30,7 +30,6 @@ import numpy as np
 import pandas as pd
 import streamlit as st
 
-# vgi
 from identity import Identity as id_
 from PIL import Image
 from st_aggrid import (
@@ -44,20 +43,20 @@ from streamlit_ace import st_ace
 from streamlit_option_menu import option_menu
 
 shutil.copy(
-    "C:/work/bitbucket_extra/coworkers/WEN_GONG/work/SQL/dst_query_utils.py",
-    "./dst_query_utils.py",
+    "C:/work/bitbucket_extra/coworkers/WEN_GONG/work/SQL/query_utils.py",
+    "./query_utils.py",
 )
-from dst_query_utils import *
+from query_utils import *
 
 # Initial page config
 st.set_page_config(
-    page_title="Streamlit Medallia",
+    page_title="Streamlit survey",
     layout="wide",
     initial_sidebar_state="expanded",
 )
 
 
-_APPNAME = "medallia"
+_APPNAME = "survey"
 _CURRENT_USER = id_.username.casefold()
 
 
@@ -87,27 +86,12 @@ LANGUAGE_MAP = {
 }
 
 
-SYS_LVL = {"int": "e", "eng": "e", "test": "t", "prod": "p"}
+SYS_LVL = {"int": "e", "eng": "e"}
 
-# AWS_PROFILE = {
-#     "eng" : {
-#         "vgi-platform-int" : ["ACCTVIEWONLY", "SIAPPENGINEER", "EDPQUERY"],
-#         "vgi-ess-eng" : ["ACCTVIEWONLY", "SIAPPENGINEER", "DSTANALYTICS"],
-#     },
-#     "test" : {
-#         "vgi-platform-test" : ["ACCTVIEWONLY", "SIAPPDEVELOPER", "EDPQUERY"],
-#         "vgi-ess-test" : ["ACCTVIEWONLY", "SIAPPDEVELOPER", "DSTANALYTICS"],
-#     },
-#     "prod" : {
-#         "vgi-platform-prod" : ["ACCTVIEWONLY", "EDPQUERY"],
-#         "vgi-ess-prod" : ["ACCTVIEWONLY", "DSTANALYTICS"],
-#     },
-# }
 
 AWS_PROFILE = {
-    "vgi-ess-eng": ["SIAPPENGINEER", "DSTANALYTICS"],
-    "vgi-ess-test": ["SIAPPDEVELOPER", "DSTANALYTICS"],
-    "vgi-ess-prod": ["DSTANALYTICS"],
+    "gwg-eng": ["ANALYTICS"],
+
 }
 
 # Aggrid options
@@ -132,7 +116,7 @@ _FORM_CONFIG = {
 }
 
 SCHEMA_MAP = {
-    "medallia": [
+    "survey": [
         "data_src",
         "surveyid",
         "comments",
@@ -191,7 +175,7 @@ def _default_val(row, col_name):
 def _form__build(ctx, row=None):
     key_pfx = _FORM_CONFIG[ctx]["key_pfx"]
     _disabled = _FORM_CONFIG[ctx]["read_only"]
-    table_name = "medallia"
+    table_name = "survey"
     st.text_area(
         "comments",
         value=_default_val(row, "comments"),
@@ -403,10 +387,10 @@ def aws_sentiments_batch(
 
 
 # @st.experimental_singleton
-# def _copy_dst_query_utils():
+# def _copy_query_utils():
 #     import shutil
-#     shutil.copy("C:/work/bitbucket_extra/coworkers/WEN_GONG/work/SQL/dst_query_utils.py", "./dst_query_utils.py")
-#     from dst_query_utils import *
+#     shutil.copy("C:/work/bitbucket_extra/coworkers/WEN_GONG/work/SQL/query_utils.py", "./query_utils.py")
+#     from query_utils import *
 ### SyntaxError: import * only allowed at module level
 
 # cached functions
@@ -440,16 +424,16 @@ def is_valid_cred(username, passwd):
 
 
 def clear_login_form():
-    keyring.delete_password(_APPNAME, st.session_state["vg_username"])
-    st.session_state["vg_username"] = ""
-    st.session_state["vg_password"] = ""
+    keyring.delete_password(_APPNAME, st.session_state["username"])
+    st.session_state["username"] = ""
+    st.session_state["password"] = ""
 
 
 def do_welcome():
     st.header("Welcome")
     st.markdown(
         """
-    This data app is built on [streamlit](http://streamlit.io) framework to explore Medallia survey data.
+    This data app is built on [streamlit](http://streamlit.io) framework to explore survey data.
 
     AWS Comprehend NLP tool is used for sentiment analysis and topic model.
     """,
@@ -457,7 +441,7 @@ def do_welcome():
     )
 
     st.write("package dependency:")
-    for line in open("requirements-ui_medallia.txt").read().split("\n"):
+    for line in open("requirements-ui_survey.txt").read().split("\n"):
         st.write("\t" + line)
 
 
@@ -467,17 +451,17 @@ def do_query_data():
 
     ## editor
     orig_text = """SELECT 
-    'medallia_csat_clean' "data_src",
+    'survey_csat_clean' "data_src",
     m.a_surveyid  "surveyid",
-    m.q_vgrig_transactional_reason_rate_cmt "comments",
-    length(m.q_vgrig_transactional_reason_rate_cmt) "comment_size",
-    m.e_vgrig_transactional_program_type  "program",
-    m.e_vgrig_transactional_asset_segment "segment",
-    m.q_vgrig_transactional_positivity_of_exp "positivity",
-    m.q_vgrig_transactional_eff_meet_needs  "eff_scale",
+    m.q_rig_transactional_reason_rate_cmt "comments",
+    length(m.q_rig_transactional_reason_rate_cmt) "comment_size",
+    m.e_rig_transactional_program_type  "program",
+    m.e_rig_transactional_asset_segment "segment",
+    m.q_rig_transactional_positivity_of_exp "positivity",
+    m.q_rig_transactional_eff_meet_needs  "eff_scale",
     m.e_creationdate  "creationdate"
-    FROM retail_medallia.medallia_csat_clean m 
-    where m.q_vgrig_transactional_reason_rate_cmt is not null
+    FROM survey_csat_clean m 
+    where m.q_rig_transactional_reason_rate_cmt is not null
     and m.e_creationdate between parse_datetime('2021-12-01', 'yyyy-MM-dd') 
         and parse_datetime('2021-12-31', 'yyyy-MM-dd')
 --limit 500
@@ -787,7 +771,7 @@ def do_sentiment():
             if st.button("Calculate sentiment"):
 
                 with st.spinner("running ..."):
-                    from vg_nlp_toolbox.utils import Comprehend
+                    from nlp_toolbox.utils import Comprehend
 
                     aws_region = "us-east-1"
                     comprehend = Comprehend(aws_account, aws_role, aws_region)
@@ -824,7 +808,6 @@ def do_topic():
     - Download and extract result file
     - Merge topic results with the original input text file
 
-    See an example at [medallia_topic_model-aws-automate.ipynb](https://bitbucket.opst.c1.vanguard.com/users/u8hi/repos/work/browse/jupyter-notebooks/NLP/medallia_topic_model-aws-automate.ipynb)
     """,
         unsafe_allow_html=True,
     )
@@ -871,27 +854,27 @@ def do_login():
 
     ## handle Login
     with st.sidebar.form(key="login_form"):
-        vg_username = st.text_input(
-            "Username", value=_CURRENT_USER, key="vg_username"
+        username = st.text_input(
+            "Username", value=_CURRENT_USER, key="username"
         ).casefold()
-        vg_password = st.text_input(
-            "Password", type="password", key="vg_password"
+        password = st.text_input(
+            "Password", type="password", key="password"
         )
         col1, col2 = st.columns(2)
         with col1:
             if st.form_submit_button("Login"):
-                if is_valid_cred(vg_username, vg_password):
+                if is_valid_cred(username, password):
                     # update keyring
                     keyring.set_password(
-                        "vgidentity", vg_username, vg_password
+                        "identity", username, password
                     )
                     # use keyring to store sailpoint login session
-                    keyring.set_password(_APPNAME, vg_username, "OK")
+                    keyring.set_password(_APPNAME, username, "OK")
                 else:
                     st.sidebar.warning("Invalid cred")
                     # remove sailpoint login session
                     try:
-                        keyring.delete_password(_APPNAME, vg_username)
+                        keyring.delete_password(_APPNAME, username)
                     except:
                         pass
         with col2:
@@ -904,7 +887,7 @@ def do_sidebar():
     do_login()
 
     login_result = keyring.get_password(
-        _APPNAME, st.session_state["vg_username"]
+        _APPNAME, st.session_state["username"]
     )
     if login_result is not None and login_result == "OK":
         menu_item = st.empty()
@@ -915,7 +898,7 @@ def do_sidebar():
 
         with st.sidebar:
             menu_item = option_menu(
-                "Medallia Survey",
+                "survey Survey",
                 menu_options,
                 icons=icons,
                 menu_icon="bounding-box",
@@ -924,24 +907,23 @@ def do_sidebar():
             )
 
             if menu_item == "Query Data":
-                USE_DST_DAILY_CLUSTER = st.checkbox(
-                    "Use DST Daily Cluster",
+                USE_DAILY_CLUSTER = st.checkbox(
+                    "Use Daily Cluster",
                     value=True,
-                    key="USE_DST_DAILY_CLUSTER",
+                    key="USE_DAILY_CLUSTER",
                 )
-                if USE_DST_DAILY_CLUSTER:
-                    # st.session_state["master_dns"] = 'dst-daily-cluster.us-east-1.essp.c1.vanguard.com'
+                if USE_DAILY_CLUSTER:
 
                     # Skip spin up cluster if you use existing cluster
                     master_dns = (
-                        "dst-daily-cluster.us-east-1.essp.c1.vanguard.com"
+                        "daily-cluster.com"
                     )
 
-                    json_dict = EMR_JSON_DICT["DST_Daily_Cluster"]
+                    json_dict = EMR_JSON_DICT["Daily_Cluster"]
                 else:
                     master_dns = st.text_input(
                         "Master DNS:",
-                        value="dst-daily-cluster.us-east-1.essp.c1.vanguard.com",
+                        value="daily-cluster.com",
                         key="master_dns",
                     )
 
@@ -1016,7 +998,7 @@ def do_sidebar():
 def do_body():
 
     login_result = keyring.get_password(
-        _APPNAME, st.session_state["vg_username"]
+        _APPNAME, st.session_state["username"]
     )
     if login_result == "OK" and "menu_item" in st.session_state:
         menu_item = st.session_state["menu_item"]
