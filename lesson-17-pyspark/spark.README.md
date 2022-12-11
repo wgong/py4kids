@@ -33,7 +33,9 @@ $ export SPARK_HOME=~/spark
 $ pip install findspark
 
 ## How to install pyspark
-https://www.digitalocean.com/community/tutorials/how-to-install-anaconda-on-ubuntu-18-04-quickstart
+- https://www.datacamp.com/tutorial/installation-of-pyspark
+
+- https://www.digitalocean.com/community/tutorials/how-to-install-anaconda-on-ubuntu-18-04-quickstart
 
 ## Quick Start with pyspark
 http://spark.apache.org/docs/latest/quick-start.html
