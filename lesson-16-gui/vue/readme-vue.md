@@ -11,6 +11,8 @@
 
 ### other projects
 
+- 
+  - noteball by Danny - https://github.com/dannyconnell/vue-composition-api-course
 - ~/projects/vue/intro-to-Vue-3-Product-Cart
 - ~/projects/vue/vue-crash-2021-task-tracker
 - ~/projects/vue/todo-vue
