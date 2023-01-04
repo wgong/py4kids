@@ -1,29 +1,29 @@
 https://www.youtube.com/watch?v=8sidnD2Wu2c
 
 ## Database
-- Supabase.com: open source firebase alternative, built on postgreSQL
+- [Supabase](https://supabase.com/): open source firebase alternative, built on postgreSQL
 - Vector database useful for search, similarity, recommendation
 - https://weaviate.io 
 - https://www.pinecone.io 
 
 - polars fast dataframe library for python/Rust
-- techchart : Technical feature extraction of time-series data
+- [techchart](https://github.com/prodipta/techchart) : Technical feature extraction of time-series data in R/C++
 
-## QuantConnect
+## [QuantConnect](https://www.quantconnect.com/)
 - platform for trading apps
 
 ## Teaching Tools
 
-- colab
-- replit
+- [Google Colab](https://colab.research.google.com/)
+- [replit](https://replit.com/) - browser based IDE
 - documentation/publishing tools
-	- Quarto https://quarto.org/docs/books
-	- Nbdev https://nbdev.fast.ai 
+	- [Quarto](https://quarto.org/docs/books)
+	- [Nbdev](https://nbdev.fast.ai) - Write, test, document, and distribute software packages and technical articles — all in one place, your jupyter notebook.
 
 ### Books
 - [Python for Data Analysis](https://wesmckinney.com/book/)
-- [Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow: Concepts, Tools, and Techniques to Build Intelligent Systems]
-- Deep Learning with Python, Second Edition 2nd Edition by Francois Chollet (Author)
+- [Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow: Concepts, Tools, and Techniques to Build Intelligent Systems](https://github.com/ageron/handson-ml2) - https://github.com/Akramz/Hands-on-Machine-Learning-with-Scikit-Learn-Keras-and-TensorFlow
+- [Deep Learning with Python in Notebook](https://github.com/fchollet/deep-learning-with-python-notebooks), Second Edition 2nd Edition by Francois Chollet (Author)
 - Machine Learning for Algorithmic Trading: Predictive models to extract signals from market and alternative data for systematic trading strategies with Python, 2nd Edition 2nd Edition, Kindle Edition
 by Stefan Jansen 
 
