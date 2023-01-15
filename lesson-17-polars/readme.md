@@ -3,6 +3,7 @@ pip install polars
 ```
 
 - Why Polars - https://youtu.be/iwGIuGk5nCE
+- [Polars: Blazingly Fast DataFrames in Rust and Python](https://youtu.be/kVy3-gMdViM)
 
 - https://pola-rs.github.io/polars-book/user-guide/
 
