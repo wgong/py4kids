@@ -10,8 +10,8 @@ rem pytube https://www.youtube.com/watch?v=FZqwlNpXelg
 rem pytube https://youtu.be/ClzQ_fxTjAg
 
 
-pytube https://www.youtube.com/watch?v=zyEfWq0RTkE
-pytube https://www.youtube.com/watch?v=m-hW85kl54E
+rem pytube https://www.youtube.com/watch?v=zyEfWq0RTkE
+rem pytube https://www.youtube.com/watch?v=m-hW85kl54E
 pytube https://www.youtube.com/watch?v=MfDnQPtijjc
 pytube https://www.youtube.com/watch?v=FUWrgLpazwE
 pytube https://www.youtube.com/watch?v=MWyKJIEXhmA
