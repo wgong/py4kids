@@ -20,6 +20,12 @@ def _log(msg, file="pytube.log", print_flag=True, encoding="utf-8"):
     if print_flag:
         print(msg)
 
+def _parse_title(url):
+    title = url.split("/")[-1]
+    if "v=" in title:
+        title = title.split("v=")[-1]
+    return title
+
 
 # read yaml data
 with open(FILE_YAML) as f:
@@ -43,20 +49,21 @@ else:
 for url in list_todo:
     yt = YouTube(url)
     try:
-        json_data.update({url : yt.title})
+        yt_title = yt.title
     except:
-        json_data.update({url : url})
+        yt_title = _parse_title(url)
+    json_data.update({url : yt_title})
         
     try:
-        file_mp4 = f"{yt.title}.mp4"
+        file_mp4 = f"{yt_title}.mp4"
         if Path(file_mp4).exists():
-            _log(f"{file_mp4} already exists, skip...")
+            _log(f"{file_mp4} already exists, skip ...")
         else:
-            _log(f"Downloading {file_mp4} ...")
+            _log(f"Downloading {file_mp4} from url = {url} ...")
             t1 = time()
             subprocess.run(["pytube", url])
             t2 = time()
-            _log(f"... completed in {(t2-t1):.2f} sec")
+            _log(f"...... completed in {(t2-t1):.2f} sec")
 
         if url not in list_done:
             list_done.append(url)
