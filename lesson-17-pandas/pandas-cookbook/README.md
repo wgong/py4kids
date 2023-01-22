@@ -33,6 +33,8 @@ Table of Contents
   <br>It's not totally obvious how to select data from a pandas dataframe. Here I explain the basics (how to take slices and get columns)
 * [Chapter 3: Which borough has the most noise complaints? (or, more selecting data)](http://nbviewer.ipython.org/github/jvns/pandas-cookbook/blob/master/cookbook/Chapter%203%20-%20Which%20borough%20has%20the%20most%20noise%20complaints%20%28or%2C%20more%20selecting%20data%29.ipynb)
   <br>Here we get into serious slicing and dicing and learn how to filter dataframes in complicated ways, really fast.
+* [Chap-3 ML Analysis of NYC-311 Service Request Data](https://github.com/ayush159/NYC-311)
+* [Chap-3 Noisy Neighbors and Traffic Trouble - An Analysis of NYC 311 Service Requests](https://towardsdatascience.com/analyzing-and-modelling-nyc-311-service-requests-eb6a9c9adc7c)
 * [Chapter 4: Find out on which weekday people bike the most with groupby and aggregate](http://nbviewer.ipython.org/github/jvns/pandas-cookbook/blob/master/cookbook/Chapter%204%20-%20Find%20out%20on%20which%20weekday%20people%20bike%20the%20most%20with%20groupby%20and%20aggregate.ipynb)
   <br> The groupby/aggregate is seriously my favorite thing about pandas and I use it all the time. You should probably read this.
 * [Chapter 5: Combining dataframes and scraping Canadian weather data](http://nbviewer.ipython.org/github/jvns/pandas-cookbook/blob/master/cookbook/Chapter%205%20-%20Combining%20dataframes%20and%20scraping%20Canadian%20weather%20data.ipynb)
