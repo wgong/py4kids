@@ -41,7 +41,7 @@ list_error = _get_url_dict(url_dict, key="error")
 
 # read json_data
 if Path(FILE_JSON).exists():
-    with open(FILE_JSON) as f:
+    with open(FILE_JSON, encoding="utf-8") as f:
         json_data = json.loads(f.read())
 else:
     json_data = {}
@@ -52,14 +52,14 @@ for url in list_todo:
         yt_title = yt.title
     except:
         yt_title = _parse_title(url)
-    json_data.update({url : yt_title})
+    json_data.update({url : str(yt_title)})
         
     try:
         file_mp4 = f"{yt_title}.mp4"
         if Path(file_mp4).exists():
             _log(f"{file_mp4} already exists, skip ...")
         else:
-            _log(f"Downloading {file_mp4} from url = {url} ...")
+            _log(f"Downloading {file_mp4} \n\t from url = {url} ...")
             t1 = time()
             subprocess.run(["pytube", url])
             t2 = time()
@@ -73,8 +73,10 @@ for url in list_todo:
             list_error.append(url)
 
 # write json_data
-with open(FILE_JSON, "w") as f:
-    f.write(json.dumps(json_data))
+# https://stackoverflow.com/questions/18337407/saving-utf-8-texts-with-json-dumps-as-utf-8-not-as-a-u-escape-sequence
+
+with open(FILE_JSON, "w", encoding="utf-8") as f:
+    f.write(json.dumps(json_data, ensure_ascii=False))
     
 # write yaml
 with open(FILE_YAML, "w") as f:
