@@ -12,10 +12,7 @@ pip install polars
 
 ## Resources
 
-### Blogs
-- [Polars — A DataFrame library faster than pandas](https://medium.com/@pyzone.dev/polars-a-dataframe-library-faster-than-pandas-c1267315af0e) 2022-12-16
-- [Using the Polars DataFrame Library](https://www.codemag.com/Article/2212051/Using-the-Polars-DataFrame-Library) 2022-11-10
-- [Lightning-fast queries with Polars](https://www.orchest.io/blog/the-great-python-dataframe-showdown-part-3-lightning-fast-queries-with-polars) 2022-05-25
+
 
 ### Polars: Blazingly Fast DataFrames in Rust and Python
 https://www.youtube.com/watch?v=kVy3-gMdViM
@@ -36,7 +33,11 @@ Polars is not only blazingly fast on high end hardware, it still performs when y
 
 
 ### Pandas vs Polar - A look at performance
-http://pandas%20vs%20polar%20-%20a%20look%20at%20performance/
+https://studioterabyte.nl/en/blog/polars-vs-pandas  (2022-07-11)
+
+dataset: https://www.kaggle.com/competitions/nyc-taxi-trip-duration/data?select=train.zip
+1.462.644 rows
+x25 => 36.566.100 rows (5gb) 
 
 ### Replacing Pandas with Polars - A Practical Guide	
 https://www.confessionsofadataguy.com/replacing-pandas-with-polars-a-practical-guide/
@@ -62,3 +63,15 @@ https://www.pola.rs/benchmarks.html
 
 ### Database-like ops benchmark
 https://h2oai.github.io/db-benchmark/
+
+
+### Blogs
+- [Polars — A DataFrame library faster than pandas](https://medium.com/@pyzone.dev/polars-a-dataframe-library-faster-than-pandas-c1267315af0e) 2022-12-16
+- [Using the Polars DataFrame Library](https://www.codemag.com/Article/2212051/Using-the-Polars-DataFrame-Library) 2022-11-10
+- [Lightning-fast queries with Polars](https://www.orchest.io/blog/the-great-python-dataframe-showdown-part-3-lightning-fast-queries-with-polars) 2022-05-25
+
+Python 3.9.13
+Name: polars
+Version: 0.15.14
+Name: pandas
+Version: 1.4.4
