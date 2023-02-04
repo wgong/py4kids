@@ -7,6 +7,8 @@ https://studioterabyte.nl/en/blog/polars-vs-pandas
 import pandas as pd
 import polars as pl
 from timer import Timer
+from pathlib import Path
+
 
 def print_results(results):
     print(f"     Pandas     |    Polars     |    Use-case Name ")
@@ -46,6 +48,20 @@ def print_df_shape(lib):
     if df is None: return
     print(df.shape)
 
+def write_out_parquet(lib, file_out="../data/train/"):
+    df = read_csv_df(lib)
+    if df is None: return
+
+    try:
+        file_out = f"{file_out}{lib}"
+        Path(file_out).mkdir(parents=True, exist_ok=True)
+        if lib == "pandas":
+            df.to_parquet(file_out, engine='auto', compression='snappy')
+        elif lib == "polars":
+            df.write_parquet(f"{file_out}/train.parquet")
+    except Exception as e:
+        print(f"[ERROR] write_out_parquet({lib}) \n {str(e)}")
+
 def print_length_string_in_column(lib):
     df = read_csv_df(lib)
     if df is None: return
@@ -61,7 +77,7 @@ def print_length_string_in_column(lib):
             ).to_pandas()
         print(df.head())    
     except Exception as e:
-        print(f"[ERROR] print_length_string_in_column() \n {str(e)}")
+        print(f"[ERROR] print_length_string_in_column({lib}) \n {str(e)}")
 
 def convert_trip_duration_to_minutes(lib):
     df = read_csv_df(lib)
@@ -78,7 +94,7 @@ def convert_trip_duration_to_minutes(lib):
             ).to_pandas()
         print(df.head())
     except Exception as e:
-        print(f"[ERROR] convert_trip_duration_to_minutes() \n {str(e)}")
+        print(f"[ERROR] convert_trip_duration_to_minutes({lib}) \n {str(e)}")
 
 def filter_out_trip_duration_500_seconds(lib, cutoff=500):
     df = read_csv_df(lib)
@@ -93,7 +109,7 @@ def filter_out_trip_duration_500_seconds(lib, cutoff=500):
         print(filtered_df.shape)
         print(filtered_df.head())
     except Exception as e:
-        print(f"[ERROR] filter_out_trip_duration_500_seconds() \n {str(e)}")
+        print(f"[ERROR] filter_out_trip_duration_500_seconds({lib}) \n {str(e)}")
 
 def filter_group_and_mean(lib):
     df = read_csv_df(lib)
@@ -115,12 +131,18 @@ def filter_group_and_mean(lib):
         print(df_mean.shape)
         print(df_mean.head())
     except Exception as e:
-        print(f"[ERROR] filter_group_and_mean() \n {str(e)}")
+        print(f"[ERROR] filter_group_and_mean({lib}) \n {str(e)}")
 #############################################
 def use_case_001(lib):
     print(f"[ {lib} ]")
     with Timer() as t:
         print_df_shape(lib)
+    return t.elapsed, t.unit
+
+def use_case_002(lib):
+    print(f"[ {lib} ]")
+    with Timer() as t:
+        write_out_parquet(lib)
     return t.elapsed, t.unit
 
 def use_case_003(lib):
@@ -156,50 +178,56 @@ USE_CASES = [
         "name": "use_case_001",
         "desc": "read_csv and df.shape",
         "fn": use_case_001,
-        "active": 1
+    },
+
+    {
+        "name": "use_case_002",
+        "desc": "write out parquet",
+        "fn": use_case_002,
+        "active": 1     # dev/debug this one when RUN_ALL_CASES = True; ignored when False
     },
 
     {
         "name": "use_case_003",
         "desc": "read_csv and df['id'].str.len()",
         "fn": use_case_003,
-        "active": 1
     },
 
     {
         "name": "use_case_004",
         "desc": "read_csv and divide trip_duration by 60",
         "fn": use_case_004,
-        "active": 1
     },
 
     {
         "name": "use_case_005",
         "desc": "read_csv and filter trip_duration >= 500 sec",
         "fn": use_case_005,
-        "active": 1
     },
 
     {
         "name": "use_case_006",
         "desc": "read_csv and group by and mean",
         "fn": use_case_006,
-        "active": 1
     },
 
 ]
+
+RUN_ALL_CASES = True   # run all use-cases 
+# RUN_ALL_CASES = False  # run selected use-case with active=1
 
 def perform_use_cases(cases):
     results = {}
     for use_case in cases:
         try:
             case_name = f"{use_case['name']}: {use_case['desc']}"
-            if not use_case.get("active", 0): continue
 
-            print(f"\n## {case_name}")
-            results[case_name] = {}
-            for lib in ["pandas", "polars"]:
-                results[case_name][lib] = use_case['fn'](lib)
+            if RUN_ALL_CASES or use_case.get("active", 0):
+
+                print(f"\n## {case_name}")
+                results[case_name] = {}
+                for lib in ["pandas", "polars"]:
+                    results[case_name][lib] = use_case['fn'](lib)
         except Exception as e:
             print(f"[ERROR] perform_use_cases() \n {str(e)}")                
     return results
