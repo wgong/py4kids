@@ -31,6 +31,8 @@ https://r-brink.medium.com/working-with-large-datasets-300m-on-a-tiny-machine-51
 
 Polars is not only blazingly fast on high end hardware, it still performs when you are working on a smaller machine. The results of Pandas show why many organisations and professionals switch to cloud solutions to process larger datasets. Polars show that this is not immediately necessary.	
 
+### Polars: Pandas DataFrame but Much Faster (2023-01-03)
+https://towardsdatascience.com/pandas-dataframe-but-much-faster-f475d6be4cd4
 
 ### Pandas vs Polar - A look at performance
 https://studioterabyte.nl/en/blog/polars-vs-pandas  (2022-07-11)
@@ -50,6 +52,9 @@ https://www.codemag.com/Article/2212051/Using-the-Polars-DataFrame-Library
 
 ### 3x times faster Pandas with PyPolars (2021-05-01)	
 https://towardsdatascience.com/3x-times-faster-pandas-with-pypolars-7550e605805e
+
+### https://github.com/Jcharis/DataScienceTools/tree/master/PyPolars_Data_Analysis
+
 
 ### Polars - User Guide	Official User Guide	
 https://pola-rs.github.io/polars-book/user-guide/introduction.html

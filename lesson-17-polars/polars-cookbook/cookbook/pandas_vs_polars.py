@@ -1,7 +1,12 @@
 """
-examples from 
-https://studioterabyte.nl/en/blog/polars-vs-pandas
+example sources: 
+- https://studioterabyte.nl/en/blog/polars-vs-pandas
 
+- https://towardsdatascience.com/pandas-dataframe-but-much-faster-f475d6be4cd4
+
+- https://github.com/danielbeach/PandasVsPolars
+    - Data set: NYC Parking Tickets (42 mil rows x 51 cols)
+    - Kaggle Notebook: https://www.kaggle.com/code/travisvoon/polars-demo-by-travis-tang
 """
 
 import pandas as pd
@@ -43,8 +48,22 @@ def read_csv_df(lib, test_file="../data/train/train.csv"):
         df = None
     return df
  
+def read_parquet_df(lib, test_file="../data/train/polars/train.parquet"):
+    if lib == "pandas":
+        df = pd.read_parquet(test_file, engine='pyarrow')
+    elif lib == "polars":
+        df = pl.read_parquet(test_file)
+    else:
+        df = None
+    return df
+
 def print_df_shape(lib):
     df = read_csv_df(lib)
+    if df is None: return
+    print(df.shape)
+
+def print_df_shape_a(lib):
+    df = read_parquet_df(lib)
     if df is None: return
     print(df.shape)
 
@@ -79,8 +98,14 @@ def print_length_string_in_column(lib):
     except Exception as e:
         print(f"[ERROR] print_length_string_in_column({lib}) \n {str(e)}")
 
-def convert_trip_duration_to_minutes(lib):
-    df = read_csv_df(lib)
+def convert_trip_duration_to_minutes(lib, filefmt="csv"):
+    if filefmt == "csv":
+        df = read_csv_df(lib)
+    elif filefmt == "parquet":
+        df = read_parquet_df(lib)
+    else:
+        print(f"[ERROR] invalid file format: {filefmt}, must be in ('csv','parquet')")
+        df = None
     if df is None: return
 
     try:
@@ -132,11 +157,18 @@ def filter_group_and_mean(lib):
         print(df_mean.head())
     except Exception as e:
         print(f"[ERROR] filter_group_and_mean({lib}) \n {str(e)}")
+
 #############################################
 def use_case_001(lib):
     print(f"[ {lib} ]")
     with Timer() as t:
         print_df_shape(lib)
+    return t.elapsed, t.unit
+
+def use_case_001a(lib):
+    print(f"[ {lib} ]")
+    with Timer() as t:
+        print_df_shape_a(lib)
     return t.elapsed, t.unit
 
 def use_case_002(lib):
@@ -155,6 +187,12 @@ def use_case_004(lib):
     print(f"[ {lib} ]")
     with Timer() as t:
         convert_trip_duration_to_minutes(lib)
+    return t.elapsed, t.unit
+
+def use_case_004b(lib):
+    print(f"[ {lib} ]")
+    with Timer() as t:
+        convert_trip_duration_to_minutes(lib, filefmt='parquet')
     return t.elapsed, t.unit
 
 def use_case_005(lib):
@@ -181,10 +219,15 @@ USE_CASES = [
     },
 
     {
+        "name": "use_case_001a",
+        "desc": "read_parquet and df.shape",
+        "fn": use_case_001a,
+    },
+
+    {
         "name": "use_case_002",
         "desc": "write out parquet",
         "fn": use_case_002,
-        "active": 1     # dev/debug this one when RUN_ALL_CASES = True; ignored when False
     },
 
     {
@@ -197,7 +240,16 @@ USE_CASES = [
         "name": "use_case_004",
         "desc": "read_csv and divide trip_duration by 60",
         "fn": use_case_004,
+        "active": 1     # dev/debug this one when RUN_ALL_CASES = True; ignored when False
     },
+
+    {
+        "name": "use_case_004b",
+        "desc": "read_parquet and divide trip_duration by 60",
+        "fn": use_case_004b,
+        "active": 1     # dev/debug this one when RUN_ALL_CASES = True; ignored when False
+    },
+
 
     {
         "name": "use_case_005",
@@ -214,7 +266,7 @@ USE_CASES = [
 ]
 
 RUN_ALL_CASES = True   # run all use-cases 
-# RUN_ALL_CASES = False  # run selected use-case with active=1
+RUN_ALL_CASES = False  # run selected use-case with active=1
 
 def perform_use_cases(cases):
     results = {}
