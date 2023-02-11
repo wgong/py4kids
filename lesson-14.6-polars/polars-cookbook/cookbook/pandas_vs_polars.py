@@ -15,7 +15,9 @@ import pandas as pd
 import polars as pl
 
 from timeit import default_timer
-
+#############################################
+# helper functions
+#############################################
 # from timer import Timer
 class Timer(object):
     CONVERSION = {

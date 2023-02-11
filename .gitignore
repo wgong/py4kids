@@ -18,7 +18,7 @@
 **/*.dat
 **/*.zip
 **/*.db
-**/*.duckdb
+**/*.duckdb*
 **/*.sqlite
 **/*.csv
 **/*.gz
@@ -34,11 +34,11 @@
 **/config-*.py
 
 # databrick
-lesson-17-pyspark/databrick/csv/
-lesson-17-pyspark/databrick/emp_dept1/
-lesson-17-pyspark/databrick/emp_dept2/
-lesson-17-pyspark/databrick/txt_csv/
-lesson-17-pyspark/databrick/txt_csv/
-lesson-17-pyspark/spark-guide/notebook/bar.parquet/
-lesson-17-pyspark/spark-guide/notebook/kdf.csv/
-lesson-17-pyspark/spark-guide/notebook/zoo.orc/
+lesson-14.4-pyspark/databrick-cert/csv/
+lesson-14.4-pyspark/databrick-cert/emp_dept1/
+lesson-14.4-pyspark/databrick-cert/emp_dept2/
+lesson-14.4-pyspark/databrick-cert/txt_csv/
+lesson-14.4-pyspark/databrick-cert/txt_csv/
+lesson-14.4-pyspark/spark-guide/notebook/bar.parquet/
+lesson-14.4-pyspark/spark-guide/notebook/kdf.csv/
+lesson-14.4-pyspark/spark-guide/notebook/zoo.orc/
