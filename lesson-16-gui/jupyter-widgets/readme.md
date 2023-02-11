@@ -1,3 +1,13 @@
+## Jupyter Extensions
+
+- [12 Jupyter Notebook Extensions That Will Make Your Life Easier](https://towardsdatascience.com/12-jupyter-notebook-extensions-that-will-make-your-life-easier-e0aae0bd181)
+
+```
+pip install jupyter_contrib_nbextensions
+jupyter contrib nbextension install
+
+```
+
 ## The Jupyter Widget Ecosystem - SciPy 2019 Tutorial
 https://github.com/wgong/tutorial 
     * fork of https://github.com/jupyter-widgets/tutorial

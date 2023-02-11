@@ -1,3 +1,4 @@
+# temp/cache
 **/__pycache__/
 **/__MACOSX/
 **/build/
@@ -5,26 +6,34 @@
 **/test/
 **/Untitled*.ipynb
 **/.ipynb_checkpoints/
-**/.ipynb_checkpoints/*.ipynb
 **/.vscode/
-**/*.dat
 **/*.log
+
+# media
 **/*.mpg
 **/*.mp3
 **/*.mp4
+
+# data
+**/*.dat
 **/*.zip
-**/*.gz
 **/*.db
+**/*.duckdb
+**/*.sqlite
 **/*.csv
-**/Untitled.ipynb
+**/*.gz
 **/metastore_db/
 **/data/
 **/spark-warehouse/
 **/*.json
+**/database.ini
+**/db_params.ipynb
+
+# config
 **/configuration.py
 **/config-*.py
-**/db_params.ipynb
-**/database.ini
+
+# databrick
 lesson-17-pyspark/databrick/csv/
 lesson-17-pyspark/databrick/emp_dept1/
 lesson-17-pyspark/databrick/emp_dept2/
