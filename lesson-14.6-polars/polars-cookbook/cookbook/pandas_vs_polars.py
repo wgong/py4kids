@@ -14,7 +14,20 @@ import os.path
 import pandas as pd
 import polars as pl
 
+from datetime import datetime
 from timeit import default_timer
+
+TIMER_UNIT = "sec"
+
+# this map config column width in char
+COL_WIDTH = {
+    "pandas": 11,
+    "polars": 11,
+    "unit": 4,
+    "use-case": 70,
+    "datafile": 50,
+    "dataset": 15,
+}
 #############################################
 # helper functions
 #############################################
@@ -47,15 +60,7 @@ class Timer(object):
         if self.verbose:
             print(f'Elapsed time: {self.elapsed:.6f} {self.unit}')
 
-
-COL_WIDTH = {
-    "pandas": 14,
-    "polars": 14,
-    "use-case": 70,
-    "datafile": 50,
-    "dataset": 15,
-}
-
+# format string to fixed width
 def pad_str(s, width=20, align="center", pad_ch=' '):
     len_s = len(s)
     if len_s > width:
@@ -73,8 +78,9 @@ def pad_str(s, width=20, align="center", pad_ch=' '):
     return s2
 
 
-def print_results_table(results):
-    # print(results)
+def print_results_table(results, output_csv=True, print_results=False):
+    if print_results:
+        print(results)
 
     lines = []
     headers = []
@@ -87,33 +93,46 @@ def print_results_table(results):
         separators.append(pad_str("=", width=COL_WIDTH[c], align="center", pad_ch='='))
     lines.append(separators)
 
+    data = []
     for use_case in results.keys():
         res = results[use_case]
         row = []
+        row_data = []
         col_name = "pandas"
         res_col = res.get(col_name, None)
         if res_col is not None:
-            col_val = f"{res_col[0]:.6f} {res_col[1]}"
+            col_val = f"{res_col[0]:.6f}"
+            row_data.append(col_val)
             col_val = pad_str(col_val, width=COL_WIDTH[col_name], align="right", pad_ch=' ')
         else:
+            row_data.append("")
             col_val = pad_str("-", width=COL_WIDTH[col_name], align="center", pad_ch='-')
         row.append(col_val)
 
         col_name = "polars"
         res_col = res.get(col_name, None)
         if res_col is not None:
-            col_val = f"{res_col[0]:.6f} {res_col[1]}"
+            col_val = f"{res_col[0]:.6f}"
+            row_data.append(col_val)
             col_val = pad_str(col_val, width=COL_WIDTH[col_name], align="right", pad_ch=' ')
         else:
+            row_data.append("")
             col_val = pad_str("-", width=COL_WIDTH[col_name], align="center", pad_ch='-')
         row.append(col_val)
 
+        col_name = "unit"
+        row_data.append(TIMER_UNIT)
+        col_val = pad_str(TIMER_UNIT, width=COL_WIDTH[col_name], align="right", pad_ch=' ')
+        row.append(col_val)
+
         col_name = "use-case"
+        row_data.append(use_case)
         col_val = pad_str(use_case, width=COL_WIDTH[col_name], align="left", pad_ch=' ')
         row.append(col_val)
 
         col_name = "datafile"
         res_col = res.get(col_name, "")
+        row_data.append(res_col)
         if res_col:
             col_val = pad_str(res_col, width=COL_WIDTH[col_name], align="left", pad_ch=' ')
         else:
@@ -122,6 +141,7 @@ def print_results_table(results):
 
         col_name = "dataset"
         res_col = res.get(col_name, "")
+        row_data.append(res_col)
         if res_col:
             col_val = pad_str(res_col, width=COL_WIDTH[col_name], align="left", pad_ch=' ')
         else:
@@ -129,8 +149,22 @@ def print_results_table(results):
         row.append(col_val)
         lines.append(row)
 
+        data.append(row_data)
+
+    # write to console
     for row in lines:
         print(" | ".join(row))
+
+    # write to CSV
+    if output_csv:
+        basename = os.path.basename(__file__).split(".")[0]
+        dt = datetime.now().strftime("%Y-%m-%d_%H-%M")
+        file_path = f"{basename}-{dt}.csv"
+        # print(f"file_path = {file_path}")
+        df = pd.DataFrame(data, columns=list(COL_WIDTH.keys()))
+        df.to_csv(file_path, index=False, index_label=False, sep="\t", encoding="utf-8")
+
+
 
 #############################################
 # define functions shared by all use-cases
@@ -293,55 +327,55 @@ def filter_group_and_mean(lib, datafile, dataset, *args, **kwargs):
 #############################################
 def use_case_001(lib, datafile, dataset):
     print(f"[ {lib} ]")
-    with Timer() as t:
+    with Timer(unit=TIMER_UNIT) as t:
         print_df_shape(lib, datafile, dataset)
     return t.elapsed, t.unit
 
 def use_case_001a(lib, datafile, dataset):
     print(f"[ {lib} ]")
-    with Timer() as t:
+    with Timer(unit=TIMER_UNIT) as t:
         print_df_shape(lib, datafile, dataset)
     return t.elapsed, t.unit
 
 def use_case_002(lib, datafile, dataset):
     print(f"[ {lib} ]")
-    with Timer() as t:
+    with Timer(unit=TIMER_UNIT) as t:
         write_out_parquet(lib, datafile, dataset, out_dir=f"../data/{dataset}/{lib}")
     return t.elapsed, t.unit
 
 def use_case_002_a(lib, datafile, dataset, n_factor):
     print(f"[ {lib} ]")
-    with Timer() as t:
+    with Timer(unit=TIMER_UNIT) as t:
         write_out_parquet(lib, datafile, dataset, out_dir=f"../data/{dataset}/{lib}", n_factor=n_factor)
     return t.elapsed, t.unit
 
 def use_case_003(lib, datafile, dataset):
     print(f"[ {lib} ]")
-    with Timer() as t:
+    with Timer(unit=TIMER_UNIT) as t:
         print_length_string_in_column(lib, datafile, dataset)
     return t.elapsed, t.unit
 
 def use_case_004(lib, datafile, dataset):
     print(f"[ {lib} ]")
-    with Timer() as t:
+    with Timer(unit=TIMER_UNIT) as t:
         convert_trip_duration_to_minutes(lib, datafile, dataset)
     return t.elapsed, t.unit
 
 def use_case_004b(lib, datafile, dataset):
     print(f"[ {lib} ]")
-    with Timer() as t:
+    with Timer(unit=TIMER_UNIT) as t:
         convert_trip_duration_to_minutes(lib, datafile, dataset)
     return t.elapsed, t.unit
 
 def use_case_005(lib, datafile, dataset):
     print(f"[ {lib} ]")
-    with Timer() as t:
+    with Timer(unit=TIMER_UNIT) as t:
         filter_out_trip_duration_500_seconds(lib, datafile, dataset)
     return t.elapsed, t.unit
 
 def use_case_006(lib, datafile, dataset):
     print(f"[ {lib} ]")
-    with Timer() as t:
+    with Timer(unit=TIMER_UNIT) as t:
         filter_group_and_mean(lib, datafile, dataset)
     return t.elapsed, t.unit
 
@@ -372,7 +406,7 @@ USE_CASES = [
 
     {
         "name": "use_case_001p",
-        "desc": "read_parquet and df.shape",
+        "desc": "read parquet and df.shape",
         "fn": use_case_001,
         "dataset": "uber-ride",
         "datafile": "../data/uber-ride/polars/train.parquet",
@@ -380,7 +414,7 @@ USE_CASES = [
 
     {
         "name": "use_case_002",
-        "desc": "write out parquet",
+        "desc": "write parquet",
         "fn": use_case_002,
         "dataset": "uber-ride",
         "datafile": "../data/uber-ride/train.csv.gz",
@@ -399,7 +433,7 @@ USE_CASES = [
 
     {
         "name": "use_case_003",
-        "desc": "read_csv and df['id'].str.len()",
+        "desc": "read csv and df['id'].str.len()",
         "fn": use_case_003,
         "dataset": "uber-ride",
         "datafile": "../data/uber-ride/train.csv.gz",
@@ -407,7 +441,7 @@ USE_CASES = [
 
     {
         "name": "use_case_003_a",
-        "desc": "read_parquet and df['id'].str.len()",
+        "desc": "read parquet and df['id'].str.len()",
         "fn": use_case_003,
         "dataset": "uber-ride",
         "datafile": "../data/uber-ride/polars/train-3.parquet",
@@ -416,7 +450,7 @@ USE_CASES = [
 
     {
         "name": "use_case_004",
-        "desc": "read_csv and divide trip_duration by 60",
+        "desc": "read csv and divide trip_duration by 60",
         "fn": use_case_004,
         "dataset": "uber-ride",
         "datafile": "../data/uber-ride/train.csv.gz",
@@ -424,7 +458,7 @@ USE_CASES = [
 
     {
         "name": "use_case_004b",
-        "desc": "read_parquet and divide trip_duration by 60",
+        "desc": "read parquet and divide trip_duration by 60",
         "fn": use_case_004b,
         "active": 0,     # this case will not run when RUN_ALL_CASES = False
         "dataset": "uber-ride",
@@ -434,7 +468,7 @@ USE_CASES = [
 
     {
         "name": "use_case_005",
-        "desc": "read_csv and filter trip_duration >= 500 sec",
+        "desc": "read csv and filter trip_duration >= 500 sec",
         "fn": use_case_005,
         "dataset": "uber-ride",
         "datafile": "../data/uber-ride/train.csv.gz",
@@ -442,7 +476,7 @@ USE_CASES = [
 
     {
         "name": "use_case_006",
-        "desc": "read_csv and group by and mean",
+        "desc": "read csv and group by and mean",
         "fn": use_case_006,
         "dataset": "uber-ride",
         "datafile": "../data/uber-ride/train.csv.gz",
