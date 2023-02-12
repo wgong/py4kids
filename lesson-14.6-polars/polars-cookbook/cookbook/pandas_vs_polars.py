@@ -49,10 +49,10 @@ class Timer(object):
 
 
 COL_WIDTH = {
-    "pandas": 15,
-    "polars": 15,
-    "use-case": 60,
-    "datafile": 40,
+    "pandas": 14,
+    "polars": 14,
+    "use-case": 70,
+    "datafile": 50,
     "dataset": 15,
 }
 
@@ -74,7 +74,6 @@ def pad_str(s, width=20, align="center", pad_ch=' '):
 
 
 def print_results_table(results):
-
     # print(results)
 
     lines = []
@@ -134,7 +133,7 @@ def print_results_table(results):
         print(" | ".join(row))
 
 #############################################
-# define use-case specific functions below
+# define functions shared by all use-cases
 #############################################
 def read_data(lib, datafile, dataset, *args, **kwargs):
     df = None
@@ -174,23 +173,46 @@ def df_concat(lib, df, n_factor):
     elif lib == "polars":
         return pl.concat(df_list)
 
-def write_out_parquet(lib, datafile, dataset, *args, **kwargs):
+def write_out_csv(lib, datafile, dataset, *args, **kwargs):
     df = read_data(lib, datafile, dataset, *args, **kwargs)
-    if df is None: return
+    if df is None or lib not in ["pandas","polars"]: return
 
-    file_out = kwargs.get("file_out", f"../data/{dataset}/{lib}")
+    out_dir = kwargs.get("out_dir", f"../data/{dataset}/{lib}")
     n_factor = kwargs.get("n_factor", 1)
 
     if n_factor > 1:
         df = df_concat(lib, df, n_factor)
     try:
-        Path(file_out).mkdir(parents=True, exist_ok=True)
+        Path(out_dir).mkdir(parents=True, exist_ok=True)
+        basename = os.path.basename(datafile).split(".")[0]
+        suffix = "" if n_factor == 1 else f"-{str(n_factor)}"
+        file_path = f"{out_dir}/{basename}{suffix}.csv"
+
         if lib == "pandas":
-            df.to_parquet(file_out, engine='auto', compression='snappy')
+            df.to_csv(file_path)
+        elif lib == "polars":
+            df.write_csv(file_path)
+
+    except Exception as e:
+        print(f"[ERROR] write_out_csv({lib}) \n {str(e)}")
+
+def write_out_parquet(lib, datafile, dataset, *args, **kwargs):
+    df = read_data(lib, datafile, dataset, *args, **kwargs)
+    if df is None: return
+
+    out_dir = kwargs.get("out_dir", f"../data/{dataset}/{lib}")
+    n_factor = kwargs.get("n_factor", 1)
+
+    if n_factor > 1:
+        df = df_concat(lib, df, n_factor)
+    try:
+        Path(out_dir).mkdir(parents=True, exist_ok=True)
+        if lib == "pandas":
+            df.to_parquet(out_dir, engine='auto', compression='snappy')
         elif lib == "polars":
             basename = os.path.basename(datafile).split(".")[0]
             suffix = "" if n_factor == 1 else f"-{str(n_factor)}"
-            df.write_parquet(f"{file_out}/{basename}{suffix}.parquet")
+            df.write_parquet(f"{out_dir}/{basename}{suffix}.parquet")
 
     except Exception as e:
         print(f"[ERROR] write_out_parquet({lib}) \n {str(e)}")
@@ -267,6 +289,8 @@ def filter_group_and_mean(lib, datafile, dataset, *args, **kwargs):
         print(f"[ERROR] filter_group_and_mean({lib}) \n {str(e)}")
 
 #############################################
+# declare use_case_xxx functions
+#############################################
 def use_case_001(lib, datafile, dataset):
     print(f"[ {lib} ]")
     with Timer() as t:
@@ -282,13 +306,13 @@ def use_case_001a(lib, datafile, dataset):
 def use_case_002(lib, datafile, dataset):
     print(f"[ {lib} ]")
     with Timer() as t:
-        write_out_parquet(lib, datafile, dataset, file_out=f"../data/{dataset}/{lib}")
+        write_out_parquet(lib, datafile, dataset, out_dir=f"../data/{dataset}/{lib}")
     return t.elapsed, t.unit
 
 def use_case_002_a(lib, datafile, dataset, n_factor):
     print(f"[ {lib} ]")
     with Timer() as t:
-        write_out_parquet(lib, datafile, dataset, file_out=f"../data/{dataset}/{lib}", n_factor=n_factor)
+        write_out_parquet(lib, datafile, dataset, out_dir=f"../data/{dataset}/{lib}", n_factor=n_factor)
     return t.elapsed, t.unit
 
 def use_case_003(lib, datafile, dataset):
@@ -426,9 +450,9 @@ USE_CASES = [
 
 ]
 
-def run_use_cases(cases):
+def main():
     results = {}
-    for use_case in cases:
+    for use_case in USE_CASES:
         # print(use_case)
         try:
             case_name = f"{use_case['name']}: {use_case['desc']}"
@@ -450,15 +474,12 @@ def run_use_cases(cases):
                         results[case_name][lib] = use_case['fn'](lib, datafile, dataset, n_factor)
                     else:
                         results[case_name][lib] = use_case['fn'](lib, datafile, dataset)
+
         except Exception as e:
             print(f"[ERROR] run_use_cases() \n {str(e)}")                
-    return results
+            continue
 
-def main():
-    results = run_use_cases(USE_CASES)
     print_results_table(results)
 
 if __name__ == "__main__":
     main()
-  
-  

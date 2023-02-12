@@ -70,6 +70,14 @@ https://www.pola.rs/benchmarks.html
 https://h2oai.github.io/db-benchmark/
 
 
+## Connector-X
+
+- https://rustrepo.com/repo/sfu-db-connector-x-rust-data-processing
+
+    - [SQLite](https://towardsdatascience.com/connectorx-the-fastest-way-to-load-data-from-databases-a65d4d4062d5)
+        - [Connector-X Discussions](https://github.com/sfu-db/connector-x/discussions)
+        - https://stackoverflow.com/questions/75307473/how-to-read-a-sqlite-database-file-using-polars-package-in-python
+
 ### Blogs
 - [Polars — A DataFrame library faster than pandas](https://medium.com/@pyzone.dev/polars-a-dataframe-library-faster-than-pandas-c1267315af0e) 2022-12-16
 - [Using the Polars DataFrame Library](https://www.codemag.com/Article/2212051/Using-the-Polars-DataFrame-Library) 2022-11-10
