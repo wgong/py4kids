@@ -10,9 +10,13 @@ example sources:
 """
 from pathlib import Path
 import os.path
+import os
 
 import pandas as pd
 import polars as pl
+import connectorx as cx
+import urllib
+import sqlite3
 
 from datetime import datetime
 from timeit import default_timer
@@ -94,8 +98,8 @@ def print_results_table(results, output_csv=True, print_results=False):
     lines.append(separators)
 
     data = []
-    for use_case in results.keys():
-        res = results[use_case]
+    for case_ in results.keys():
+        res = results[case_]
         row = []
         row_data = []
         col_name = "pandas"
@@ -126,8 +130,8 @@ def print_results_table(results, output_csv=True, print_results=False):
         row.append(col_val)
 
         col_name = "use-case"
-        row_data.append(use_case)
-        col_val = pad_str(use_case, width=COL_WIDTH[col_name], align="left", pad_ch=' ')
+        row_data.append(case_)
+        col_val = pad_str(case_, width=COL_WIDTH[col_name], align="left", pad_ch=' ')
         row.append(col_val)
 
         col_name = "datafile"
@@ -322,62 +326,88 @@ def filter_group_and_mean(lib, datafile, dataset, *args, **kwargs):
     except Exception as e:
         print(f"[ERROR] filter_group_and_mean({lib}) \n {str(e)}")
 
+def read_sqlite_write_excel(lib, datafile, dataset, *args, **kwargs):
+    query = f"""
+    select * from quote_ta_spy where ticker='SPY' order by date_;
+    """
+    dir_name, base_name = os.path.dirname(datafile), os.path.basename(datafile)
+    fname, _ = os.path.splitext(base_name)
+    file_path = Path(dir_name) / Path(f"{fname}.xlsx")
+    if lib == "pandas":
+        conn_ = sqlite3.connect(datafile)
+        df = pd.read_sql(query, conn_)
+        df.to_excel(file_path, index=False)
+    elif lib == "polars":
+        root_name = os.getcwd()
+        p = Path(root_name) / Path(datafile)
+        path = urllib.parse.quote(p.__str__())
+        df = cx.read_sql(f"sqlite://{path}", query)
+        df.to_excel(file_path, index=False)
+
 #############################################
-# declare use_case_xxx functions
+# declare case_xxx functions
 #############################################
-def use_case_001(lib, datafile, dataset):
+def case_001(lib, datafile, dataset):
     print(f"[ {lib} ]")
     with Timer(unit=TIMER_UNIT) as t:
         print_df_shape(lib, datafile, dataset)
     return t.elapsed, t.unit
 
-def use_case_001a(lib, datafile, dataset):
+def case_001a(lib, datafile, dataset):
     print(f"[ {lib} ]")
     with Timer(unit=TIMER_UNIT) as t:
         print_df_shape(lib, datafile, dataset)
     return t.elapsed, t.unit
 
-def use_case_002(lib, datafile, dataset):
+def case_002(lib, datafile, dataset):
     print(f"[ {lib} ]")
     with Timer(unit=TIMER_UNIT) as t:
         write_out_parquet(lib, datafile, dataset, out_dir=f"../data/{dataset}/{lib}")
     return t.elapsed, t.unit
 
-def use_case_002_a(lib, datafile, dataset, n_factor):
+def case_002a(lib, datafile, dataset, n_factor):
     print(f"[ {lib} ]")
     with Timer(unit=TIMER_UNIT) as t:
         write_out_parquet(lib, datafile, dataset, out_dir=f"../data/{dataset}/{lib}", n_factor=n_factor)
     return t.elapsed, t.unit
 
-def use_case_003(lib, datafile, dataset):
+def case_003(lib, datafile, dataset):
     print(f"[ {lib} ]")
     with Timer(unit=TIMER_UNIT) as t:
         print_length_string_in_column(lib, datafile, dataset)
     return t.elapsed, t.unit
 
-def use_case_004(lib, datafile, dataset):
+def case_004(lib, datafile, dataset):
     print(f"[ {lib} ]")
     with Timer(unit=TIMER_UNIT) as t:
         convert_trip_duration_to_minutes(lib, datafile, dataset)
     return t.elapsed, t.unit
 
-def use_case_004b(lib, datafile, dataset):
+def case_004b(lib, datafile, dataset):
     print(f"[ {lib} ]")
     with Timer(unit=TIMER_UNIT) as t:
         convert_trip_duration_to_minutes(lib, datafile, dataset)
     return t.elapsed, t.unit
 
-def use_case_005(lib, datafile, dataset):
+def case_005(lib, datafile, dataset):
     print(f"[ {lib} ]")
     with Timer(unit=TIMER_UNIT) as t:
         filter_out_trip_duration_500_seconds(lib, datafile, dataset)
     return t.elapsed, t.unit
 
-def use_case_006(lib, datafile, dataset):
+def case_006(lib, datafile, dataset):
     print(f"[ {lib} ]")
     with Timer(unit=TIMER_UNIT) as t:
         filter_group_and_mean(lib, datafile, dataset)
     return t.elapsed, t.unit
+
+def case_007(lib, datafile, dataset):
+    print(f"[ {lib} ]")
+    with Timer(unit=TIMER_UNIT) as t:
+        read_sqlite_write_excel(lib, datafile, dataset)
+    return t.elapsed, t.unit
+
+
 
 ############################
 # register use-case here
@@ -386,80 +416,79 @@ def use_case_006(lib, datafile, dataset):
 RUN_ALL_CASES = True   # run all use-cases 
 # RUN_ALL_CASES = False  # run selected use-case where {"active": 1}
 
-USE_CASES = [
+CASE_MAP = [
     # {
-    #     "name": "use_case_001",
+    #     "name": "case_001",
     #     "desc": "read_csv and df.shape",
-    #     "fn": use_case_001,
+    #     "fn": case_001,
     #     "dataset": "uber-ride",
     #     "datafile": "../data/uber-ride/train.csv",
     #     "active": 1,     # dev/debug this one when RUN_ALL_CASES = True; ignored when False
     # },
 
     {
-        "name": "use_case_001a",
+        "name": "case_001a",
         "desc": "read gzipped csv and df.shape",
-        "fn": use_case_001,
+        "fn": case_001,
         "dataset": "uber-ride",
         "datafile": "../data/uber-ride/train.csv.gz",
     },
 
     {
-        "name": "use_case_001p",
+        "name": "case_001p",
         "desc": "read parquet and df.shape",
-        "fn": use_case_001,
+        "fn": case_001,
         "dataset": "uber-ride",
         "datafile": "../data/uber-ride/polars/train.parquet",
     },
 
     {
-        "name": "use_case_002",
+        "name": "case_002",
         "desc": "write parquet",
-        "fn": use_case_002,
+        "fn": case_002,
         "dataset": "uber-ride",
         "datafile": "../data/uber-ride/train.csv.gz",
     },
 
     {
-        "name": "use_case_002_a",
+        "name": "case_002a",
         "desc": "read parquet, concat by n_factor, write parquet",
-        "fn": use_case_002_a,
+        "fn": case_002a,
         "dataset": "uber-ride",
         "datafile": "../data/uber-ride/polars/train.parquet",
         "n_factor": 3,
-        "active": 1,     # dev/debug this one when RUN_ALL_CASES = True; ignored when False
+        "active": 0,     # dev/debug this one when RUN_ALL_CASES = True; ignored when False
     },
 
 
     {
-        "name": "use_case_003",
+        "name": "case_003",
         "desc": "read csv and df['id'].str.len()",
-        "fn": use_case_003,
+        "fn": case_003,
         "dataset": "uber-ride",
         "datafile": "../data/uber-ride/train.csv.gz",
     },
 
     {
-        "name": "use_case_003_a",
+        "name": "case_003a",
         "desc": "read parquet and df['id'].str.len()",
-        "fn": use_case_003,
+        "fn": case_003,
         "dataset": "uber-ride",
         "datafile": "../data/uber-ride/polars/train-3.parquet",
-        "active": 1,     # dev/debug this one when RUN_ALL_CASES = True; ignored when False
     },
 
     {
-        "name": "use_case_004",
+        "name": "case_004",
         "desc": "read csv and divide trip_duration by 60",
-        "fn": use_case_004,
+        "fn": case_004,
         "dataset": "uber-ride",
         "datafile": "../data/uber-ride/train.csv.gz",
     },
 
     {
-        "name": "use_case_004b",
+        "name": "case_004b",
         "desc": "read parquet and divide trip_duration by 60",
-        "fn": use_case_004b,
+        "fn": case_004b,
         "active": 0,     # this case will not run when RUN_ALL_CASES = False
         "dataset": "uber-ride",
         "datafile": "../data/uber-ride/polars/train.parquet",
@@ -467,35 +496,46 @@ USE_CASES = [
 
 
     {
-        "name": "use_case_005",
+        "name": "case_005",
         "desc": "read csv and filter trip_duration >= 500 sec",
-        "fn": use_case_005,
+        "fn": case_005,
         "dataset": "uber-ride",
         "datafile": "../data/uber-ride/train.csv.gz",
     },
 
     {
-        "name": "use_case_006",
+        "name": "case_006",
         "desc": "read csv and group by and mean",
-        "fn": use_case_006,
+        "fn": case_006,
         "dataset": "uber-ride",
         "datafile": "../data/uber-ride/train.csv.gz",
     },
+
+    {
+        "name": "case_007",
+        "desc": "read sqlite and write excel",
+        "fn": case_007,
+        "dataset": "spy",
+        "datafile": "../data/spy/spy.sqlite",
+        "active": 1,     # dev/debug this one when RUN_ALL_CASES = True; ignored when False
+    },
+
+
 
 ]
 
 def main():
     results = {}
-    for use_case in USE_CASES:
-        # print(use_case)
+    for case_ in CASE_MAP:
+        # print(case_)
         try:
-            case_name = f"{use_case['name']}: {use_case['desc']}"
+            case_name = f"{case_['name']}: {case_['desc']}"
 
-            if RUN_ALL_CASES or use_case.get("active", 0):
+            if RUN_ALL_CASES or case_.get("active", 0):
                 print(f"\n## {case_name}")
                 results[case_name] = {}
-                dataset = use_case.get("dataset","")
-                datafile = use_case.get("datafile","")
+                dataset = case_.get("dataset","")
+                datafile = case_.get("datafile","")
                 results[case_name]["dataset"] = dataset
                 results[case_name]["datafile"] = datafile
                 if not datafile:
@@ -503,14 +543,14 @@ def main():
                     continue
 
                 for lib in ["pandas", "polars"]:
-                    if use_case['name'] == "use_case_002_a":
-                        n_factor = use_case.get("n_factor", 1)
-                        results[case_name][lib] = use_case['fn'](lib, datafile, dataset, n_factor)
+                    if case_['name'] == "case_002a":
+                        n_factor = case_.get("n_factor", 1)
+                        results[case_name][lib] = case_['fn'](lib, datafile, dataset, n_factor)
                     else:
-                        results[case_name][lib] = use_case['fn'](lib, datafile, dataset)
+                        results[case_name][lib] = case_['fn'](lib, datafile, dataset)
 
         except Exception as e:
-            print(f"[ERROR] run_use_cases() \n {str(e)}")                
+            print(f"[ERROR] main() \n {str(e)}")                
             continue
 
     print_results_table(results)

@@ -11,78 +11,60 @@ pip install polars
 
 ## Docs
 
-### Polars - Official User Guide	
-https://pola-rs.github.io/polars-book/user-guide/introduction.html
+### [Polars - Official User Guide](https://pola-rs.github.io/polars-book/user-guide/introduction.html)
 
-### Polars - API Reference Guide	
-https://pola-rs.github.io/polars/py-polars/html/reference/index.html
+### [Polars - API Reference Guide](https://pola-rs.github.io/polars/py-polars/html/reference/index.html)
 
-### Polars Source - GitHub
-https://github.com/pola-rs/polars
+### [Polars Source - GitHub](https://github.com/pola-rs/polars)
 
-### DB Connector-X
+### [DB Connector-X](https://rustrepo.com/repo/sfu-db-connector-x-rust-data-processing)
 
-- https://rustrepo.com/repo/sfu-db-connector-x-rust-data-processing
-
-    - [SQLite](https://towardsdatascience.com/connectorx-the-fastest-way-to-load-data-from-databases-a65d4d4062d5)
-        - [Connector-X Discussions](https://github.com/sfu-db/connector-x/discussions)
-        - https://stackoverflow.com/questions/75307473/how-to-read-a-sqlite-database-file-using-polars-package-in-python
+- [SQLite](https://towardsdatascience.com/connectorx-the-fastest-way-to-load-data-from-databases-a65d4d4062d5)
+    - [Connector-X Discussions](https://github.com/sfu-db/connector-x/discussions)
+    - https://stackoverflow.com/questions/75307473/how-to-read-a-sqlite-database-file-using-polars-package-in-python
 
 
-### TPCH benchmark
-https://www.pola.rs/benchmarks.html
+### [TPCH benchmark](https://www.pola.rs/benchmarks.html)
+
 
 ## Resources: Videos, Blogs, Books
 
-### Polars: Blazingly Fast DataFrames in Rust and Python
-https://www.youtube.com/watch?v=kVy3-gMdViM
+### [Polars: Blazingly Fast DataFrames in Rust and Python](https://www.youtube.com/watch?v=kVy3-gMdViM)
 
 Databrick Data-AI summit 2022 by Richie Vink	
 
-### Why Polars?	PyData Global 2021 by Richie Vink	
-http://youtube.com/watch?v=iwGIuGk5nCE
+### [Why Polars?	PyData Global 2021 by Richie Vink](http://youtube.com/watch?v=iwGIuGk5nCE)
 
-### Introduction to Polars (2021-03-23)	
-https://r-brink.medium.com/introduction-to-polars-ee9e638dc163
 
-### Working with large datasets (300M) on a tiny machine (512MB RAM, 1 core) (2023-01-04)
-https://r-brink.medium.com/working-with-large-datasets-300m-on-a-tiny-machine-512mb-ram-1-core-6d1553e474df
+### [Introduction to Polars (2021-03-23)](https://r-brink.medium.com/introduction-to-polars-ee9e638dc163)
+
+
+### [Working with large datasets (300M) on a tiny machine (512MB RAM, 1 core) (2023-01-04)](https://r-brink.medium.com/working-with-large-datasets-300m-on-a-tiny-machine-512mb-ram-1-core-6d1553e474df)
 
 Polars is not only blazingly fast on high end hardware, it still performs when you are working on a smaller machine. The results of Pandas show why many organisations and professionals switch to cloud solutions to process larger datasets. Polars show that this is not immediately necessary.	
 
-### Polars: Pandas DataFrame but Much Faster (2023-01-03)
-https://towardsdatascience.com/pandas-dataframe-but-much-faster-f475d6be4cd4
+### [Polars: Pandas DataFrame but Much Faster (2023-01-03)](https://towardsdatascience.com/pandas-dataframe-but-much-faster-f475d6be4cd4)
 
-### Pandas vs Polar - A look at performance
-https://studioterabyte.nl/en/blog/polars-vs-pandas  (2022-07-11)
 
-dataset: https://www.kaggle.com/competitions/nyc-taxi-trip-duration/data?select=train.zip
+### [Pandas vs Polar - A look at performance](https://studioterabyte.nl/en/blog/polars-vs-pandas  (2022-07-11))
+- dataset: https://www.kaggle.com/competitions/nyc-taxi-trip-duration/data?select=train.zip
 1.462.644 rows
 x25 => 36.566.100 rows (5gb) 
+    - copy `.\datafiles\train.csv.gzipped` to `.\lesson-17-polars\polars-cookbook\data\uber-ride\train.csv.gz`
 
-### Replacing Pandas with Polars - A Practical Guide	
-https://www.confessionsofadataguy.com/replacing-pandas-with-polars-a-practical-guide/
+### [Replacing Pandas with Polars - A Practical Guide	](https://www.confessionsofadataguy.com/replacing-pandas-with-polars-a-practical-guide/)
 
-### Polars — A DataFrame library faster than pandas (2022-12-16)	
-https://medium.com/@pyzone.dev/polars-a-dataframe-library-faster-than-pandas-c1267315af0e
+### [Polars — A DataFrame library faster than pandas (2022-12-16)	](https://medium.com/@pyzone.dev/polars-a-dataframe-library-faster-than-pandas-c1267315af0e)
 
-### Using the Polars DataFrame Library (2022-11-10)	
-https://www.codemag.com/Article/2212051/Using-the-Polars-DataFrame-Library
+### [Using the Polars DataFrame Library (2022-11-10)](https://www.codemag.com/Article/2212051/Using-the-Polars-DataFrame-Library)
 
-### 3x times faster Pandas with PyPolars (2021-05-01)	
-https://towardsdatascience.com/3x-times-faster-pandas-with-pypolars-7550e605805e
+### [3x times faster Pandas with PyPolars (2021-05-01)](https://towardsdatascience.com/3x-times-faster-pandas-with-pypolars-7550e605805e)
 
-### https://github.com/Jcharis/DataScienceTools/tree/master/PyPolars_Data_Analysis
+### [Lightning-fast queries with Polars](https://www.orchest.io/blog/the-great-python-dataframe-showdown-part-3-lightning-fast-queries-with-polars) 2022-05-25
 
+### [PyPolars_Data_Analysis](https://github.com/Jcharis/DataScienceTools/tree/master/PyPolars_Data_Analysis)
 
-### Database-like ops benchmark
-https://h2oai.github.io/db-benchmark/
-
-
-- [Polars — A DataFrame library faster than pandas](https://medium.com/@pyzone.dev/polars-a-dataframe-library-faster-than-pandas-c1267315af0e) 2022-12-16
-- [Using the Polars DataFrame Library](https://www.codemag.com/Article/2212051/Using-the-Polars-DataFrame-Library) 2022-11-10
-- [Lightning-fast queries with Polars](https://www.orchest.io/blog/the-great-python-dataframe-showdown-part-3-lightning-fast-queries-with-polars) 2022-05-25
-
+### [Database-like ops benchmark](https://h2oai.github.io/db-benchmark/)
 
 ## Misc
 
