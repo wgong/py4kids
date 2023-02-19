@@ -12,6 +12,7 @@ from pathlib import Path
 import os.path
 import os
 
+import numpy as np
 import pandas as pd
 import polars as pl
 import connectorx as cx
@@ -32,6 +33,8 @@ COL_WIDTH = {
     "datafile": 50,
     "dataset": 15,
 }
+
+RSI_PERIOD=100
 #############################################
 # helper functions
 #############################################
@@ -344,6 +347,117 @@ def read_sqlite_write_excel(lib, datafile, dataset, *args, **kwargs):
         df = cx.read_sql(f"sqlite://{path}", query)
         df.to_excel(file_path, index=False)
 
+def rsi_lepi(df, n=RSI_PERIOD, offset=50):
+    """calculate RSI in Pandas
+    """
+    m = (n-1) / n
+    n1 = 1.0 / n
+    delta = df['wp'].diff(1)
+    gain = delta
+    loss = -delta
+    with np.errstate(invalid='ignore'):
+        gain[(gain<0)|np.isnan(gain)] = 0.0
+        loss[(loss<=0)|np.isnan(loss)] = 1e-10 # we don't want divide by zero/NaN
+    avg_gain_0 = gain.rolling(window=n).mean()
+    avg_loss_0 = loss.rolling(window=n).mean()
+    avg_gain_1 = avg_gain_0.shift(periods=1)
+    avg_loss_1 = avg_loss_0.shift(periods=1)
+    avg_gain = n1*gain + m*avg_gain_1
+    avg_loss = n1*loss + m*avg_loss_1
+    df['rsi'] = 100 - offset - (100 / (1 + avg_gain / avg_loss)) 
+    return df 
+
+def rsi_lepi_lazy(df, n=RSI_PERIOD, offset=50):
+    """calculate RSI in Polars lazy API
+    """
+    n1, m  =  1.0/n, (n-1)/n    
+    return (
+        df.with_columns([
+            pl.col('wp').diff().alias("delta"),
+        ])
+        .with_columns([
+            pl.when(pl.col('delta') > 0).then(pl.col('delta')).otherwise(0).alias("gain"),
+            pl.when(pl.col('delta') < 0).then(pl.col('delta')).otherwise(-1e-10).abs().alias("loss"),
+        ])
+        .with_columns([
+            pl.col('gain').rolling_mean(window_size=n).alias("avg_gain_0"),
+            pl.col('loss').rolling_mean(window_size=n).alias("avg_loss_0"),
+        ])
+        .with_columns([
+            pl.col('avg_gain_0').shift(periods=1).alias("avg_gain_1"),
+            pl.col('avg_loss_0').shift(periods=1).alias("avg_loss_1"),
+        ])
+        .with_columns([
+            (n1*pl.col('gain') + m*pl.col('avg_gain_1')).alias("avg_gain"),
+            (n1*pl.col('loss') + m*pl.col('avg_loss_1')).alias("avg_loss"),
+        ])
+        .with_columns([
+            (100 - offset - (100 / (1 + pl.col('avg_gain')/pl.col('avg_loss') ))).alias("rsi"),
+        ])
+        .drop([
+            'delta', 'gain', 'loss', 'avg_gain_0', 'avg_loss_0', 'avg_gain_1', 'avg_loss_1', 'avg_gain', 'avg_loss'
+        ])
+    )
+
+def read_sqlite_calc_rsi(lib, datafile, dataset, *args, **kwargs):
+    query = f"""
+    select * from quote_ta_spy where ticker='SPY' order by date_;
+    """
+    dir_name, base_name = os.path.dirname(datafile), os.path.basename(datafile)
+    fname, _ = os.path.splitext(base_name)
+    file_path = Path(dir_name) / Path(f"{fname}-rsi-{lib}.csv")
+    if lib == "pandas":
+        # read
+        conn_ = sqlite3.connect(datafile)
+        df = pd.read_sql(query, conn_)
+        # calc
+        df = df[["date_","wp","rsi"]]
+        df.rename(columns={"rsi":"rsi_old"}, inplace=True)
+        df = rsi_lepi(df)
+        # write
+        df.to_csv(file_path, index=False)
+    elif lib == "polars":
+        # read
+        root_name = os.getcwd()
+        p = Path(root_name) / Path(datafile)
+        path = urllib.parse.quote(p.__str__())
+        df = cx.read_sql(f"sqlite://{path}", query)
+        # calc
+        df = df[["date_","wp","rsi"]]
+        df.rename(columns={"rsi":"rsi_old"}, inplace=True)
+        df = pl.from_pandas(df).lazy()  # convert to df in polars
+        df = df.pipe(rsi_lepi_lazy).collect()
+        # write
+        df.write_csv(file_path)
+
+
+def analyze_web_logs(lib, datafile, dataset, *args, **kwargs):
+    # great tutorial
+    # https://calmcode.io/polars/introduction.html
+    # https://gist.github.com/koaning/5a0f3f27164859c42da5f20148ef3856#comments
+    #  pandas: 537.280766 s
+    #  polars:   9.236657 s
+    if lib == "pandas":
+        from web_logs_pd import set_types, sessionize, add_features, remove_bots
+        df = pd.read_csv(datafile)
+        print(f"lib: {lib}, shape={df.shape}")
+        df.columns = [c.replace(" ", "") for c in df.columns]
+        dataf = df.pipe(set_types).pipe(sessionize)
+        final = dataf.pipe(add_features).pipe(remove_bots)
+    elif lib == "polars":
+        from web_logs_pl import set_types, sessionize, add_features, remove_bots
+        df = pl.read_csv(datafile, parse_dates=False, n_threads=10)
+        df.columns = [c.replace(" ", "") for c in df.columns]
+        df = df.lazy()
+        print(f"lib: {lib}, shape={df.collect().shape}")
+        (df.pipe(set_types)
+            .pipe(sessionize)
+            .pipe(add_features)
+            .pipe(remove_bots)
+            .collect())
+        
+    
+
 #############################################
 # declare case_xxx functions
 #############################################
@@ -407,6 +521,18 @@ def case_007(lib, datafile, dataset):
         read_sqlite_write_excel(lib, datafile, dataset)
     return t.elapsed, t.unit
 
+def case_008(lib, datafile, dataset):
+    print(f"[ {lib} ]")
+    with Timer(unit=TIMER_UNIT) as t:
+        read_sqlite_calc_rsi(lib, datafile, dataset)
+    return t.elapsed, t.unit
+
+def case_009(lib, datafile, dataset):
+    print(f"[ {lib} ]")
+    with Timer(unit=TIMER_UNIT) as t:
+        analyze_web_logs(lib, datafile, dataset)
+    return t.elapsed, t.unit
+
 
 
 ############################
@@ -414,7 +540,7 @@ def case_007(lib, datafile, dataset):
 # make sure the referenced function is defined above
 ############################
 RUN_ALL_CASES = True   # run all use-cases 
-# RUN_ALL_CASES = False  # run selected use-case where {"active": 1}
+RUN_ALL_CASES = False  # run selected use-case where {"active": 1}
 
 CASE_MAP = [
     # {
@@ -432,6 +558,7 @@ CASE_MAP = [
         "fn": case_001,
         "dataset": "uber-ride",
         "datafile": "../data/uber-ride/train.csv.gz",
+        "data_url": None,
     },
 
     {
@@ -517,10 +644,26 @@ CASE_MAP = [
         "fn": case_007,
         "dataset": "spy",
         "datafile": "../data/spy/spy.sqlite",
-        "active": 1,     # dev/debug this one when RUN_ALL_CASES = True; ignored when False
     },
 
+    {
+        "name": "case_008",
+        "desc": "calculate RSI",
+        "fn": case_008,
+        "dataset": "spy",
+        "datafile": "../data/spy/spy.sqlite",
+        "active": 0,     # dev/debug this one when RUN_ALL_CASES = True; ignored when False
+    },
 
+    {
+        "name": "case_009",
+        "desc": "analyze web logs",
+        "fn": case_009,
+        "dataset": "kaggle",
+        "datafile": "../data/kaggle/wowah_data.csv",
+        "data_url": "https://www.kaggle.com/datasets/mylesoneill/warcraft-avatar-history",
+        "active": 1,     # dev/debug this one when RUN_ALL_CASES = True; ignored when False
+    },
 
 ]
 
@@ -543,14 +686,18 @@ def main():
                     continue
 
                 for lib in ["pandas", "polars"]:
-                    if case_['name'] == "case_002a":
-                        n_factor = case_.get("n_factor", 1)
-                        results[case_name][lib] = case_['fn'](lib, datafile, dataset, n_factor)
-                    else:
-                        results[case_name][lib] = case_['fn'](lib, datafile, dataset)
+                    try:
+                        if case_['name'] == "case_002a":
+                            n_factor = case_.get("n_factor", 1)
+                            results[case_name][lib] = case_['fn'](lib, datafile, dataset, n_factor)
+                        else:
+                            results[case_name][lib] = case_['fn'](lib, datafile, dataset)
+                    except Exception as e:
+                        print(f"[ERROR] lib={lib} \n {str(e)}")                
+                        continue
 
         except Exception as e:
-            print(f"[ERROR] main() \n {str(e)}")                
+            print(f"[ERROR] case={case_} \n {str(e)}")                
             continue
 
     print_results_table(results)
