@@ -24,6 +24,10 @@
     - Report
     - Dashboard
 
+    [Rill Data](https://duckdb.org/docs/guides/sql_editors/rill)
+
+    - https://github.com/rilldata/rill-developer/tree/main/runtime
+
 ### Technical
 
 - Storage
