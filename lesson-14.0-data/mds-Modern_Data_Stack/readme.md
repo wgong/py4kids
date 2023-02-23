@@ -1,4 +1,3 @@
-
 ## Data Stack
 
 ### Volume
@@ -12,17 +11,28 @@
 
 ### Workflow
 
+- Orchestration
+    - dagster
+    - airflow
+
 - Collect / Access / Ingest
+    - duckdb
 
 - Transform / Preprocess
+    - dbt
+    - pandas/polars/pyspark
 
 - Analyze
+    - pandas/polars/pyspark
 
 - Machine Learning
 
 - Visualize
     - Report
     - Dashboard
+
+        - streamlit
+
 
     [Rill Data](https://duckdb.org/docs/guides/sql_editors/rill)
 
