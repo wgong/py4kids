@@ -540,7 +540,7 @@ def case_009(lib, datafile, dataset):
 # make sure the referenced function is defined above
 ############################
 RUN_ALL_CASES = True   # run all use-cases 
-RUN_ALL_CASES = False  # run selected use-case where {"active": 1}
+# RUN_ALL_CASES = False  # run selected use-case where {"active": 1}
 
 CASE_MAP = [
     # {
@@ -584,7 +584,6 @@ CASE_MAP = [
         "dataset": "uber-ride",
         "datafile": "../data/uber-ride/polars/train.parquet",
         "n_factor": 3,
-        "active": 0,     # dev/debug this one when RUN_ALL_CASES = True; ignored when False
     },
 
 
@@ -616,9 +615,9 @@ CASE_MAP = [
         "name": "case_004b",
         "desc": "read parquet and divide trip_duration by 60",
         "fn": case_004b,
-        "active": 0,     # this case will not run when RUN_ALL_CASES = False
         "dataset": "uber-ride",
         "datafile": "../data/uber-ride/polars/train.parquet",
+        # "active": 0,     # this case will not run when RUN_ALL_CASES = False
     },
 
 
@@ -644,6 +643,7 @@ CASE_MAP = [
         "fn": case_007,
         "dataset": "spy",
         "datafile": "../data/spy/spy.sqlite",
+        # "active": 1,
     },
 
     {
@@ -652,7 +652,6 @@ CASE_MAP = [
         "fn": case_008,
         "dataset": "spy",
         "datafile": "../data/spy/spy.sqlite",
-        "active": 0,     # dev/debug this one when RUN_ALL_CASES = True; ignored when False
     },
 
     {
@@ -662,7 +661,7 @@ CASE_MAP = [
         "dataset": "kaggle",
         "datafile": "../data/kaggle/wowah_data.csv",
         "data_url": "https://www.kaggle.com/datasets/mylesoneill/warcraft-avatar-history",
-        "active": 1,     # dev/debug this one when RUN_ALL_CASES = True; ignored when False
+        "active": 0,     # SKIP because pandas processing took 10 mins : dev/debug this one when RUN_ALL_CASES = True; ignored when False
     },
 
 ]
@@ -674,27 +673,31 @@ def main():
         try:
             case_name = f"{case_['name']}: {case_['desc']}"
 
-            if RUN_ALL_CASES or case_.get("active", 0):
-                print(f"\n## {case_name}")
-                results[case_name] = {}
-                dataset = case_.get("dataset","")
-                datafile = case_.get("datafile","")
-                results[case_name]["dataset"] = dataset
-                results[case_name]["datafile"] = datafile
-                if not datafile:
-                    print("[Error] datafile missing")
-                    continue
+            active_flag = case_.get("active", None)
 
-                for lib in ["pandas", "polars"]:
-                    try:
-                        if case_['name'] == "case_002a":
-                            n_factor = case_.get("n_factor", 1)
-                            results[case_name][lib] = case_['fn'](lib, datafile, dataset, n_factor)
-                        else:
-                            results[case_name][lib] = case_['fn'](lib, datafile, dataset)
-                    except Exception as e:
-                        print(f"[ERROR] lib={lib} \n {str(e)}")                
-                        continue
+            if (RUN_ALL_CASES and active_flag == 0) or (not RUN_ALL_CASES and active_flag != 1):
+                continue
+
+            print(f"\n## {case_name}")
+            results[case_name] = {}
+            dataset = case_.get("dataset","")
+            datafile = case_.get("datafile","")
+            results[case_name]["dataset"] = dataset
+            results[case_name]["datafile"] = datafile
+            if not datafile:
+                print("[Error] datafile missing")
+                continue
+
+            for lib in ["pandas", "polars"]:
+                try:
+                    if case_['name'] == "case_002a":
+                        n_factor = case_.get("n_factor", 1)
+                        results[case_name][lib] = case_['fn'](lib, datafile, dataset, n_factor)
+                    else:
+                        results[case_name][lib] = case_['fn'](lib, datafile, dataset)
+                except Exception as e:
+                    print(f"[ERROR] lib={lib} \n {str(e)}")                
+                    continue
 
         except Exception as e:
             print(f"[ERROR] case={case_} \n {str(e)}")                

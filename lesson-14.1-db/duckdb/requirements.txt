@@ -1,5 +1,6 @@
 duckdb
 duckdb-engine
+SQLAlchemy
 notebook
 jupysql
 pandas
