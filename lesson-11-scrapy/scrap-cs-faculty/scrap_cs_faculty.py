@@ -78,22 +78,41 @@ def uiuc_match_img_url(img, protocol="https"):
     z = re.match(r"^background-image: url\((.*)\)$", img)
     return f"{protocol}:{z.groups()[0]}" if z else ""
 
-def cornell_parse_phd(edu):
-    if edu.endswith(" (Operations Research)"):
-        edu = edu.replace(" (Operations Research)", "")
-        
-    x = re.split(r",| ", edu)
-    try:
-        phd_year = int(x[-1].strip())
-        edu = edu.replace(str(phd_year), "")
-    except:
-        phd_year = ""  # year missing
-    phd_univ = " ".join(edu.split(" ")[1:]).strip()
-    phd_univ = phd_univ[:-1] if phd_univ.endswith(",") else phd_univ
-    phd_univ = phd_univ.replace("  ", " ").replace(",", " ").replace(".", "")
-    phd_univ = phd_univ.replace(" of", "").replace(" at ", " ").replace(" - ", " ")
-    phd_univ = phd_univ.replace('UC Berkeley', "University California Berkeley")
-    phd_univ = phd_univ.replace('Pennsylvaniasylvania', "Pennsylvania").replace('UPenn', "University Pennsylvania").replace('Univ Penn', "University Pennsylvania")
-    phd_univ = phd_univ.replace("University", "Univ").strip()
+def cornell_parse_dept_phd(dept_edu):
+    dept_edu = dept_edu.replace(".","").replace(" (Operations Research)", "").strip()
     
-    return phd_univ, phd_year
+    words = re.split(r";|,| ", dept_edu)
+    words = [w.strip() for w in words if w.strip()]
+    
+    ipos_phd = -1
+    for n, x in enumerate(words):
+        if x.lower() == "phd":
+            ipos_phd = n 
+            break
+            
+    try:
+        phd_year = str(int(words[-1].strip()))
+    except:
+        phd_year = ""
+    
+    if ipos_phd > -1:
+        dept = " ".join(words[:ipos_phd]).strip()
+        univ_year = " ".join(words[ipos_phd+1:])
+        phd_univ = univ_year.replace(phd_year, "").strip() if phd_year else univ_year
+        
+        # fix univ
+        phd_univ = phd_univ[:-1] if phd_univ.endswith(",") else phd_univ
+        phd_univ = phd_univ.replace(" of", "").replace(" at ", " ").replace(" - ", " ")
+        phd_univ = phd_univ.replace('Massachusetts Institute Technology', "MIT") if 'Massachusetts Institute Technology' in phd_univ else phd_univ
+        phd_univ = phd_univ.replace('UC Berkeley', "University California Berkeley") if 'UC Berkeley' in phd_univ else phd_univ
+        phd_univ = phd_univ.replace('Pennsylvaniasylvania', "Pennsylvania").replace('UPenn', "University Pennsylvania").replace('Univ Penn', "University Pennsylvania")
+        phd_univ = phd_univ.replace("University", "Univ") if "University" in phd_univ else phd_univ
+        phd_univ = phd_univ.replace("Ausin", "Austin") if "Ausin" in phd_univ else phd_univ
+        phd_univ = phd_univ.replace("Univ Massachusetts Amherst", "Univ Mass Amherst") if "Univ Massachusetts Amherst" in phd_univ else phd_univ
+
+    else:
+        dept = dept_edu
+        phd_univ = ""
+        phd_year = ""
+    
+    return dept, phd_univ, phd_year
