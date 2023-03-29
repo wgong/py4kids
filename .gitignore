@@ -10,6 +10,8 @@
 **/.vscode/
 **/*.log
 
+**/*config.py
+
 # media
 **/*.mpg
 **/*.mp3
