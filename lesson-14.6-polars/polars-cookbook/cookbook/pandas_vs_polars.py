@@ -438,12 +438,14 @@ def analyze_web_logs(lib, datafile, dataset, *args, **kwargs):
     #  pandas: 537.280766 s
     #  polars:   9.236657 s
     if lib == "pandas":
-        from web_logs_pd import set_types, sessionize, add_features, remove_bots
+        # from web_logs_pd import set_types, sessionize, add_features, remove_bots
+        from web_logs_pd_fast import set_types, sessionize, add_features_fast, remove_bots_fast
         df = pd.read_csv(datafile)
         print(f"lib: {lib}, shape={df.shape}")
         df.columns = [c.replace(" ", "") for c in df.columns]
         dataf = df.pipe(set_types).pipe(sessionize)
-        final = dataf.pipe(add_features).pipe(remove_bots)
+        # final = dataf.pipe(add_features).pipe(remove_bots)
+        _ = dataf.pipe(add_features_fast).pipe(remove_bots_fast)
     elif lib == "polars":
         from web_logs_pl import set_types, sessionize, add_features, remove_bots
         df = pl.read_csv(datafile, parse_dates=False, n_threads=10)
@@ -539,8 +541,8 @@ def case_009(lib, datafile, dataset):
 # register use-case here
 # make sure the referenced function is defined above
 ############################
-RUN_ALL_CASES = True   # run all use-cases 
-# RUN_ALL_CASES = False  # run selected use-case where {"active": 1}
+# RUN_ALL_CASES = True   # run all use-cases 
+RUN_ALL_CASES = False  # run selected use-case where {"active": 1}
 
 CASE_MAP = [
     # {
@@ -661,7 +663,7 @@ CASE_MAP = [
         "dataset": "kaggle",
         "datafile": "../data/kaggle/wowah_data.csv",
         "data_url": "https://www.kaggle.com/datasets/mylesoneill/warcraft-avatar-history",
-        "active": 0,     # SKIP because pandas processing took 10 mins : dev/debug this one when RUN_ALL_CASES = True; ignored when False
+        "active": 1,     # SKIP because pandas processing took 10 mins : dev/debug this one when RUN_ALL_CASES = True; ignored when False
     },
 
 ]
