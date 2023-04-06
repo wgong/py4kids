@@ -23,6 +23,7 @@
 **/*.db
 **/*.duckdb*
 **/*.sqlite
+**/*.parquet
 **/*.csv
 **/*.gz
 **/metastore_db/

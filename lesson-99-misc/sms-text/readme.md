@@ -10,3 +10,6 @@
 - [How to setup Google App Password](https://stackoverflow.com/questions/72478573/how-to-send-an-email-using-python-after-googles-policy-update-on-not-allowing-j)
     - [Sign in using app passwords](https://support.google.com/mail/answer/185833?hl=en-GB)
 
+- [Sending Emails Tutorials by RealPython](https://realpython.com/python-send-email/)
+
+- [email: Examples](https://docs.python.org/3/library/email.examples.html)
