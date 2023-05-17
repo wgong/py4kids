@@ -4,6 +4,10 @@ import subprocess
 from pytube import YouTube
 from pathlib import Path
 from time import time
+from datetime import datetime
+import shutil
+
+
 
 FILE_JSON = "youtube-data.json"
 FILE_YAML = "youtube-list.yaml"
@@ -47,6 +51,9 @@ else:
     json_data = {}
     
 for url in list_todo:
+    # https://stackoverflow.com/questions/76129007/pytube-keyerror-streamdata-while-downloading-a-video
+    # yt = YouTube(url, use_oauth=True, allow_oauth_cache=True)
+    # fixed after upgrading pytube from 12.1.2 to 15.0.0
     yt = YouTube(url)
     try:
         yt_title = yt.title
@@ -78,6 +85,13 @@ for url in list_todo:
 with open(FILE_JSON, "w", encoding="utf-8") as f:
     f.write(json.dumps(json_data, ensure_ascii=False))
     
+# backup FILE_YAML 
+ts = datetime.now().strftime("%Y-%m-%d_%H%M%S")
+shutil.copyfile(FILE_YAML, f"{FILE_YAML}.{ts}")
+## 2nd option
+# shutil.copy(src, dst)   # dst can be a folder
+
+
 # write yaml
 with open(FILE_YAML, "w") as f:
     url_dict.update({

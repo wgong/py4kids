@@ -1,4 +1,12 @@
-[Databricks Sandbox](https://community.cloud.databricks.com)
+## PySpark on Windows
+
+https://sparkbyexamples.com/pyspark/how-to-install-and-run-pyspark-on-windows/
+
+
+
+## PySpark on Ubuntu
+
+
 
 2019-07-30
 
@@ -151,3 +159,5 @@ MASTER="spark://127.0.0.1:7077" SPARK_EXECUTOR_MEMORY="4G" PYSPARK_DRIVER_PYTHON
 Apache Toree is a kernel for the Jupyter Notebook platform providing interactive access to Apache Spark
 https://toree.incubator.apache.org/
 
+## PySpark on DataBrick cloud
+[Databricks Sandbox](https://community.cloud.databricks.com)
