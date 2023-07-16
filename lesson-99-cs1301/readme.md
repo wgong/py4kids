@@ -14,5 +14,7 @@ https://www.classcentral.com/report/chinese-online-learning-platforms/#coding
 
 https://www.imooc.com/
 
+https://www.imooc.com/learn/1261
+
 Yuan 5399
 Python全能工程师
