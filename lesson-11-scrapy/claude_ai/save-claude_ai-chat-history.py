@@ -1,3 +1,7 @@
+"""
+https://emojipedia.org/
+"""
+
 import streamlit as st
 from io import StringIO 
 from bs4 import BeautifulSoup
