@@ -18,12 +18,14 @@
 **/*.mp4
 
 # data
+**/.~lock.*
 **/*.dat
 **/*.zip
 **/*.db
 **/*.duckdb*
 **/*.sqlite
 **/*.parquet
+**/GScholar_*.json
 **/*.csv
 **/*.gz
 **/metastore_db/

@@ -1,9 +1,13 @@
-
 import re
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd 
 import xlsxwriter
+from scholarly import scholarly
+from time import sleep
+from random import randint 
+from pathlib import Path 
+
 
 BROWSER_HEADERS = {"user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36"}
 
@@ -55,6 +59,25 @@ COLUMNS = ['name', 'job_title', 'phd_univ', 'phd_year',
            'department', 'school']
 
 TITLE_WORDS = ["professor", "scientist", "faculty", "lecturer", "researcher", "adjunct", "fellow", "dean", ]
+
+SCHOLAR_HEADER = [
+    'name',             # scholar full name
+    'affiliation',      # school
+    'interests',        # research interest listed at Google scholar profile
+    'num_papers',       # paper count, detailed list is stored in .json file
+    'num_coauthors',    # co-author count
+    'citedby',          # total citedBy count
+    'hindex',           # h-index of lifetime
+    'i10index',         # i10-index - at least 10 citations
+    'citedby5y',        # citedBy count in past 5 years
+    'hindex5y',         # h-index of past 5 years
+    'i10index5y',       # i10-index of past 5 years
+    'scholar_id',       # unique system ID at Google scholar website
+    'url_author',       # scholar profile URL
+    'url_picture',      # scholar profile image URL
+    'url_homepage',     # scholar personal website
+    'file_author'       # json file saved locally for future streamlit app
+]
 
 def is_job_title(title):
     res = False
@@ -120,3 +143,13 @@ def cornell_parse_dept_phd(dept_edu):
         phd_year = ""
     
     return dept, phd_univ, phd_year
+
+def normalize_str(text, non_alpha_numeric=r'[^a-z0-9]', sep="_"):
+    # Replace all non-alphanumeric chars with underscores
+    words = re.sub(non_alpha_numeric, sep, text.lower()).split(sep)
+    return sep.join([w for w in words if w])
+    
+def get_scholar_page(scholar_id, base_url=SCHOOL_DICT["Google-Scholar"]["url"], lang=LANG):
+    if not scholar_id: 
+        return ""
+    return f"{base_url}/citations?user={scholar_id}&hl={lang}&oi=ao"
