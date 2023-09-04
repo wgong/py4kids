@@ -7,6 +7,7 @@ import xlsxwriter
 
 BROWSER_HEADERS = {"user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36"}
 
+LANG = "en"
 SCHOOL_DICT = {
     "Cornell-CS": {
         "url": "https://www.cs.cornell.edu/people/faculty",
@@ -29,6 +30,9 @@ SCHOOL_DICT = {
     "Stanford-CS": {
         "url": "https://cs.stanford.edu/directory/faculty",
     },
+    "Google-Scholar": {
+        "url": "https://scholar.google.com"
+    }
 }
 
 SCHOOL_MAP = {
