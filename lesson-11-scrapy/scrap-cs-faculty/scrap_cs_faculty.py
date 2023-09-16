@@ -6,7 +6,9 @@ import xlsxwriter
 from scholarly import scholarly
 from time import sleep
 from random import randint 
-from pathlib import Path 
+from pathlib import Path
+import duckdb
+from datetime import datetime 
 
 
 BROWSER_HEADERS = {"user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36"}
@@ -34,6 +36,22 @@ SCHOOL_DICT = {
     "Stanford-CS": {
         "url": "https://cs.stanford.edu/directory/faculty",
     },
+    "Princeton-CS": {
+        "url": "https://www.cs.princeton.edu/people/faculty?type=main",
+    },
+    "UWash-CS": {
+        "url": "https://www.cs.washington.edu/people/faculty",
+    },
+    "UPenn-CS": {
+        "url": "https://directory.seas.upenn.edu/computer-and-information-science/",
+    },
+    "CalTech-CS": {
+        "url": "https://www.cms.caltech.edu/cms-people/faculty",
+    },
+    "Harvard-CS": {
+        "url": "https://seas.harvard.edu/computer-science/people?role[46]=46",
+    },
+
     "Google-Scholar": {
         "url": "https://scholar.google.com"
     }
@@ -45,18 +63,30 @@ SCHOOL_MAP = {
     "CMU": "Carnegie Mellon Univ",
     "UIUC": "Univ Illinois Urbana-Champaign",
     "Stanford": "Stanford Univ",
-    "UW": "Univ Washington",
+    "Princeton": "Princeton Univ",
+    "UWash": "Univ Washington",
+    "UPenn": "Univ Pennsylvania",
+    "Harvard": "Harvard Univ",
+    "CalTech": "California Institute of Technology",
 }
-DEPT_MAP = {"CS": "Computer Science", 
-            "AID": "AI & Decision-making", 
-            "AI+D": "AI & Decision-making",
-            "EE": "Electrical Engineering", 
-            }
+DEPT_MAP = {
+    "CS": "Computer Science", 
+    "AID": "AI & Decision-making", 
+    "AI+D": "AI & Decision-making",
+    "EE": "Electrical Engineering", 
+}
 
+# Top 6 schools
 COLUMNS = ['name', 'job_title', 'phd_univ', 'phd_year',
            'research_area', 'research_concentration', 'research_focus', 
            'url', 'img_url', 'phone', 'email', 'cell_phone', 'office_address', 
            'department', 'school']
+
+# other schools, added url_profile column
+COLUMNS_v2 = ['name', 'job_title', 'phd_univ', 'phd_year',
+           'research_area', 'research_concentration', 'research_focus', 
+           'url', 'img_url', 'phone', 'email', 'cell_phone', 'office_address', 
+           'department', 'school', 'url_profile', 'url_author']
 
 TITLE_WORDS = ["professor", "scientist", "faculty", "lecturer", "researcher", "adjunct", "fellow", "dean", ]
 
@@ -150,6 +180,13 @@ def normalize_str(text, non_alpha_numeric=r'[^a-z0-9]', sep="_"):
     return sep.join([w for w in words if w])
     
 def get_scholar_page(scholar_id, base_url=SCHOOL_DICT["Google-Scholar"]["url"], lang=LANG):
-    if not scholar_id: 
-        return ""
-    return f"{base_url}/citations?user={scholar_id}&hl={lang}&oi=ao"
+    return f"{base_url}/citations?user={scholar_id}&hl={lang}&oi=ao" if scholar_id else ""
+
+def pick_name_from_profile_url(url):
+    """
+    UPenn profile URL is always present with name
+    used it to recover Name when missing
+    """
+    name = [i.strip() for i in url.split("/") if i.strip()][-1]
+    cap_ed = [i.strip().capitalize() for i in name.split("-") if i.strip()]
+    return " ".join(cap_ed)
