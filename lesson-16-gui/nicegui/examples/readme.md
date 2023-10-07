@@ -16,3 +16,7 @@ After running [this jupyter notebook](https://github.com/wgong/py4kids/blob/mast
 $ pip install nicegui
 $ python main.py
 ```
+
+![NiceGui Icon App](https://github.com/wgong/py4kids/blob/master/lesson-16-gui/nicegui/examples/icons/nicegui-icon.png)
+
+Here is the app saved in [a PDF doc](https://github.com/wgong/py4kids/blob/master/lesson-16-gui/nicegui/examples/icons/google-material-icons-nicegui.pdf)
