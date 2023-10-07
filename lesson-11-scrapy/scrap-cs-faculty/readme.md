@@ -20,6 +20,13 @@
 
 
 - todo
+    - https://web.cs.toronto.edu/people/faculty-directory#researchstream
+    - https://www.cs.ox.ac.uk/people/faculty.html
+    - https://www.cs.tsinghua.edu.cn/csen/Faculty/Full_Professor/ALL.htm
+    - https://www.cs.tsinghua.edu.cn/csen/Faculty/CAS___CAE_members.htm
+    - https://www.cs.tsinghua.edu.cn/csen/Faculty/Associate_Professor/ALL.htm
+    - https://www.cs.tsinghua.edu.cn/csen/Faculty/Assistant_Professor/ALL.htm
+    
     - https://www.cms.caltech.edu/cms-people/faculty
     - https://www.cs.columbia.edu/people/faculty/
     - https://cse.engin.umich.edu/people/faculty/
