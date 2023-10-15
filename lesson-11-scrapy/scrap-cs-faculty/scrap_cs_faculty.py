@@ -45,6 +45,19 @@ SCHOOL_DICT = {
     "UPenn-CS": {
         "url": "https://directory.seas.upenn.edu/computer-and-information-science/",
     },
+    # The following 3 schools CS pages are quite different,
+    # requires some detailed scraping work
+    "Oxford-CS": {
+        "url": "https://www.cs.ox.ac.uk/people/faculty.html",
+    },
+    "UToronto-CS": {
+        "url": "https://web.cs.toronto.edu/people/faculty-directory",
+    },
+    "Tsinghua-CS": {
+        "url": "https://www.cs.tsinghua.edu.cn/csen/Faculty",
+    },
+
+    # TODO
     "CalTech-CS": {
         "url": "https://www.cms.caltech.edu/cms-people/faculty",
     },
@@ -52,6 +65,7 @@ SCHOOL_DICT = {
         "url": "https://seas.harvard.edu/computer-science/people?role[46]=46",
     },
 
+    # GScholar
     "Google-Scholar": {
         "url": "https://scholar.google.com"
     }
@@ -66,6 +80,8 @@ SCHOOL_MAP = {
     "Princeton": "Princeton Univ",
     "UWash": "Univ Washington",
     "UPenn": "Univ Pennsylvania",
+    "UToronto": "Univ Toronto",
+    "Tsinghua": "Tsinghua Univ",
     "Harvard": "Harvard Univ",
     "CalTech": "California Institute of Technology",
 }
