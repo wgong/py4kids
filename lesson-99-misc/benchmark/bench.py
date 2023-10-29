@@ -53,6 +53,22 @@ $ python -OO bench.py
 0.8121546999999936 0.815331999999998 0.8159291999999994  # wsl - ubuntu py 3.7.3
 1.8178790000001754 1.8855526999996073 1.9135384999999587  # Anaconda py3.10 - 2023-07-02
 
+
+$ cd ~/lesson-99-misc/benchmark
+$ micromamba create -n py39 python=3.9
+$ micromamba activate py39
+$ python --version
+Python 3.9.13
+$ python bench.py 
+1.8920940999999978 1.8966619999999992 1.901398900000002
+
+$ micromamba create -n py311 python=3.11
+$ micromamba activate py311
+$ python --version
+Python 3.11.6
+$ python bench.py 
+1.8258523999829777 1.8263571000134107 1.8272148000251036
+
 '''
 
 
