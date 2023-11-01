@@ -1,0 +1,8 @@
+Metadata-Version: 2.1
+Name: my-pkg
+Version: 0.1
+Summary: Testing installation of Package
+Home-page: #
+Author: auth
+Author-email: author@email.com
+License: MIT
