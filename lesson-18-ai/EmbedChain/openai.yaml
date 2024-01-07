@@ -1,0 +1,9 @@
+llm:
+  provider: openai
+  config:
+    model: 'gpt-3.5-turbo'
+    top_p: 0.5
+embedder:
+  provider: huggingface
+  config:
+    model: 'sentence-transformers/all-mpnet-base-v2'
