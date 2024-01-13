@@ -156,6 +156,6 @@ for model in models:
 file_html = "ollama_models.html"
 file_csv = "ollama_models.csv"
 df = pd.DataFrame(data, columns=header)
-df.to_html(file_html, index=False)
+df.to_html(file_html, index=False, escape=False)
 df.to_csv(file_csv, index=False)
 print(f"Ollama LLM model library saved successfully:\n '{file_html}'\n '{file_csv}'")
