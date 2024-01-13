@@ -1,10 +1,21 @@
 import requests
 from bs4 import BeautifulSoup
-import csv
+import pandas as pd
 import datetime
 from dateutil.relativedelta import relativedelta
 
 TEST_FLAG = False 
+
+CATEGORY_DICT = {
+    # category_name : list of keywords (lower-cased)
+    "code": ["sql", "code", "coder", "coding", "programming",],
+    "chinese": ["chinese", "bilingual",],
+    "medical": ["medical", "medicine",],
+    "math": ["math",],
+    "logic": ["logic", "reason",],
+} 
+
+
 
 def relative_date_to_date_string(relative_date):
     """
@@ -82,6 +93,34 @@ if TEST_FLAG:
     for x in test_inputs:
         print(f"[In] {x} : \n[Out] {fix_pull_count(x)}")
 
+
+def categorize_it(desc, cat_dic=CATEGORY_DICT) -> str:
+    """fixed categorization based on keyworkds
+    Split description into words and check if words startwith keywork found in cat_dic
+    
+    Returns:
+        comma-sep category names
+    """
+    res = set()
+    words = desc.lower().split()
+    for w in words:
+        for c in cat_dic.keys():
+            for kw in cat_dic[c]:
+                if w.startswith(kw):
+                    res.add(c)
+    return " / ".join(sorted(list(res))) if res else ""
+
+if TEST_FLAG:
+    test_inputs = [
+        "	An advanced language model crafted with 2 trillion bilingual tokens.",
+        "Open-source medical large language model adapted from Llama 2 to the medical domain.",
+        "SQLCoder is a code completion model fined-tuned on StarCoder for SQL generation tasks",
+        "An expansion of Llama 2 that specializes in integrating both general language understanding and domain-specific knowledge, particularly in programming and mathematics."
+    ]
+
+    for desc in test_inputs: 
+        print(f"[In] {desc}\n[Out] {categorize_it(desc)}")    
+
 # Send a request to the webpage
 url = "https://ollama.ai/library"
 response = requests.get(url)
@@ -94,20 +133,29 @@ soup = BeautifulSoup(response.content, "html.parser")
 models = soup.find_all("li")
 
 # Create a CSV file and write the header
-with open("ollama_models.csv", "w", newline="") as csvfile:
-    writer = csv.writer(csvfile)
-    writer.writerow(["model-name", "description", "pulls-count", "tags-count", "last-updated"])
+data = []
+header = ["model-name", "description", "tags", "pulls-count", "last-updated", "hf-search_url"]
 
-    # Extract data for each model and write to CSV
-    for model in models:
-        name = model.find("h2").text.strip()
-        desc = model.find("p", class_="mb-4 max-w-md").text.strip()
-        [pulls, tags, relative_date] = [x.text.strip() for x in model.find_all("span")]
-        # print(name, desc, pulls, tags, relative_date)
-        pulls = fix_pull_count(pulls)
-        tags = fix_tags(tags)
-        relative_date = relative_date.replace("Updated", "").strip()
-        timestamp = relative_date_to_date_string(relative_date)
-        writer.writerow([name, desc, pulls, tags, timestamp])
+def fmt_hf_url(model_name):
+    return f"""<a href="https://huggingface.co/search/full-text?q={model_name}&type=model">hf-search</a>
+    """
+# Extract data for each model and write to CSV
+for model in models:
+    model_name = model.find("h2").text.strip()
+    desc = model.find("p", class_="mb-4 max-w-md").text.strip()
+    [pulls, tags, relative_date] = [x.text.strip() for x in model.find_all("span")]
+    # print(model_name, desc, pulls, tags, relative_date)
+    pulls = fix_pull_count(pulls)
+    # tags = fix_tags(tags)
+    category_tags = categorize_it(desc)
+    relative_date = relative_date.replace("Updated", "").strip()
+    timestamp = relative_date_to_date_string(relative_date)
+    search_url = fmt_hf_url(model_name)
+    data.append([model_name, desc, category_tags, search_url, pulls, timestamp])
 
-print("CSV file created successfully!")
+file_html = "ollama_models.html"
+file_csv = "ollama_models.csv"
+df = pd.DataFrame(data, columns=header)
+df.to_html(file_html, index=False)
+df.to_csv(file_csv, index=False)
+print(f"Ollama LLM model library saved successfully:\n '{file_html}'\n '{file_csv}'")
