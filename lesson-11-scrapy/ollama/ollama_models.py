@@ -121,6 +121,10 @@ if TEST_FLAG:
     for desc in test_inputs: 
         print(f"[In] {desc}\n[Out] {categorize_it(desc)}")    
 
+def fmt_hf_url(model_name):
+    # return f"""<a href="https://huggingface.co/search/full-text?q={model_name}&type=model">hf-search</a>    """
+    return f"https://huggingface.co/search/full-text?q={model_name}&type=model"
+
 # Send a request to the webpage
 url = "https://ollama.ai/library"
 response = requests.get(url)
@@ -136,9 +140,7 @@ models = soup.find_all("li")
 data = []
 header = ["model-name", "description", "tags", "pulls-count", "last-updated", "hf-search_url"]
 
-def fmt_hf_url(model_name):
-    return f"""<a href="https://huggingface.co/search/full-text?q={model_name}&type=model">hf-search</a>
-    """
+
 # Extract data for each model and write to CSV
 for model in models:
     model_name = model.find("h2").text.strip()
