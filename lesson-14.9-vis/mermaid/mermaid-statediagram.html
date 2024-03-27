@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <pre class="mermaid">
+        stateDiagram-v2
+        (*) --> Conscious(Con)
+        
+        subgraph Con
+            Active(CA) --> Inactive(CI)
+            Inactive(CI) --> Active(CA)
+        end
+        
+        (*) --> Subconscious(Subcon)
+        
+        subgraph Subcon
+            Active(SA) --> Inactive(SI)
+            Inactive(SI) --> Active(SA)
+        end
+        
+        Con.Active --> Unconscious(Uncon).Active {Trigger: Medical Emergency}
+        Subcon.Active --> Unconscious.Active {Trigger: Medical Emergency}
+        Con.Inactive --> Unconscious.Active {Trigger: Medical Emergency}
+        Subcon.Inactive --> Unconscious.Active {Trigger: Medical Emergency}
+        
+        Unconscious.Active --> (*){Trigger: Regain Consciousness}
+    
+        Con.Active --> Con.Inactive
+        Con.Inactive --> Con.Active
+        Subcon.Active --> Subcon.Inactive
+        Subcon.Inactive --> Subcon.Active
+    
+        note over Con Active triggers: Focus inward, Finish Task
+        note over Con Inactive triggers: Interesting Sound, New Problem
+        note over Subcon Active triggers: Finish Activity, Satisfied
+        note over Subcon Inactive triggers: Wake Up, Hunger Pangs
+        note over Unconscious.Active --> (*) Physiological Processes 
+    
+    </pre>
+    <script type="module">
+      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    </script>
+  </body>
+</html>

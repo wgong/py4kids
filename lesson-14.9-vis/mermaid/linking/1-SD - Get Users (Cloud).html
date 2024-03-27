@@ -1,0 +1,44 @@
+<html lang="en">
+	<head>
+		<style>
+			.hyplink {
+				font-weight: bolder;
+				font-style: italic;
+				text-decoration: underline;
+			}
+		</style>
+	</head>
+	<body>
+		<pre class="mermaid">
+			sequenceDiagram
+				participant APP AS MOBILE APP
+				participant BFF AS BFF
+				participant SRC AS SOURCE SYSTEM
+				APP->>BFF: GET /users
+				BFF->>SRC: <a class="hyplink" href="./2-SD- Get Users (Source System).html" target="blank">GET /user/list</a>
+				SRC-->>BFF: User[] (id, name, identificationNumber)
+				BFF-->>BFF: Remove or mask User[] sensitive data
+				BFF-->>APP: User[] (maskedName, maskedIdentificationNumber)
+		</pre>
+		<script type="module">
+			import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+
+			// Wait for render
+			setTimeout(() => {
+				var encodedHtmlEntitiesRegex = /(&lt;|&gt;|&amp;|&#39;|&quot;)/g;
+				var elems = document.getElementsByClassName('messageText');
+				for (var i = 0; i < elems.length; i++) {
+					// Replace encoded values.
+					elems[i].innerHTML = elems[i]?.innerHTML?.replace(encodedHtmlEntitiesRegex, 
+						tag => ({
+							'&amp;': '&',
+							'&lt;': '<',
+							'&gt;': '>',
+							'&#39;': "'",
+							'&quot;': '"'
+						}[tag]));
+				}
+			}, 100); // Add more value here if fail to replace encoded value.
+		</script>
+	</body>
+</html>
