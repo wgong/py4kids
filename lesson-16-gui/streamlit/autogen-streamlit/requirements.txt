@@ -1,5 +1,9 @@
 # conda activate llm
-jsonlines==4.0.0
-asyncio==3.4.3
-pyautogen==0.1.6
-streamlit==1.25.0
+# jsonlines==4.0.0
+# asyncio==3.4.3
+# pyautogen==0.1.6
+# streamlit==1.25.0
+jsonlines
+asyncio
+pyautogen
+streamlit

@@ -11,7 +11,7 @@ https://github.com/open-webui/open-webui
 
 
 ##  chat-ollama
-
+cd ~/projects/AI/lighthouse-learning-machine/chat-ollama
 ### run Docker
 
 ### run locally
@@ -73,9 +73,9 @@ npm run prisma-migrate
 #### run dev server
 
 ```
-npm run dev
+npm run dev -- -p 3003   # change default port 3000
 ```
-open browser at `http://localhost:3000`
+open browser at `http://localhost:3003`
 
 
 ##### config ollama server
