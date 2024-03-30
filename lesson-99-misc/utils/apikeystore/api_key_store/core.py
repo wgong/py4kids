@@ -25,13 +25,16 @@ import yaml
 from os.path import expanduser
 from pathlib import Path
 
-class ApiKeyStores():
+class ApiKeyStore():
     def __init__(self, store_path="~/.api_keys/stores.yaml"):
         file_path = expanduser(store_path) if "~" in store_path else store_path
         with open(Path(file_path), encoding="utf-8") as f:
             self.cfg = yaml.safe_load(f)
             self.api_providers = self.cfg.keys()
             
+    def list_api_providers(self):
+        return self.api_providers
+        
     def get_api_key(self, provider="OPENAI", key_name=""):
         if provider not in self.api_providers:
             raise Exception(f"{provider} not found in {self.api_providers}")
@@ -51,7 +54,9 @@ class ApiKeyStores():
 
 if __name__ == "__main__":
     if True:  # False:  # 
-        s = ApiKeyStores()
+        s = ApiKeyStore()
+        print(f"API Providers: {s.list_api_providers()}")
+        
         for p in s.api_providers:
             if p == "HUGGING_FACE":
                 for k in ["HF_READ", "HF_WRITE"]:
