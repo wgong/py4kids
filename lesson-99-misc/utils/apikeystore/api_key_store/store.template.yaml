@@ -15,9 +15,10 @@ OPENAI:
         
 HUGGING_FACE:
     ORG_ID: ""
-    API_KEY: 
-        HF_READ: "hf_bg123"
-        HF_WRITE: "hf_NA456"
+    HF_READ:
+        API_KEY:  "hf_bg123"
+    HF_WRITE:
+        API_KEY:  "hf_NA456"
     MODELS:
     
         # CHAT: ""

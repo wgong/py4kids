@@ -1,23 +1,10 @@
 """
 used at ~\projects\ai\langchain_crash_course
 
-this file was called "secrets.py", 
-then get following error reported in:
-https://stackoverflow.com/questions/73055157/what-does-importerror-cannot-import-name-randbits-mean
-
 TODO:
 =========
 - add encryption
 - add update key
-- create a python pkg
-
-Usage:
-=========
-import api_key_stores_u1gwg as aks
-s = aks.ApiKeyStores()
-os.environ['HUGGINGFACEHUB_API_TOKEN'] = s.get_api_key("HUGGING_FACE", "HF_READ")
-os.environ['SERPAPI_API_KEY'] = s.get_api_key("SerpApi", "API_KEY")
-os.environ['OPENAI_API_KEY'] = s.get_api_key("OPENAI", "API_KEY")
 
 """
 
@@ -31,37 +18,35 @@ class ApiKeyStore():
         with open(Path(file_path), encoding="utf-8") as f:
             self.cfg = yaml.safe_load(f)
             self.api_providers = self.cfg.keys()
-            
+
     def list_api_providers(self):
         return self.api_providers
-        
-    def get_api_key(self, provider="OPENAI", key_name=""):
+
+    def get_api_key(self, provider="OPENAI"):
         if provider not in self.api_providers:
-            raise Exception(f"{provider} not found in {self.api_providers}")
+            print(f"{provider} not found in {self.api_providers}")
+            return { provider : "" }
+
         p = self.cfg.get(provider)
-        
-        if provider != "HUGGING_FACE":
-            return p.get("API_KEY", "HF_WRITE")
+        if "API_KEY" in p.keys():
+            return { f"{provider}_API_KEY" : p.get("API_KEY") }
 
-        # provider has multiple keys, must provide key_name
-        if not key_name:
-            key_name="HF_READ"
+        res = {}
+        sub_cat = [i for i in p.keys() if i not in ["ORG_ID", "MODELS", "DESCRIPTION"]]
+        if not sub_cat:
+            return {}
 
-        k = p.get("API_KEY", {})
-        if key_name not in k.keys():
-            raise Exception(f"{provider} API Key {key_name} not found")
-        return k.get(key_name, "")
+        for kn in sub_cat:
+            res.update({ f"{provider}_{kn}_API_KEY" : p[kn].get("API_KEY") })
+
+        return res
+
 
 if __name__ == "__main__":
-    if True:  # False:  # 
-        s = ApiKeyStore()
-        print(f"API Providers: {s.list_api_providers()}")
-        
-        for p in s.api_providers:
-            if p == "HUGGING_FACE":
-                for k in ["HF_READ", "HF_WRITE"]:
-                    api_key = s.get_api_key(p, key_name=k)
-                    print(f"{p}/{k} API Key : {api_key}")
-            else:
-                api_key = s.get_api_key(p)
-                print(f"{p} API Key : {api_key}")
+    s = ApiKeyStore(store_path="./store.template.yaml")
+    print(f"API Providers: {s.list_api_providers()}")
+
+    API_KEYS = {}
+    for p in s.api_providers:
+        API_KEYS.update(s.get_api_key(p))
+    print(API_KEYS)
