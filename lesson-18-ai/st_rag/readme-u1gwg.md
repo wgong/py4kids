@@ -62,6 +62,8 @@ Devika is an Agentic AI Software Engineer that can understand high-level human i
 - [video](https://www.youtube.com/watch?v=btpnz0WQGvw&t=243s)
 - [fork](https://github.com/wgong/devika)
 
+
+
 ### [CrewAI](https://github.com/joaomdmoura/crewAI)
 Framework for orchestrating role-playing, autonomous AI agents. By fostering collaborative intelligence, CrewAI empowers agents to work together seamlessly, tackling complex tasks.
 
@@ -365,3 +367,64 @@ has both cloud and desktop versions.
 # Resources
 ## Compare GitHub repos by Forks-and-Stars
 https://github.com/wgong/py4kids/blob/master/lesson-11-scrapy/github/forks_stars.ipynb
+
+
+## [UV](https://github.com/astral-sh/uv) 
+
+An extremely fast Python package installer and resolver, written in Rust.
+
+```
+## install With pip.
+pip install uv
+
+## Create a virtual environment at .venv
+uv venv  
+
+## activate the virtual environment
+# On macOS and Linux.
+source .venv/bin/activate
+# On Windows.
+.venv\Scripts\activate
+
+
+## install a package into the virtual environment:
+uv pip install flask                # Install Flask.
+uv pip install -r requirements.txt  # Install from a requirements.txt file.
+uv pip install -e .                 # Install the current project in editable mode.
+uv pip install "package @ ."        # Install the current project from disk.
+uv pip install "flask[dotenv]"      # Install Flask with "dotenv" extra.
+
+
+uv pip sync requirements.txt  # Install from a requirements.txt file.
+
+
+```
+
+## [bun](https://bun.sh/docs)
+
+Bun is an all-in-one toolkit for JavaScript and TypeScript apps. It ships as a single executable called bun.
+
+At its core is the Bun runtime, a fast JavaScript runtime designed as a drop-in replacement for Node.js. It's written in Zig and powered by JavaScriptCore under the hood, dramatically reducing startup times and memory usage.
+
+
+```
+## install
+curl -fsSL https://bun.sh/install | bash
+
+bun was installed successfully to ~/.bun/bin/bun 
+
+Added "~/.bun/bin" to $PATH in "~/.bashrc" 
+
+To get started, run: 
+
+  source /home/gongai/.bashrc 
+  bun --help 
+
+
+
+npm install -g bun  # the last `npm` command you'll ever need
+```
+
+# Last
+
+remember to run `sync_gongwork_st_rag.sh`
