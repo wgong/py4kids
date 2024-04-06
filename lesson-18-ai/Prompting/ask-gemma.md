@@ -1,7 +1,9 @@
 llm = gemma:2b
 running chat-ollama 
 
-Ask: how to learn prompt engineering
+Ask: 
+how to learn prompt engineering
+
 AI: 
 
 Learning Prompt Engineering

@@ -2,7 +2,7 @@
 
 ## Architecture Diagram
 
-![LLM Application Stack](./docs/LLM-App-Stack-v1.drawio.png)
+![LLM Application Stack](./docs/LLM-App-Stack-v2.drawio.png)
 (created in DrawIO)
 
 ![Emerging LLM App Stack](./docs/emerging-llm-stack.png "Emerging LLM App Stack")
@@ -21,19 +21,28 @@ A faster way to build and share data apps
 ### [Gradio](https://github.com/gradio-app/gradio)
 
 Build and share delightful machine learning apps, all in Python.
+### [chatOllama](https://github.com/wgong/chat-ollama)
+~/projects/AI/chat-ollam
 
 ### [Ollama-WebUI](https://github.com/ollama-webui/ollama-webui)
 ChatGPT-Style Web UI Client for Ollama
 - [Docs](https://ollamahub.com/)
+- Local: ~/projects/AI/ollama-webui/readme-u1gwg.md
+```
+conda activate ollama
+cd ~/projects/AI/ollama-webui/backend
+sh start.sh
+```
+open browser at URL=http://localhost:8080/
 
-
-### [RasaGPT](https://github.com/paulpierre/RasaGPT)
-RasaGPT is the first headless LLM chatbot platform built on top of Rasa and Langchain. Built w/ Rasa, FastAPI, Langchain, LlamaIndex, SQLModel, pgvector, ngrok, telegram
-- [Docs](https://rasagpt.dev/)
 
 ### [ChatBot Ollama](https://github.com/ivanfioravanti/chatbot-ollama)
 
 Chatbot Ollama is an open source chat UI for Ollama.
+
+### [RasaGPT](https://github.com/paulpierre/RasaGPT)
+RasaGPT is the first headless LLM chatbot platform built on top of Rasa and Langchain. Built w/ Rasa, FastAPI, Langchain, LlamaIndex, SQLModel, pgvector, ngrok, telegram
+- [Docs](https://rasagpt.dev/)
 
 ### [AutoGen Studio](https://github.com/microsoft/autogen/tree/main/samples/apps/autogen-studio)
 an AutoGen-powered AI app (user interface) to help you rapidly prototype AI agents, enhance them with skills, compose them into workflows and interact with them to accomplish tasks. It is built on top of the AutoGen framework, which is a toolkit for building AI agents
@@ -46,6 +55,12 @@ Discover, download, and run local LLMs
 ### [AutoGen](https://github.com/microsoft/autogen)
 
 Enable Next-Gen Large Language Model Applications (see also AutoGen studio)
+
+### [Devika][https://github.com/wgong/devika]
+Devika is an Agentic AI Software Engineer that can understand high-level human instructions, break them down into steps, research relevant information, and write code to achieve the given objective. Devika aims to be a competitive open-source alternative to Devin by Cognition AI.
+
+- [video](https://www.youtube.com/watch?v=btpnz0WQGvw&t=243s)
+- [fork](https://github.com/wgong/devika)
 
 ### [CrewAI](https://github.com/joaomdmoura/crewAI)
 Framework for orchestrating role-playing, autonomous AI agents. By fostering collaborative intelligence, CrewAI empowers agents to work together seamlessly, tackling complex tasks.
@@ -109,6 +124,13 @@ LlamaIndex (formerly GPT Index) is a data framework for your LLM applications
 ### [PGVector](https://github.com/pgvector/pgvector)
 Open-source vector similarity search for Postgres
 
+
+### [ChromaDB](https://github.com/chroma-core/chroma)
+
+### [Marqo](https://github.com/marqo-ai/marqo)
+multi-modal, multi-linqual vector DB
+- https://www.marqo.ai/blog/context-is-all-you-need-multimodal-vector-search-with-personalization
+
 ### [FAISS](https://github.com/facebookresearch/faiss)
 A library for efficient similarity search and clustering of dense vectors.
 - [Docs](https://faiss.ai/)
@@ -139,6 +161,8 @@ MindsDB connects AI models to real time data
 
 Get up and running with Llama 2 and other large language models locally
 
+- local: ~/projects/AI/lighthouse-learning-machine/ollama
+
 ### [LiteLLM](https://github.com/BerriAI/litellm)
 
 Call all LLM APIs using the OpenAI format. Use AWS Bedrock, Azure, OpenAI, Cohere, Anthropic, Ollama, Sagemaker, HuggingFace, Replicate (100+ LLMs)
@@ -158,6 +182,14 @@ Providing enterprise-grade LLM-based development framework, tools, and fine-tune
 
 ## RAG
 Neural Search: semantic search, key word search, recommender
+
+### [embedchain](https://github.com/embedchain/embedchain)
+Embedchain is an Open Source RAG Framework that makes it easy to create and deploy AI apps
+
+- Docs: https://docs.embedchain.ai/
+
+
+### Background 
 ![RAG Overview](./docs/RAG-overview.png "RAG Overview")
 -   [RAG Concept](https://docs.llamaindex.ai/en/stable/getting_started/concepts.html)
 -   [10 Ways to Improve RAG](https://towardsdatascience.com/10-ways-to-improve-the-performance-of-retrieval-augmented-generation-systems-5fa2cee7cd5c)
@@ -187,6 +219,7 @@ All-in-one open-source embeddings database for semantic search, LLM orchestratio
 
 ## AI Assistant
 
+
 ### [big-AGI](https://github.com/enricoros/big-AGI)
 
 Personal AI application powered by GPT-4 and beyond, with AI personas, AGI functions, text-to-image, voice, response streaming, code highlighting and execution, PDF import, presets for developers, much more. Deploy and gift #big-AGI-energy! Using Next.js, React, Joy.
@@ -209,11 +242,54 @@ Amica is an open source interface for interactive communication with 3D characte
 - Personal assistants help senior living
 - MyLib as personal resource
 
+### AI Data Analyst
+
+- https://github.com/topics/nl2sql
+
+- [Vanna](https://github.com/vanna-ai/vanna)
+    - ~/projects/AI/lighthouse-learning-machine/data-analyst/vanna
+
+    - ~/projects/AI/lighthouse-learning-machine/data-analyst/notebooks/sqlite-ollama-chromadb-u1gwg.ipynb
+    ```
+from vanna.ollama import Ollama
+from vanna.chromadb.chromadb_vector import ChromaDB_VectorStore
+class MyVanna(ChromaDB_VectorStore, Ollama):
+    def __init__(self, config=None):
+        ChromaDB_VectorStore.__init__(self, config=config)
+        Ollama.__init__(self, config=config)
+
+vn = MyVanna(config={'model': 'mistral'})
+file_db = "./db/gpt3sql.sqlite"
+vn.connect_to_sqlite(file_db)
+df_ddl = vn.run_sql("SELECT type, sql FROM sqlite_master WHERE sql is not null")
+for ddl in df_ddl['sql'].to_list():
+    vn.train(ddl=ddl)
+# DDL statements are powerful because they specify table names, colume names, types, and potentially relationships
+vn.train(ddl="""
+    CREATE TABLE IF NOT EXISTS my-table (
+        id INT PRIMARY KEY,
+        name VARCHAR(100),
+        age INT
+    )
+""")
+# Sometimes you may want to add documentation about your business terminology or definitions.
+vn.train(documentation="Our business defines OTIF score as the percentage of orders that are delivered on time and in full")
+# You can also add SQL queries to your training data. This is useful if you have some queries already laying around. You can just copy and paste those from your editor to begin generating new SQL.
+vn.train(sql="SELECT * FROM my-table WHERE name = 'John Doe'")
+vn.ask(question="How many customers do we have")
+    ```
+
 ## Local AI-App Development
 
 ### [Ollama](https://ollama.ai/)
 
 Get up and running with Llama 2 and other large language models locally
+
+- [python API](https://github.com/ollama/ollama-python)
+    - ~/projects/AI/ollama-python
+
+- [Ollama and LangChain: Run LLMs locally](https://medium.com/@abonia/ollama-and-langchain-run-llms-locally-900931914a46)
+    - ~/projects/AI/ollama-python/examples/langchain
 
 ### [Bionic-GPT](https://github.com/bionic-gpt/bionic-gpt)
 
@@ -229,6 +305,9 @@ Chat with your documents using local AI
 ### VS [Code](https://code.visualstudio.com/)
 
 Code editing - Redefined
+
+#### twinny 
+VS Code copilot-like extension using ollama
 
 ### Google [Colab](https://colab.google/)
 Colab is a hosted Jupyter Notebook service that requires no setup to use and provides free access to computing resources, including GPUs and TPUs. Colab is especially well suited to machine learning, data science, and education.
@@ -283,3 +362,6 @@ has both cloud and desktop versions.
 - hand-eye coordination
 - ...
 
+# Resources
+## Compare GitHub repos by Forks-and-Stars
+https://github.com/wgong/py4kids/blob/master/lesson-11-scrapy/github/forks_stars.ipynb
