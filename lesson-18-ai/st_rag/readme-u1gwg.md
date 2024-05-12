@@ -56,6 +56,8 @@ Discover, download, and run local LLMs
 
 Enable Next-Gen Large Language Model Applications (see also AutoGen studio)
 
+### [OpenDevin](https://github.com/OpenDevin/OpenDevin)
+
 ### [Devika][https://github.com/wgong/devika]
 Devika is an Agentic AI Software Engineer that can understand high-level human instructions, break them down into steps, research relevant information, and write code to achieve the given objective. Devika aims to be a competitive open-source alternative to Devin by Cognition AI.
 
@@ -245,6 +247,16 @@ Amica is an open source interface for interactive communication with 3D characte
 - MyLib as personal resource
 
 ### AI Data Analyst
+
+- [Pandas AI](https://console.cloud.google.com/home/dashboard?project=pandasai-419903)
+
+
+```
+Project_name: pandasai
+Project_number: 124236468554
+Project_ID: pandasai-419903
+```
+
 
 - https://github.com/topics/nl2sql
 

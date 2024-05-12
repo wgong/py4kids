@@ -1,25 +1,44 @@
+## Ollama
+
+### install ollama
+
+```
+# alternatively: 
+# systemctl status|stop|start ollama
+
+service ollama status  # check if running
+service ollama stop    # stop if running
+
+curl -fsSL https://ollama.com/install.sh | sh
+
+service ollama status  # check status again
+
+ollama pull phi3
+ollama pull llama3
+```
+
+### Run multiple models/clients in parallel
+
+```
+OLLAMA_NUM_PARALLEL=3 OLLAMA_MAX_LOADED_MODELS=2 ollama serve
+```
+
 
 ## st_rag
 ~/projects/gongwork/st_rag/readme-u1gwg.md
 
-##  big-agi
-~/projects/AI/ollama-webui
-
-##  ollama-webui
-~/projects/AI/ollama-webui/readme-u1gwg.md
-https://github.com/open-webui/open-webui
-
-
 ##  chat-ollama
 cd ~/projects/AI/lighthouse-learning-machine/chat-ollama
-### run Docker
-
-### run locally
 
 #### git clone
 ```
 git clone git@github.com:sugarforever/chat-ollama.git
 ```
+
+### run Docker
+
+### run locally 
+
 
 #### ollama server
 already installed locally
@@ -83,16 +102,28 @@ open browser at `http://localhost:3003`
 http://localhost:11434
 
 
+##  big-agi
+~/projects/AI/ollama-webui
 
-## git tip
-/home/gongai/projects/wgong/py4kids/lesson-99-misc/git/readme-u1gwg.md
+##  ollama-webui
+- ~/projects/AI/ollama-webui/readme-u1gwg.md
+- https://github.com/open-webui/open-webui
 
-## https://github.com/embedchain/embedchain
+
+
+##  Embedchain
+- https://github.com/embedchain/embedchain
 Embedchain is an Open Source RAG Framework that makes it easy to create and deploy AI apps.
-
 
 ## langchain SQL
 https://python.langchain.com/docs/use_cases/sql/
 
 ## pgvector
 https://github.com/pgvector/pgvector
+
+
+## Misc
+
+### git tip
+- /home/gongai/projects/wgong/py4kids/lesson-99-misc/git/readme-u1gwg.md
+
