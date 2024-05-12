@@ -23,6 +23,37 @@ ollama pull llama3
 OLLAMA_NUM_PARALLEL=3 OLLAMA_MAX_LOADED_MODELS=2 ollama serve
 ```
 
+#### How to inject environ var to systemd unit file
+Gemini answer - https://g.co/gemini/share/826f9844bfbb
+
+```bash
+## create /etc/ollama/env
+##========================
+cd /etc
+sudo mkdir ollama
+cd ollama
+sudo vi env  # adding the following 2 env vars
+OLLAMA_NUM_PARALLEL=3
+OLLAMA_MAX_LOADED_MODELS=2
+
+sudo chmod 640 env
+
+## update systemd ollama unit file
+##========================
+
+sudo vi /etc/systemd/system/ollama.service  # add the following line in [Service] section
+EnvironmentFile=/etc/ollama/env
+
+sudo systemctl daemon-reload
+sudo systemctl restart ollama
+
+## verify
+##========================
+
+pgrep ollama  # get PID
+sudo cat /proc/<PID>/environ  # see above 2 env vars
+
+```
 
 ## st_rag
 ~/projects/gongwork/st_rag/readme-u1gwg.md
