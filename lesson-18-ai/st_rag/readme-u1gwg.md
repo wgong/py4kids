@@ -47,7 +47,7 @@ RasaGPT is the first headless LLM chatbot platform built on top of Rasa and Lang
 ### [AutoGen Studio](https://github.com/microsoft/autogen/tree/main/samples/apps/autogen-studio)
 an AutoGen-powered AI app (user interface) to help you rapidly prototype AI agents, enhance them with skills, compose them into workflows and interact with them to accomplish tasks. It is built on top of the AutoGen framework, which is a toolkit for building AI agents
 
-### [LM Studio](https://lmstudio.ai/)
+### [LM Studio](https://lmstudio.ai/) (closed)
 Discover, download, and run local LLMs
 
 ## Mid-Tier : workflow orchestration and service integration
@@ -149,7 +149,7 @@ pip install qdrant-client
 
 ### [Pinecone](https://docs.pinecone.io/docs/quickstart)
 
-### [SQLite-VSS](https://github.com/asg017/sqlite-vss)
+### [SQLite-VSS](https://github.com/asg017/sqlite-vss) (no-traction)
 A SQLite extension for efficient vector search, based on Faiss
 
 -   sqlite-vss GitHub repository: https://github.com/asg017/sqlite-vss
@@ -437,6 +437,12 @@ To get started, run:
 npm install -g bun  # the last `npm` command you'll ever need
 ```
 
-# Last
+# Eval
 
-remember to run `sync_gongwork_st_rag.sh`
+see `./docs/LLM-Apps-options.ods`
+
+# Source
+
+- ~/projects/wgong/py4kids/lesson-18-ai/st_rag/readme-u1gwg.md
+- run `sync_gongwork_st_rag.sh` to push change to `~/projects/gongwork/st_rag/readme-u1gwg.md`
+

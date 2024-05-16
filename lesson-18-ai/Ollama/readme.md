@@ -55,6 +55,8 @@ sudo cat /proc/<PID>/environ  # see above 2 env vars
 
 ```
 
+see ~/projects/AI/lighthouse-learning-machine/chat-ollama/README-u1gwg.md
+
 ## st_rag
 ~/projects/gongwork/st_rag/readme-u1gwg.md
 
