@@ -1,0 +1,6 @@
+# api_key_store
+googletrans==4.0.0-rc1
+deepl
+gTTS
+pyttsx3
+pocketsphinx

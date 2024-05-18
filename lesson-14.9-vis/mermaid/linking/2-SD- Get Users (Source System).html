@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<style>
+			.hyplink {
+				font-weight: bolder;
+				font-style: italic;
+				text-decoration: underline;
+			}
+		</style>
+	</head>
+	<body>
+		<pre class="mermaid">
+			sequenceDiagram
+				participant ANY AS ANY SYSTEM
+				participant SRC AS SOURCE SYSTEM
+				participant PGDB AS POSTGRES DB
+				ANY->>SRC: GET /user/list
+				SRC->>PGDB: SELECT * FROM <a class="hyplink" href="./3-ERD - PGDB - USER.html" target="blank">USER</a>;
+				PGDB-->>SRC: User[] (id, name, identificationNumber)
+				SRC-->>ANY: User[] (id, name, identificationNumber)
+		</pre>
+		<script type="module">
+			import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+
+			// Wait for render
+			setTimeout(() => {
+				var encodedHtmlEntitiesRegex = /(&lt;|&gt;|&amp;|&#39;|&quot;)/g;
+				var elems = document.getElementsByClassName('messageText');
+				for (var i = 0; i < elems.length; i++) {
+					// Replace encoded values.
+					elems[i].innerHTML = elems[i]?.innerHTML?.replace(encodedHtmlEntitiesRegex, 
+						tag => ({
+							'&amp;': '&',
+							'&lt;': '<',
+							'&gt;': '>',
+							'&#39;': "'",
+							'&quot;': '"'
+						}[tag]));
+				}
+			}, 100); // Add more value here if fail to replace encoded value.
+		</script>
+	</body>
+</html>

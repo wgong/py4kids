@@ -22,3 +22,7 @@ https://www.databricks.com/dataaisummit/session/datafusion-and-arrow-supercharge
 
 - [datafusion-python](https://github.com/jorgecarleitao/datafusion-python)
 
+## dataclass
+
+## [bidict](https://bidict.readthedocs.io/en/main/index.html)
+

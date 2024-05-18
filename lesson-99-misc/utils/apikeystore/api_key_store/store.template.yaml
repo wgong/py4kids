@@ -1,0 +1,44 @@
+# LLM_Models:
+OPENAI:
+    ORG_ID: "org-123"
+    API_KEY: "sk-xyz"
+    MODELS:
+        CHAT:
+        - "gpt-3.5-turbo"
+        - "gpt-4"
+        AUDIO2TEXT: 
+        - "whisper-1"
+    DESCRIPTION: |
+        # Homepage
+        [OpenAI](https://openai.com/)
+
+        
+HUGGING_FACE:
+    ORG_ID: ""
+    HF_READ:
+        API_KEY:  "hf_bg123"
+    HF_WRITE:
+        API_KEY:  "hf_NA456"
+    MODELS:
+    
+        # CHAT: ""
+        # TRANSLATION: ""
+        # TEXT2IMAGE: ""
+        # TEXT2AUDIO: ""
+        # TEXT2VIDEO: ""
+        # IMAGE2TEXT: ""
+        # AUDIO2TEXT: ""
+        # VIDEO2TEXT: ""
+    DESCRIPTION: |
+        # Homepage
+        [Hugging Face](https://huggingface.co/)
+
+
+WOLFRAM_ALPHA:
+    ORG_ID: ""
+    MODELS:
+    - NAME: "MathChat"
+    API_KEY: "ABC-XYZ"
+    DESCRIPTION: |
+        # Homepage
+        [Wolfram Alpha](https://www.wolframalpha.com/)
