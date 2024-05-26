@@ -155,7 +155,62 @@ https://python.langchain.com/docs/use_cases/sql/
 https://github.com/pgvector/pgvector
 
 
+
+## Ollama UI
+
+### Msty
+install as linux app
+
+### Open-WebUI
+
+#### Install docker desktop on Ubuntu
+
+https://g.co/gemini/share/b66c2972bc0b
+
+https://www.docker.com/products/docker-desktop/
+
+```
+lsb_release -cs
+> jammy   # Ubuntu 22.04
+
+sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
+
+cd ~/Downloads
+# sudo apt-get install ./docker-desktop-<version>-<arch>.deb
+sudo apt-get install ./docker-desktop-4.30.0-amd64.deb
+
+
+```
+
+#### launch open-webui
+```
+cd ~/projects/AI
+docker run -d -p 3000:8080 --gpus all --add-host=host.docker.internal:host-gateway -v open-webui:/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:cuda   # not working
+
+docker run -d -p 3000:8080 --add-host=host.docker.internal:host-gateway -v open-webui:/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:main   # ok
+signup_as: w_gong@yahoo.com / AI_boy@101
+```
+
+
+### CrewAI
+
+```
+conda create -n crewai
+conda activate crewai
+```
+
+
 ## Misc
+
+
+### Ollama LLM models path
+
+Ollama: `/usr/share/ollama/.ollama/models`
+
+Msty: `~/.config/Msty/models`
+
+llama3 is stored in
+`models/manifests/registry.ollama.ai/library/llama3`
 
 ### git tip
 - /home/gongai/projects/wgong/py4kids/lesson-99-misc/git/readme-u1gwg.md
