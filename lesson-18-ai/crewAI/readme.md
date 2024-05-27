@@ -25,3 +25,7 @@ install log:
 ```
 
 ## Get Started
+
+
+## Results
+Using GPT-3.5-Turbo, I was able to run L2-L7 notebooks on Ubuntu (papagame). See results in sub-folder `papagame`
