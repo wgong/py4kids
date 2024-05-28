@@ -13,3 +13,8 @@ https://code.tutsplus.com/quick-tip-how-to-work-with-github-and-multiple-account
 - how to delete github repo:
 https://zapier.com/blog/github-delete-repository/
 
+- how to add SSH key
+https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
+```
+ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+```
