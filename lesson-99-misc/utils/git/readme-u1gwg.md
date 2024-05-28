@@ -18,3 +18,7 @@ https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generati
 ```
 ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
 ```
+
+- how to avoid prompting pwd
+https://stackoverflow.com/questions/7773181/git-keeps-prompting-me-for-a-password
+

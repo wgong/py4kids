@@ -27,5 +27,18 @@ install log:
 ## Get Started
 
 
-## Results
+## Examples
+### [Multi AI Agent Systems with crewAI](https://learn.deeplearning.ai/accomplishments/4b3aa14f-a48b-43f0-ab53-7c5e9de3ef0e)
+
 Using GPT-3.5-Turbo, I was able to run L2-L7 notebooks on Ubuntu (papagame). See results in sub-folder `papagame`
+
+### [crewAI-examples](https://github.com/joaomdmoura/crewAI-examples/tree/main)
+
+see cloned repo at `/home/papagame/projects/wgong/crewAI-examples`
+
+
+## Learn
+
+### Videos
+
+- [Integrate CrewAI with Ollama Locally and Privately to Run AI Agents](https://www.youtube.com/watch?v=_5_QHE3p8EA)
