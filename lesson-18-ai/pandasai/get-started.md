@@ -8,16 +8,29 @@ PandasAI uses a generative AI model to understand and interpret natural language
 # [Documentation](https://docs.pandas-ai.com/index)
 
 ## Blogs
-- [optimizing everyday tasks with CrewAI](https://medium.com/@foadmk/optimizing-everyday-tasks-with-crewai-fc655ca08944)
+- [PandasAI: Simplifying Data Analysis through Generative AI](https://medium.com/@soumava.dey.aig/pandasai-simplifying-data-analysis-through-generative-ai-980b73a410ff)
+
+
+
+## GitHub
 
 # [Source Code](https://github.com/Sinaptik-AI/pandas-ai)
 
 # Tutorials
 
+## Setup
 get API Key at https://www.pandabi.ai/admin/api-keys
 ```
-pip install pandasai
+
+conda create -n pandasai python=3.11
+conda activate pandasai
+pip install pandasai notebook
+pip install pandasai[connectors]
+pip install yfinance
+
 ```
+
+## Quick Start
 
 ```
 from api_key_store import ApiKeyStore
@@ -27,23 +40,17 @@ os.environ["PANDASAI_API_KEY"] = s.get_api_key(provider="PANDASAI")
 ```
 
 
-## [Multi AI Agent Systems with crewAI](https://learn.deeplearning.ai/accomplishments/4b3aa14f-a48b-43f0-ab53-7c5e9de3ef0e)
+## Examples
 
-<span style="color:red">recommended by Andrew Ng</span>
+- [Examples](https://docs.pandas-ai.com/examples)
+- [PandasAI, OpenAI and Streamlit - Analyzing File Uploads with User Prompts](https://www.youtube.com/watch?v=oSC2U2iuMRg)
+- [PandasAI: AI Copilot for Your Data - Excel, MySQL, BigQuery, and More](https://www.youtube.com/watch?v=sNrGanuranQ)
+
+<span style="color:red">recommended by </span>
 
 
 # What's Next
 
 ## Projects
 
-### arxiv researcher
-
-This LangChain tool for arXiv looks interesting: https://python.langchain.com/v0.1/docs/integrations/tools/arxiv/
-
-### resume writer
-
-### newletter writer
-
-## Demos
-
-- walk thru a few examples running locally with Ollama (like llema3, mistral)
+### 
