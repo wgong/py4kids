@@ -2,6 +2,6 @@
 ```
 conda create -n embedchain python=3.11
 conda activate embedchain
-pip innstal embedchain notebook
+pip install embedchain notebook
 ```
 
