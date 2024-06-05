@@ -1,3 +1,4 @@
+jsonlines
 notebook
 ollama
 vanna

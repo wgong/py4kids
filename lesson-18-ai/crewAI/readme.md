@@ -42,3 +42,5 @@ see cloned repo at `/home/papagame/projects/wgong/crewAI-examples`
 ### Videos
 
 - [Integrate CrewAI with Ollama Locally and Privately to Run AI Agents](https://www.youtube.com/watch?v=_5_QHE3p8EA)
+    - https://www.fahdmirza.com/2024/05/how-to-create-local-ai-agents-using.html#google_vignette
+    

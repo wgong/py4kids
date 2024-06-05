@@ -1,20 +1,18 @@
-# Intro
+
+# [Homepage](https://www.crewai.com/)
+
 CrewAI is a framework for automating tasks using LLM (similar to AutoGen by Microsoft) but may be more user-friendly
 
-# Resources
+# [Documentation](https://docs.crewai.com/)
 
-## [Homepage](https://www.crewai.com/)
-
-## [Documentation](https://docs.crewai.com/)
-
-### Blogs
+## Blogs
 - [optimizing everyday tasks with CrewAI](https://medium.com/@foadmk/optimizing-everyday-tasks-with-crewai-fc655ca08944)
 
-## [Source](https://github.com/joaomdmoura/crewAI)
+# [Source](https://github.com/joaomdmoura/crewAI)
 
-## Tutorial
+# Tutorials
 
-### [Multi AI Agent Systems with crewAI](https://learn.deeplearning.ai/accomplishments/4b3aa14f-a48b-43f0-ab53-7c5e9de3ef0e)
+## [Multi AI Agent Systems with crewAI](https://learn.deeplearning.ai/accomplishments/4b3aa14f-a48b-43f0-ab53-7c5e9de3ef0e)
 
 <span style="color:red">recommended by Andrew Ng</span>
 
@@ -25,6 +23,7 @@ https://github.com/wgong/py4kids/tree/master/lesson-18-ai/crewAI/courses/deeplea
     - The working versions I ran with minor changes are here: 
 https://github.com/wgong/py4kids/tree/master/lesson-18-ai/crewAI/papagame
 
+## [crewAI-examples](https://github.com/joaomdmoura/crewAI-examples)
 
 # What's Next
 
@@ -36,15 +35,8 @@ This LangChain tool for arXiv looks interesting: https://python.langchain.com/v0
 
 ### resume writer
 
-### new letter
+### newletter writer
 
 ## Demos
 
-To learn more about CrewAI:
-- homepage: 
-- examples : https://github.com/joaomdmoura/crewAI-examples
-- source : 
-- blog : 
-
-
-Next weekend, I can walk thru a few examples running locally with Ollama (like llema3, mistral) if anyone is interested
+- walk thru a few examples running locally with Ollama (like llema3, mistral)

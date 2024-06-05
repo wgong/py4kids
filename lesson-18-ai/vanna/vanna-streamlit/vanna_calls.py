@@ -1,5 +1,6 @@
+import os.path
 import streamlit as st
-from vanna.remote import VannaDefault
+# from vanna.remote import VannaDefault
 
 from vanna.ollama import Ollama
 from vanna.chromadb.chromadb_vector import ChromaDB_VectorStore
@@ -16,7 +17,8 @@ def setup_vanna():
         'model': 'llama3'  # 'mistral'
     }
     vn = MyVanna(config=config)
-    file_db = "/home/gongai/Downloads/chinook.sqlite"
+    file_db = "~/Downloads/chinook.sqlite"
+    file_db = os.path.abspath(os.path.expanduser(file_db))
     vn.connect_to_sqlite(file_db)
 
     # vn = VannaDefault(api_key=st.secrets.get("VANNA_API_KEY"), model='chinook')
@@ -72,3 +74,9 @@ def generate_plot_cached(code, df):
 def generate_summary_cached(question, df):
     vn = setup_vanna()
     return vn.generate_summary(question=question, df=df)
+
+
+@st.cache_data(show_spinner="Show training data ...")
+def show_training_data_cached():
+    vn = setup_vanna()
+    return vn.get_training_data()

@@ -3,6 +3,7 @@ from pathlib import Path
 import streamlit as st
 # from code_editor import code_editor
 from vanna_calls import (
+    setup_vanna,
     generate_questions_cached,
     generate_sql_cached,
     run_sql_cached,
@@ -11,7 +12,8 @@ from vanna_calls import (
     generate_followup_cached,
     should_generate_chart_cached,
     is_sql_valid_cached,
-    generate_summary_cached
+    generate_summary_cached,
+    show_training_data_cached
 )
 
 VANNA_ICON_URL  = "https://vanna.ai/img/vanna.svg"
@@ -103,7 +105,7 @@ def do_welcome():
 
     """, unsafe_allow_html=True)
 
-    st.image(VANNA_AI_PROCESS_URL)
+    st.image("./docs/how-vanna-works.png")
 
 def do_ask_ai():
     """ Ask Vanna.AI questions
@@ -219,6 +221,48 @@ def do_train():
     """ Add DDL/SQL/Documentation to VectorDB for RAG
     """
     st.header(f"{_STR_MENU_TRAIN}")
+    vn = setup_vanna()
+
+    st.subheader("Add Training data")
+    ddl_sample = """CREATE TABLE IF NOT EXISTS t_person (
+        id INT PRIMARY KEY,
+        name text,
+        email text
+    );
+    """
+    ddl_text = st.text_area("DDL script", value="", height=100, key="add_ddl"
+                           ,placeholder=ddl_sample)
+    if st.button("Add DDL script"):
+        result = vn.train(ddl=ddl_text)
+        st.write(result)
+
+    sql_sample = """select * from t_book;    """
+    sql_text = st.text_area("SQL query", value="", height=100, key="add_sql"
+                           ,placeholder=sql_sample)
+    if st.button("Add SQL query"):
+        result = vn.train(sql=sql_text)
+        st.write(result)
+
+    doc_sample = """table "t_book" stores information on book title and author """
+    doc_text = st.text_area("Documentation", value="", height=100, key="add_doc"
+                           ,placeholder=doc_sample)
+    if st.button("Add Documentation on schema"):
+        result = vn.train(documentation=doc_text)
+        st.write(result)
+
+    df_ddl = None
+    if st.button("Add All DDL scripts to VectorDB"):
+        df_ddl = vn.run_sql("SELECT type, sql FROM sqlite_master WHERE sql is not null")
+        for ddl in df_ddl['sql'].to_list():
+            vn.train(ddl=ddl)
+    if df_ddl is not None:
+        st.dataframe(df_ddl)
+
+    if st.button("Show Training Data"):
+        df = vn.get_training_data()
+        st.dataframe(df)
+
+
 
 def do_result():
     """ Show result history
