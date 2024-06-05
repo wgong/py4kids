@@ -32,7 +32,7 @@ def setup_vanna():
 
 ```
 
-SQLite sample database `chinook.sqlite` is stored in `~/Downloads/`
+SQLite sample database `chinook.sqlite` is stored in `~/Downloads/` (https://github.com/lerocha/chinook-database/blob/master/ChinookDatabase/DataSources/Chinook_Sqlite.sqlite)
 
 Local LLM `llama3` is used via `Ollama` framework.
 
