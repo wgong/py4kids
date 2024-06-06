@@ -13,19 +13,17 @@ from vanna_calls import (
     should_generate_chart_cached,
     is_sql_valid_cached,
     generate_summary_cached,
-    show_training_data_cached
 )
 
 VANNA_ICON_URL  = "https://vanna.ai/img/vanna.svg"
 VANNA_AI_PROCESS_URL = "https://private-user-images.githubusercontent.com/7146154/299417072-1d2718ad-12a8-4a76-afa2-c61754462f93.gif?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTczMzUxMjEsIm5iZiI6MTcxNzMzNDgyMSwicGF0aCI6Ii83MTQ2MTU0LzI5OTQxNzA3Mi0xZDI3MThhZC0xMmE4LTRhNzYtYWZhMi1jNjE3NTQ0NjJmOTMuZ2lmP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQVZDT0RZTFNBNTNQUUs0WkElMkYyMDI0MDYwMiUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNDA2MDJUMTMyNzAxWiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9MmQ4MzU0ZDg1ZDg3ZWEzYjZlMWQxMDkzMTBiYjk1NGExNzYxYjQ4Y2YwMTNjYTkzZGU2N2IxMjU2YTgyZTZjNSZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QmYWN0b3JfaWQ9MCZrZXlfaWQ9MCZyZXBvX2lkPTAifQ.o-Q0S0zOeCJrfF4XP5WKc41Eh5qIdwEwEl2n_ZA_AoM"
 
-_STR_APP_NAME   = "Data Copilot"
-_STR_MENU_HOME            = "Data Copilot"
+_STR_APP_NAME             = "Data Copilot"
+_STR_MENU_HOME            = "Home"
 _STR_MENU_ASK             = "Ask AI"
 _STR_MENU_CONFIG          = "Configure"
 _STR_MENU_TRAIN           = "Train"
-_STR_MENU_RESULT          = "Result History"
-_STR_MENU_VERIFY          = "Verify"
+_STR_MENU_RESULT          = "Results"
 
 
 st.set_page_config(
@@ -33,6 +31,8 @@ st.set_page_config(
      layout="wide",
      initial_sidebar_state="expanded",
 )
+
+LLM_MODELS = ["starcoder2", "sqlcoder", "duckdb-nsql", "wizardcoder", "llama3", "gemma:7b", "gemma:2b"]
 
 def load_jsonl(file_path):
     if not file_path.exists():
@@ -53,6 +53,9 @@ def dump_jsonl(file_path):
             writer.write(obj)  
 
 # init
+if "my_llm_model" not in st.session_state:
+    st.session_state["my_llm_model"] = LLM_MODELS[0]
+
 file_chat_records = Path("chat_record.jsonl")
 if "my_results" not in st.session_state:
     st.session_state["my_results"] = [] # ts : ts, Q: query, A: answer
@@ -91,13 +94,13 @@ if "my_results" not in st.session_state:
 # Menu Handlers
 #####################################################
 def do_welcome():
-    st.header(f"What is {_STR_MENU_HOME}?")
+    st.header(f"What is {_STR_APP_NAME}?")
 
     st.markdown(f"""
     Data Copilot is a game-changer that streamlines the data-to-insight life-cycle. It is an AI-powered assistant, built on cutting-edge LLM models, empowers data scientists, engineers, and analysts to unlock insights from data faster than ever, 
     allows them to focus on deeper analysis and strategic decision-making. Imagine asking questions in plain English, having them translated into SQL query and python script on the fly, then receiving results in informative texts and visual plots.
                 
-    Tech-stack:
+    ### Tech-stack:
     - [RAG](https://aws.amazon.com/what-is/retrieval-augmented-generation/)
     - [Vanna.AI](https://github.com/vanna-ai)
     - [Ollama](https://ollama.com/)
@@ -106,6 +109,11 @@ def do_welcome():
     """, unsafe_allow_html=True)
 
     st.image("./docs/how-vanna-works.png")
+
+    st.markdown(f"""
+    ### Resources
+    - [SQL Assistant](https://medium.com/@romina.elena.mendez/sql-assistant-text-to-sql-application-in-streamlit-b54f65d06b97)
+    """, unsafe_allow_html=True)
 
 def do_ask_ai():
     """ Ask Vanna.AI questions
@@ -216,12 +224,25 @@ def do_config():
     """ Configure LLM model, Database URL
     """
     st.header(f"{_STR_MENU_CONFIG}")
+    if "my_llm_model" not in st.session_state:
+        my_llm_model_index = 0
+    else:
+        my_llm_model = st.session_state.get("my_llm_model")
+        my_llm_model_index = LLM_MODELS.index(my_llm_model)
+    my_llm_model = st.selectbox("Select an LLM Model:", LLM_MODELS, index=my_llm_model_index, key="llm_model")
+    st.session_state["my_llm_model"] = my_llm_model
 
 def do_train():
     """ Add DDL/SQL/Documentation to VectorDB for RAG
     """
-    st.header(f"{_STR_MENU_TRAIN}")
-    vn = setup_vanna()
+    st.header(f"Manage Training Data")
+    my_llm_model = st.session_state.get("my_llm_model", LLM_MODELS[0])
+    vn = setup_vanna(model_name=my_llm_model)
+
+    st.subheader("Show Training data")
+    if st.button("Show"):
+        df = vn.get_training_data()
+        st.dataframe(df)
 
     st.subheader("Add Training data")
     ddl_sample = """CREATE TABLE IF NOT EXISTS t_person (
@@ -232,37 +253,40 @@ def do_train():
     """
     ddl_text = st.text_area("DDL script", value="", height=100, key="add_ddl"
                            ,placeholder=ddl_sample)
-    if st.button("Add DDL script"):
+    if st.button("Add DDL script") and ddl_text:
         result = vn.train(ddl=ddl_text)
         st.write(result)
 
     sql_sample = """select * from t_book;    """
     sql_text = st.text_area("SQL query", value="", height=100, key="add_sql"
                            ,placeholder=sql_sample)
-    if st.button("Add SQL query"):
+    if st.button("Add SQL query") and sql_text:
         result = vn.train(sql=sql_text)
         st.write(result)
 
     doc_sample = """table "t_book" stores information on book title and author """
     doc_text = st.text_area("Documentation", value="", height=100, key="add_doc"
                            ,placeholder=doc_sample)
-    if st.button("Add Documentation on schema"):
+    if st.button("Add Documentation") and doc_text:
         result = vn.train(documentation=doc_text)
         st.write(result)
 
     df_ddl = None
-    if st.button("Add All DDL scripts to VectorDB"):
+    if st.button("Add all DDL scripts"):
         df_ddl = vn.run_sql("SELECT type, sql FROM sqlite_master WHERE sql is not null")
         for ddl in df_ddl['sql'].to_list():
             vn.train(ddl=ddl)
     if df_ddl is not None:
         st.dataframe(df_ddl)
 
-    if st.button("Show Training Data"):
-        df = vn.get_training_data()
-        st.dataframe(df)
+    st.subheader("Remove Training data")
+    collection_id = st.text_input("Enter collection ID", value="", key="del_collection")
+    if collection_id and st.button("Remove"):
+        vn.remove_training_data(id=collection_id)
 
-
+    if st.button("Remove all collections"):
+        for c in ["sql", "ddl", "documentation"]:
+            vn.remove_collection(c)
 
 def do_result():
     """ Show result history
@@ -336,10 +360,7 @@ def do_result():
             assistant_message_summary.text(my_summary)
 
 
-def do_verify():
-    """ Connect to Database and verify generated SQL
-    """
-    st.header(f"{_STR_MENU_VERIFY}")
+
 
 #####################################################
 # setup menu_items 
@@ -348,7 +369,6 @@ menu_dict = {
     _STR_MENU_HOME :         {"fn": do_welcome},
     _STR_MENU_ASK:           {"fn": do_ask_ai},
     _STR_MENU_RESULT:        {"fn": do_result},
-    _STR_MENU_VERIFY:        {"fn": do_verify},
     _STR_MENU_TRAIN:         {"fn": do_train},
     _STR_MENU_CONFIG:        {"fn": do_config},
 }
@@ -364,6 +384,10 @@ def do_sidebar():
         menu_item = st.selectbox("Menu:", menu_options, index=default_ix, key="menu_item")
         # keep menu item in the same order as i18n strings
 
+        if menu_item in [_STR_MENU_ASK, _STR_MENU_RESULT, _STR_MENU_CONFIG, _STR_MENU_TRAIN]:
+            my_llm_model = st.session_state.get("my_llm_model")
+            st.write(f"Model '{my_llm_model}' selected")
+
         if menu_item in [_STR_MENU_ASK]:
 
             st.title("Output Settings")
@@ -374,9 +398,6 @@ def do_sidebar():
             st.checkbox("Show Summary", value=True, key="show_summary")
             # st.checkbox("Show Follow-up Questions", value=False, key="show_followup")
             st.button("Reset", on_click=lambda: reset_my_state(), use_container_width=True)
-
-        # if menu_item in [_STR_MENU_ASK, _STR_MENU_RESULT]:
-        #     st.write(st.session_state)
 
 # body
 def do_body():
