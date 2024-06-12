@@ -1,5 +1,24 @@
 import string
 
+
+def normalize_text(text, delimitor="-"):
+    """
+    Normalizes a text phrase into an alpha-numeric string.
+    
+    Args:
+      text: The text phrase to normalize.
+    
+    Returns:
+      A new string where any non-alphanumeric characters are replaced by hyphens.
+    """
+    new_text = ""
+    for char in text:
+        if char.isalnum() or char.isspace():
+            new_text += char
+        else:
+            new_text += ' '
+    return delimitor.join([w for w in new_text.split() if w])
+
 def convert_to_filename(text, join_char="_", file_ext="md"):
   """
   Converts a text string into a valid OS filename with the .md extension.
