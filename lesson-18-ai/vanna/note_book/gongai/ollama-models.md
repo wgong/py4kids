@@ -21,3 +21,6 @@ ollama pull mistral  ##7B
 
 ## Aya 23, released by Cohere, is a new family of state-of-the-art, multilingual models that support 23 languages. : 
 ollama pull aya ## 8B
+
+## starcoder2 
+ollama pull starcoder2  ## 7B
