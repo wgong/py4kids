@@ -21,6 +21,10 @@ def setup_vanna(model_name='llama3'):
     file_db = os.path.abspath(os.path.expanduser(file_db))
     vn.connect_to_sqlite(file_db)
 
+    ## api_key = st.secrets.get("VANNA_API_KEY")
+    ## vn = VannaDefault(api_key=api_key, model=model_name)
+
+    ## original
     # vn = VannaDefault(api_key=st.secrets.get("VANNA_API_KEY"), model='chinook')
     # vn.connect_to_sqlite("https://vanna.ai/Chinook.sqlite")
 

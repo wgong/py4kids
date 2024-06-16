@@ -87,3 +87,44 @@ title="Extracted SQL"
 
 ## Misc
 - Kaleido is a cross-platform library for generating static images (e.g. png, svg, pdf, etc.) for web-based visualization libraries, with a particular focus on eliminating external dependencies.
+
+
+## Code review
+- VannaBase   # base class
+
+- LLM  (examples for how to call various LLM models)
+cloud model: 
+config: api_key, model, num_tokens, temperature
+methods: system_message(), user_message(), assistant_message(), submit_prompt()
+	- openai
+	- google
+	- anthropic
+	- hf
+	- mistral
+	- ZhipuAI
+
+	- vllm
+	- ollama  # Local LLM
+
+- VectorStore
+	- vannadb
+	- pinecone
+	- qdrant
+	- chromadb  # default
+		- from chromadb.utils import embedding_functions  # remove dependencies on sentence-transformers, which in turn depends on pytorch and sentence-piece
+		- default_ef = embedding_functions.DefaultEmbeddingFunction()
+		- client = persistent  #  by default
+	- marqo
+	- opensearch
+	
+	
+- utils
+	- validate_config_path(path)
+	- sanitize_model_name(model_name)
+	- deterministic_uuid(content)
+	
+- Docs
+	- lighthouse-learning-machine/data-analyst/vanna/papers/ai-sql-accuracy-2023-08-17.md
+	
+
+	

@@ -5,3 +5,7 @@ Couldn't run sql:  Execution failed on sql 'The "invoices" table stores customer
 ## make smart decision on chart
 if no valid dataframe, skip plotly charting
 
+
+## Pull Requests
+- https://github.com/vanna-ai/research/pull/1
+
