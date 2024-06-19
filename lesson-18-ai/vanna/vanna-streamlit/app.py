@@ -1,7 +1,10 @@
-import jsonlines
+from time import time
 from pathlib import Path
 import streamlit as st
 # from code_editor import code_editor
+
+from utils import *
+
 from vanna_calls import (
     setup_vanna,
     generate_questions_cached,
@@ -22,8 +25,10 @@ _STR_APP_NAME             = "Data Copilot"
 _STR_MENU_HOME            = "Home"
 _STR_MENU_ASK             = "Ask AI"
 _STR_MENU_CONFIG          = "Configure"
-_STR_MENU_TRAIN           = "Train"
-_STR_MENU_RESULT          = "Results"
+_STR_MENU_TRAIN           = "KnowledgeBase"
+_STR_MENU_DB              = "DataBase"
+_STR_MENU_RESULT          = "QA Results"
+_STR_MENU_NOTE            = "Take Notes"
 
 
 st.set_page_config(
@@ -32,62 +37,15 @@ st.set_page_config(
      initial_sidebar_state="expanded",
 )
 
-LLM_MODELS = ["starcoder2", "sqlcoder", "duckdb-nsql", "wizardcoder", "llama3", "gemma:7b", "gemma:2b"]
+LLM_MODELS = ["llama3", "qwen2", "codegemma", "duckdb-nsql", ]
 
-def load_jsonl(file_path):
-    if not file_path.exists():
-        return
-    
-    chats = []
-    with jsonlines.open(file_path) as reader:
-        for obj in reader:
-            chats.append(obj)
-        st.session_state["my_results"] = chats
-
-def dump_jsonl(file_path):
-    if "my_results" not in st.session_state:
-        return 
-    
-    with jsonlines.open(file_path, mode='w') as writer:
-        for obj in st.session_state["my_results"]:
-            writer.write(obj)  
 
 # init
 if "my_llm_model" not in st.session_state:
     st.session_state["my_llm_model"] = LLM_MODELS[0]
 
 file_chat_records = Path("chat_record.jsonl")
-if "my_results" not in st.session_state:
-    st.session_state["my_results"] = [] # ts : ts, Q: query, A: answer
-    load_jsonl(file_chat_records)
 
-
-def reset_my_state():
-    """Clear session states with "my_" prefix
-    """
-    st.session_state["my_result"] = {
-        "my_question": "",
-        "my_answer": {},
-    }
-
-def update_my_results(my_question, my_answer):
-    if not my_question:
-        return
-   
-    my_results = st.session_state.get("my_results")
-    my_result = {
-        "my_question": my_question,
-        "my_answer": my_answer,
-    }
-    my_results.append(my_result)
-    st.session_state["my_results"] = my_results
-
- 
-if "my_result" not in st.session_state:
-    reset_my_state()
-
-if "my_results" not in st.session_state:
-    st.session_state["my_results"] = []
 
 
 #####################################################
@@ -135,7 +93,11 @@ def do_ask_ai():
         user_message = st.chat_message("user")
         user_message.write(f"{my_question}")
 
+        ts_start = time()
         my_sql = generate_sql_cached(question=my_question)
+        ts_stop = time()
+        ts_delta = f"{(ts_stop-ts_start):.2f}"
+        my_answer.update({"my_sql":{"data":my_sql, "ts_delta": ts_delta}})
         if not my_sql:
             assistant_message_error = st.chat_message(
                 "assistant", avatar=VANNA_ICON_URL
@@ -143,7 +105,6 @@ def do_ask_ai():
             assistant_message_error.error("I wasn't able to generate SQL for that question")
             return
 
-        my_answer.update({"my_sql":my_sql})
 
         my_valid_sql = True
         if not is_sql_valid_cached(sql=my_sql):
@@ -157,9 +118,9 @@ def do_ask_ai():
             """
             assistant_message.write(msg)
 
-        my_answer.update({"my_valid_sql":my_valid_sql})
+        my_answer.update({"my_valid_sql":{"data":my_valid_sql}})
         if not my_valid_sql:
-            update_my_results(my_question, my_answer)
+            st.write(my_answer)
             return
 
         if st.session_state.get("show_sql", True):
@@ -168,8 +129,11 @@ def do_ask_ai():
             )
             assistant_message_sql.code(my_sql, language="sql", line_numbers=True)
 
+        ts_start = time()
         my_df = run_sql_cached(sql=my_sql)
-        my_answer.update({"my_df":my_df})
+        ts_stop = time()
+        ts_delta = f"{(ts_stop-ts_start):.2f}"        
+        my_answer.update({"my_df":{"data":my_df, "ts_delta": ts_delta}})
 
         if my_df is not None:
             if st.session_state.get("show_table", True):
@@ -181,8 +145,11 @@ def do_ask_ai():
 
             if should_generate_chart_cached(question=my_question, sql=my_sql, df=my_df):
 
+                ts_start = time()
                 my_plot = generate_plotly_code_cached(question=my_question, sql=my_sql, df=my_df)
-                my_answer.update({"my_plot":my_plot})
+                ts_stop = time()
+                ts_delta = f"{(ts_stop-ts_start):.2f}"
+                my_answer.update({"my_plot":{"data":my_plot, "ts_delta": ts_delta}})
 
                 if st.session_state.get("show_plotly_code", False):
                     assistant_message_plotly_code = st.chat_message(
@@ -200,15 +167,18 @@ def do_ask_ai():
                             avatar=VANNA_ICON_URL,
                         )
                         my_fig = generate_plot_cached(code=my_plot, df=my_df)
-                        my_answer.update({"my_fig":my_fig})
+                        my_answer.update({"my_fig":{"data":my_fig}})
                         if my_fig is not None:
                             assistant_message_chart.plotly_chart(my_fig)
                         else:
                             assistant_message_chart.error("I couldn't generate a chart")
 
             # display summary
+            ts_start = time()
             my_summary = generate_summary_cached(question=my_question, df=my_df)
-            my_answer.update({"my_summary":my_summary})
+            ts_stop = time()
+            ts_delta = f"{(ts_stop-ts_start):.2f}"
+            my_answer.update({"my_summary":{"data":my_summary, "ts_delta": ts_delta}})
             if my_summary is not None and my_summary != "":
                 if st.session_state.get("show_summary", True):
                     assistant_message_summary = st.chat_message(
@@ -217,7 +187,10 @@ def do_ask_ai():
                     )
                     assistant_message_summary.text(my_summary)
 
-        update_my_results(my_question, my_answer)
+        st.write({
+            "my_question": my_question,
+            "my_answer": my_answer,
+        })
 
 
 def do_config():
@@ -235,7 +208,7 @@ def do_config():
 def do_train():
     """ Add DDL/SQL/Documentation to VectorDB for RAG
     """
-    st.header(f"Manage Training Data")
+    st.header(f"Manage Knowledge")
     my_llm_model = st.session_state.get("my_llm_model", LLM_MODELS[0])
     vn = setup_vanna(model_name=my_llm_model)
 
@@ -254,6 +227,7 @@ def do_train():
     ddl_text = st.text_area("DDL script", value="", height=100, key="add_ddl"
                            ,placeholder=ddl_sample)
     if st.button("Add DDL script") and ddl_text:
+        ddl_text = strip_brackets(ddl_text)
         result = vn.train(ddl=ddl_text)
         st.write(result)
 
@@ -275,7 +249,8 @@ def do_train():
     if st.button("Add all DDL scripts"):
         df_ddl = vn.run_sql("SELECT type, sql FROM sqlite_master WHERE sql is not null")
         for ddl in df_ddl['sql'].to_list():
-            vn.train(ddl=ddl)
+            ddl_text = strip_brackets(ddl)
+            vn.train(ddl=ddl_text)
     if df_ddl is not None:
         st.dataframe(df_ddl)
 
@@ -293,74 +268,82 @@ def do_result():
     """
     st.header(f"{_STR_MENU_RESULT}")
 
-    my_results = st.session_state.get("my_results")
+    # my_results = st.session_state.get("my_results")
 
-    for my_result in my_results:
+    # for my_result in my_results:
 
-        my_question = my_result.get("my_question")
-        my_answer = my_result.get("my_answer")
+    #     my_question = my_result.get("my_question")
+    #     my_answer = my_result.get("my_answer")
 
-        if not my_question or not my_answer:
-            continue
+    #     if not my_question or not my_answer:
+    #         continue
         
-        user_message = st.chat_message("user")
-        user_message.write(f"{my_question}")
+    #     user_message = st.chat_message("user")
+    #     user_message.write(f"{my_question}")
 
-        my_sql = my_answer.get("my_sql", "")
-        my_valid_sql = my_answer.get("my_valid_sql", False)
-        my_df = my_answer.get("my_df", None)
-        my_plot = my_answer.get("my_plot", "")
-        my_fig = my_answer.get("my_fig", "")
-        my_summary = my_answer.get("my_summary", "")
+    #     my_sql = my_answer.get("my_sql", "")
+    #     my_valid_sql = my_answer.get("my_valid_sql", False)
+    #     my_df = my_answer.get("my_df", None)
+    #     my_plot = my_answer.get("my_plot", "")
+    #     my_fig = my_answer.get("my_fig", "")
+    #     my_summary = my_answer.get("my_summary", "")
 
-        if my_sql:
+    #     if my_sql:
 
-            if my_valid_sql:
-                assistant_message_sql = st.chat_message(
-                    "assistant", avatar=VANNA_ICON_URL
-                )
-                assistant_message_sql.code(my_sql, language="sql", line_numbers=True)
-            else:
-                assistant_message = st.chat_message(
-                    "assistant", avatar=VANNA_ICON_URL
-                )
-                msg = f"""Invalid SQL:
-                    {my_sql}
-                """
-                assistant_message.write(msg)
+    #         if my_valid_sql:
+    #             assistant_message_sql = st.chat_message(
+    #                 "assistant", avatar=VANNA_ICON_URL
+    #             )
+    #             assistant_message_sql.code(my_sql, language="sql", line_numbers=True)
+    #         else:
+    #             assistant_message = st.chat_message(
+    #                 "assistant", avatar=VANNA_ICON_URL
+    #             )
+    #             msg = f"""Invalid SQL:
+    #                 {my_sql}
+    #             """
+    #             assistant_message.write(msg)
             
-            assistant_message_table = st.chat_message(
-                "assistant",
-                avatar=VANNA_ICON_URL,
-            )
-            assistant_message_table.dataframe(my_df)
+    #         assistant_message_table = st.chat_message(
+    #             "assistant",
+    #             avatar=VANNA_ICON_URL,
+    #         )
+    #         assistant_message_table.dataframe(my_df)
 
-            assistant_message_plotly_code = st.chat_message(
-                "assistant",
-                avatar=VANNA_ICON_URL,
-            )
-            assistant_message_plotly_code.code(
-                my_plot, language="python", line_numbers=True
-            )
+    #         assistant_message_plotly_code = st.chat_message(
+    #             "assistant",
+    #             avatar=VANNA_ICON_URL,
+    #         )
+    #         assistant_message_plotly_code.code(
+    #             my_plot, language="python", line_numbers=True
+    #         )
 
-            assistant_message_chart = st.chat_message(
-                "assistant",
-                avatar=VANNA_ICON_URL,
-            )
-            if my_fig is not None:
-                assistant_message_chart.plotly_chart(my_fig)
-            else:
-                assistant_message_chart.error("I couldn't generate a chart")
-
-
-            assistant_message_summary = st.chat_message(
-                "assistant",
-                avatar=VANNA_ICON_URL,
-            )
-            assistant_message_summary.text(my_summary)
+    #         assistant_message_chart = st.chat_message(
+    #             "assistant",
+    #             avatar=VANNA_ICON_URL,
+    #         )
+    #         if my_fig is not None:
+    #             assistant_message_chart.plotly_chart(my_fig)
+    #         else:
+    #             assistant_message_chart.error("I couldn't generate a chart")
 
 
+    #         assistant_message_summary = st.chat_message(
+    #             "assistant",
+    #             avatar=VANNA_ICON_URL,
+    #         )
+    #         assistant_message_summary.text(my_summary)
 
+
+def do_db():
+    """ Run SQL query
+    """
+    st.header(f"{_STR_MENU_DB}")    
+
+def do_note():
+    """ Note-taking
+    """
+    st.header(f"{_STR_MENU_NOTE}")    
 
 #####################################################
 # setup menu_items 
@@ -370,7 +353,9 @@ menu_dict = {
     _STR_MENU_ASK:           {"fn": do_ask_ai},
     _STR_MENU_RESULT:        {"fn": do_result},
     _STR_MENU_TRAIN:         {"fn": do_train},
+    _STR_MENU_DB:            {"fn": do_db},
     _STR_MENU_CONFIG:        {"fn": do_config},
+    _STR_MENU_NOTE:          {"fn": do_note},
 }
 
 ## sidebar Menu
