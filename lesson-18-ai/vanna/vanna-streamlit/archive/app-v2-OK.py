@@ -370,11 +370,12 @@ def do_sidebar():
         # keep menu item in the same order as i18n strings
 
         if menu_item in [_STR_MENU_ASK, _STR_MENU_RESULT, _STR_MENU_CONFIG, _STR_MENU_TRAIN]:
-            my_llm_model = st.session_state.get("my_llm_model")
-            st.write(f"Model '{my_llm_model}' selected")
+            pass 
 
         if menu_item in [_STR_MENU_ASK]:
 
+            my_llm_model = st.session_state.get("my_llm_model")
+            st.write(f"Model '{my_llm_model}' selected")
             st.title("Output Settings")
             st.checkbox("Show SQL Query", value=True, key="show_sql")
             st.checkbox("Show Dataframe", value=True, key="show_table")
@@ -382,7 +383,7 @@ def do_sidebar():
             st.checkbox("Show Plotly Chart", value=True, key="show_chart")
             st.checkbox("Show Summary", value=True, key="show_summary")
             # st.checkbox("Show Follow-up Questions", value=False, key="show_followup")
-            st.button("Reset", on_click=lambda: reset_my_state(), use_container_width=True)
+            # st.button("Reset", on_click=lambda: reset_my_state(), use_container_width=True)
 
 # body
 def do_body():
