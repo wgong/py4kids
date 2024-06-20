@@ -17,10 +17,15 @@ def setup_vanna(model_name='llama3'):
         'model': model_name,  # 'llama3'  # 'mistral'
     }
     vn = MyVanna(config=config)
-    file_db = "~/Downloads/chinook.sqlite"
-    file_db = os.path.abspath(os.path.expanduser(file_db))
+    # file_db = "~/Downloads/chinook.sqlite"
+    # file_db = os.path.abspath(os.path.expanduser(file_db))
+    file_db = "./db/chinook.sqlite3"
     vn.connect_to_sqlite(file_db)
 
+    ## api_key = st.secrets.get("VANNA_API_KEY")
+    ## vn = VannaDefault(api_key=api_key, model=model_name)
+
+    ## original
     # vn = VannaDefault(api_key=st.secrets.get("VANNA_API_KEY"), model='chinook')
     # vn.connect_to_sqlite("https://vanna.ai/Chinook.sqlite")
 
