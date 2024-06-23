@@ -23,10 +23,25 @@ def main():
     """
     ddl_text = st.text_area("DDL script", value="", height=100, key="add_ddl"
                            ,placeholder=ddl_sample)
-    if st.button("Add DDL script") and ddl_text:
+    
+    c1, _, c2 = st.columns([2,2,2])
+    with c1:
+        btn_add_ddl = st.button("Add DDL script")
+    if btn_add_ddl and ddl_text:
         ddl_text = strip_brackets(ddl_text)
         result = vn.train(ddl=ddl_text)
         st.write(result)
+
+    with c2:
+        btn_add_all_ddl = st.button("Add ALL DDL scripts")
+    df_ddl = None
+    if btn_add_all_ddl:
+        df_ddl = vn.run_sql("SELECT type, sql FROM sqlite_master WHERE sql is not null")
+        for ddl in df_ddl['sql'].to_list():
+            ddl_text = strip_brackets(ddl)
+            vn.train(ddl=ddl_text)
+    if df_ddl is not None:
+        st.dataframe(df_ddl)
 
     sql_sample = """select * from t_book;    """
     sql_text = st.text_area("SQL query", value="", height=100, key="add_sql"
@@ -42,21 +57,18 @@ def main():
         result = vn.train(documentation=doc_text)
         st.write(result)
 
-    df_ddl = None
-    if st.button("Add ALL DDL scripts"):
-        df_ddl = vn.run_sql("SELECT type, sql FROM sqlite_master WHERE sql is not null")
-        for ddl in df_ddl['sql'].to_list():
-            ddl_text = strip_brackets(ddl)
-            vn.train(ddl=ddl_text)
-    if df_ddl is not None:
-        st.dataframe(df_ddl)
-
     st.subheader("Remove Training data")
     collection_id = st.text_input("Enter collection ID", value="", key="del_collection")
-    if collection_id and st.button("Remove"):
+
+    c3, _, c4 = st.columns([2,2,2])
+    with c3:
+        btn_rm_id = st.button("Remove")
+    if btn_rm_id and collection_id:
         vn.remove_training_data(id=collection_id)
 
-    if st.button("Remove ALL collections"):
+    with c4:
+        btn_rm_all = st.button("Remove ALL collections")
+    if btn_rm_all:
         for c in ["sql", "ddl", "documentation"]:
             vn.remove_collection(c)
 

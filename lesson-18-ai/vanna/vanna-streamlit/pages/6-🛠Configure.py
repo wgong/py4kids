@@ -99,24 +99,26 @@ def main():
 
     """, unsafe_allow_html=True)
 
-    with st.expander("Specify data source:"):
-    
-        db_type = st.selectbox(
-            "DB Type",
-            options=["SQLite"],
-            index=0
-        )
+    with st.expander("Specify data source:", expanded=True):
+        c1, c2 = st.columns([2,6])
+        with c1:
+            db_type = st.selectbox(
+                "DB Type",
+                options=["SQLite"],
+                index=0
+            )
 
-        db_url = st.text_input(
-            "DB URL",
-            value=CFG["DB_APP_DATA"]
-        )
+        with c2:
+            db_url = st.text_input(
+                "DB URL",
+                value=CFG["DB_APP_DATA"]
+            )
 
     st.markdown(f"""
     ##### Knowledge Base
     """, unsafe_allow_html=True)    
 
-    with st.expander("Specify vector store:"):
+    with st.expander("Specify vector store:", expanded=True):
     
         vector_db = st.selectbox(
             "Vector DB Type",
@@ -129,7 +131,7 @@ def main():
 
     """, unsafe_allow_html=True)    
 
-    with st.expander("Select LLM model:"):
+    with st.expander("Select LLM model:", expanded=True):
     
         model_selected = st.radio(
             "GenAI model name",

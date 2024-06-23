@@ -11,6 +11,7 @@ from datetime import datetime
 from io import StringIO 
 import os
 import re
+from traceback import format_exc
 from pathlib import Path
 from uuid import uuid4
 import jsonlines
@@ -268,8 +269,8 @@ def trim_str_col_val(data):
         data_new.update({k:v})
     return data_new
 
-def db_upsert(data, user_key_cols="u_id", call_meta_func=False):
-    """ u_id = '-1' are marked for deletion
+def db_upsert(data, user_key_cols="title", call_meta_func=False):
+    """ 
     """
     if not data: 
         return None
@@ -289,92 +290,59 @@ def db_upsert(data, user_key_cols="u_id", call_meta_func=False):
     data = trim_str_col_val(data)
 
     sql_type = "INSERT"
-    id_ = data.get(user_key_cols, "None")
-    if id_ is None or id_ == "None":
-        id_ = ""
+    u_id = data.get(user_key_cols, "")
+    if not u_id:
+        id = ""
         sql_type = "INSERT"
-
-    zi_ = data.get("zi", "").strip()
-    if id_ and id_ not in ['-1']:
+    else:
         with DBConn() as _conn:
+            u_id = escape_single_quote(u_id)
             sql_stmt = f"""
                 select *
                 from {table_name} 
-                where {user_key_cols} = '{id_}';
+                where {user_key_cols} = '{u_id}';
             """
             rows = pd.read_sql(sql_stmt, _conn).to_dict('records')
 
             if len(rows):
                 sql_type = "UPDATE"  
                 old_row = rows[0]
-                id_ = old_row.get(user_key_cols)         
+                id = old_row.get("id")         
            
-    elif zi_:
-        # query by Zi
-        with DBConn() as _conn:
-            sql_stmt = f"""
-                select *
-                from {table_name} 
-                where trim(zi) = '{zi_}' and u_id not in ('-1');
-            """
-            rows = pd.read_sql(sql_stmt, _conn).to_dict('records')
-
-            if len(rows):
-                sql_type = "UPDATE"  
-                old_row = rows[0]
-                id_ = old_row.get("u_id")         
-
-    if id_ is None or id_ in ["None", "-1"]:
-        id_ = ""
-        sql_type = "INSERT"
 
     upsert_sql = ""
     if sql_type == "INSERT":
         # set defaults
         if "is_active" not in data:
             data.update({"is_active" : "Y"})
-        if "note_type" not in data:
-            data.update({"note_type" : "RESOURCE"})
 
         col_clause = []
         val_clause = []
         for col,val in data.items():
             if col not in visible_columns:
                 continue
-            if col == user_key_cols and not val:
-                continue
             col_clause.append(col)
             col_val = escape_single_quote(val)
             val_clause.append(f"'{col_val}'")
 
-        if user_key_cols not in col_clause:
-            col_clause.append(user_key_cols)
-            val_clause.append("id")
+        if "id" not in col_clause:
+            col_clause.append("id")
+            col_val = get_uuid()
+            val_clause.append(f"'{col_val}'")
 
         upsert_sql = f"""
-            with uid as (
-                select 
-                case 
-                    when max({user_key_cols}) is NULL then '10' 
-                    else cast(max(cast({user_key_cols} as int))+1 as text) 
-                end as id
-                from {table_name}
-                where {user_key_cols} not in ('-1')
-            )
             insert into {table_name} (
                 {", ".join(col_clause)}
             )
-            select {", ".join(val_clause)} 
-            from uid;
+            values (
+                {", ".join(val_clause)}
+            )  
+            ;
         """
-            # values (
-            #     {", ".join(val_clause)}
-            # );
 
     else:
         set_clause = []
         for col in visible_columns:
-            if col == user_key_cols: continue
 
             if col == "is_active":
                 val = data.get(col, "")
@@ -397,7 +365,7 @@ def db_upsert(data, user_key_cols="u_id", call_meta_func=False):
                 update {table_name} 
                 set 
                     {", ".join(set_clause)}
-                where {user_key_cols} = '{id_}';
+                where id = '{id}';
             """
 
     if upsert_sql:
