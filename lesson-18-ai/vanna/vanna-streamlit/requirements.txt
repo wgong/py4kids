@@ -1,3 +1,6 @@
+streamlit-aggrid
+lxml
+streamlit_option_menu
 jsonlines
 notebook
 ollama

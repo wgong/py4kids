@@ -7,22 +7,20 @@ st.set_page_config(
 )
 
 ## Welcome page
-st.subheader(f"What is {STR_APP_NAME}?")
 st.markdown(f"""
-Data Copilot is a game-changer that streamlines the data-to-insight life-cycle. It is an AI-powered assistant, built on cutting-edge LLM models, empowers data scientists, engineers, and analysts to unlock insights from data faster than ever, 
-allows them to focus on deeper analysis and strategic decision-making. Imagine asking questions in plain English, having them translated into SQL query and python script on the fly, then receiving results in informative texts and visual plots.
+### What is <span style="color: red;">Self Service Analytics</span> ?
+It is a game-changer that streamlines the data-to-insight life-cycle. 
+            
+Built on cutting-edge GenAI models, it empowers data professionals to unlock insights from data faster than ever, therefore allows them to focus on deeper analysis and strategic decision-making. 
+
+#### <span style="color: blue;">Key Features</span>
+- **Semantic Search**: discover data schema
+- **Text-to-SQL**: generate SQL from plain English
+- **df-to-Plot**: generate Python for data visualization
                
-### Tech-stack:
-- [RAG](https://aws.amazon.com/what-is/retrieval-augmented-generation/)
-- [Vanna.AI](https://github.com/vanna-ai)
-- [Ollama](https://ollama.com/)
-- [Streamlit](https://streamlit.io/)
-
+#### <span style="color: blue;">Architectural Design </span>
 """, unsafe_allow_html=True)
 
-st.image("./docs/how-vanna-works.png")
+st.image("./docs/data-copilot.drawio.png")
 
-st.markdown(f"""
-### Resources
-- [SQL Assistant](https://medium.com/@romina.elena.mendez/sql-assistant-text-to-sql-application-in-streamlit-b54f65d06b97)
-""", unsafe_allow_html=True)
+

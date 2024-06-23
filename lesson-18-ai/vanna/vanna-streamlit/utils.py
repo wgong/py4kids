@@ -10,6 +10,7 @@
 from datetime import datetime
 from io import StringIO 
 import os
+import re
 from pathlib import Path
 from uuid import uuid4
 import jsonlines
@@ -30,22 +31,39 @@ from st_aggrid import (
 
 from ui_layout import *
 
+from vanna_calls import (
+    setup_vanna,
+    generate_questions_cached,
+    generate_sql_cached,
+    run_sql_cached,
+    generate_plotly_code_cached,
+    generate_plot_cached,
+    generate_followup_cached,
+    should_generate_chart_cached,
+    is_sql_valid_cached,
+    generate_summary_cached,
+)
 
 #############################
 # Config params (1st)
 #############################
 BLANK_STR_VALUE = ""   # place-holder blank LOV value
-VANNA_ICON_URL  = "https://vanna.ai/img/vanna.svg"
+
+# VANNA_ICON_URL  = "https://vanna.ai/img/vanna.svg"
+# VANNA_ICON_URL  = "https://github.com/wgong/py4kids/blob/master/lesson-18-ai/vanna/vanna-streamlit/ai_assistant.png"
+VANNA_ICON_URL  = "https://private-user-images.githubusercontent.com/329928/341998666-8b17143b-9434-4535-923b-f7cb45711c88.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTkwOTI3NTIsIm5iZiI6MTcxOTA5MjQ1MiwicGF0aCI6Ii8zMjk5MjgvMzQxOTk4NjY2LThiMTcxNDNiLTk0MzQtNDUzNS05MjNiLWY3Y2I0NTcxMWM4OC5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwNjIyJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDYyMlQyMTQwNTJaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT01Y2E5NzM3N2VkNGFiOTdjZTJmYTJlNWYxYjI5ZDBkNmNmN2Q0NTZlZDFiNzE3M2JhYWZhZmQyMjVkZjUxMjY4JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.7zoXBOQs1n1XF1jk9K2Lou2Zm3SJwVMEy_yzV4MfOHE"
 VANNA_AI_PROCESS_URL = "https://private-user-images.githubusercontent.com/7146154/299417072-1d2718ad-12a8-4a76-afa2-c61754462f93.gif?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTczMzUxMjEsIm5iZiI6MTcxNzMzNDgyMSwicGF0aCI6Ii83MTQ2MTU0LzI5OTQxNzA3Mi0xZDI3MThhZC0xMmE4LTRhNzYtYWZhMi1jNjE3NTQ0NjJmOTMuZ2lmP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQVZDT0RZTFNBNTNQUUs0WkElMkYyMDI0MDYwMiUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNDA2MDJUMTMyNzAxWiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9MmQ4MzU0ZDg1ZDg3ZWEzYjZlMWQxMDkzMTBiYjk1NGExNzYxYjQ4Y2YwMTNjYTkzZGU2N2IxMjU2YTgyZTZjNSZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QmYWN0b3JfaWQ9MCZrZXlfaWQ9MCZyZXBvX2lkPTAifQ.o-Q0S0zOeCJrfF4XP5WKc41Eh5qIdwEwEl2n_ZA_AoM"
 
 STR_APP_NAME             = "Data Copilot"
 STR_MENU_HOME            = "Home"
 STR_MENU_ASK             = "Ask AI"
-STR_MENU_CONFIG          = "Configure"
+STR_MENU_EVAL            = "Evaluation"
+STR_MENU_CONFIG          = "Experiment Setup"
 STR_MENU_TRAIN           = "KnowledgeBase"
 STR_MENU_DB              = "DataBase"
-STR_MENU_RESULT          = "QA Results"
+STR_MENU_RESULT          = "Q & A Results"
 STR_MENU_NOTE            = "Take Notes"
+STR_MENU_ACKNOWLEDGE     = "Acknowledgement"
 
 STR_SAVE = "✅ Save" # 💾
 CFG = {
@@ -62,9 +80,9 @@ CFG = {
 
     "NOTE_TYPE": [BLANK_STR_VALUE, "RESOURCE", "JOURNAL", "IDEA", "PROJECT", "TASK","APP",],
     "STATUS_CODE": [BLANK_STR_VALUE, "ToDo","WIP", "Blocked", "Complete", "De-Scoped", "Others"],
+
 }
 
-LLM_MODELS = ["llama3", "qwen2", "codegemma", "duckdb-nsql", ]
 
 # define options for selectbox column type, keyed on column name
 BI_STATES = ["Y", BLANK_STR_VALUE, ]   # add empty-str as placeholder
@@ -75,6 +93,7 @@ SELECTBOX_OPTIONS = {
     "note_type": CFG["NOTE_TYPE"],
 
 }
+
 
 
 def fix_None_val(v):
@@ -389,6 +408,26 @@ def db_upsert(data, user_key_cols="u_id", call_meta_func=False):
                 )
         except Exception as ex:
             print(f"[ERROR] db_upsert():\n\t{str(ex)}")
+
+def db_query_config():
+    with DBConn() as _conn:
+        sql_stmt = f"""
+            select 
+                *
+            from t_config
+            where 1=1
+                and is_active='Y'
+            order by ts desc
+            limit 1
+            ;
+        """
+        # print(sql_stmt)
+        df = pd.read_sql(sql_stmt, _conn)
+    if df is None or df.empty:
+        st.error("Config is missing")
+        return {}
+    
+    return df.to_dict("records")[0]
 
 def db_delete_by_id(data):
     if not data: 
