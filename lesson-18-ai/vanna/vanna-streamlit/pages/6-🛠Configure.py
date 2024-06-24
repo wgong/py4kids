@@ -100,12 +100,13 @@ def main():
     """, unsafe_allow_html=True)
 
     with st.expander("Specify data source:", expanded=True):
+        db_list = ["BigQuery","DuckDB","MSSQL","MySQL","Oracle","Postgres","SnowFlake","SQLite"]
         c1, c2 = st.columns([2,6])
         with c1:
             db_type = st.selectbox(
                 "DB Type",
-                options=["SQLite"],
-                index=0
+                options=db_list,
+                index=db_list.index("SQLite")
             )
 
         with c2:
@@ -119,11 +120,11 @@ def main():
     """, unsafe_allow_html=True)    
 
     with st.expander("Specify vector store:", expanded=True):
-    
+        vector_db_list = ["chromadb", "marqo", "opensearch","pinecone", "qdrant",]
         vector_db = st.selectbox(
             "Vector DB Type",
-            options=["chromadb"],
-            index=0
+            options=vector_db_list,
+            index=vector_db_list.index("chromadb")
         )
 
     st.markdown(f"""

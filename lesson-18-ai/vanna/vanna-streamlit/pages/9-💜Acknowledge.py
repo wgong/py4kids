@@ -16,3 +16,5 @@ st.markdown(f"""
 - [SQL Assistant](https://medium.com/@romina.elena.mendez/sql-assistant-text-to-sql-application-in-streamlit-b54f65d06b97)
 - [Emoji Cheatsheet](https://www.webfx.com/tools/emoji-cheat-sheet/)
 """, unsafe_allow_html=True)
+
+st.image("./docs/thank-you.png")
