@@ -1,3 +1,5 @@
+## check https://github.com/vanna-ai/vanna/blob/main/pyproject.toml
+## for any missing pkg
 streamlit-aggrid
 lxml
 streamlit_option_menu
@@ -8,3 +10,10 @@ vanna
 streamlit
 streamlit_code_editor
 python-dotenv
+google-generativeai
+google-cloud-aiplatform
+chromadb
+openai
+mistralai
+anthropic
+google-generativeai

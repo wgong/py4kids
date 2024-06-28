@@ -137,7 +137,7 @@ def main():
         model_selected = st.radio(
             "GenAI model name",
             options=llm_model_list,
-            index=llm_model_list.index("OpenAI GPT 3.5 Turbo"),
+            index=llm_model_list.index("Anthropic Claude 3.5 Sonnet"),
         )
 
         llm_vendor, llm_model = parse_llm_model_spec(model_selected)
