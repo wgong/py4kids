@@ -134,13 +134,21 @@ def generate_followup_cached(_cfg_data, question, sql, df):
     vn = setup_vanna(_cfg_data)
     return vn.generate_followup_questions(question=question, sql=sql, df=df)
 
-@st.cache_data(show_spinner="Generating SQL query ...")
+# @st.cache_data(show_spinner="Generating SQL query ...")
 def generate_sql_cached(_cfg_data, question: str):
     vn = setup_vanna(_cfg_data)
-    return vn.generate_sql(question=question, allow_llm_to_see_data=True)
+    raw_sql = vn.generate_sql(question=question, allow_llm_to_see_data=True)
+    if raw_sql.strip()[-1] != ";":
+        raw_sql += ";"
+    my_sql = vn.extract_sql(raw_sql)
+    return my_sql
 
 @st.cache_data(show_spinner="Checking for valid SQL ...")
 def is_sql_valid_cached(_cfg_data, sql: str):
+    vn = setup_vanna(_cfg_data)
+    return vn.is_sql_valid(sql=sql)
+
+def is_sql_valid(_cfg_data, sql: str):
     vn = setup_vanna(_cfg_data)
     return vn.is_sql_valid(sql=sql)
 

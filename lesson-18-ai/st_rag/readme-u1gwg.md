@@ -65,7 +65,6 @@ Devika is an Agentic AI Software Engineer that can understand high-level human i
 - [fork](https://github.com/wgong/devika)
 
 
-
 ### [CrewAI](https://github.com/joaomdmoura/crewAI)
 Framework for orchestrating role-playing, autonomous AI agents. By fostering collaborative intelligence, CrewAI empowers agents to work together seamlessly, tackling complex tasks.
 
@@ -312,6 +311,12 @@ BionicGPT is an on-premise replacement for ChatGPT, offering the advantages of G
 ### [chatd](https://github.com/BruceMacD/chatd)
 
 Chat with your documents using local AI
+
+
+## Voice Assistant
+
+- [Build Real-Time AI Voice Assistant With RAG Pipeline And Memory | Mistral LLM | Ollama | LlamaIndex](https://www.youtube.com/watch?v=mdV8lETtGY4)
+    - https://github.com/wgong/voice_assistant_llm
 
 # Development Resources
 

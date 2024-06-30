@@ -30,7 +30,9 @@ install log:
 [CrewAI](https://www.crewai.com/)
 
 ## Source
-[GitHub](https://github.com/joaomdmoura/crewai/)
+- [GitHub](https://github.com/joaomdmoura/crewai/)
+
+- Local: ~/projects/AI/crewAI/crewAI
 
 ## Documentation
 
@@ -50,6 +52,15 @@ see cloned repo at `/home/papagame/projects/wgong/crewAI-examples`
 
 ### Videos
 
+
 - [Integrate CrewAI with Ollama Locally and Privately to Run AI Agents](https://www.youtube.com/watch?v=_5_QHE3p8EA)
     - https://www.fahdmirza.com/2024/05/how-to-create-local-ai-agents-using.html#google_vignette
     
+
+- [tested CrewAI with different LLMs (GPT4o, Groq, Llama3, Ollama)](https://youtu.be/3jFux2ICDF4?si=IGT4mhu_ohfDsso4)
+
+#### Yeyu Lab
+- https://www.youtube.com/@yeyulab
+    - ~/projects/1_Biz/zilab/yeyu_lab_youtube_demos
+
+- [AutoGen's Full Function UI Powered by Panel](https://yeyu.substack.com/p/autogens-full-function-ui-powered)

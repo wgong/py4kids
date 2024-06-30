@@ -11,6 +11,7 @@ from vanna_calls import (
     generate_followup_cached,
     should_generate_chart_cached,
     is_sql_valid_cached,
+    is_sql_valid,
     generate_summary_cached,
 )
 
@@ -155,13 +156,14 @@ def ask_ai():
 
 
         my_valid_sql = True
-        if not is_sql_valid_cached(cfg_data, sql=my_sql):
+        # if not is_sql_valid_cached(cfg_data, sql=my_sql):
+        if not is_sql_valid(cfg_data, sql=my_sql):
             my_valid_sql = False
 
             assistant_message = st.chat_message(
                 "assistant", avatar=VANNA_ICON_URL
             )
-            msg = f"""Invalid SQL:
+            msg = f"""Invalid SQL below:
                 {my_sql}
             """
             assistant_message.write(msg)
