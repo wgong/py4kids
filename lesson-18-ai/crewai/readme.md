@@ -64,3 +64,6 @@ see cloned repo at `/home/papagame/projects/wgong/crewAI-examples`
     - ~/projects/1_Biz/zilab/yeyu_lab_youtube_demos
 
 - [AutoGen's Full Function UI Powered by Panel](https://yeyu.substack.com/p/autogens-full-function-ui-powered)
+
+#### arXiv
+see `~/projects/1_Biz/zilab/arxiv`

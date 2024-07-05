@@ -10,6 +10,12 @@ https://code.tutsplus.com/quick-tip-how-to-work-with-github-and-multiple-account
     - git clone git@github.com:wgong/embedchain.git (into wgong account)
     - git clone git@github.com-work:gongwork/embedchain.git (into gongwork account, Note: `-work` suffix configured inside `.ssh` folder)
 
+  - clone:
+    - git clone git@github.com-work:gongwork/data-copilot.git
+    - git add .
+    - git commit -m "init"
+    - git push
+
 - how to delete github repo:
 https://zapier.com/blog/github-delete-repository/
 
