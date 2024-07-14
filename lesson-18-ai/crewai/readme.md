@@ -65,5 +65,13 @@ see cloned repo at `/home/papagame/projects/wgong/crewAI-examples`
 
 - [AutoGen's Full Function UI Powered by Panel](https://yeyu.substack.com/p/autogens-full-function-ui-powered)
 
+#### Streamlit App
+
+- [Tony Kipkemboi/Snowflake](https://github.com/tonykipkemboi?tab=repositories)
+- [How to stream CrewAI Agent steps and thoughts in a Streamlit app](https://youtu.be/nKG_kbQUDDE?si=Gl2aCOOFZdiRbOLG)
+    - [trip planner agent](https://github.com/tonykipkemboi/trip_planner_agent)
+    - ~/projects/1_Biz/zilab/trip_planner_agent
+
+
 #### arXiv
 see `~/projects/1_Biz/zilab/arxiv`
