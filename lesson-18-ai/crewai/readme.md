@@ -47,8 +47,55 @@ Using GPT-3.5-Turbo, I was able to run L2-L7 notebooks on Ubuntu (papagame). See
 
 see cloned repo at `/home/papagame/projects/wgong/crewAI-examples`
 
+#### Build streamlit apps
+package crewAI examples as separate streamlit Apps
 
 ## Learn
+
+### Tools
+
+- LlamaIndex tools
+- LangChain tools
+
+### Codebase
+
+#### Agent
+The Agent class is the cornerstone for implementing AI solutions in CrewAI.
+
+#### Memory
+https://docs.crewai.com/core-concepts/Memory/
+
+##### Entity/Event Memory: 
+- Why
+- What
+- Who
+- When
+- Where
+- How
+
+##### Contextual Memory
+- Long-term vs Short-term
+- RDMS vs Vector-store
+- transactional vs analytic
+
+##### Benefits:
+- Reuse, performance, cost-saving
+- Adaptive Learning: Crews become more efficient over time, adapting to new information and refining their approach to tasks.
+- Enhanced Personalization: Memory enables agents to remember user preferences and historical interactions, leading to personalized experiences.
+- Improved Problem Solving: Access to a rich memory store aids agents in making more informed decisions, drawing on past learnings and contextual insights.
+
+##### Usage:
+```
+my_crew = Crew(..., 
+    memory=True,
+    embedder={
+        "provider": "openai",
+        "config":{
+            "model": 'text-embedding-3-small'
+        }
+    }
+)
+```
 
 ### Videos
 
