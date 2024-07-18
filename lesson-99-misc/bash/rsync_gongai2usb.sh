@@ -6,13 +6,13 @@
 ## revised by me 
 
 # Usage: 
-#   $ bash usb_rsync.sh 
+#   $ bash rsync_gongai2usb.sh 
 ############################################
 # Exit code (set to 1 initially, indicating failure)
 exit_code=1
 
 # set 1 for dry_run mode
-dry_run_mode=0
+dry_run_mode=1
 
 if [ $dry_run_mode -eq 1 ]; then
   echo "====================================="
@@ -45,22 +45,23 @@ function is_string_trimmed_start_with() {
 # fixed by Claude
 readarray -t folders_to_sync <<EOF
 toolbox
-# vanna
+vanna
 zilab
 EOF
 
-source_dir_root="/home/gongai/projects/1_Biz"
+PC_NAME="gongai"
 # change for different USB drive
 USB_DRIVE_NAME="USB321FD"
-
 # Define the mount point for your USB flash drive (replace with your actual path)
-usb_mountpoint="/media/gongai/$USB_DRIVE_NAME"
+usb_mountpoint="/media/$PC_NAME/$USB_DRIVE_NAME"
 
-dest_dir_root="$usb_mountpoint/1_Biz"
+src_dir_root="/home/$PC_NAME/projects/1_Biz"
+tgt_dir_root="$usb_mountpoint/1_Biz"
+
 # Check if destination directory exists
-if [ ! -d "$dest_dir_root" ]; then
+if [ ! -d "$tgt_dir_root" ]; then
   # Create directory if it doesn't exist
-  mkdir -p "$dest_dir_root"
+  mkdir -p "$tgt_dir_root"
 fi
 
 # Function to check if the USB drive is mounted
@@ -94,8 +95,13 @@ for folder in "${folders_to_sync[@]}"; do
   fi
 
 
-  source_dir="$source_dir_root/$folder"  # Replace with actual source path
-  dest_dir="$dest_dir_root/$folder"      # Replace with actual destination path (USB)
+  source_dir="$src_dir_root/$folder"  # Replace with actual source path
+  dest_dir="$tgt_dir_root/$folder"      # Replace with actual destination path (USB)
+
+  if [ ! -d "$dest_dir" ]; then
+    # Create directory if it doesn't exist
+    mkdir -p "$dest_dir"
+  fi
 
   # Sync from source to USB (newer files)
   echo "Syncing '$source_dir' to '$dest_dir' (source -> USB)"
@@ -105,20 +111,25 @@ for folder in "${folders_to_sync[@]}"; do
     rsync -avut --inplace "$source_dir/" "$dest_dir/"
   fi 
 
-  # sync in reverse direction only if destination directory exists
-  if [ -d "$dest_dir" ]; then
-    # Sync from USB to source (newer files)
-    echo "Syncing '$dest_dir' to '$source_dir' (USB -> source)"
-    if [ $dry_run_mode -eq 1 ]; then
-        rsync -avutn --inplace "$dest_dir/" "$source_dir/"
-    else
-        rsync -avut --inplace "$dest_dir/" "$source_dir/"
-    fi 
-
-  fi
+  # # sync in reverse direction only if destination directory exists
+  # if [ -d "$dest_dir" ]; then
+  #   # Sync from USB to source (newer files)
+  #   echo "Syncing '$dest_dir' to '$source_dir' (USB -> source)"
+  #   if [ $dry_run_mode -eq 1 ]; then
+  #       rsync -avutn --inplace "$dest_dir/" "$source_dir/"
+  #   else
+  #       rsync -avut --inplace "$dest_dir/" "$source_dir/"
+  #   fi 
+  # fi
 
 done
 
-echo "Sync completed!"
+echo "====================================="
+if [ $dry_run_mode -eq 1 ]; then
+  echo "        Dry-run completed"
+else
+  echo "        Sync completed!"
+fi
+echo "====================================="
 
 exit $exit_code
