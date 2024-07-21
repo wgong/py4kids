@@ -1,0 +1,16 @@
+- Proven experience as a Full Stack Developer or similar role
+- Experience developing desktop and mobile applications
+- Familiarity with common stacks
+- Knowledge of multiple front-end languages and libraries (e.g. HTML/ CSS, JavaScript, XML, jQuery)
+- Knowledge of multiple object-oriented languages (e.g. Java, Python) and multiple frameworks (e.g. Angular, React, Node.js)
+- Familiarity with databases (e.g. MySQL, MongoDB), web servers (e.g. Apache) and UI/UX design
+- Excellent communication skills and the ability to have in-depth technical discussions with both the engineering team and business people
+- Excellent English language skills
+- Self-starter and comfort working in an early-stage environment
+- Strong project management and organizational skills
+- BSc in Computer Science, Mathematics, or similar field; Master’s or PhD degree is a plus
+- Understanding of AI/ML models
+- Understanding of big data tools, including Hadoop, Spark, Kafka, etc.
+- Proficiency in HTML, CSS, and JavaScript
+- Experience with consumer applications and data handling
+- Familiarity with data privacy regulations and best practices
