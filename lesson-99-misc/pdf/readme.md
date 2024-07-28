@@ -21,3 +21,8 @@ pip install -r requirements.txt
 - https://pymupdf.readthedocs.io/en/latest/the-basics.html
     - PyMuPDF is a high performance Python library for data extraction, analysis, conversion & manipulation of PDF (and other) documents.
 
+
+## Experiments
+
+### Embedding Documents for Similarity Comparison
+https://g.co/gemini/share/f6e5a4dd6b9e
