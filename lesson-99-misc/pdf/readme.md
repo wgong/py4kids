@@ -11,6 +11,7 @@ pip install -r requirements.txt
 
 - https://pypi.org/project/markdown-pdf/
     - Markdown parser, done right, output-HTML
+    - https://github.com/executablebooks/markdown-it-py
 
 - https://pypi.org/project/weasyprint/
     - turns simple HTML pages into PDF (gorgeous statistical reports, invoices, tickets)
@@ -21,6 +22,9 @@ pip install -r requirements.txt
 - https://pymupdf.readthedocs.io/en/latest/the-basics.html
     - PyMuPDF is a high performance Python library for data extraction, analysis, conversion & manipulation of PDF (and other) documents.
 
+- https://tools.pdf24.org/en/
+    - PDF24 tools online
+    - Windows desktop avail 
 
 ## Experiments
 
