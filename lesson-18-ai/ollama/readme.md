@@ -158,6 +158,11 @@ https://github.com/pgvector/pgvector
 
 ## Ollama UI
 
+### NextChat
+top star
+- https://app.nextchat.dev/
+- [doc](https://docs.nextchat.dev/models/ollama)
+
 ### Msty
 install as linux app
 
