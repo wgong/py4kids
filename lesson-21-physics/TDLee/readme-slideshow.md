@@ -86,9 +86,17 @@ please leave a detailed instruction, we would make the best effort to honor your
 
 - https://www.youtube.com/watch?v=i1JrOGXGQSI - Butterfly Lovers Violin Concerto - the final movement - 梁祝小提琴协奏曲 - 吕思清 Lü Siqing
 
-- https://hanzi.unihan.com.cn/Signet - 书同文名章篆刻
+- https://hanzi.unihan.com.cn/Signet - 书同文名章篆刻 - Calligraphy
 
 - https://en.wikipedia.org/wiki/Clipchamp - video editing tool
+
+- https://en.wikipedia.org/wiki/Audacity_(audio_editor) - audio editing tool
+
+- https://en.wikipedia.org/wiki/Microsoft_Paint - image editing tool 
+
+- https://en.wikipedia.org/wiki/Diagrams.net - diagram tool
+
+- jupyter notebook (see .ipynb files in `photos` subfolder)
 
 Your feedback and suggestion for improvement would be welcome.
 
