@@ -58,9 +58,6 @@ zi = '好';
 console.log(cnchar.spell(zi)); // cnchar api 调用
 console.log(cnchar.stroke(zi)); // cnchar api 调用
 
-// idiom
-console.log(cnchar.idiom(['五', '', '十', '']));  // ['五风十雨', '五光十色']
-// console.log(cnchar.idiom(['一', '', '一', '']));  // ['五风十雨', '五光十色']
 
 // explain
 // console.log(cnchar.explain('你好')); // cnchar api 调用
@@ -76,9 +73,6 @@ zi = "牜";
 zi_2 = cnchar.radical.radicalToWord(zi);
 console.log(zi_2); // 简体 => 繁体
 
-zi = "日";
-zi_2 = cnchar.words(zi);
-console.log(zi_2); // 
 
 zi = "日火汉字";
 zi_2 = cnchar.info(zi);
@@ -113,3 +107,17 @@ console.log(zi_2);
 zi = "上晃下摇";
 zi_2 = cnchar.xhy(zi, 'fuzzy', 'answer', 'second');
 console.log(zi_2); 
+
+// idiom
+zi = "日";
+console.log("Words"); // 
+
+zi_2 = cnchar.words(zi);
+console.log(zi_2); // 
+
+console.log("Idioms"); // 
+console.log(cnchar.idiom([zi, '', '', '']));  
+console.log(cnchar.idiom(['', zi, '', '']));  
+console.log(cnchar.idiom(['', '', zi, '']));  
+console.log(cnchar.idiom(['', '', '', zi]));  
+
