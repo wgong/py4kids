@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>cnchar Demo</title>
+  <script src="https://fastly.jsdelivr.net/npm/cnchar-all/cnchar.all.min.js"></script>
+</head>
+<body>
+  <input type="text" id="characterInput" placeholder="Enter a Chinese character">
+  <button onclick="getCharacterInfo()">Get Character Info</button>
+  <div id="result"></div>
+
+  <script>
+    function getCharacterInfo() {
+      const character = document.getElementById("characterInput").value;
+
+      if (character) {
+        const pinyin = cnchar.spell(character); 
+        const strokes = cnchar.stroke(character);
+
+        const resultDiv = document.getElementById("result");
+        resultDiv.innerHTML = `
+          <p>Character: ${character}</p>
+          <p>Pinyin: ${pinyin}</p>
+          <p>Strokes: ${strokes}</p>
+        `;
+      } else {
+        alert("Please enter a Chinese character.");
+      }
+    }
+  </script>
+</body>
+</html>

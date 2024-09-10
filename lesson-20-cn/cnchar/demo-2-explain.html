@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>cnchar Demo</title>
+  <script src="https://fastly.jsdelivr.net/npm/cnchar-all/cnchar.all.min.js"></script>
+</head>
+<body>
+  <input type="text" id="characterInput" placeholder="Enter a Chinese character">
+  <button onclick="doExplain()">Explain</button>
+  <div id="result"></div>
+
+  <script>
+    function doExplain() {
+      const character = document.getElementById("characterInput").value;
+
+      if (character) {
+        const explanation = cnchar.explain(character); 
+
+        const resultDiv = document.getElementById("result");
+        resultDiv.innerHTML = `
+          <p>Character: ${character}</p>
+          <p>Meaning: ${explanation}</p>
+        `;
+      } else {
+        alert("Please enter a Chinese character.");
+      }
+    }
+  </script>
+</body>
+</html>
