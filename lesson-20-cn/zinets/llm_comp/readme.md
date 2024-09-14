@@ -23,3 +23,12 @@ Explore GPT-4, Claude 3 Opus, Gemini 1.5 Pro, Llama 3, Dolphin 2.5 (uncensored),
 
 ## Mistral 2
 - give valid json
+
+## Claude Pro 
+- prompt it on 2024-09-13 for char 360 
+- to save json files 
+- prototype flashcard app using st-card
+see C:\Users\p2p2l\projects\wgong\zistory\acap-book\app\streamlit
+
+- Issues:
+	- most json files are invalid, need python script to fix them 
