@@ -21,6 +21,9 @@ Explore GPT-4, Claude 3 Opus, Gemini 1.5 Pro, Llama 3, Dolphin 2.5 (uncensored),
 
 ## Llama 3.1 70B
 
+## DeepSeek-V2.5
+
+
 ## Mistral 2
 - give valid json
 
@@ -32,3 +35,10 @@ see C:\Users\p2p2l\projects\wgong\zistory\acap-book\app\streamlit
 
 - Issues:
 	- most json files are invalid, need python script to fix them 
+
+
+## qwen2
+pretty good
+
+## gemma2
+no good
