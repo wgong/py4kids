@@ -20,7 +20,8 @@ in terms of the following attributes:
 
 (1) give the answer in Chinese 
 (2) format the answer in valid json and ensure quotes are properly escaped (specifically avoid double-quotes nested in doube-quotes)
-(3) whenever possible, give 5 or more examples for the following attributes:
+(3) please do not split a long text string across multiple lines
+(4) whenever possible, give 5 or more examples for the following attributes:
 
 常用词组
 成语

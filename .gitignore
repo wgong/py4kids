@@ -35,7 +35,7 @@
 **/metastore_db/
 **/data/
 **/spark-warehouse/
-**/*.json
+# **/*.json
 **/database.ini
 **/db_params.ipynb
 
