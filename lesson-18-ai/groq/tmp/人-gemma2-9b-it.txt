@@ -1,0 +1,94 @@
+```json
+{
+  "含义": "人这个汉字指的是人类，泛指所有人的总称或者个体的抽象概念。",
+  "字形": "人字由两部分组成: 上方是口，寓意口头表达，下方是足，代表行走，构成了一个人站立的姿态。它直接描绘了人最基本的特征: 拥有嘴巴和双脚。",
+  "读音": [
+    "rén",
+    "rén",
+    "rén",
+    "rén",
+    "rén"
+  ],
+  "字源": "人字的历史非常久远，最早的甲骨文上的"人"字形，又像天人，后来逐渐演化成现在的形态。",
+  "常用词组": [
+    "人際關係",
+    "個人差異",
+    "人類歷史",
+    "人口數量",
+    "人格魅力",
+    "人身安全"
+  ],
+  "成语": [
+    "人山人海",
+    "众人皆醉",
+    "唯我独尊",
+    "仁者见仁",
+    "人之初性本善"
+  ],
+  "例句": [
+    "他是一個善良的人。",
+    "我们需要照顾老人和小孩。",
+    "城市里的人口众多。",
+    "人们都对这场演出感到兴奋。",
+    "这位老师对学生很有耐心。"
+  ],
+  "短故事": [
+    "从前，有一位好心老人帮了一位迷路的小孩，小孩开心地对老人说：\"你是好人！\"老人笑了笑，说：\"每个人都可以是好人，只要你愿意帮助别人。\"\n",
+    "小明看到许多人排队买菜，便主动请妈妈放了他的玩具车，帮着站在队伍最后面帮助老人照顾小孩。",
+    "一位游子出远门，路过一个破落村庄，看到了村民们苦苦挣扎，便留下几天帮助他们修缮房子，种植田地。村民们感谢他的帮助，说：\"你是我们的超人！\"\n"
+  ],
+  "诗词": [
+    "天生我材必有用，千金散尽还复来。",
+    "人有悲欢离合，月有阴晴圆缺，此事古难全。",
+    "一寸光阴一寸金，寸金难买寸光阴。",
+    "人生如梦，何苦劳碌；",
+    "人生短，爱短暂，何必忧愁烦恼"
+  ],
+  "图片": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Man_Character.svg/800px-Man_Character.svg.png",
+    "https://www.chineselearning.com.au/blog/wp-content/uploads/2020/03/hanzi-human.jpg",
+    "https://www.tofugu.com/images/blog/2014/06/17/word-of-the-day-ren-%E4%BA%BA-person.jpg",
+    "https://www.thoughtco.com/thmb/uGqZ9twfK4jW69K4_qYt5Z9879o=/768x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-183782594-5a71c71546e0fb00114698ae.jpg",
+    "https://www.calligraphymagazine.com/wp-content/uploads/2014/09/Human-Calligraphy01.jpg"
+  ],
+  "音频": [
+    "",
+    "",
+    "",
+    "",
+    ""
+  ],
+  "视频": [
+    "",
+    "",
+    "",
+    "",
+    ""
+  ],
+  "电影": [
+    "英雄",
+    "卧虎藏龙",
+    "大红灯笼高高挂",
+    "千与千寻",
+    "盗梦空间"
+  ],
+  "参考资料": [
+    "《康熙字典》",
+    "《广韵字典》",
+    "《中华大字典》",
+    "《说文解字》",
+    "http://www.mdbg.net/"
+  ],
+  "有趣网站": [
+    "http://www.zdic.net/",
+    "http://www.chineselearningforadults.com/",
+    "http://www.mandarincorner.com/",
+    "https://www.skritter.com/",
+    "https://www.hellochinese.com/"
+  ]
+}
+```
+
+ 
+
+

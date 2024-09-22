@@ -1,0 +1,18 @@
+{
+"含义": "人：meaning 'person' or 'people'.",
+"字形": "人：character form, composed of two strokes, representing a person standing upright.",
+"读音": "rén : Pronounced 'ren' in Mandarin Chinese.",
+"字源": "Oracle bone script form of the character 'ren' shows a person with outstretched arms.",
+"常用词组": ["一 bunch of people": "一群人", "the human race": "人类", "an excellent person": "一位出色的人", "every person": "每个人", "this person here": "这个人"],
+"成语": ["人山人海": "a sea of people", "人情�� channels human sentiment", "桀骜不驯": "unruly and unmanageable", "人定胜天": "man can conquer nature", "众人皆敌": "everyone is an enemy"],
+"例句": ["这个人很可爱", "这家店的员工是最好的人", "他是一个伟大的人", "请问，这是您的人吗？", "那个人在干什么？"],
+"短故事": " once upon a time, there was a kind person who helped everyone in need. one day, he fell into a deep well and couldn't get out. many people passed by but no one helped. finally, a poor man who had little but a thin rope came by. he threw the rope into the well and pulled the kind man out. the kind man was very grateful and asked the poor man why he helped when no one else did. the poor man replied, 'because i am a person, and you are a person too.'",
+"诗词": "人生得意须尽欢",
+"图片": "[\<img src='https:\/\/image.shutterstock.com\/image-vector\/people-cartoon-character-vector-illustration-260nw-485384884.jpg'\>", "\<img src='https:\/\/cdn.iconscout.com\/public\/images\/icon\/free\/png-256\/chinese-character-people-human-man-woman-person-115792.png'\>", "\<img src='https:\/\/www.chineseetymology.org\/characterimagedetails.php?char=人'\>"],
+"音频": "[\<a href='https:\/\/zh.forvo.com\/word\/人\#zh'\>forvo\<\\/a>\]",
+"视频": "[\<a href='https:\/\/www.youtube.com\/results?search\_query=learn+chinese+character+人'\>youtube\<\\/a>\]",
+"电影": "《� Olywood 人》",
+"参考资料": "[\<a href='https:\/\/en.wikipedia.org\/wiki\/Chinese\_characters'\>wikipedia\<\\/a>\]",
+"有趣网站": "[\<a href='https:\/\/www.chinese-lessons.com'\>chinese-lessons.com\<\\/a>\]",
+"备注": "please note that the audio and video links may require additional steps to access the actual media."
+}
