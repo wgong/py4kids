@@ -1,26 +1,13 @@
-# LLM_Models:
-OPENAI:
-    ORG_ID: "org-123"
-    API_KEY: "sk-xyz"
-    MODELS:
-        CHAT:
-        - "gpt-3.5-turbo"
-        - "gpt-4"
-        AUDIO2TEXT: 
-        - "whisper-1"
-    DESCRIPTION: |
-        # Homepage
-        [OpenAI](https://openai.com/)
-
         
 HUGGING_FACE:
+    Chat_URL: "https://hf.com/chats"
     ORG_ID: ""
     HF_READ:
-        API_KEY:  "hf_bg123"
-    HF_WRITE:
-        API_KEY:  "hf_NA456"
+        API_KEY: "hf_bg123"
+    HF_WRITE: 
+        API_KEY: "hf_NA456"
+
     MODELS:
-    
         # CHAT: ""
         # TRANSLATION: ""
         # TEXT2IMAGE: ""
