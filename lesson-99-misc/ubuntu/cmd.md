@@ -17,3 +17,15 @@ If you would like to see the files being extracted during unpacking, add v:
 ```
 tar xzvf file.tar.gz
 ```
+
+
+## nvidia
+
+```
+nvidia-smi
+
+nvidia-smi --query-gpu=memory.total,memory.used --format=csv
+
+sudo ubuntu-drivers autoinstall
+
+```

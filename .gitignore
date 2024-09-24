@@ -1,6 +1,7 @@
 # user
 **/*u1gwg*
 **/*.bin
+**/stores.yaml
 
 # temp/cache
 **/tmp*.*
@@ -35,7 +36,7 @@
 **/metastore_db/
 **/data/
 **/spark-warehouse/
-**/*.json
+# **/*.json
 **/database.ini
 **/db_params.ipynb
 
