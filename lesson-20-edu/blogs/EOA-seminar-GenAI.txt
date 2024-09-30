@@ -1,0 +1,10 @@
+Title: Introductory GenAI
+
+Abstract:
+Delve into the core concepts of Generative AI (GenAI), explore its myriad applications, and gain insights into the inner workings of Large Language Models (LLM), Wen will demystify complex topics, addressing key questions about GenAI's capabilities, available models, and potential path towards Artificial General Intelligence (AGI). With live demonstrations and real-world examples, this seminar offers a comprehensive overview of GenAI's past, present, and future. Whether you're a tech enthusiast, business professional, or simply curious about AI's transformative potential, this seminar promises to equip you with valuable knowledge to navigate a AI-driven world.
+
+Speaker Bio: 
+Wen Gong is a Cloud Data Engineer at Vanguard Group (analyzing big data in financial service industry).
+He was a Software Engineer & Consultant at Oracle (developing Master Data Management system).
+Previously, he worked as a staff physicist at Max-Planck-Institute and Lawrence Berkeley Lab, with a Ph.D. in Nuclear Physics from Michigan State Univ
+and BS in physics from Univ of Science and Tech of China.

@@ -1,5 +1,40 @@
 # GenAI Seminar Outline 
 
+Title: 
+Introductory GenAI
+
+Abstract:
+Delve into the core concepts of Generative AI (GenAI), explore its myriad applications, and gain insights into the inner workings of Large Language Models (LLM), Wen will demystify complex topics, addressing key questions about GenAI's capabilities, available models, and potential path towards Artificial General Intelligence (AGI). With live demonstrations and real-world examples, this seminar offers a comprehensive overview of GenAI's past, present, and future. Whether you're a tech enthusiast, business professional, or simply curious about AI's transformative potential, this seminar promises to equip you with valuable knowledge to navigate a AI-driven world.
+
+Speaker Bio: 
+Wen Gong is a Cloud Data Engineer at Vanguard Group (analyzing big data in financial service industry).
+He was a Software Engineer & Consultant at Oracle (developing Master Data Management system).
+Previously, he worked as a staff physicist at Max-Planck-Institute and Lawrence Berkeley Lab, with a Ph.D. in Nuclear Physics from Michigan State Univ
+and BS in physics from Univ of Science and Tech of China.
+
+Abstract:
+First started using GPT-3 model in July 2022, I was truly impressed by its code generation and Q&A capabilities. 
+When OpenAI released ChatGPT on 11/30/2022, a new AI age has begun.
+With this talk, I like to share my learning experiences with GenAI in 3 parts:
+1. Evolution of AI
+2. Current State of GenAI
+3. GenAI's Future
+Hopefully I will address questions such as
+- What is GenAI ?
+- Where can GenAI be applied ?
+- How GenAI works at a high level ?
+- What LLM models are available ?
+- From GenAI to AGI
+and give demos if time permits.
+
+Bio: 
+Wen Gong is a Cloud Data Engineer at Vanguard Group (analyzing big data in financial service industry).
+He was a Software Engineer & Consultant at Oracle (developing Master Data Management system).
+He worked as a staff physicist at Max-Planck-Institute and Lawrence Berkeley Lab, with a Ph.D. in Nuclear Physics from Michigan State Univ
+and BS in physics from Univ of Science and Tech of China.
+
+
+
 ## 0 Objectives
 Key takeaways of this seminar:
 
@@ -52,13 +87,6 @@ Key takeaways of this seminar:
 
 ## 4. Q&A Session
 
-## 5. Speaker Bio
-Wen Gong (龚文光)
-- Cloud Data Engineer at Vanguard Group
-- Software Engineer and App consultant at Oracle
-- Post-doc at Max-Planck-Institute and Lawrence Berkeley Lab
-- Ph.D. in nuclear physics at Michigan State Univ
-- BS in physics at USTC
 
 Yin Yan (yanyin2003@gmail.com)
 Electro-Optical Association (EOAyin@gmail.com)
