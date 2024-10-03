@@ -2,6 +2,7 @@
 ## Intro
 
 - [Learn React](https://reactjs.org/)
+- [Digi-Safari](https://learn.digi-safari.com/user/profile.php?id=1507) wen_gong
 
 ## Tutorials
 
