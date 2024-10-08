@@ -1,3 +1,5 @@
+- ChatGPTs
+    - Claude - https://claude.ai/
 
 - Understanding Artificial Intelligence
     - https://medium.com/future-today/understanding-artificial-intelligence-f800b51c767f
@@ -14,6 +16,9 @@ Prioritising your needs and reaching towards self-actualisation
 - Generative AI (by Analytics Vidhya)
     - https://www.analyticsvidhya.com/blog/category/generative-ai/page/47/
 
+
+- Introduction to Generative AI
+    - https://www.youtube.com/watch?v=2p5OHDxR2l8
 
 - NVLM: Open Frontier-Class Multimodal LLMs (by Nvidia)
     - https://arxiv.org/html/2409.11402v1
