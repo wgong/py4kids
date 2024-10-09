@@ -50,3 +50,37 @@ see ~/projects\PythonDataScienceHandbook\hbook
     * https://stackoverflow.com/questions/2229118/is-it-possible-to-play-shoutcast-internet-radio-streams-with-html5
 
     * https://www.fsf.org/campaigns/playogg/sites/all
+
+
+## ToDo Apps
+
+### Streamlit-based-ToDo-App
+- https://github.com/prateekralhan/Streamlit-based-ToDo-App 
+
+- https://medium.com/snowflake/snowflake-task-manager-using-streamlit-79e274d1ec03
+
+- https://medium.com/@abhishekaryan2/streamlining-business-operations-an-inside-look-at-our-innovative-task-management-system-b1f8eb710b7c
+
+- https://pypi.org/project/streamlit-process-manager/
+
+### git clone 
+
+```
+git clone git@github.com:SudhenduP/snowflake-task-manager-unofficial.git
+
+git clone https://github.com/abhishekaryan23/Task_Master.git
+
+git clone git@github.com:Asaurus1/streamlit-process-manager.git
+```
+
+
+### Setup
+```
+cd ~/projects/UI
+mkdir todo
+conda activate zinets
+
+git clone https://github.com/prateekralhan/Streamlit-based-ToDo-App.git
+
+
+```

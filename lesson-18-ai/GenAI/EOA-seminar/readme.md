@@ -63,6 +63,8 @@ Key takeaways of this seminar:
 - From GenAI to AGI ?
 
 ## 1. The Past: Evolution of AI
+   - 2 year anniversary of ChatGPT
+   - 2024 Nobel Prize in Physics and Chemistry
    - Brief history: Machine Learning → Deep Learning → Transformers → GenAI
      - <DIAGRAM> AI > ML > DL > GenAI > ChatGPT | Agent
    - Key milestones in GenAI development
@@ -95,19 +97,18 @@ Key takeaways of this seminar:
       - Challenges and lessons learned
 
 ## 3. The Future of GenAI
+    - What is HI?
+    - When/where will AGI emerge?
     - Emerging powerful LLM models surpassing human knowledge-based intelligence
     - Human & Agent: co-existence, co-laboration and co-creation
     - Autonomous factory staffed by worker agents
     - Robotics powered by AI becoming environment-aware
     - Geo-political tension: AI race between US and China
     - AI regulation: Ethical/safety concerns and responsible AI development
-    - When/where will AGI emerge?
 
 ## 4. Q&A Session
 
-
-Yin Yan (yanyin2003@gmail.com)
-Electro-Optical Association (EOAyin@gmail.com)
+Yin Yan : Electro-Optical Association (EOAyin@gmail.com)
 
 
 # Review/Feedback by Claude
@@ -128,3 +129,5 @@ Audience engagement: Consider points where you might pause for questions or brie
 Backup plans: Have contingencies ready in case of technical issues with demos.
 
 This outline provides an excellent framework for an informative and engaging seminar. Is there anything else you'd like to adjust or any specific areas you'd like to discuss further as you prepare your content?
+
+
