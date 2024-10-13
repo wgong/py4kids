@@ -1648,6 +1648,9 @@ class VannaBase(ABC):
                 - plotly figure (plotly.graph_objs.Figure)
                 - error msg (str)
         """
+        sql = None
+        df = None
+        fig = None
         err_msg = None
         if not question:
             # question = input("Enter a question: ")
@@ -1744,7 +1747,7 @@ class VannaBase(ABC):
         except Exception as e:
             # # Print stack trace
             # traceback.print_exc()
-            err_msg = f"[ERROR-VIZ] Failed to visualize df with plotly code: {fig}\n str(e)"
+            err_msg = f"[ERROR-VIZ] Failed to visualize df with plotly code:\n str(e)"
 
         return sql, df, fig, err_msg
 
