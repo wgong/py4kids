@@ -52,6 +52,7 @@ import json
 import os
 import re
 import sqlite3
+import time
 import traceback
 from abc import ABC, abstractmethod
 from typing import List, Tuple, Union
@@ -66,7 +67,8 @@ import sqlparse
 
 from ..exceptions import DependencyError, ImproperlyConfigured, ValidationError
 from ..types import TrainingPlan, TrainingPlanItem
-from ..utils import validate_config_path
+from ..utils import validate_config_path, LogTag, AskResult
+
 
 try:
     from IPython.display import display, Code, Image
@@ -74,11 +76,7 @@ try:
 except ImportError:
     HAS_IPYTHON = False
 
-STR_SQL_PROMPT = "SQL Prompt"
-STR_LLM_RESPONSE = "LLM Response"
-STR_RUN_INTER_SQL = "Running Intermediate SQL"
-STR_FINAL_PROMPT = "Final SQL Prompt"
-STR_EXTRACTED_SQL = "Extracted SQL"
+
 
 class VannaBase(ABC):
     def __init__(self, config=None):
@@ -92,7 +90,10 @@ class VannaBase(ABC):
         self.language = self.config.get("language", None)
         self.max_tokens = self.config.get("max_tokens", 14000)
 
-    def log(self, message: str, title: str = ""):
+    def log(self, message: str, title: str = "", off_flag: bool = False):
+        if off_flag:
+            return 
+        
         if title:
             print(f"\n[( {title} )]\n{message}")
         else:
@@ -146,9 +147,9 @@ class VannaBase(ABC):
             doc_list=doc_list,
             **kwargs,
         )
-        self.log(title=STR_SQL_PROMPT, message=prompt)
+        self.log(title=LogTag.SQL_PROMPT, message=prompt)
         llm_response = self.submit_prompt(prompt, **kwargs)
-        self.log(title=STR_LLM_RESPONSE, message=llm_response)
+        self.log(title=LogTag.LLM_RESPONSE, message=llm_response)
 
         if 'intermediate_sql' in llm_response:
             if not allow_llm_to_see_data:
@@ -158,7 +159,7 @@ class VannaBase(ABC):
                 intermediate_sql = self.extract_sql(llm_response)
 
                 try:
-                    self.log(title=STR_RUN_INTER_SQL, message=intermediate_sql)
+                    self.log(title=LogTag.RUN_INTER_SQL, message=intermediate_sql)
                     if 'intermediate_sql' in intermediate_sql:
                         extracted_sql = intermediate_sql.replace('intermediate_sql', '')
                     else:
@@ -173,9 +174,9 @@ class VannaBase(ABC):
                         doc_list=doc_list+[f"The following is a pandas DataFrame with the results of the intermediate SQL query {intermediate_sql}: \n" + df.to_markdown()],
                         **kwargs,
                     )
-                    self.log(title=STR_FINAL_PROMPT, message=prompt)
+                    self.log(title=LogTag.FINAL_PROMPT, message=prompt)
                     llm_response = self.submit_prompt(prompt, **kwargs)
-                    self.log(title=STR_LLM_RESPONSE, message=llm_response)
+                    self.log(title=LogTag.LLM_RESPONSE, message=llm_response)
                 except Exception as e:
                     return f"Error running intermediate SQL: {e}"
 
@@ -203,27 +204,27 @@ class VannaBase(ABC):
         sqls = re.findall(r"\bWITH\b .*?;", llm_response, re.DOTALL)
         if sqls:
             sql = sqls[-1]
-            self.log(title=STR_EXTRACTED_SQL, message=f"{sql}")
+            self.log(title=LogTag.EXTRACTED_SQL, message=f"{sql}")
             return sql
 
         # If the llm_response is not markdown formatted, extract last sql by finding select and ; in the response
         sqls = re.findall(r"SELECT.*?;", llm_response, re.DOTALL)
         if sqls:
             sql = sqls[-1]
-            self.log(title=STR_EXTRACTED_SQL, message=f"{sql}")
+            self.log(title=LogTag.EXTRACTED_SQL, message=f"{sql}")
             return sql
 
         # If the llm_response contains a markdown code block, with or without the sql tag, extract the last sql from it
         sqls = re.findall(r"```sql\n(.*)```", llm_response, re.DOTALL)
         if sqls:
             sql = sqls[-1]
-            self.log(title=STR_EXTRACTED_SQL, message=f"{sql}")
+            self.log(title=LogTag.EXTRACTED_SQL, message=f"{sql}")
             return sql
 
         sqls = re.findall(r"```(.*)```", llm_response, re.DOTALL)
         if sqls:
             sql = sqls[-1]
-            self.log(title=STR_EXTRACTED_SQL, message=f"{sql}")
+            self.log(title=LogTag.EXTRACTED_SQL, message=f"{sql}")
             return sql
 
         return llm_response
@@ -1609,6 +1610,52 @@ class VannaBase(ABC):
             "You need to connect to a database first by running vn.connect_to_snowflake(), vn.connect_to_postgres(), similar function, or manually set vn.run_sql"
         )
 
+    def ask_adaptive(
+        self,
+        question: Union[str, None] = None,
+        print_results: bool = True,
+        auto_train: bool = True,
+        visualize: bool = True,  # if False, will not generate plotly code
+        allow_llm_to_see_data: bool = False,   
+        num_retry=2,
+        separator=80*'=',
+        tag_id=None,
+        sleep_sec=2,
+    ) -> AskResult:
+        """
+        Enhanced ask() with adaptive retry prompting 
+        when response has error, revise prompt by asking to fix
+        """
+        tag = f"- {tag_id}" if tag_id else ""
+        self.log(f"\n{separator}\n# QUESTION {tag}:  {question}\n{separator}\n")
+        res = self.ask(question, print_results, auto_train, visualize, allow_llm_to_see_data)
+        if not res.err_msg or (LogTag.ERROR_SQL not in res.err_msg) and (LogTag.ERROR_DB not in res.err_msg):
+            return res
+    
+        is_sys_err = res.err_msg and "an unknown error was encountered while running the model" in res.err_msg
+        if is_sys_err:
+            # re-prompt
+            res = self.ask(question, print_results, auto_train, visualize, allow_llm_to_see_data)
+            if not res.err_msg or (LogTag.ERROR_SQL not in res.err_msg) and (LogTag.ERROR_DB not in res.err_msg):
+                return res
+
+        # re-try
+        for i_retry in range(num_retry):
+            self.log(title=LogTag.RETRY, message=f"***** {i_retry+1} *****")
+            question = f"""
+                For this question: {question}, 
+                your generated SQL statement: {res.sql} results in the following exception: {res.err_msg} .
+                Can you please fix the error and re-generate the SQL statement?
+            """
+            
+            res = self.ask(question, print_results, auto_train, visualize, allow_llm_to_see_data)
+            if not res.err_msg or (LogTag.ERROR_SQL not in res.err_msg) and (LogTag.ERROR_DB not in res.err_msg):
+                break
+
+            time.sleep(sleep_sec)
+
+        return res
+
     def ask(
         self,
         question: Union[str, None] = None,
@@ -1616,15 +1663,7 @@ class VannaBase(ABC):
         auto_train: bool = True,
         visualize: bool = True,  # if False, will not generate plotly code
         allow_llm_to_see_data: bool = False,
-    ) -> Union[
-        Tuple[
-            Union[str, None],
-            Union[pd.DataFrame, None],
-            Union[plotly.graph_objs.Figure, None],
-            Union[str, None],
-        ],
-        None,
-    ]:
+    ) -> AskResult:
         """
         **Example:**
         ```python
@@ -1654,8 +1693,8 @@ class VannaBase(ABC):
         err_msg = None
         if not question:
             # question = input("Enter a question: ")
-            err_msg = "[ERROR-IN] Prompt question is missing"
-            return None, None, None, err_msg
+            err_msg = f"{LogTag.ERROR_INPUT} Prompt question is missing"
+            return AskResult(None, None, None, err_msg)
 
         # ====================
         # Generate SQL
@@ -1663,44 +1702,43 @@ class VannaBase(ABC):
         try:
             sql = self.generate_sql(question=question, allow_llm_to_see_data=allow_llm_to_see_data)
         except Exception as e:
-            err_msg = f"[ERROR-SQL] Failed to generate SQL for prompt: {question} with the following exception: \n{str(e)}"
+            err_msg = f"{LogTag.ERROR_SQL} Failed to generate SQL for prompt: {question} with the following exception: \n{str(e)}"
             print(err_msg)
-            return None, None, None, err_msg
+            return AskResult(None, None, None, err_msg)
 
         if 'intermediate_sql' in sql:
             sql = sql.replace('intermediate_sql', '')
 
         if not sql.strip().lower().startswith("select") and \
             not sql.strip().lower().startswith("with"):
-            err_msg = f"[ERROR-SQL] the generated SQL : {sql}\n does not starts with ('select','with')"
-            return sql, None, None, err_msg
+            err_msg = f"{LogTag.ERROR_SQL} the generated SQL : {sql}\n does not starts with ('select','with')"
+            return AskResult(sql, None, None, err_msg)
 
         if HAS_IPYTHON and print_results:
             try:
-                self.log(title="SQL", message="generated SQL statement")
+                self.log(title=LogTag.SHOW_SQL, message="generated SQL statement")
                 display(Code(sql, language='sql'))
             except Exception as e:
-                err_msg = f"[ERROR] Failed to display SQL code: {sql} with the following exception: \n{str(e)}"
+                err_msg = f"{LogTag.ERROR} Failed to display SQL code: {sql} with the following exception: \n{str(e)}"
                 print(err_msg)
-                # return sql, None, None, err_msg
 
         # ====================
         # Execute SQL
         # ====================
         if self.run_sql_is_set is False:
-            err_msg = "[ERROR] If you want to run the SQL query, connect to a database first. See here: https://vanna.ai/docs/databases.html"
+            err_msg = f"{LogTag.ERROR} If you want to run the SQL query, connect to a database first. See here: https://vanna.ai/docs/databases.html"
             print(err_msg)
-            return sql, None, None, err_msg
+            return AskResult(sql, None, None, err_msg)
 
         try:
             df = self.run_sql(sql)
         except Exception as e:
-            err_msg = f"[ERROR-DB] Failed to execute SQL: {sql}\n {str(e)}"
-            return sql, None, None, err_msg
+            err_msg = f"{LogTag.ERROR_DB} Failed to execute SQL: {sql}\n {str(e)}"
+            return AskResult(sql, None, None, err_msg)
 
         if HAS_IPYTHON and print_results:
             try:
-                self.log(title="DATA", message="queried data frame")
+                self.log(title=LogTag.SHOW_DATA, message="queried dataframe")
                 display(df)
             except Exception as e:
                 print(str(e))
@@ -1708,12 +1746,12 @@ class VannaBase(ABC):
         if df is not None and not df.empty and len(df) > 0 and auto_train:
             self.add_question_sql(question=question, sql=sql)
         else:
-            err_msg = f"[ERROR] Invalid dataframe"
-            return sql, None, None, err_msg
+            err_msg = f"{LogTag.ERROR} Invalid dataframe"
+            return AskResult(sql, None, None, err_msg)
         
         # Only generate plotly code if visualize is True and df has data
         if not visualize:
-            return sql, df, None, None                
+            return AskResult(sql, df, None, None)
 
         # ====================
         # Visualize dataframe
@@ -1729,14 +1767,7 @@ class VannaBase(ABC):
 
             if HAS_IPYTHON and print_results:
                 try:
-                    # display = __import__(
-                    #     "IPython.display", fromlist=["display"]
-                    # ).display
-
-                    # Image = __import__(
-                    #     "IPython.display", fromlist=["Image"]
-                    # ).Image
-                    self.log(title="PYTHON", message="generated Plotly code")
+                    self.log(title=LogTag.SHOW_PYTHON, message="generated Plotly code")
                     display(Code(plotly_code, language='python'))
 
                     img_bytes = fig.to_image(format="png", scale=2)
@@ -1747,9 +1778,12 @@ class VannaBase(ABC):
         except Exception as e:
             # # Print stack trace
             # traceback.print_exc()
-            err_msg = f"[ERROR-VIZ] Failed to visualize df with plotly code:\n str(e)"
+            err_msg = f"{LogTag.ERROR_VIZ} Failed to visualize df with plotly code:\n str(e)"
 
-        return sql, df, fig, err_msg
+        return AskResult(sql, df, fig, err_msg)
+
+
+
 
     def train(
         self,
