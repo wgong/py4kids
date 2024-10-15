@@ -8,15 +8,17 @@ Task Management App based on Stephen Covey's 7 Habits of highly effectively peop
 
 """
 
-from datetime import date
-import sqlite3
 import streamlit as st
+import sqlite3
+import hashlib
+from datetime import datetime, date
 import pandas as pd
 from st_aggrid import (
     AgGrid, GridOptionsBuilder, GridUpdateMode, DataReturnMode, JsCode
 )
 
 # constants
+PAGE_SIZE,GRID_HEIGHT=5,200
 
 DB_FILE = "habits7.sqlite"
 LIST_TASK_GROUP = ['Work', 'Personal']
@@ -27,7 +29,7 @@ LIST_TASK_CATEGORY = ["", "learning", "research", "project", "fun"]
 
 TABLE_H7_TASK = "habits7_task"
 TABLE_H7_USER = "habits7_user"
-H7_ADMIN = "h7_admin"
+
 
 # Aggrid options
 # how to set column width
@@ -46,11 +48,54 @@ _GRID_OPTIONS = {
 }
 
 st.set_page_config(layout="wide")
-st.session_state["CURRENT_USER"] = H7_ADMIN   # default for testing
 
 # Database connection
 conn = sqlite3.connect(DB_FILE, check_same_thread=False)
 c = conn.cursor()
+
+# Function to create user table
+def create_user_table():
+    c.execute(f'''
+    CREATE TABLE IF NOT EXISTS {TABLE_H7_USER} (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        email TEXT NOT NULL UNIQUE,
+        password TEXT NOT NULL,
+        username TEXT,
+        is_admin INTEGER DEFAULT 0 CHECK(is_admin IN (0, 1)),
+        is_active INTEGER DEFAULT 1 CHECK(is_active IN (0, 1)),
+        profile TEXT,
+        note TEXT,
+        created_by TEXT,
+        created_at TEXT,
+        updated_by TEXT,
+        updated_at TEXT
+    )
+    ''')
+    conn.commit()
+
+# Function to create task table
+def create_task_table():
+    c.execute(f'''
+    CREATE TABLE IF NOT EXISTS {TABLE_H7_TASK} (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        task_name TEXT NOT NULL,
+        description TEXT,
+        task_group TEXT DEFAULT 'Personal' CHECK(task_group IN ('','Work', 'Personal')),
+        is_urgent TEXT DEFAULT 'N' CHECK(is_urgent IN ('Y', 'N')),
+        is_important TEXT DEFAULT 'N' CHECK(is_important IN ('Y', 'N')),
+        status TEXT DEFAULT '' CHECK(status IN ('', 'ToDo', 'Doing', 'Done')),
+        pct_completed TEXT DEFAULT '0%' CHECK(pct_completed IN ('0%', '25%', '50%', '75%', '100%')),
+        due_date TEXT,
+        category TEXT DEFAULT '' CHECK(category IN ('', 'learning', 'research', 'project', 'fun')),
+        note TEXT,
+        created_by TEXT,
+        created_at TEXT,
+        updated_by TEXT,
+        updated_at TEXT
+    )
+    ''')
+    conn.commit()
+
 
 def _display_df_grid(df, 
         selection_mode="single",  # "multiple", 
@@ -126,29 +171,6 @@ def _display_df_grid(df,
  
     return grid_response
 
-# Function to create the table
-def create_table():
-    c.execute(f'''
-    CREATE TABLE IF NOT EXISTS {TABLE_H7_TASK} (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        task_name TEXT NOT NULL,
-        description TEXT,
-        task_group TEXT DEFAULT 'Personal' CHECK(task_group IN ('','Work', 'Personal')),
-        is_urgent TEXT DEFAULT 'N' CHECK(is_urgent IN ('Y', 'N')),
-        is_important TEXT DEFAULT 'N' CHECK(is_important IN ('Y', 'N')),
-        status TEXT DEFAULT '' CHECK(status IN ('', 'ToDo', 'Doing', 'Done')),
-        pct_completed TEXT DEFAULT '0%' CHECK(pct_completed IN ('0%', '25%', '50%', '75%', '100%')),
-        due_date TEXT,
-        category TEXT DEFAULT '' CHECK(category IN ('', 'learning', 'research', 'project', 'fun')),
-        note TEXT,
-        created_by TEXT,
-        created_at TEXT,
-        updated_by TEXT,
-        updated_at TEXT
-    )
-    ''')
-    conn.commit()
-
 # Function to add data
 def add_task(task_name, description, task_group, is_urgent, is_important, status, pct_completed, due_date, category, note, created_by, created_at, updated_by, updated_at):
     c.execute(f'''
@@ -212,12 +234,100 @@ def delete_task(task_name, user_id):
     ''', (task_name,user_id))
     conn.commit()
 
-# Streamlit app
-def main():
-    # st.title("7 Habits Task Manager")
-    user_id = st.session_state.get("CURRENT_USER", H7_ADMIN)
 
-    menu = ["Home", "7-Habits-Task View", "View Tasks", "Add Task", "Edit Task", "Delete Task",]
+# Function to hash password
+def hash_password(password):
+    return hashlib.sha256(str.encode(password)).hexdigest()
+
+# Function to add user
+def add_user(email, password, username, is_admin=0, is_active=1, profile="", note=""):
+    hashed_password = hash_password(password)
+    now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    c.execute(f'''
+    INSERT INTO {TABLE_H7_USER} (email, password, username, is_admin, is_active, profile, note, created_by, created_at, updated_by, updated_at)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    ''', (email, hashed_password, username, is_admin, is_active, profile, note, email, now, email, now))
+    conn.commit()
+
+# Function to verify user
+def verify_user(email, password):
+    hashed_password = hash_password(password)
+    c.execute(f"SELECT * FROM {TABLE_H7_USER} WHERE email = ? AND password = ?", (email, hashed_password))
+    user = c.fetchone()
+    return user
+
+# Function to check if email exists
+def email_exists(email):
+    c.execute(f"SELECT * FROM {TABLE_H7_USER} WHERE email = ?", (email,))
+    user = c.fetchone()
+    return user is not None
+
+# Login page
+def login_page():
+    st.subheader("Login")
+    email = st.text_input("Email")
+    password = st.text_input("Password", type="password")
+    if st.button("Login"):
+        user = verify_user(email, password)
+        if user:
+            st.session_state['logged_in'] = True
+            st.session_state['user_id'] = user[0]
+            user_name = user[3]
+            st.session_state['username'] = user_name
+            st.success(f"Logged in as {user_name}")
+            st.rerun()
+        else:
+            st.error("Incorrect email or password")
+
+# Registration page
+def registration_page():
+    st.subheader("Register")
+    email = st.text_input("Email")
+    username = st.text_input("Username")
+    password = st.text_input("Password", type="password")
+    confirm_password = st.text_input("Confirm Password", type="password")
+    
+    if st.button("Register"):
+        if password != confirm_password:
+            st.error("Passwords do not match")
+        elif email_exists(email):
+            st.error("Email already exists")
+        else:
+            add_user(email, password, username)
+            st.success("Registration successful. Please login.")
+
+# Main app logic
+def main():
+    st.sidebar.subheader("7 Habits Task Manager")    
+    
+    # Initialize session state
+    if 'logged_in' not in st.session_state:
+        st.session_state['logged_in'] = False
+
+    # Sidebar for login/logout
+    if st.session_state['logged_in']:
+        st.sidebar.write(f"Logged in as: {st.session_state['username']}")
+        if st.sidebar.button("Logout"):
+            st.session_state['logged_in'] = False
+            st.session_state['user_id'] = None
+            st.session_state['username'] = None
+            st.rerun()
+    else:
+
+
+        auth_option = st.sidebar.radio("Choose an option", ["Login", "Register"])
+        if auth_option == "Login":
+            login_page()
+        else:
+            registration_page()
+
+    # Only show the main app if logged in
+    if not st.session_state['logged_in']:
+        return
+    
+    user_id = st.session_state['user_id']
+    
+    menu = ["Home", "7-Habits-Task View", "View Tasks", "Add Task", "Edit Task", "Delete Task"]
     choice = st.sidebar.selectbox("Menu", menu)
 
     if choice == "Home":
@@ -301,7 +411,7 @@ def main():
 
             if st.button("Update Task"):
                 edit_task(new_task_name, new_description, new_task_group, new_is_urgent, new_is_important, new_status, new_pct_completed, new_due_date, new_category, new_note, new_updated_by, new_updated_at, 
-                          task_name, user_id)
+                        task_name, user_id)
                 st.success("Task Updated: {}".format(new_task_name))
 
     elif choice == "Delete Task":
@@ -333,7 +443,6 @@ def main():
         filtered_df = df[(df['Task Group'].isin(selected_task_groups)) & (df['Status'].isin(selected_statuses))]
 
         selected_columns = ["Task Name", "Description", "ID"]
-        PAGE_SIZE,GRID_HEIGHT=5,200
         # Display quadrants in a 2x2 grid layout
         row1_col1, row1_col2 = st.columns(2)
         with row1_col1:
@@ -357,7 +466,7 @@ def main():
             df_4 = filtered_df[(filtered_df['Is Important'] == 'Y') & (filtered_df['Is Urgent'] == 'N')][selected_columns]
             grid_resp_4 = _display_df_grid(df_4, key_name="df_4", page_size=PAGE_SIZE, grid_height=GRID_HEIGHT)
 
-
 if __name__ == '__main__':
-    create_table()
+    create_task_table()  # Create tasks table
+    create_user_table()  # Create users table
     main()
