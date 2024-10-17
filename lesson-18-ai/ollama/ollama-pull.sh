@@ -29,8 +29,8 @@ ollama pull qwen2.5-coder:1.5b
 ollama pull phi3.5
 
 # IBM
-ollama pull granite-code
-ollama pull granite-code:8b
+# ollama pull granite-code
+# ollama pull granite-code:8b
 
 # ollama pull neural-chat
 # ollama pull starling-lm

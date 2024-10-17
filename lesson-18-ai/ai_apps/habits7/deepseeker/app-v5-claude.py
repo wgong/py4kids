@@ -54,70 +54,6 @@ def get_user_by_id(user_id):
     c.execute(f"SELECT * FROM {TABLE_H7_USER} WHERE id = ?", (user_id,))
     return c.fetchone()
 
-# Modified main function
-def main():
-    st.sidebar.subheader("7 Habits Task Manager")    
-
-    # Initialize session state
-    if 'logged_in' not in st.session_state:
-        st.session_state['logged_in'] = False
-
-    # Sidebar for login/logout
-    if st.session_state['logged_in']:
-        st.sidebar.write(f"Logged in as: {st.session_state['username']}")
-        if st.sidebar.button("Logout"):
-            st.session_state['logged_in'] = False
-            st.session_state['user_id'] = None
-            st.session_state['username'] = None
-            st.session_state['is_admin'] = False
-            st.rerun()
-    else:
-        auth_option = st.sidebar.radio("Choose an option", ["Login", "Register"])
-        if auth_option == "Login":
-            login_page()
-        else:
-            registration_page()
-
-    # Only show the main app if logged in
-    if not st.session_state['logged_in']:
-        return
-    
-    user_id = st.session_state['user_id']
-    is_admin = st.session_state['is_admin']
-    
-    menu = ["Home", "7-Habits-Task View", "View Tasks", "Add Task", "Edit Task", "Delete Task", "Edit User"]
-    if is_admin:
-        menu.extend(["Add User", "Manage Users"])
-    
-    choice = st.sidebar.selectbox("Menu", menu)
-
-    if choice == "Home":
-        # ... (keep existing Home code)
-
-    elif choice == "Add Task":
-        # ... (keep existing Add Task code)
-
-    elif choice == "View Tasks":
-        # ... (keep existing View Tasks code)
-
-    elif choice == "Edit Task":
-        # ... (keep existing Edit Task code)
-
-    elif choice == "Delete Task":
-        # ... (keep existing Delete Task code)
-
-    elif choice == "7-Habits-Task View":
-        # ... (keep existing 7-Habits-Task View code)
-
-    elif choice == "Edit User":
-        edit_user_page(user_id, is_admin)
-
-    elif choice == "Add User" and is_admin:
-        add_user_page()
-
-    elif choice == "Manage Users" and is_admin:
-        manage_users_page()
-
 # New function for the Edit User page
 def edit_user_page(user_id, is_admin):
     st.subheader("Edit User")
@@ -217,6 +153,71 @@ def registration_page():
         else:
             add_user(email, password, username)
             st.success("Registration successful. Please login.")
+
+# Modified main function
+def main():
+    st.sidebar.subheader("7 Habits Task Manager")
+
+    # Initialize session state
+    if 'logged_in' not in st.session_state:
+        st.session_state['logged_in'] = False
+
+    # Sidebar for login/logout
+    if st.session_state['logged_in']:
+        st.sidebar.write(f"Logged in as: {st.session_state['username']}")
+        if st.sidebar.button("Logout"):
+            st.session_state['logged_in'] = False
+            st.session_state['user_id'] = None
+            st.session_state['username'] = None
+            st.session_state['is_admin'] = False
+            st.rerun()
+    else:
+        auth_option = st.sidebar.radio("Choose an option", ["Login", "Register"])
+        if auth_option == "Login":
+            login_page()
+        else:
+            registration_page()
+
+    # Only show the main app if logged in
+    if not st.session_state['logged_in']:
+        return
+    
+    user_id = st.session_state['user_id']
+    is_admin = st.session_state['is_admin']
+    
+    menu = ["Home", "7-Habits-Task View", "View Tasks", "Add Task", "Edit Task", "Delete Task", "Edit User"]
+    if is_admin:
+        menu.extend(["Add User", "Manage Users"])
+
+    choice = st.sidebar.selectbox("Menu", menu)
+
+    if choice == "Home":
+        # ... (keep existing Home code)
+
+    elif choice == "Add Task":
+        # ... (keep existing Add Task code)
+
+    elif choice == "View Tasks":
+        # ... (keep existing View Tasks code)
+
+    elif choice == "Edit Task":
+        # ... (keep existing Edit Task code)
+
+    elif choice == "Delete Task":
+        # ... (keep existing Delete Task code)
+
+    elif choice == "7-Habits-Task View":
+        # ... (keep existing 7-Habits-Task View code)
+
+    elif choice == "Edit User":
+        edit_user_page(user_id, is_admin)
+
+    elif choice == "Add User" and is_admin:
+        add_user_page()
+
+    elif choice == "Manage Users" and is_admin:
+        manage_users_page()
+
 
 if __name__ == '__main__':
     create_task_table()

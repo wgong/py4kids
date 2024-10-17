@@ -3,6 +3,10 @@
 - https://claude.ai/chat/
 
 
+## TODO
+
+- test `app-v5.py`
+
 ## Dev
 
 ### v5 - add user admin
@@ -54,7 +58,7 @@ the app-v3.py is pasted here: <pasted>
 
 ## Misc
 ```
-H7_ADMIN = "h7_admin"
-ducklover@gmail.com
+- h7admin@gmail.com
+- h7admin@gmail.com
 
 ```

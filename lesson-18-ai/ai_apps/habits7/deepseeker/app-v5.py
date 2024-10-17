@@ -97,6 +97,8 @@ def create_task_table():
     conn.commit()
 
 
+
+
 def _display_df_grid(df, 
         selection_mode="single",  # "multiple", 
         fit_columns_on_grid_load=_GRID_OPTIONS["fit_columns_on_grid_load"],
@@ -171,6 +173,147 @@ def _display_df_grid(df,
  
     return grid_response
 
+# Function to check if the user is the first user (super-user)
+def is_first_user():
+    c.execute(f"SELECT COUNT(*) FROM {TABLE_H7_USER}")
+    count = c.fetchone()[0]
+    st.write(f"[DEBUG] User count: {count}")
+    return count == 0
+
+def check_database_state():
+    st.write("[DEBUG] Checking database state")
+    try:
+        c.execute(f"SELECT COUNT(*) FROM {TABLE_H7_USER}")
+        user_count = c.fetchone()[0]
+        st.write(f"[DEBUG] Total users in database: {user_count}")
+        
+        if user_count > 0:
+            c.execute(f"SELECT * FROM {TABLE_H7_USER}")
+            users = c.fetchall()
+            for user in users:
+                st.write(f"[DEBUG] User: {user}")
+        else:
+            st.write("[DEBUG] No users in database")
+    except Exception as e:
+        st.write(f"[DEBUG] Error checking database state: {str(e)}")
+
+
+# Modified add_user function
+def add_user(email, password, username, is_admin=0, is_active=1, profile="", note=""):
+    st.write("[DEBUG] Entering add_user()")
+    try:
+        hashed_password = hash_password(password)
+        now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        st.write(f"[DEBUG] Before is_first_user check: is_admin={is_admin}")
+        if is_first_user():
+            is_admin = 1
+            st.write("[DEBUG] This is the first user, setting as admin")
+        st.write(f"[DEBUG] After is_first_user check: is_admin={is_admin}")
+        
+        c.execute(f'''
+        INSERT INTO {TABLE_H7_USER} (email, password, username, is_admin, is_active, profile, note, created_by, created_at, updated_by, updated_at)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ''', (email, hashed_password, username, is_admin, is_active, profile, note, email, now, email, now))
+        conn.commit()
+        st.write(f"[DEBUG] User added: email={email}, username={username}, is_admin={is_admin}")
+    except Exception as e:
+        st.write(f"[DEBUG] Error in add_user: {str(e)}")
+        raise e
+    st.write("[DEBUG] Exiting add_user()")
+
+# Function to get all users
+def get_all_users():
+    c.execute(f"SELECT id, email, username, is_admin, is_active, note FROM {TABLE_H7_USER}")
+    return c.fetchall()
+
+# Function to update user
+def update_user(user_id, email, username, is_admin, is_active, profile, note):
+    now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    c.execute(f'''
+    UPDATE {TABLE_H7_USER}
+    SET email=?, username=?, is_admin=?, is_active=?, profile=?, note=?, updated_at=?
+    WHERE id=?
+    ''', (email, username, is_admin, is_active, profile, note, now, user_id))
+    conn.commit()
+
+
+# Function to get user by id
+def get_user_by_id(user_id):
+    c.execute(f"SELECT * FROM {TABLE_H7_USER} WHERE id = ?", (user_id,))
+    return c.fetchone()
+
+# New function for the Edit User page
+def edit_user_page(user_id, is_admin):
+    st.subheader("Edit User")
+    user = get_user_by_id(user_id)
+    if user:
+        email = st.text_input("Email", value=user[1])
+        username = st.text_input("Username", value=user[3])
+        profile = st.text_area("Profile", value=user[6] or "")
+        note = st.text_area("Note", value=user[7] or "")
+        
+        if is_admin:
+            is_admin_flag = st.checkbox("Is Admin", value=bool(user[4]))
+            is_active = st.checkbox("Is Active", value=bool(user[5]))
+        else:
+            is_admin_flag = user[4]
+            is_active = user[5]
+
+        if st.button("Update User"):
+            update_user(user_id, email, username, int(is_admin_flag), int(is_active), profile, note)
+            st.success("User updated successfully")
+            st.rerun()
+
+# New function for the Add User page (admin only)
+def add_user_page():
+    st.subheader("Add User")
+    email = st.text_input("Email")
+    username = st.text_input("Username")
+    password = st.text_input("Password", type="password")
+    confirm_password = st.text_input("Confirm Password", type="password")
+    is_admin = st.checkbox("Is Admin")
+    is_active = st.checkbox("Is Active", value=True)
+    profile = st.text_area("Profile")
+    note = st.text_area("Note")
+
+    if st.button("Add User"):
+        if password != confirm_password:
+            st.error("Passwords do not match")
+        elif email_exists(email):
+            st.error("Email already exists")
+        else:
+            add_user(email, password, username, int(is_admin), int(is_active), profile, note)
+            st.success("User added successfully")
+
+# New function for the Manage Users page (admin only)
+def manage_users_page():
+    st.subheader("Manage Users")
+    users = get_all_users()
+    df = pd.DataFrame(users, columns=["ID", "Email", "Username", "Is Admin", "Is Active", "Note"])
+    grid_resp = _display_df_grid(df, key_name="users_grid")
+
+    selected_rows = grid_resp['selected_rows']
+    if selected_rows is not None and not selected_rows.empty:
+        selected_user = selected_rows.iloc[0]
+        st.subheader(f"Edit User: {selected_user['Username']}")
+        email = st.text_input("Email", value=selected_user['Email'])
+        username = st.text_input("Username", value=selected_user['Username'])
+        is_admin = st.checkbox("Is Admin", value=bool(selected_user['Is Admin']))
+        is_active = st.checkbox("Is Active", value=bool(selected_user['Is Active']))
+        note = st.text_area("Note", value=selected_user['Note'])
+
+        # st.write(f"user_id = {selected_user['ID']}")
+        # user = get_user_by_id(selected_user['ID'])
+        # if user is not None and not user.empty:
+        #     st.write(user)
+        #     profile = st.text_area("Profile", value=user[6] or "")
+        #     note = st.text_area("Note", value=user[7] or "")
+
+        if st.button("Update User"):
+            update_user(selected_user['ID'], email, username, int(is_admin), int(is_active), profile, note)
+            st.success("User updated successfully")
+            st.rerun()
+
 # Function to add data
 def add_task(task_name, description, task_group, is_urgent, is_important, status, pct_completed, due_date, category, note, created_by, created_at, updated_by, updated_at):
     c.execute(f'''
@@ -239,15 +382,6 @@ def delete_task(task_name, user_id):
 def hash_password(password):
     return hashlib.sha256(str.encode(password)).hexdigest()
 
-# Function to add user
-def add_user(email, password, username, is_admin=0, is_active=1, profile="", note=""):
-    hashed_password = hash_password(password)
-    now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    c.execute(f'''
-    INSERT INTO {TABLE_H7_USER} (email, password, username, is_admin, is_active, profile, note, created_by, created_at, updated_by, updated_at)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    ''', (email, hashed_password, username, is_admin, is_active, profile, note, email, now, email, now))
-    conn.commit()
 
 # Function to verify user
 def verify_user(email, password):
@@ -274,32 +408,61 @@ def login_page():
             st.session_state['user_id'] = user[0]
             user_name = user[3]
             st.session_state['username'] = user_name
+            st.session_state['is_admin'] = bool(user[4])
             st.success(f"Logged in as {user_name}")
             st.rerun()
         else:
-            st.error("Incorrect email or password")
+            st.error("Incorrect email or password or account is inactive")
 
 # Registration page
 def registration_page():
     st.subheader("Register")
+    st.write("[DEBUG] Entering registration_page()")
+    
     email = st.text_input("Email")
     username = st.text_input("Username")
     password = st.text_input("Password", type="password")
     confirm_password = st.text_input("Confirm Password", type="password")
     
     if st.button("Register"):
+        st.write("[DEBUG] Register button clicked")
+        
         if password != confirm_password:
             st.error("Passwords do not match")
+            st.write("[DEBUG] Password mismatch")
         elif email_exists(email):
             st.error("Email already exists")
+            st.write("[DEBUG] Email already exists")
         else:
-            add_user(email, password, username)
-            st.success("Registration successful. Please login.")
+            st.write("[DEBUG] About to call add_user()")
+            try:
+                add_user(email, password, username)
+                st.write("[DEBUG] add_user() called successfully")
+                st.success("Registration successful. Please login.")
+                check_database_state()  # Check the database state after registration
+            except Exception as e:
+                st.write(f"[DEBUG] Error in add_user(): {str(e)}")
+                st.error(f"An error occurred during registration: {str(e)}")
+                check_database_state()  # Check the database state even if there's an error
+        
+    st.write("[DEBUG] Exiting registration_page()")
 
 # Main app logic
 def main():
-    st.sidebar.subheader("7 Habits Task Manager")    
+    st.write("[DEBUG] Entering main()")
+
+    st.sidebar.subheader("7 Habits Task Manager")
+
+    # Display debug information
+    c.execute(f"SELECT COUNT(*) FROM {TABLE_H7_USER}")
+    user_count = c.fetchone()[0]
+    st.write(f"[DEBUG] Total users: {user_count}")
     
+    if user_count > 0:
+        c.execute(f"SELECT COUNT(*) FROM {TABLE_H7_USER} WHERE is_admin = 1")
+        admin_count = c.fetchone()[0]
+        st.write(f"[DEBUG] Admin users: {admin_count}")
+
     # Initialize session state
     if 'logged_in' not in st.session_state:
         st.session_state['logged_in'] = False
@@ -311,23 +474,32 @@ def main():
             st.session_state['logged_in'] = False
             st.session_state['user_id'] = None
             st.session_state['username'] = None
+            st.session_state['is_admin'] = False
             st.rerun()
     else:
-
-
         auth_option = st.sidebar.radio("Choose an option", ["Login", "Register"])
         if auth_option == "Login":
             login_page()
         else:
             registration_page()
 
-    # Only show the main app if logged in
+    # Only show the app if logged in
     if not st.session_state['logged_in']:
         return
     
     user_id = st.session_state['user_id']
+    is_admin = st.session_state['is_admin']
     
-    menu = ["Home", "7-Habits-Task View", "View Tasks", "Add Task", "Edit Task", "Delete Task"]
+    menu = ["Home", 
+            "7-Habits-Task View", 
+            "View Tasks", 
+            "Add Task", 
+            "Edit Task", 
+            "Delete Task", 
+            "Edit User"]
+    if is_admin:
+        menu.extend(["Add User", "Manage Users"])
+
     choice = st.sidebar.selectbox("Menu", menu)
 
     if choice == "Home":
@@ -465,8 +637,24 @@ def main():
             st.markdown("##### Important/Un-Urgent (iv)")
             df_4 = filtered_df[(filtered_df['Is Important'] == 'Y') & (filtered_df['Is Urgent'] == 'N')][selected_columns]
             grid_resp_4 = _display_df_grid(df_4, key_name="df_4", page_size=PAGE_SIZE, grid_height=GRID_HEIGHT)
+    elif choice == "Edit User":
+        edit_user_page(user_id, is_admin)
+
+    elif choice == "Add User" and is_admin:
+        add_user_page()
+
+    elif choice == "Manage Users" and is_admin:
+        manage_users_page()
+
+
+def clear_database():
+    c.execute(f"DROP TABLE IF EXISTS {TABLE_H7_USER}")
+    c.execute(f"DROP TABLE IF EXISTS {TABLE_H7_TASK}")
+    conn.commit()
+    st.write("[DEBUG] Database cleared")
 
 if __name__ == '__main__':
+    # clear_database()  # Clear the database
     create_task_table()  # Create tasks table
     create_user_table()  # Create users table
     main()
