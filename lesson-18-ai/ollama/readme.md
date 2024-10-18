@@ -1,5 +1,40 @@
 ## Ollama
 
+
+### Cheatsheet
+
+```
+# status | start | stop
+sudo systemctl status ollama
+sudo systemctl stop ollama
+sudo systemctl start ollama
+sudo systemctl restart ollama
+
+# install at non-default /usr/share/ollama due to space
+export OLLAMA_HOME /opt/ollama
+sudo mkdir -p $OLLAMA_HOME/.ollama
+sudo chown -R $USER:$USER $OLLAMA_HOME/.ollama
+
+# check service config
+sudo nano /etc/systemd/system/ollama.service
+
+# reload
+sudo systemctl daemon-reload
+
+sudo systemctl restart ollama
+sudo systemctl status ollama  # fail to start
+
+# check log
+sudo journalctl -u ollama.service -n 50 --no-pager
+Oct 18 08:25:15 papa-game ollama[237779]: time=2024-10-18T08:25:15.506-04:00 level=INFO source=types.go:107 msg="inference compute" id=GPU-7e54064f-5498-250d-d6f5-696ed48dca43 library=cuda variant=v12 compute=6.1 driver=12.2 name="NVIDIA GeForce GTX 1080 Ti" total="10.9 GiB" available="10.3 GiB"
+
+# fix
+sudo chown -R root:root /opt/ollama/.ollama
+sudo chmod 755 /opt/ollama/.ollama
+sudo usermod -a -G root ollama
+
+```
+
 ### install ollama
 
 ```
