@@ -1,0 +1,1 @@
+delete from habits7_task where created_by = 'h7user1@gmail.com';
