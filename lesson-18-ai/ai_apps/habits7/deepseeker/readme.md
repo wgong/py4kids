@@ -58,8 +58,8 @@ the app-v3.py is pasted here: <pasted>
 
 ## Misc
 ```
-- h7admin@gmail.com
-- h7user1@gmail.com
-- ducklover@gmail.com
+h7admin@gmail.com
+h7user1@gmail.com
+ducklover@gmail.com
 
 ```

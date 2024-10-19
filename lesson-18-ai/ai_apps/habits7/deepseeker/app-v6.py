@@ -12,10 +12,12 @@ Task Management App based on Stephen Covey's 7 Habits of highly effectively peop
 """
 
 import streamlit as st
+
+import re
 from glob import glob
 import sqlite3
 import hashlib
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 import pandas as pd
 from st_aggrid import (
     AgGrid, GridOptionsBuilder, GridUpdateMode, DataReturnMode, JsCode
@@ -34,7 +36,6 @@ LIST_TASK_CATEGORY = ["", "learning", "research", "project", "fun"]
 TABLE_H7_TASK = "habits7_task"
 TABLE_H7_USER = "habits7_user"
 
-
 # Aggrid options
 # how to set column width
 # https://stackoverflow.com/questions/72624323/how-to-set-a-max-column-length-for-streamlit-aggrid
@@ -51,7 +52,11 @@ _GRID_OPTIONS = {
     "enable_pagination": True,
 }
 
-st.set_page_config(layout="wide")
+st.set_page_config(
+    page_title='Habits-7 Tasks',
+    layout="wide",
+    initial_sidebar_state="expanded",
+)
 
 class DBConn(object):
     def __init__(self, db_file=DB_FILE):
@@ -66,10 +71,16 @@ class DBConn(object):
 
 def run_sql(sql_stmt, DEBUG_SQL=False):
     """ 
-    con = sqlite3.connect(DB_FILE, check_same_thread=False)
-    cur = con.cursor()
-    cur.execute(sql_stmt)
-    con.commit()
+    Helper to execute SQL without parametrized columns.
+    Otherwise, create cursor and call execute() API.
+
+        con = sqlite3.connect(DB_FILE, check_same_thread=False)
+        cur = con.cursor()
+        cur.execute(sql_stmt)
+        con.commit()
+
+    Returns:
+        df - pandas dataframe
     """
 
     if DEBUG_SQL:
@@ -79,20 +90,32 @@ def run_sql(sql_stmt, DEBUG_SQL=False):
         with DBConn() as conn:
             if sql_stmt.lower().strip().startswith("select") or \
                 sql_stmt.lower().strip().startswith("with"):
-                return pd.read_sql(sql_stmt, conn)
+                return pd.read_sql_query(sql_stmt, conn)
+                # read_sql_query is more efficient than read_sql
 
             c = conn.cursor()
-            c.executescript(sql_stmt)
+
+            x = [s.strip() for s in sql_stmt.split(";") if s.strip()]
+            if len(x) < 1: 
+                return None 
+            if len(x) > 1:
+                c.executescript(sql_stmt)
+                conn.commit()
+                return None 
+            
+            c.execute(sql_stmt)
+            data = c.fetchall() 
+            columns = [description[0] for description in c.description]
+            df = pd.DataFrame(data, columns=columns)
             conn.commit()
-            return None
+
+            return df
+
     except Exception as e:
         print(f"[DB-ERROR] {str(e)}")
 
-
-
-# Function to create user table
-def create_user_table():
-    sql_stmt = f'''
+CREATE_TABLE_DDL = {
+    TABLE_H7_USER: f'''
     CREATE TABLE IF NOT EXISTS {TABLE_H7_USER} (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         email TEXT NOT NULL UNIQUE,
@@ -107,13 +130,8 @@ def create_user_table():
         updated_by TEXT,
         updated_at TEXT
     )
-    '''
-    with DBConn() as conn:
-        run_sql(sql_stmt, conn)
-
-# Function to create task table
-def create_task_table():
-    sql_stmt = f'''
+    ''',
+    TABLE_H7_TASK: f'''
     CREATE TABLE IF NOT EXISTS {TABLE_H7_TASK} (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         task_name TEXT NOT NULL,
@@ -130,10 +148,35 @@ def create_task_table():
         created_at TEXT,
         updated_by TEXT,
         updated_at TEXT
-    )
-    '''
-    with DBConn() as conn:
-        run_sql(sql_stmt, conn)
+    ''',
+}
+
+def ddl_to_label_dict(ddl, reserved_words=['if', 'not', 'exists', 'table', 'create', 'primary', 'constraint', 'foreign', 'references', 'DEFAULT']):
+    # Convert reserved words to lowercase for case-insensitive comparison
+    reserved_words = [word.strip().lower() for word in reserved_words if word.strip()]
+    
+    # Extract column definitions from DDL
+    # This regex now captures column names that might include underscores
+    column_defs = re.findall(r'(\w+(?:_\w+)*)\s+[\w()]+', ddl)
+    
+    # Function to convert snake_case to Title Case
+    def to_title_case(string):
+        return ' '.join(word.capitalize() for word in string.split('_'))
+    
+    # Create dictionary with column names as keys and title-cased labels as values
+    return {col: to_title_case(col) for col in column_defs if col.lower() not in reserved_words}
+
+COL_LABELS = {k: ddl_to_label_dict(v) for k,v in CREATE_TABLE_DDL.items() }
+
+# Function to create user table
+def create_user_table():
+    sql_stmt = CREATE_TABLE_DDL[TABLE_H7_USER]
+    run_sql(sql_stmt)
+
+# Function to create task table
+def create_task_table():
+    sql_stmt = CREATE_TABLE_DDL[TABLE_H7_TASK]
+    run_sql(sql_stmt)
 
 def _display_df_grid(df, 
         selection_mode="single",  # "multiple", 
@@ -152,7 +195,6 @@ def _display_df_grid(df,
     https://discuss.streamlit.io/t/streamlit-aggrid-version-creating-an-aggrid-with-columns-with-embedded-urls/39640/2
     """
 
-    # gb = GridOptionsBuilder.from_dataframe(df, min_column_width=min_column_width)
     gb = GridOptionsBuilder.from_dataframe(df)
     gb.configure_selection(selection_mode,
             use_checkbox=True,
@@ -169,12 +211,6 @@ def _display_df_grid(df,
         gb.configure_column(k, cellStyle=v)
 
     if clickable_columns:       # config clickable columns
-        ## broken after streamlit-aggrid v0.3.4
-        # cell_renderer_url =  JsCode("""
-        #     function(params) {return `<a href=${params.value} target="_blank">${params.value}</a>`}
-        # """)
-
-        # fix
         cell_renderer_url =  JsCode("""
             class UrlCellRenderer {
                 init(params) {
@@ -201,7 +237,6 @@ def _display_df_grid(df,
         data_return_mode=_GRID_OPTIONS["return_mode_value"],
         update_mode=_GRID_OPTIONS["update_mode_value"],
         height=grid_height, 
-        # width='100%',
         fit_columns_on_grid_load=fit_columns_on_grid_load,
         allow_unsafe_jscode=True, #Set it to True to allow jsfunction to be injected
         key=key_name
@@ -209,30 +244,120 @@ def _display_df_grid(df,
  
     return grid_response
 
+
+def handle_task_form(df, username, key_name):
+    # display task list
+    grid_resp = _display_df_grid(df, key_name=key_name)
+    selected_rows = grid_resp['selected_rows']
+
+    # streamlit-aggrid==1.0.5
+    selected_row = None if selected_rows is None or len(selected_rows) < 1 else selected_rows.to_dict(orient='records')[0]
+    # display task form
+    if selected_row is None:
+        v_id = v_task_name = v_description = v_note = ""
+        v_due_date = date.today() + timedelta(days=5) # .strftime("%Y/%m/%d")
+        v_is_urgent = v_is_important = "N"
+        v_task_group = "Personal"
+        v_status = "ToDo"
+        v_pct_completed = "0%"
+        v_category = ""
+        v_created_by = v_updated_by = username
+        v_created_at = v_updated_at = date.today()
+    else:
+        v_id = selected_row.get("id") 
+        v_task_name = selected_row.get("task_name")
+        v_description = selected_row.get("description")
+        v_note = selected_row.get("note")
+        v_due_date = datetime.strptime(selected_row.get("due_date"), "%Y-%m-%d")
+        v_is_urgent = selected_row.get("is_urgent")
+        v_is_important = selected_row.get("is_important")
+        v_task_group = selected_row.get("task_group")
+        v_status = selected_row.get("status")
+        v_pct_completed = selected_row.get("pct_completed")
+        v_category = selected_row.get("category")
+        v_created_by = selected_row.get("created_by")
+        v_updated_by = selected_row.get("updated_by")
+        v_created_at = datetime.strptime(selected_row.get("created_at"), "%Y-%m-%d")
+        v_updated_at = datetime.strptime(selected_row.get("updated_at"), "%Y-%m-%d")
+
+    col1, col2, col3, col4 = st.columns(4)
+    with col1:
+        task_name = st.text_input(COL_LABELS[TABLE_H7_TASK]['task_name'], value=v_task_name)
+        description = st.text_area(COL_LABELS[TABLE_H7_TASK]['description'],  value=v_description)
+        category = st.selectbox(COL_LABELS[TABLE_H7_TASK]['category'], LIST_TASK_CATEGORY, index=LIST_TASK_CATEGORY.index(v_category))
+
+    with col2:
+        is_urgent = st.selectbox(COL_LABELS[TABLE_H7_TASK]['is_urgent'], LIST_Y_N, index=LIST_Y_N.index(v_is_urgent))
+        is_important = st.selectbox(COL_LABELS[TABLE_H7_TASK]['is_important'], LIST_Y_N, index=LIST_Y_N.index(v_is_important))
+        task_group = st.selectbox(COL_LABELS[TABLE_H7_TASK]['task_group'], LIST_TASK_GROUP, index=LIST_TASK_GROUP.index(v_task_group))
+        status = st.selectbox(COL_LABELS[TABLE_H7_TASK]['status'], LIST_TASK_STATUS, index=LIST_TASK_STATUS.index(v_status))
+
+    with col3:
+        due_date = st.date_input(COL_LABELS[TABLE_H7_TASK]['due_date'],  value=v_due_date)
+        pct_completed = st.selectbox(COL_LABELS[TABLE_H7_TASK]['pct_completed'], LIST_PROGRESS, index=LIST_PROGRESS.index(v_pct_completed))
+        note = st.text_area(COL_LABELS[TABLE_H7_TASK]['note'],  value=v_note)
+
+    with col4:
+        id = st.text_input(COL_LABELS[TABLE_H7_TASK]['id'],  value=v_id, disabled=True)
+        # created_by = st.text_input(COL_LABELS[TABLE_H7_TASK]['created_by'],  value=v_created_by)
+        created_at = st.date_input(COL_LABELS[TABLE_H7_TASK]['created_at'],  value=v_created_at)
+        updated_by = st.text_input(COL_LABELS[TABLE_H7_TASK]['updated_by'],  value=v_updated_by)
+        updated_at = st.date_input(COL_LABELS[TABLE_H7_TASK]['updated_at'],  value=v_updated_at)
+
+    if selected_row is None or not v_id: 
+        c_1, _, _, _ = st.columns(4)
+        with c_1:
+            btn = st.button("Add Task")
+
+        if btn:
+            add_task(task_name, description, task_group, is_urgent, is_important, status, pct_completed, due_date, category, note, username, created_at, username, updated_at)
+            st.success(f"Task Added: {task_name}")
+
+    else:
+        delete_flag = False
+        c_1, _, _, c_2 = st.columns(4)
+        with c_1:
+            btn = st.button("Update Task")
+        with c_2:
+            delete_flag = st.checkbox("Delete?", value=False)
+
+        if btn:
+            if delete_flag:
+                delete_task_by_id(v_id, username)
+                st.success(f"Task Deleted: {v_id}")
+            else:
+                edit_task_by_id(task_name, description, task_group, is_urgent, is_important, status, pct_completed, due_date, category, note, updated_by, updated_at, 
+                    v_id, username)
+                st.success(f"Task Updated: {v_id}")
+
+
 # Function to check if the user is the first user (super-user)
 def is_first_user():
-    with DBConn() as conn:
-        c = conn.cursor()
-        c.execute(f"SELECT COUNT(*) FROM {TABLE_H7_USER}")
-        count = c.fetchone()[0]
+    sql_stmt = f"SELECT COUNT(*) FROM {TABLE_H7_USER}"
+    df = run_sql(sql_stmt)
+    if df is not None and not df.empty:
+        count = df.iloc[0,0]
         return count == 0
-
+    else:
+        raise Exception(f"Table missing: {TABLE_H7_USER}")
+    
 def check_database_state():
     st.write("[DEBUG] Checking database state")
     try:
-        with DBConn() as conn:
-            c = conn.cursor()
-            c.execute(f"SELECT COUNT(*) FROM {TABLE_H7_USER}")
-            user_count = c.fetchone()[0]
+        sql_stmt = f"SELECT COUNT(*) FROM {TABLE_H7_USER}"
+        df = run_sql(sql_stmt)
+        user_count = 0
+        if df is not None and not df.empty:
+            user_count = df.iloc[0,0]
             st.write(f"[DEBUG] Total users in database: {user_count}")
-            
-            if user_count > 0:
-                c.execute(f"SELECT * FROM {TABLE_H7_USER}")
-                users = c.fetchall()
-                for user in users:
-                    st.write(f"[DEBUG] User: {user}")
-            else:
-                st.write("[DEBUG] No users in database")
+
+        if user_count > 0:
+            sql_stmt = f"SELECT * FROM {TABLE_H7_USER}"
+            df2 = run_sql(sql_stmt)
+            st.dataframe(df2)
+        else:
+            st.write("[DEBUG] No users in database")
+
     except Exception as e:
         st.write(f"[DEBUG] Error checking database state: {str(e)}")
 
@@ -256,10 +381,13 @@ def add_user(email, password, username, is_admin=0, is_active=1, profile="", not
 
 # Function to get all users
 def get_all_users():
-    with DBConn() as conn:
-        c = conn.cursor()
-        c.execute(f"SELECT id, email, username, is_admin, is_active, profile, note FROM {TABLE_H7_USER}")
-        return c.fetchall()
+    sql_stmt = f"SELECT id, email, username, is_admin, is_active, profile, note FROM {TABLE_H7_USER}"
+    df = run_sql(sql_stmt)
+    return df
+    # with DBConn() as conn:
+    #     c = conn.cursor()
+    #     c.execute()
+    #     return c.fetchall()
 
 # Function to update user
 def update_user(username, email, is_admin, is_active, profile, note):
@@ -286,21 +414,22 @@ def edit_user_page(username, is_admin):
     st.subheader("Edit User")
     user = get_user_by_id(username)
     if user:
-        c1, c2 = st.columns(2)
+        c1, c2,c3 = st.columns([2,2,1])
         with c1:
             email = st.text_input("Email", value=user[1])
-            username = st.text_input("Username", value=user[3])
             profile = st.text_area("Profile", value=user[6] or "")
 
         with c2:
+            username = st.text_input("Username", value=user[3])
+            note = st.text_area("Note", value=user[7] or "")            
+
+        with c3:
             if is_admin:
                 is_admin_flag = st.checkbox("Is Admin", value=bool(user[4]))
                 is_active = st.checkbox("Is Active", value=bool(user[5]))
             else:
                 is_admin_flag = user[4]
                 is_active = user[5]
-
-            note = st.text_area("Note", value=user[7] or "")            
 
         if st.button("Update User"):
             update_user(username, email, int(is_admin_flag), int(is_active), profile, note)
@@ -310,14 +439,21 @@ def edit_user_page(username, is_admin):
 # New function for the Add User page (admin only)
 def add_user_page():
     st.subheader("Add User")
-    email = st.text_input("Email")
-    username = st.text_input("Username")
-    password = st.text_input("Password", type="password")
-    confirm_password = st.text_input("Confirm Password", type="password")
-    is_admin = st.checkbox("Is Admin")
-    is_active = st.checkbox("Is Active", value=True)
-    profile = st.text_area("Profile")
-    note = st.text_area("Note")
+    col_name = 'email'
+    email = st.text_input(COL_LABELS[TABLE_H7_USER][col_name])
+    col_name = 'username'
+    username = st.text_input(COL_LABELS[TABLE_H7_USER][col_name])
+    col_name = 'password'
+    password = st.text_input(COL_LABELS[TABLE_H7_USER][col_name], type="password")
+    confirm_password = st.text_input(f"Confirm {COL_LABELS[TABLE_H7_USER][col_name]}", type="password")
+    col_name = 'is_admin'
+    is_admin = st.checkbox(COL_LABELS[TABLE_H7_USER][col_name])
+    col_name = 'is_active'
+    is_active = st.checkbox(COL_LABELS[TABLE_H7_USER][col_name], value=True)
+    col_name = 'profile'
+    profile = st.text_area(COL_LABELS[TABLE_H7_USER][col_name])
+    col_name = 'note'
+    note = st.text_area(COL_LABELS[TABLE_H7_USER][col_name])
 
     if st.button("Add User"):
         if password != confirm_password:
@@ -331,26 +467,31 @@ def add_user_page():
 # New function for the Manage Users page (admin only)
 def manage_users_page():
     st.subheader("Manage Users")
-    users = get_all_users()
-    st.dataframe(users)
-    df = pd.DataFrame(users, columns=["ID", "Email", "Username", "Is Admin", "Is Active", "Profile", "Note"])
-    grid_resp = _display_df_grid(df, key_name="users_grid")
+    df = get_all_users()
+    grid_resp = _display_df_grid(df, key_name=f"{TABLE_H7_USER}_grid")
 
     selected_rows = grid_resp['selected_rows']
     if selected_rows is not None and not selected_rows.empty:
         selected_user = selected_rows.iloc[0]
-        st.subheader(f"Edit User: {selected_user['Username']}")
+        st.subheader(f"Edit User: {selected_user['username']}")
         c1, c2 = st.columns(2)
         with c1:
-            email = st.text_input("Email", value=selected_user['Email'])
-            username = st.text_input("Username", value=selected_user['Username'])
-            profile = st.text_area("Profile", value=selected_user['Profile'])
+            col_name = 'email'
+            email = st.text_input(COL_LABELS[TABLE_H7_USER][col_name], value=selected_user[col_name])
+            col_name = 'username'
+            username = st.text_input(COL_LABELS[TABLE_H7_USER][col_name], value=selected_user[col_name])
+            col_name = 'profile'
+            profile = st.text_area(COL_LABELS[TABLE_H7_USER][col_name], value=selected_user[col_name])
 
         with c2:
-            user_id = st.text_input("ID", value=selected_user['ID'], disabled=True)
-            is_admin = st.checkbox("Is Admin", value=bool(selected_user['Is Admin']))
-            is_active = st.checkbox("Is Active", value=bool(selected_user['Is Active']))
-            note = st.text_area("Note", value=selected_user['Note'])
+            col_name = 'id'
+            user_id = st.text_input(COL_LABELS[TABLE_H7_USER][col_name], value=selected_user[col_name], disabled=True)
+            col_name = 'is_admin'
+            is_admin = st.checkbox(COL_LABELS[TABLE_H7_USER][col_name], value=bool(selected_user[col_name]))
+            col_name = 'is_active'
+            is_active = st.checkbox(COL_LABELS[TABLE_H7_USER][col_name], value=bool(selected_user[col_name]))
+            col_name = 'note'
+            note = st.text_area(COL_LABELS[TABLE_H7_USER][col_name], value=selected_user[col_name])
 
         if st.button("Update User"):
             update_user(username, email, int(is_admin), int(is_active), profile, note)
@@ -368,65 +509,65 @@ def add_task(task_name, description, task_group, is_urgent, is_important, status
 
 # Function to view all data
 def view_all_tasks(username):
-    with DBConn() as conn:
-        c = conn.cursor()
-        c.execute(f'''
-            SELECT * FROM {TABLE_H7_TASK} where created_by = ? order by task_name;
-        ''', (username,))
-        return c.fetchall()
+    sql_stmt = f'''
+        SELECT * FROM {TABLE_H7_TASK} where created_by = '{username}' order by task_name;
+    '''
+    return run_sql(sql_stmt)
 
 # Function to view all task names
 def view_all_task_names(username):
-    with DBConn() as conn:
-        c = conn.cursor()
-        c.execute(f'''
-            SELECT task_name, id FROM {TABLE_H7_TASK} where created_by = ? order by task_name;
-        ''', (username,)
-        )
-        return c.fetchall()
+    sql_stmt = f'''
+        SELECT task_name, id FROM {TABLE_H7_TASK} where created_by = '{username}' order by task_name;
+    '''
+    return run_sql(sql_stmt)
 
 # Function to get task by name
 def get_task_by_name(task_name, username):
-    with DBConn() as conn:
-        c = conn.cursor()
-        c.execute(f'''
-            SELECT * FROM {TABLE_H7_TASK} WHERE task_name=? and created_by=?
-        ''', (task_name,username)
-        )
-        return c.fetchall()
+    # TODO - escape single quote in task_name
+    sql_stmt = f'''
+        SELECT * FROM {TABLE_H7_TASK} where task_name='{task_name}' and created_by = '{username}' order by task_name;
+    '''
+    return run_sql(sql_stmt)
 
 def get_task_by_id(task_id, username):
-    with DBConn() as conn:
-        c = conn.cursor()
-        c.execute(f'''
-            SELECT * FROM {TABLE_H7_TASK} WHERE id=? and created_by=?
-        ''', (task_id,username)
-        )
-        return c.fetchall()
+    sql_stmt = f'''
+        SELECT * FROM {TABLE_H7_TASK} where id={task_id} and created_by = '{username}' order by task_name;
+    '''
+    return run_sql(sql_stmt)
 
 # Function to get task by status
 def get_task_by_status(status, username):
-    with DBConn() as conn:
-        c = conn.cursor()
-        c.execute(f'''
-            SELECT * FROM {TABLE_H7_TASK} WHERE status=? and created_by=?
-        ''', (status, username))
-        return c.fetchall()
+    sql_stmt = f'''
+        SELECT * FROM {TABLE_H7_TASK} where status={status} and created_by = '{username}' order by task_name;
+    '''
+    return run_sql(sql_stmt)
 
 # Function to edit task data
-def edit_task(new_task_name, new_description, new_task_group, new_is_urgent, new_is_important, new_status, new_pct_completed, new_due_date, new_category, new_note, new_updated_by, new_updated_at, task_name, username):
+# def edit_task(new_task_name, new_description, new_task_group, new_is_urgent, new_is_important, new_status, new_pct_completed, new_due_date, new_category, new_note, new_updated_by, new_updated_at, task_name, username):
+#     with DBConn() as conn:
+#         c = conn.cursor()
+#         c.execute(f'''
+#             UPDATE {TABLE_H7_TASK} 
+#             SET task_name=?, description=?, task_group=?, is_urgent=?, is_important=?, status=?, pct_completed=?, due_date=?, category=?, note=?, updated_by=?, updated_at=?
+#             WHERE task_name=? and created_by=?
+#         ''', (new_task_name, new_description, new_task_group, new_is_urgent, new_is_important, new_status, new_pct_completed, new_due_date, new_category, new_note, new_updated_by, new_updated_at
+#             , task_name, username)
+#         )
+#         return c.fetchall()
+
+
+def edit_task_by_id(new_task_name, new_description, new_task_group, new_is_urgent, new_is_important, new_status, new_pct_completed, new_due_date, new_category, new_note, new_updated_by, new_updated_at, id, username):
     with DBConn() as conn:
         c = conn.cursor()
         c.execute(f'''
             UPDATE {TABLE_H7_TASK} 
             SET task_name=?, description=?, task_group=?, is_urgent=?, is_important=?, status=?, pct_completed=?, due_date=?, category=?, note=?, updated_by=?, updated_at=?
-            WHERE task_name=? and created_by=?
+            WHERE id=? and created_by=?
         ''', (new_task_name, new_description, new_task_group, new_is_urgent, new_is_important, new_status, new_pct_completed, new_due_date, new_category, new_note, new_updated_by, new_updated_at
-            , task_name, username)
+            , id, username)
         )
         return c.fetchall()
 
-import re
 
 def parse_task_id(task_string):
 	# Regular expression pattern
@@ -445,20 +586,17 @@ def parse_task_id(task_string):
 		return None, None
 
 # Function to delete data
-def delete_task(task_name, username):
-    with DBConn() as conn:
-        c = conn.cursor()
-        c.execute(f'''
-            DELETE FROM {TABLE_H7_TASK} WHERE task_name=? and created_by=?
-        ''', (task_name,username))
+# def delete_task(task_name, username):
+#     sql_stmt = f'''
+#         DELETE FROM {TABLE_H7_TASK} where task_name='{task_name}' and created_by = '{username}';
+#     '''
+#     return run_sql(sql_stmt)
 
 def delete_task_by_id(task_id, username):
-    with DBConn() as conn:
-        c = conn.cursor()
-        c.execute(f'''
-            DELETE FROM {TABLE_H7_TASK} WHERE id=? and created_by=?
-        ''', (task_id,username))
-
+    sql_stmt = f'''
+        DELETE FROM {TABLE_H7_TASK} where id={task_id} and created_by = '{username}';
+    '''
+    return run_sql(sql_stmt)
 
 
 # Function to hash password
@@ -486,11 +624,8 @@ def email_exists(email):
 # Login page
 def login_page():
     st.subheader("Login")
-    c1, c2 = st.columns(2)
-    with c1:
-        email = st.text_input("Email")
-    with c2:
-        password = st.text_input("Password", type="password")
+    email = st.text_input("Email")
+    password = st.text_input("Password", type="password")
     if st.button("Login"):
         user = verify_user(email, password)
         st.write(user)
@@ -514,8 +649,7 @@ def registration_page():
     password = st.text_input("Password", type="password")
     confirm_password = st.text_input("Confirm Password", type="password")
     
-    if st.button("Register"):
-        
+    if st.button("Register"):      
         if password != confirm_password:
             st.error("Passwords do not match")
         elif email_exists(email):
@@ -575,18 +709,21 @@ def main():
         return
     
     username = st.session_state['username']
-
     is_admin = st.session_state['is_admin']
     
-    menu = ["Home", 
-            "7-Habits-Task View", 
-            "View Tasks", 
-            "Add Task", 
-            "Edit Task", 
-            "Delete Task", 
-            "Edit User"]
+    menu = [
+        "Home", 
+        "7-Habits-Task View", 
+        "Manage Tasks", 
+        "Edit User"
+    ]
     if is_admin:
-        menu.extend(["Add User", "Manage Users", "Manage Tasks"])
+        menu_admin = [
+            "Add User", 
+            "Manage Users", 
+            "Admin Tasks"
+        ] 
+        menu.extend(menu_admin)
 
     choice = st.sidebar.selectbox("Menu", menu)
 
@@ -595,147 +732,50 @@ def main():
         st.write("Welcome to the 7 Habits Task Manager. Use the sidebar to navigate through the app.")
         st.write("[Learn more about the 7 Habits of Highly Effective People](https://en.wikipedia.org/wiki/The_7_Habits_of_Highly_Effective_People)")
 
-    elif choice == "Add Task":
-        st.subheader("Add a New Task")
-        col1, col2, col3 = st.columns(3)
-
-        with col1:
-            task_name = st.text_input("Task Name")
-            description = st.text_area("Description")
-            due_date = st.date_input("Due Date", value=date.today()).strftime("%Y/%m/%d")
-            is_urgent = st.selectbox("Is Urgent?", LIST_Y_N)
-            is_important = st.selectbox("Is Important?", LIST_Y_N)
-
-        with col2:
-            task_group = st.selectbox("Task Group", LIST_TASK_GROUP)
-            status = st.selectbox("Status", LIST_TASK_STATUS)
-            pct_completed = st.selectbox("Percentage Completed", LIST_PROGRESS)
-            category = st.selectbox("Category", LIST_TASK_CATEGORY)
-            note = st.text_area("Note")
-
-        with col3:
-            created_by = st.text_input("Created By")
-            created_at = st.text_input("Created At")
-            updated_by = st.text_input("Updated By")
-            updated_at = st.text_input("Updated At")
-
-        if st.button("Add Task"):
-            add_task(task_name, description, task_group, is_urgent, is_important, status, pct_completed, due_date, category, note, username, created_at, username, updated_at)
-            st.success("Task Added: {}".format(task_name))
-
-    elif choice == "View Tasks":
-        st.subheader("View All Tasks")
-        result = view_all_tasks(username)
-        df = pd.DataFrame(result, columns=["ID", "Task Name", "Description", "Task Group", "Is Urgent", "Is Important", "Status", "Percentage Completed", "Due Date", "Category", "Note", "Created By", "Created At", "Updated By", "Updated At"])      
-        grid_resp = _display_df_grid(df)
-
-    elif choice == "Edit Task":
-        st.subheader("Edit Task")
-        task_name_id = st.selectbox("Select Task", [f"{task[0]} [{task[1]}]" for task in view_all_task_names(username)])
-        task_name, task_id = parse_task_id(task_name_id)
-        task_data = get_task_by_id(task_id, username)
-        # task_data = get_task_by_name(task_name, username)
-        if task_data:
-            task_id = task_data[0][0]
-            task_name = task_data[0][1]
-            description = task_data[0][2]
-            task_group = task_data[0][3]
-            is_urgent = task_data[0][4]
-            is_important = task_data[0][5]
-            status = task_data[0][6]
-            pct_completed = task_data[0][7]
-            due_date = task_data[0][8]
-            category = task_data[0][9]
-            note = task_data[0][10]
-            created_by = task_data[0][11]
-            created_at = task_data[0][12]
-            updated_by = task_data[0][13]
-            updated_at = task_data[0][14]
-
-            col1, col2, col3 = st.columns(3)
-
-            with col1:
-                new_task_name = st.text_input("Task Name", task_name)
-                new_description = st.text_area("Description", description)
-                new_due_date = st.date_input("Due Date", value=date.today()).strftime("%Y/%m/%d")  # 
-                new_is_urgent = st.selectbox("Is Urgent?", LIST_Y_N, index=LIST_Y_N.index(is_urgent))
-                new_is_important = st.selectbox("Is Important?", LIST_Y_N, index=LIST_Y_N.index(is_important))
-
-            with col2:
-                new_task_group = st.selectbox("Task Group", LIST_TASK_GROUP, index=LIST_TASK_GROUP.index(task_group))
-                new_status = st.selectbox("Status", LIST_TASK_STATUS, index=LIST_TASK_STATUS.index(status))
-                new_pct_completed = st.selectbox("Percentage Completed", LIST_PROGRESS, index=LIST_PROGRESS.index(pct_completed))
-                new_category = st.selectbox("Category", LIST_TASK_CATEGORY, index=LIST_TASK_CATEGORY.index(category))
-                new_note = st.text_area("Note", note)
-
-            with col3:
-                st.text_input("ID", task_id, disabled=True)
-                st.text_input("Created By", created_by, disabled=True)
-                st.text_input("Created At", updated_at, disabled=True)
-                new_updated_by = st.text_input("Updated By", updated_by)
-                new_updated_at = st.text_input("Updated At", updated_at)
-
-            if st.button("Update Task"):
-                edit_task(new_task_name, new_description, new_task_group, new_is_urgent, new_is_important, new_status, new_pct_completed, new_due_date, new_category, new_note, new_updated_by, new_updated_at, 
-                        task_name, username)
-                st.success("Task Updated: {}".format(new_task_name))
-
-    elif choice == "Delete Task":
-        st.subheader("Delete Task")
-        task_name_id = st.selectbox("Select Task", [f"{task[0]} [{task[1]}]" for task in view_all_task_names(username)])
-        if st.button("Delete Task"):
-            task_name, task_id = parse_task_id(task_name_id)
-            if task_id is not None:
-                delete_task_by_id(task_id, username)
-                # delete_task(task_name, username)
-                st.success("Task Deleted: {}".format(task_name_id))
-            else:
-                st.warning(f"failed to parse task_id from {task_name_id}")
+    elif choice == "Manage Tasks":
+        st.subheader("Manage Tasks")
+        df = view_all_tasks(username)
+        handle_task_form(df, username, key_name="task_df_all")
 
     elif choice == "7-Habits-Task View":
         st.subheader("7 Habits View")
 
         # Filters
-        task_groups = LIST_TASK_GROUP
-        statuses = LIST_TASK_STATUS
         f_1, f_2 = st.columns(2)
         with f_1:
-            selected_task_groups = st.multiselect("Filter by Task Group", task_groups, default=["Personal"])
-            # st.write(selected_task_groups)
+            selected_task_groups = st.multiselect("Filter by Task Group", LIST_TASK_GROUP, default=["Personal"])
         with f_2:
-            selected_statuses = st.multiselect("Filter by Status", statuses, default=["ToDo", "Doing"])
-            # st.write(selected_statuses)
+            selected_statuses = st.multiselect("Filter by Status", LIST_TASK_STATUS, default=["ToDo", "Doing"])
 
         # Fetch all tasks
-        all_tasks = view_all_tasks(username)
-        df = pd.DataFrame(all_tasks, columns=["ID", "Task Name", "Description", "Task Group", "Is Urgent", "Is Important", "Status", "Percentage Completed", "Due Date", "Category", "Note", "Created By", "Created At", "Updated By", "Updated At"])
-
+        df_all = view_all_tasks(username)
         # Apply filters
-        filtered_df = df[(df['Task Group'].isin(selected_task_groups)) & (df['Status'].isin(selected_statuses))]
+        df = df_all[(df_all['task_group'].isin(selected_task_groups)) & (df_all['status'].isin(selected_statuses))]
+        selected_cols = ["task_name", "status", "task_group", "description", "id"]
 
-        selected_columns = ["Task Name", "Description", "ID"]
         # Display quadrants in a 2x2 grid layout
         row1_col1, row1_col2 = st.columns(2)
         with row1_col1:
             st.markdown("##### Un-Important/Urgent (ii)")
-            df_2 = filtered_df[(filtered_df['Is Important'] == 'N') & (filtered_df['Is Urgent'] == 'Y')][selected_columns]
+            df_2 = df[(df['is_important'] == 'N') & (df['is_urgent'] == 'Y')][selected_cols]
             grid_resp_2 = _display_df_grid(df_2, key_name="df_2", page_size=PAGE_SIZE, grid_height=GRID_HEIGHT)
 
         with row1_col2:
             st.markdown("##### Important/Urgent (i)")
-            df_1 = filtered_df[(filtered_df['Is Important'] == 'Y') & (filtered_df['Is Urgent'] == 'Y')][selected_columns]
+            df_1 = df[(df['is_important'] == 'Y') & (df['is_urgent'] == 'Y')][selected_cols]
             grid_resp_1 = _display_df_grid(df_1, key_name="df_1", page_size=PAGE_SIZE, grid_height=GRID_HEIGHT)
 
         row2_col1, row2_col2 = st.columns(2)
         with row2_col1:
             st.markdown("##### Un-Important/Un-Urgent (iii)")
-            df_3 = filtered_df[(filtered_df['Is Important'] == 'N') & (filtered_df['Is Urgent'] == 'N')][selected_columns]
+            df_3 = df[(df['is_important'] == 'N') & (df['is_urgent'] == 'N')][selected_cols]
             grid_resp_3 = _display_df_grid(df_3, key_name="df_3", page_size=PAGE_SIZE, grid_height=GRID_HEIGHT)
 
         with row2_col2:
             st.markdown("##### Important/Un-Urgent (iv)")
-            df_4 = filtered_df[(filtered_df['Is Important'] == 'Y') & (filtered_df['Is Urgent'] == 'N')][selected_columns]
+            df_4 = df[(df['is_important'] == 'Y') & (df['is_urgent'] == 'N')][selected_cols]
             grid_resp_4 = _display_df_grid(df_4, key_name="df_4", page_size=PAGE_SIZE, grid_height=GRID_HEIGHT)
+
     elif choice == "Edit User":
         edit_user_page(username, is_admin)
 
@@ -745,10 +785,10 @@ def main():
     elif choice == "Manage Users" and is_admin:
         manage_users_page()
 
-    elif choice == "Manage Tasks" and is_admin:
-        manage_sample_tasks_page()
+    elif choice == "Admin Tasks" and is_admin:
+        admin_tasks_page()
 
-def manage_sample_tasks_page():
+def admin_tasks_page():
     selected_script_path = st.selectbox("Select script", glob("tests/*.sql"))
     sql_stmt = open(selected_script_path).read()
     st.text_area("Review", value=sql_stmt, disabled=True)
