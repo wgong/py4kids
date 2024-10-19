@@ -45,5 +45,11 @@ streamlit run app.py
 ```
 
 
+# FORK
+
+wgong/ssadata is forked from vanna-ai/vanna (v0.7.4)
+
+local: ~/projects/wgong/ssadata
+
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
