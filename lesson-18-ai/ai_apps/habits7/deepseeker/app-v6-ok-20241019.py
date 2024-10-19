@@ -384,7 +384,10 @@ def get_all_users():
     sql_stmt = f"SELECT id, email, username, is_admin, is_active, profile, note FROM {TABLE_H7_USER}"
     df = run_sql(sql_stmt)
     return df
-
+    # with DBConn() as conn:
+    #     c = conn.cursor()
+    #     c.execute()
+    #     return c.fetchall()
 
 # Function to update user
 def update_user(username, email, is_admin, is_active, profile, note):
@@ -597,13 +600,10 @@ def parse_task_id(task_string):
 #     return run_sql(sql_stmt)
 
 def delete_task_by_id(task_id, username):
-    try:
-        sql_stmt = f'''
-            DELETE FROM {TABLE_H7_TASK} where id={task_id} and created_by = '{username}';
-        '''
-        return run_sql(sql_stmt)
-    except Exception as e:
-        print(f"[DB-ERROR] {str(e)}")
+    sql_stmt = f'''
+        DELETE FROM {TABLE_H7_TASK} where id={task_id} and created_by = '{username}';
+    '''
+    return run_sql(sql_stmt)
 
 
 # Function to hash password
@@ -614,14 +614,11 @@ def hash_password(password):
 # Function to verify user
 def verify_user(email, password):
     hashed_password = hash_password(password)
-    try:
-        with DBConn() as conn:
-            c = conn.cursor()
-            c.execute(f"SELECT * FROM {TABLE_H7_USER} WHERE email = ? AND password = ?", (email, hashed_password))
-            user = c.fetchone()
-            return user
-    except Exception as e:
-        print(f"[DB-ERROR] {str(e)}")
+    with DBConn() as conn:
+        c = conn.cursor()
+        c.execute(f"SELECT * FROM {TABLE_H7_USER} WHERE email = ? AND password = ?", (email, hashed_password))
+        user = c.fetchone()
+        return user
 
 # Function to check if email exists
 def email_exists(email):
