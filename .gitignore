@@ -31,10 +31,10 @@
 **/*.sqlite
 **/*.parquet
 **/GScholar_*.json
-**/*.csv
+# **/*.csv
 **/*.gz
 **/metastore_db/
-**/data/
+# **/data/
 **/spark-warehouse/
 # **/*.json
 **/database.ini

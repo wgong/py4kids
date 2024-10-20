@@ -1,0 +1,74 @@
+{
+    "physicsResources": [
+      {
+        "name": "Khan Academy Physics",
+        "type": "Online Course",
+        "description": "Free comprehensive physics courses covering various topics from basic to advanced levels.",
+        "url": "https://www.khanacademy.org/science/physics",
+        "skillLevels": ["Novice", "Beginner", "Intermediate"]
+      },
+      {
+        "name": "MIT OpenCourseWare",
+        "type": "University Lectures",
+        "description": "Free access to MIT's undergraduate and graduate-level physics course materials.",
+        "url": "https://ocw.mit.edu/courses/physics/",
+        "skillLevels": ["Intermediate", "Advanced", "Expert"]
+      },
+      {
+        "name": "Physics Classroom",
+        "type": "Interactive Tutorials",
+        "description": "Comprehensive physics tutorials with interactive simulations and problem-solving exercises.",
+        "url": "https://www.physicsclassroom.com/",
+        "skillLevels": ["Novice", "Beginner", "Intermediate"]
+      },
+      {
+        "name": "Feynman Lectures on Physics",
+        "type": "Textbook",
+        "description": "Classic physics lectures by Richard Feynman, covering a wide range of topics.",
+        "url": "https://www.feynmanlectures.caltech.edu/",
+        "skillLevels": ["Intermediate", "Advanced", "Expert"]
+      },
+      {
+        "name": "PhET Interactive Simulations",
+        "type": "Simulations",
+        "description": "Free interactive physics simulations to visualize and explore various concepts.",
+        "url": "https://phet.colorado.edu/en/simulations/category/physics",
+        "skillLevels": ["Novice", "Beginner", "Intermediate"]
+      },
+      {
+        "name": "edX Physics Courses",
+        "type": "Online Course",
+        "description": "A variety of physics courses from top universities, ranging from introductory to advanced topics.",
+        "url": "https://www.edx.org/learn/physics",
+        "skillLevels": ["Beginner", "Intermediate", "Advanced"]
+      },
+      {
+        "name": "HyperPhysics",
+        "type": "Reference",
+        "description": "Comprehensive physics reference with concept maps and detailed explanations.",
+        "url": "http://hyperphysics.phy-astr.gsu.edu/hbase/hph.html",
+        "skillLevels": ["Beginner", "Intermediate", "Advanced"]
+      },
+      {
+        "name": "Brilliant.org Physics",
+        "type": "Interactive Course",
+        "description": "Problem-solving based courses covering various physics topics with increasing difficulty.",
+        "url": "https://brilliant.org/courses/#/science/physics",
+        "skillLevels": ["Beginner", "Intermediate", "Advanced"]
+      },
+      {
+        "name": "ArXiv Physics",
+        "type": "Research Papers",
+        "description": "Open-access archive for scholarly articles in physics and related fields.",
+        "url": "https://arxiv.org/archive/physics",
+        "skillLevels": ["Advanced", "Expert"]
+      },
+      {
+        "name": "Physics Stack Exchange",
+        "type": "Q&A Forum",
+        "description": "Community-driven question and answer site for physics researchers, academics, and students.",
+        "url": "https://physics.stackexchange.com/",
+        "skillLevels": ["Intermediate", "Advanced", "Expert"]
+      }
+    ]
+  }

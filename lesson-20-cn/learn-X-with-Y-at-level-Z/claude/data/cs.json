@@ -1,0 +1,314 @@
+{
+    "computer_science": {
+      "novice": [
+        {
+          "name": "Code.org",
+          "type": "Website",
+          "description": "Interactive programming courses for beginners",
+          "url": "https://code.org/"
+        },
+        {
+          "name": "Scratch",
+          "type": "Visual Programming Language",
+          "description": "Block-based programming platform for beginners",
+          "url": "https://scratch.mit.edu/"
+        },
+        {
+          "name": "Khan Academy - Computer Programming",
+          "type": "Online Course",
+          "description": "Free courses on basic programming concepts",
+          "url": "https://www.khanacademy.org/computing/computer-programming"
+        },
+        {
+          "name": "Codecademy - Learn How to Code",
+          "type": "Online Course",
+          "description": "Interactive coding courses for various languages",
+          "url": "https://www.codecademy.com/learn/learn-how-to-code"
+        },
+        {
+          "name": "Hour of Code",
+          "type": "Website",
+          "description": "One-hour coding tutorials for beginners",
+          "url": "https://hourofcode.com/"
+        },
+        {
+          "name": "CS Unplugged",
+          "type": "Website",
+          "description": "Computer science concepts taught without computers",
+          "url": "https://csunplugged.org/"
+        },
+        {
+          "name": "Tynker",
+          "type": "Platform",
+          "description": "Coding platform for kids",
+          "url": "https://www.tynker.com/"
+        },
+        {
+          "name": "Grasshopper",
+          "type": "Mobile App",
+          "description": "Learn JavaScript through fun, quick lessons",
+          "url": "https://grasshopper.app/"
+        },
+        {
+          "name": "Code Combat",
+          "type": "Game",
+          "description": "Learn coding through an RPG-style game",
+          "url": "https://codecombat.com/"
+        },
+        {
+          "name": "Blockly Games",
+          "type": "Website",
+          "description": "Educational games for tomorrow's programmers",
+          "url": "https://blockly.games/"
+        }
+      ],
+      "beginner": [
+        {
+          "name": "freeCodeCamp",
+          "type": "Website",
+          "description": "Free coding bootcamp and certifications",
+          "url": "https://www.freecodecamp.org/"
+        },
+        {
+          "name": "Coursera - Python for Everybody",
+          "type": "Online Course",
+          "description": "Introductory Python programming course",
+          "url": "https://www.coursera.org/specializations/python"
+        },
+        {
+          "name": "edX - CS50's Introduction to Computer Science",
+          "type": "Online Course",
+          "description": "Harvard's introduction to computer science",
+          "url": "https://www.edx.org/course/introduction-computer-science-harvardx-cs50x"
+        },
+        {
+          "name": "The Odin Project",
+          "type": "Website",
+          "description": "Free full stack curriculum",
+          "url": "https://www.theodinproject.com/"
+        },
+        {
+          "name": "Automate the Boring Stuff with Python",
+          "type": "Book/Website",
+          "description": "Practical programming for beginners",
+          "url": "https://automatetheboringstuff.com/"
+        },
+        {
+          "name": "Codecademy - Learn Python 3",
+          "type": "Online Course",
+          "description": "Interactive Python course",
+          "url": "https://www.codecademy.com/learn/learn-python-3"
+        },
+        {
+          "name": "W3Schools",
+          "type": "Website",
+          "description": "Web development tutorials and references",
+          "url": "https://www.w3schools.com/"
+        },
+        {
+          "name": "Eloquent JavaScript",
+          "type": "Book",
+          "description": "Introduction to JavaScript and programming",
+          "url": "https://eloquentjavascript.net/"
+        },
+        {
+          "name": "GeeksforGeeks",
+          "type": "Website",
+          "description": "Computer science portal with tutorials and practice",
+          "url": "https://www.geeksforgeeks.org/"
+        },
+        {
+          "name": "Sololearn",
+          "type": "Mobile App/Website",
+          "description": "Learn coding basics on the go",
+          "url": "https://www.sololearn.com/"
+        }
+      ],
+      "intermediate": [
+        {
+          "name": "MIT OpenCourseWare - Introduction to Algorithms",
+          "type": "Online Course",
+          "description": "Comprehensive algorithms course from MIT",
+          "url": "https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-006-introduction-to-algorithms-fall-2011/"
+        },
+        {
+          "name": "Coursera - Machine Learning by Andrew Ng",
+          "type": "Online Course",
+          "description": "Foundational machine learning course",
+          "url": "https://www.coursera.org/learn/machine-learning"
+        },
+        {
+          "name": "LeetCode",
+          "type": "Website",
+          "description": "Platform for coding interview preparation",
+          "url": "https://leetcode.com/"
+        },
+        {
+          "name": "Clean Code",
+          "type": "Book",
+          "description": "Guide to writing maintainable code by Robert C. Martin",
+          "url": "https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882"
+        },
+        {
+          "name": "FreeCodeCamp - Data Structures and Algorithms",
+          "type": "YouTube Course",
+          "description": "In-depth video course on DS&A",
+          "url": "https://www.youtube.com/watch?v=RBSGKlAvoiM"
+        },
+        {
+          "name": "Coursera - Algorithms Specialization",
+          "type": "Online Course",
+          "description": "Four-part algorithms course by Stanford",
+          "url": "https://www.coursera.org/specializations/algorithms"
+        },
+        {
+          "name": "Docker Documentation",
+          "type": "Website",
+          "description": "Official guide to using Docker",
+          "url": "https://docs.docker.com/"
+        },
+        {
+          "name": "Full Stack Open",
+          "type": "Online Course",
+          "description": "Modern web development course by University of Helsinki",
+          "url": "https://fullstackopen.com/en/"
+        },
+        {
+          "name": "HackerRank",
+          "type": "Website",
+          "description": "Coding challenges and competitions",
+          "url": "https://www.hackerrank.com/"
+        },
+        {
+          "name": "Udacity - Data Structures and Algorithms Nanodegree",
+          "type": "Online Course",
+          "description": "Comprehensive DS&A course",
+          "url": "https://www.udacity.com/course/data-structures-and-algorithms-nanodegree--nd256"
+        }
+      ],
+      "advanced": [
+        {
+          "name": "MIT OpenCourseWare - Advanced Algorithms",
+          "type": "Online Course",
+          "description": "Graduate-level algorithms course from MIT",
+          "url": "https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-854j-advanced-algorithms-fall-2008/"
+        },
+        {
+          "name": "Coursera - Deep Learning Specialization",
+          "type": "Online Course",
+          "description": "Advanced AI course by Andrew Ng",
+          "url": "https://www.coursera.org/specializations/deep-learning"
+        },
+        {
+          "name": "Introduction to the Theory of Computation",
+          "type": "Book",
+          "description": "Advanced theoretical CS book by Michael Sipser",
+          "url": "https://www.amazon.com/Introduction-Theory-Computation-Michael-Sipser/dp/113318779X"
+        },
+        {
+          "name": "Designing Data-Intensive Applications",
+          "type": "Book",
+          "description": "Guide to building large-scale systems by Martin Kleppmann",
+          "url": "https://www.oreilly.com/library/view/designing-data-intensive-applications/9781491903063/"
+        },
+        {
+          "name": "Stanford CS229: Machine Learning",
+          "type": "Online Course",
+          "description": "Stanford's graduate machine learning course",
+          "url": "https://cs229.stanford.edu/"
+        },
+        {
+          "name": "Compilers: Principles, Techniques, and Tools",
+          "type": "Book",
+          "description": "Classic compiler design book (Dragon Book)",
+          "url": "https://www.amazon.com/Compilers-Principles-Techniques-Tools-2nd/dp/0321486811"
+        },
+        {
+          "name": "Distributed Systems for Fun and Profit",
+          "type": "E-book",
+          "description": "Free e-book on distributed systems",
+          "url": "http://book.mixu.net/distsys/"
+        },
+        {
+          "name": "Papers We Love",
+          "type": "GitHub Repository",
+          "description": "Collection of computer science papers",
+          "url": "https://github.com/papers-we-love/papers-we-love"
+        },
+        {
+          "name": "Competitive Programming 3",
+          "type": "Book",
+          "description": "Guide to competitive programming",
+          "url": "https://www.amazon.com/Competitive-Programming-3rd-Steven-Halim/dp/B00FG8MNN8"
+        },
+        {
+          "name": "Coursera - Functional Programming in Scala Specialization",
+          "type": "Online Course",
+          "description": "Advanced course on functional programming",
+          "url": "https://www.coursera.org/specializations/scala"
+        }
+      ],
+      "expert": [
+        {
+          "name": "ArXiv CS",
+          "type": "Preprint Repository",
+          "description": "Repository of computer science research papers",
+          "url": "https://arxiv.org/list/cs/recent"
+        },
+        {
+          "name": "NeurIPS Proceedings",
+          "type": "Conference Proceedings",
+          "description": "Papers from top AI/ML conference",
+          "url": "https://papers.nips.cc/"
+        },
+        {
+          "name": "Journal of the ACM",
+          "type": "Academic Journal",
+          "description": "Prestigious CS research journal",
+          "url": "https://dl.acm.org/journal/jacm"
+        },
+        {
+          "name": "The Art of Computer Programming",
+          "type": "Book Series",
+          "description": "Comprehensive CS series by Donald Knuth",
+          "url": "https://www-cs-faculty.stanford.edu/~knuth/taocp.html"
+        },
+        {
+          "name": "Research at Google",
+          "type": "Website",
+          "description": "Cutting-edge research from Google",
+          "url": "https://research.google/"
+        },
+        {
+          "name": "Microsoft Research",
+          "type": "Website",
+          "description": "Advanced CS research from Microsoft",
+          "url": "https://www.microsoft.com/en-us/research/"
+        },
+        {
+          "name": "SICP (Structure and Interpretation of Computer Programs)",
+          "type": "Book",
+          "description": "Classic CS textbook from MIT",
+          "url": "https://mitpress.mit.edu/sites/default/files/sicp/full-text/book/book.html"
+        },
+        {
+          "name": "ACM Digital Library",
+          "type": "Digital Library",
+          "description": "Comprehensive collection of CS literature",
+          "url": "https://dl.acm.org/"
+        },
+        {
+          "name": "IEEE Xplore",
+          "type": "Digital Library",
+          "description": "Library of technical literature in engineering and technology",
+          "url": "https://ieeexplore.ieee.org/Xplore/home.jsp"
+        },
+        {
+          "name": "Quantum Computing for Computer Scientists",
+          "type": "Book",
+          "description": "Introduction to quantum computing for CS experts",
+          "url": "https://www.cambridge.org/core/books/quantum-computing-for-computer-scientists/8AEA723BEE5CC9F5C03FDD4BA850C711"
+        }
+      ]
+    }
+  }

@@ -1,0 +1,74 @@
+{
+    "englishResources": [
+      {
+        "name": "Duolingo",
+        "type": "Mobile App",
+        "description": "Gamified language learning app with bite-sized lessons and exercises.",
+        "url": "https://www.duolingo.com/course/en/es/Learn-English",
+        "skillLevels": ["Novice", "Beginner"]
+      },
+      {
+        "name": "BBC Learning English",
+        "type": "Website and Mobile App",
+        "description": "Free lessons, videos, and quizzes for English learners, including news-based materials.",
+        "url": "https://www.bbc.co.uk/learningenglish/",
+        "skillLevels": ["Beginner", "Intermediate", "Advanced"]
+      },
+      {
+        "name": "EnglishCentral",
+        "type": "Video-based Learning Platform",
+        "description": "Learn English through popular videos with interactive transcripts and vocabulary tools.",
+        "url": "https://www.englishcentral.com/",
+        "skillLevels": ["Beginner", "Intermediate", "Advanced"]
+      },
+      {
+        "name": "Grammarly",
+        "type": "Writing Assistant Tool",
+        "description": "AI-powered writing assistant that helps improve grammar, spelling, and style.",
+        "url": "https://www.grammarly.com/",
+        "skillLevels": ["Intermediate", "Advanced", "Expert"]
+      },
+      {
+        "name": "Coursera - English Language Courses",
+        "type": "Online Course Platform",
+        "description": "Various English language courses from top universities and institutions.",
+        "url": "https://www.coursera.org/browse/language-learning/learning-english",
+        "skillLevels": ["Beginner", "Intermediate", "Advanced"]
+      },
+      {
+        "name": "FluentU",
+        "type": "Immersion Platform",
+        "description": "Learn English through real-world videos like music videos, movie trailers, and news.",
+        "url": "https://www.fluentu.com/english/",
+        "skillLevels": ["Beginner", "Intermediate", "Advanced"]
+      },
+      {
+        "name": "Memrise",
+        "type": "Mobile App",
+        "description": "Vocabulary-focused app using spaced repetition and mnemonics for efficient learning.",
+        "url": "https://www.memrise.com/languages/english/",
+        "skillLevels": ["Novice", "Beginner", "Intermediate"]
+      },
+      {
+        "name": "italki",
+        "type": "Language Exchange Platform",
+        "description": "Connect with native English speakers for one-on-one tutoring or language exchange.",
+        "url": "https://www.italki.com/teachers/english",
+        "skillLevels": ["Beginner", "Intermediate", "Advanced", "Expert"]
+      },
+      {
+        "name": "TED Talks",
+        "type": "Video Platform",
+        "description": "Engaging talks on various topics, great for listening practice and expanding vocabulary.",
+        "url": "https://www.ted.com/",
+        "skillLevels": ["Intermediate", "Advanced", "Expert"]
+      },
+      {
+        "name": "Linguee",
+        "type": "Online Dictionary and Translation Tool",
+        "description": "Dictionary that provides translations in context from real-world sources.",
+        "url": "https://www.linguee.com/",
+        "skillLevels": ["Beginner", "Intermediate", "Advanced", "Expert"]
+      }
+    ]
+  }

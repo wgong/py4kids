@@ -1,0 +1,11 @@
+Subject,Level,Name,Type,Description,URL
+computerScience,Novice : Beginner : Intermediate,freeCodeCamp,Online Learning Platform,Free coding bootcamp offering certifications in various programming languages and CS concepts.,https://www.freecodecamp.org/
+computerScience,Novice : Beginner : Intermediate,Codecademy,Interactive Coding Platform,Learn to code interactively with hands-on exercises and projects.,https://www.codecademy.com/
+computerScience,Beginner : Intermediate,CS50: Introduction to Computer Science,Online Course,Harvard University's introduction to computer science and programming.,https://cs50.harvard.edu/x/
+computerScience,Intermediate : Advanced : Expert,LeetCode,Coding Challenge Platform,Platform for preparing technical coding interviews with a vast array of problems.,https://leetcode.com/
+computerScience,Intermediate : Advanced : Expert,MIT OpenCourseWare: Electrical Engineering and Computer Science,University Lectures,Free access to MIT's undergraduate and graduate-level computer science course materials.,https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/
+computerScience,Beginner : Intermediate : Advanced,Coursera: Computer Science Courses,Online Course Platform,Wide range of computer science courses from various universities and institutions.,https://www.coursera.org/browse/computer-science
+computerScience,Beginner : Intermediate : Advanced,GeeksforGeeks,Tutorial Website,"'Computer science portal with tutorials, articles, and coding problems.'",https://www.geeksforgeeks.org/
+computerScience,Beginner : Intermediate : Advanced : Expert,Stack Overflow,Q&A Forum,Community-driven question and answer site for programmers.,https://stackoverflow.com/
+computerScience,Beginner : Intermediate : Advanced,Udacity,Online Learning Platform,Offers nanodegree programs and courses in various computer science fields.,https://www.udacity.com/school-of-programming
+computerScience,Advanced : Expert,arXiv Computer Science,Research Paper Repository,Open access to a wealth of computer science research papers.,https://arxiv.org/list/cs/recent

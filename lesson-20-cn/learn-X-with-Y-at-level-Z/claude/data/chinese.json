@@ -1,0 +1,314 @@
+{
+    "chinese": {
+      "novice": [
+        {
+          "name": "Duolingo Chinese",
+          "type": "App",
+          "description": "Gamified language learning app for beginners",
+          "url": "https://www.duolingo.com/course/zh/en/Learn-Chinese"
+        },
+        {
+          "name": "HelloChinese",
+          "type": "App",
+          "description": "Interactive app designed specifically for learning Chinese",
+          "url": "https://www.hellochinese.cc/"
+        },
+        {
+          "name": "ChineseSkill",
+          "type": "App",
+          "description": "Game-like app for learning Chinese characters and phrases",
+          "url": "https://www.chinese-skill.com/cs.html"
+        },
+        {
+          "name": "Yoyo Chinese",
+          "type": "Online Course",
+          "description": "Video-based Mandarin Chinese lessons for beginners",
+          "url": "https://www.yoyochinese.com/"
+        },
+        {
+          "name": "Chinese For Us",
+          "type": "YouTube Channel",
+          "description": "Free video lessons covering various aspects of Chinese",
+          "url": "https://www.youtube.com/c/ChineseForUs"
+        },
+        {
+          "name": "Memrise - Chinese",
+          "type": "App",
+          "description": "Flashcard-based learning with native speaker videos",
+          "url": "https://www.memrise.com/courses/english/chinese-simplified/"
+        },
+        {
+          "name": "Learn Chinese with ChineseClass101.com",
+          "type": "Podcast",
+          "description": "Audio lessons for beginners with supplementary materials",
+          "url": "https://www.chineseclass101.com/"
+        },
+        {
+          "name": "Chinese Made Easy for Kids",
+          "type": "Book Series",
+          "description": "Textbooks designed for young learners, suitable for adult beginners",
+          "url": "https://www.jointpublishing.com/jpe/chinese-made-easy-for-kids-textbook-1-3rd-ed.html"
+        },
+        {
+          "name": "Quizlet - Basic Chinese Vocabulary",
+          "type": "Website/App",
+          "description": "Flashcard sets for basic Chinese vocabulary",
+          "url": "https://quizlet.com/subject/basic-chinese/"
+        },
+        {
+          "name": "Dong Chinese",
+          "type": "Website/App",
+          "description": "Adaptive learning system for Chinese characters and vocabulary",
+          "url": "https://www.dongchinese.com/"
+        }
+      ],
+      "beginner": [
+        {
+          "name": "Pimsleur Mandarin Chinese",
+          "type": "Audio Course",
+          "description": "Comprehensive audio lessons for beginners",
+          "url": "https://www.pimsleur.com/learn-chinese-mandarin"
+        },
+        {
+          "name": "Integrated Chinese Level 1",
+          "type": "Textbook",
+          "description": "Popular textbook series for beginners",
+          "url": "https://www.cheng-tsui.com/browse/integrated-chinese-4th-edition"
+        },
+        {
+          "name": "ChinesePod",
+          "type": "Podcast",
+          "description": "Podcast-style lessons with a wide range of beginner content",
+          "url": "https://chinesepod.com/"
+        },
+        {
+          "name": "HSK Standard Course 1-2",
+          "type": "Textbook Series",
+          "description": "Official textbooks for HSK levels 1-2",
+          "url": "http://www.blcup.com/EnSeries/index/11"
+        },
+        {
+          "name": "Mandarin Blueprint",
+          "type": "Online Course",
+          "description": "Multimedia course focusing on characters and pronunciation",
+          "url": "https://www.mandarinblueprint.com/"
+        },
+        {
+          "name": "Chinese Grammar Wiki",
+          "type": "Website",
+          "description": "Comprehensive guide to Chinese grammar",
+          "url": "https://resources.allsetlearning.com/chinese/grammar/"
+        },
+        {
+          "name": "LingoDeer",
+          "type": "App",
+          "description": "Asian language learning app with structured lessons",
+          "url": "https://www.lingodeer.com/"
+        },
+        {
+          "name": "Skritter",
+          "type": "App",
+          "description": "App for learning to write Chinese characters",
+          "url": "https://skritter.com/"
+        },
+        {
+          "name": "Easy Mandarin Chinese",
+          "type": "Textbook",
+          "description": "Beginner's guide to reading and writing Chinese",
+          "url": "https://tuttle.co.jp/book/9780804849364/"
+        },
+        {
+          "name": "Chinese Boost",
+          "type": "Website",
+          "description": "Free online Chinese grammar and vocabulary lessons",
+          "url": "https://www.chineseboost.com/"
+        }
+      ],
+      "intermediate": [
+        {
+          "name": "Coursera - HSK 3 Course",
+          "type": "Online Course",
+          "description": "Intermediate Chinese course by Peking University",
+          "url": "https://www.coursera.org/learn/hsk-3"
+        },
+        {
+          "name": "New Practical Chinese Reader",
+          "type": "Textbook Series",
+          "description": "Comprehensive textbook series for intermediate learners",
+          "url": "http://www.blcup.com/EnSeries/index/8"
+        },
+        {
+          "name": "Slow Chinese",
+          "type": "Podcast",
+          "description": "Podcast with intermediate-level content",
+          "url": "https://www.slowchinese.net/"
+        },
+        {
+          "name": "Chinese Breeze Graded Reader Series",
+          "type": "Book Series",
+          "description": "Graded readers for intermediate learners",
+          "url": "https://www.cheng-tsui.com/browse/chinese-breeze"
+        },
+        {
+          "name": "HSK Standard Course 3-4",
+          "type": "Textbook Series",
+          "description": "Official textbooks for HSK levels 3-4",
+          "url": "http://www.blcup.com/EnSeries/index/11"
+        },
+        {
+          "name": "italki",
+          "type": "Website",
+          "description": "Platform for finding Chinese tutors for one-on-one lessons",
+          "url": "https://www.italki.com/teachers/chinese(mandarin)"
+        },
+        {
+          "name": "Lang-8",
+          "type": "Website",
+          "description": "Language exchange platform for writing practice",
+          "url": "https://lang-8.com/"
+        },
+        {
+          "name": "Mandarin Corner",
+          "type": "YouTube Channel",
+          "description": "YouTube channel with intermediate-level videos",
+          "url": "https://www.youtube.com/channel/UC2fAiRQHRQT9aj9P_ijYeow"
+        },
+        {
+          "name": "Du Chinese",
+          "type": "App",
+          "description": "App with leveled Chinese texts and audio",
+          "url": "https://www.duchinese.net/"
+        },
+        {
+          "name": "The Chairman's Bao",
+          "type": "Website/App",
+          "description": "Newspaper articles in Chinese for language learners",
+          "url": "https://www.thechairmansbao.com/"
+        }
+      ],
+      "advanced": [
+        {
+          "name": "Coursera - Business Chinese",
+          "type": "Online Course",
+          "description": "Advanced course focusing on business Chinese",
+          "url": "https://www.coursera.org/learn/business-chinese"
+        },
+        {
+          "name": "New York Times Chinese",
+          "type": "Website",
+          "description": "Chinese version of the New York Times for reading practice",
+          "url": "https://cn.nytimes.com/"
+        },
+        {
+          "name": "China Newsweek",
+          "type": "Magazine",
+          "description": "Chinese news magazine for advanced reading",
+          "url": "http://www.inewsweek.cn/"
+        },
+        {
+          "name": "HSK Standard Course 5-6",
+          "type": "Textbook Series",
+          "description": "Official textbooks for HSK levels 5-6",
+          "url": "http://www.blcup.com/EnSeries/index/11"
+        },
+        {
+          "name": "Popup Chinese",
+          "type": "Podcast",
+          "description": "Podcast with advanced-level content and explanations",
+          "url": "http://popupchinese.com/"
+        },
+        {
+          "name": "Glossika Chinese",
+          "type": "App",
+          "description": "Spaced repetition app focusing on sentence patterns",
+          "url": "https://ai.glossika.com/language/learn-chinese"
+        },
+        {
+          "name": "The Grand Course in Chinese Literature",
+          "type": "Online Course",
+          "description": "Advanced course on Chinese literature by Peking University",
+          "url": "https://www.coursera.org/learn/chinese-literature"
+        },
+        {
+          "name": "Chinesepod Advanced",
+          "type": "Podcast",
+          "description": "Advanced lessons from Chinesepod",
+          "url": "https://chinesepod.com/lessons/advanced"
+        },
+        {
+          "name": "Hacking Chinese",
+          "type": "Website",
+          "description": "Blog with advanced tips and strategies for learning Chinese",
+          "url": "https://www.hackingchinese.com/"
+        },
+        {
+          "name": "Mandarin Companion",
+          "type": "Book Series",
+          "description": "Graded readers for advanced learners",
+          "url": "https://mandarincompanion.com/"
+        }
+      ],
+      "expert": [
+        {
+          "name": "Classical Chinese for Everyone",
+          "type": "Book",
+          "description": "Guide to reading classical Chinese texts",
+          "url": "https://www.amazon.com/Classical-Chinese-Everyone-Self-Study-Method/dp/0861716736"
+        },
+        {
+          "name": "Chinese Literature: A Very Short Introduction",
+          "type": "Book",
+          "description": "Overview of Chinese literature for advanced learners",
+          "url": "https://www.amazon.com/Chinese-Literature-Short-Introduction-Introductions/dp/0195392078"
+        },
+        {
+          "name": "The Columbia Anthology of Modern Chinese Literature",
+          "type": "Book",
+          "description": "Collection of modern Chinese literature",
+          "url": "https://cup.columbia.edu/book/the-columbia-anthology-of-modern-chinese-literature/9780231138413"
+        },
+        {
+          "name": "Sino-Platonic Papers",
+          "type": "Academic Journal",
+          "description": "Journal focusing on Chinese language and culture",
+          "url": "http://www.sino-platonic.org/"
+        },
+        {
+          "name": "Wengu",
+          "type": "Website",
+          "description": "Classical Chinese texts with annotations",
+          "url": "http://www.wengu.com/"
+        },
+        {
+          "name": "Chinese Text Project",
+          "type": "Website",
+          "description": "Digital library of Chinese classical texts",
+          "url": "https://ctext.org/"
+        },
+        {
+          "name": "MCLC Resource Center",
+          "type": "Website",
+          "description": "Resources for modern Chinese literature and culture",
+          "url": "https://u.osu.edu/mclc/"
+        },
+        {
+          "name": "Chinese Language Teachers Association",
+          "type": "Professional Organization",
+          "description": "Resources and publications for Chinese language professionals",
+          "url": "https://clta-us.org/"
+        },
+        {
+          "name": "Journal of Chinese Linguistics",
+          "type": "Academic Journal",
+          "description": "Scholarly articles on Chinese linguistics",
+          "url": "https://www.jstor.org/journal/jchinelingui"
+        },
+        {
+          "name": "The Routledge Course in Chinese Media Literacy",
+          "type": "Textbook",
+          "description": "Advanced course in understanding Chinese media",
+          "url": "https://www.routledge.com/The-Routledge-Course-in-Chinese-Media-Literacy/Zhang/p/book/9780367902810"
+        }
+      ]
+    }
+}

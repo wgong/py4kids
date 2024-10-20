@@ -1,0 +1,74 @@
+{
+    "chineseResources": [
+      {
+        "name": "Duolingo",
+        "type": "Mobile App",
+        "description": "Gamified language learning app with bite-sized lessons and exercises.",
+        "url": "https://www.duolingo.com/course/zh/en/Learn-Chinese",
+        "skillLevels": ["Novice", "Beginner"]
+      },
+      {
+        "name": "HelloChinese",
+        "type": "Mobile App",
+        "description": "Comprehensive app designed specifically for learning Mandarin Chinese.",
+        "url": "https://www.hellochinese.cc/",
+        "skillLevels": ["Novice", "Beginner", "Intermediate"]
+      },
+      {
+        "name": "ChinesePod",
+        "type": "Podcast and Online Lessons",
+        "description": "Audio lessons with accompanying text and exercises for various proficiency levels.",
+        "url": "https://chinesepod.com/",
+        "skillLevels": ["Beginner", "Intermediate", "Advanced"]
+      },
+      {
+        "name": "Yoyo Chinese",
+        "type": "Online Course",
+        "description": "Structured video-based courses covering speaking, reading, and writing skills.",
+        "url": "https://www.yoyochinese.com/",
+        "skillLevels": ["Beginner", "Intermediate"]
+      },
+      {
+        "name": "Pleco",
+        "type": "Mobile App",
+        "description": "Comprehensive Chinese-English dictionary app with flashcard system and document reader.",
+        "url": "https://www.pleco.com/",
+        "skillLevels": ["Novice", "Beginner", "Intermediate", "Advanced", "Expert"]
+      },
+      {
+        "name": "edX - MandarinX",
+        "type": "Online Course",
+        "description": "Free online Mandarin courses from Tsinghua University and other institutions.",
+        "url": "https://www.edx.org/learn/mandarin",
+        "skillLevels": ["Beginner", "Intermediate", "Advanced"]
+      },
+      {
+        "name": "Skritter",
+        "type": "Mobile App",
+        "description": "App focused on teaching Chinese characters through writing practice.",
+        "url": "https://skritter.com/",
+        "skillLevels": ["Beginner", "Intermediate", "Advanced"]
+      },
+      {
+        "name": "The Chairman's Bao",
+        "type": "Online News Platform",
+        "description": "Simplified Chinese news articles with difficulty levels and learning tools.",
+        "url": "https://www.thechairmansbao.com/",
+        "skillLevels": ["Intermediate", "Advanced", "Expert"]
+      },
+      {
+        "name": "Coursera - HSK Chinese courses",
+        "type": "Online Course",
+        "description": "Structured courses aligned with HSK (Chinese Proficiency Test) levels.",
+        "url": "https://www.coursera.org/courses?query=hsk",
+        "skillLevels": ["Beginner", "Intermediate", "Advanced"]
+      },
+      {
+        "name": "Lang-8",
+        "type": "Language Exchange Platform",
+        "description": "Write in Chinese and get corrections from native speakers.",
+        "url": "https://lang-8.com/",
+        "skillLevels": ["Intermediate", "Advanced", "Expert"]
+      }
+    ]
+  }

@@ -1,0 +1,314 @@
+{
+    "mathematics": {
+      "novice": [
+        {
+          "name": "Khan Academy - Basic Math",
+          "type": "Online Course",
+          "description": "Free online courses covering basic math concepts",
+          "url": "https://www.khanacademy.org/math"
+        },
+        {
+          "name": "IXL Math",
+          "type": "Website/App",
+          "description": "Interactive math practice for various levels",
+          "url": "https://www.ixl.com/math/"
+        },
+        {
+          "name": "Math Antics",
+          "type": "YouTube Channel",
+          "description": "Engaging math videos for beginners",
+          "url": "https://www.youtube.com/user/mathantics"
+        },
+        {
+          "name": "Prodigy Math Game",
+          "type": "Game",
+          "description": "Math learning through an RPG-style game",
+          "url": "https://www.prodigygame.com/"
+        },
+        {
+          "name": "Mathway",
+          "type": "App",
+          "description": "Step-by-step math problem solver",
+          "url": "https://www.mathway.com/"
+        },
+        {
+          "name": "Math is Fun",
+          "type": "Website",
+          "description": "Simple explanations of math concepts",
+          "url": "https://www.mathsisfun.com/"
+        },
+        {
+          "name": "CoolMath4Kids",
+          "type": "Website",
+          "description": "Math games and explanations for younger learners",
+          "url": "https://www.coolmath4kids.com/"
+        },
+        {
+          "name": "Mathletics",
+          "type": "Online Program",
+          "description": "Curriculum-aligned math activities and games",
+          "url": "https://www.mathletics.com/"
+        },
+        {
+          "name": "Photomath",
+          "type": "App",
+          "description": "Camera calculator app that solves and explains math problems",
+          "url": "https://photomath.com/"
+        },
+        {
+          "name": "MathGameTime",
+          "type": "Website",
+          "description": "Free math games sorted by grade level and topic",
+          "url": "http://www.mathgametime.com/"
+        }
+      ],
+      "beginner": [
+        {
+          "name": "Khan Academy - Algebra 1",
+          "type": "Online Course",
+          "description": "Comprehensive Algebra 1 course",
+          "url": "https://www.khanacademy.org/math/algebra"
+        },
+        {
+          "name": "MathPlanet",
+          "type": "Website",
+          "description": "Free math courses and practice problems",
+          "url": "https://www.mathplanet.com/"
+        },
+        {
+          "name": "Math Mammoth",
+          "type": "Textbook Series",
+          "description": "Comprehensive math curriculum for grade 1-7",
+          "url": "https://www.mathmammoth.com/"
+        },
+        {
+          "name": "GeoGebra",
+          "type": "Software",
+          "description": "Interactive geometry, algebra, and calculus tool",
+          "url": "https://www.geogebra.org/"
+        },
+        {
+          "name": "Art of Problem Solving: Introduction to Algebra",
+          "type": "Textbook",
+          "description": "Rigorous introduction to algebra for motivated students",
+          "url": "https://artofproblemsolving.com/store/item/intro-algebra"
+        },
+        {
+          "name": "Brilliant - Algebra Fundamentals",
+          "type": "Online Course",
+          "description": "Interactive course on algebra basics",
+          "url": "https://brilliant.org/courses/algebra-fundamentals/"
+        },
+        {
+          "name": "PatrickJMT",
+          "type": "YouTube Channel",
+          "description": "Video tutorials on various math topics",
+          "url": "https://www.youtube.com/user/patrickJMT"
+        },
+        {
+          "name": "Desmos Graphing Calculator",
+          "type": "Web App",
+          "description": "Free online graphing calculator",
+          "url": "https://www.desmos.com/calculator"
+        },
+        {
+          "name": "Mathigon",
+          "type": "Website",
+          "description": "Interactive math courses and activities",
+          "url": "https://mathigon.org/"
+        },
+        {
+          "name": "OpenStax Algebra and Trigonometry",
+          "type": "Textbook",
+          "description": "Free, peer-reviewed textbook",
+          "url": "https://openstax.org/details/books/algebra-and-trigonometry"
+        }
+      ],
+      "intermediate": [
+        {
+          "name": "MIT OpenCourseWare - Single Variable Calculus",
+          "type": "Online Course",
+          "description": "Free calculus course from MIT",
+          "url": "https://ocw.mit.edu/courses/mathematics/18-01sc-single-variable-calculus-fall-2010/"
+        },
+        {
+          "name": "Paul's Online Math Notes",
+          "type": "Website",
+          "description": "Comprehensive notes for college-level math",
+          "url": "https://tutorial.math.lamar.edu/"
+        },
+        {
+          "name": "3Blue1Brown",
+          "type": "YouTube Channel",
+          "description": "Animated math videos with visual explanations",
+          "url": "https://www.youtube.com/channel/UCYO_jab_esuFRV4b17AJtAw"
+        },
+        {
+          "name": "Brilliant - Calculus Fundamentals",
+          "type": "Online Course",
+          "description": "Interactive calculus course",
+          "url": "https://brilliant.org/courses/calculus-fundamentals/"
+        },
+        {
+          "name": "Coursera - Introduction to Mathematical Thinking",
+          "type": "Online Course",
+          "description": "Course on mathematical reasoning by Stanford University",
+          "url": "https://www.coursera.org/learn/mathematical-thinking"
+        },
+        {
+          "name": "Art of Problem Solving: Intermediate Algebra",
+          "type": "Textbook",
+          "description": "Advanced algebra for motivated students",
+          "url": "https://artofproblemsolving.com/store/item/intermediate-algebra"
+        },
+        {
+          "name": "Wolfram Alpha",
+          "type": "Web App",
+          "description": "Computational knowledge engine",
+          "url": "https://www.wolframalpha.com/"
+        },
+        {
+          "name": "Better Explained",
+          "type": "Website",
+          "description": "Intuitive explanations of math concepts",
+          "url": "https://betterexplained.com/"
+        },
+        {
+          "name": "Symbolab",
+          "type": "Web App",
+          "description": "Step-by-step math solver with explanations",
+          "url": "https://www.symbolab.com/"
+        },
+        {
+          "name": "Complex Analysis: A Visual and Interactive Introduction",
+          "type": "Website",
+          "description": "Interactive introduction to complex analysis",
+          "url": "https://complex-analysis.com/"
+        }
+      ],
+      "advanced": [
+        {
+          "name": "MIT OpenCourseWare - Linear Algebra",
+          "type": "Online Course",
+          "description": "Advanced linear algebra course from MIT",
+          "url": "https://ocw.mit.edu/courses/mathematics/18-06sc-linear-algebra-fall-2011/"
+        },
+        {
+          "name": "Real Not Complex",
+          "type": "Website",
+          "description": "Free mathematics textbooks for advanced topics",
+          "url": "https://realnotcomplex.com/"
+        },
+        {
+          "name": "Abstract Algebra: Theory and Applications",
+          "type": "Textbook",
+          "description": "Free, open-source abstract algebra textbook",
+          "url": "http://abstract.ups.edu/"
+        },
+        {
+          "name": "Brilliant - Linear Algebra",
+          "type": "Online Course",
+          "description": "Interactive linear algebra course",
+          "url": "https://brilliant.org/courses/linear-algebra/"
+        },
+        {
+          "name": "Stanford Encyclopedia of Philosophy - Mathematical Logic",
+          "type": "Web Resource",
+          "description": "Comprehensive article on mathematical logic",
+          "url": "https://plato.stanford.edu/entries/logic-mathematical/"
+        },
+        {
+          "name": "nLab",
+          "type": "Wiki",
+          "description": "Collaborative wiki for advanced mathematics and physics",
+          "url": "https://ncatlab.org/nlab/show/HomePage"
+        },
+        {
+          "name": "Mathoverflow",
+          "type": "Q&A Website",
+          "description": "Q&A site for professional mathematicians",
+          "url": "https://mathoverflow.net/"
+        },
+        {
+          "name": "arXiv.org - Mathematics",
+          "type": "Preprint Repository",
+          "description": "Repository of mathematics research papers",
+          "url": "https://arxiv.org/archive/math"
+        },
+        {
+          "name": "Sage Math",
+          "type": "Software",
+          "description": "Open-source mathematics software system",
+          "url": "https://www.sagemath.org/"
+        },
+        {
+          "name": "Metamath",
+          "type": "Website",
+          "description": "Database of formally proven mathematical theorems",
+          "url": "http://us.metamath.org/"
+        }
+      ],
+      "expert": [
+        {
+          "name": "Princeton Companion to Mathematics",
+          "type": "Book",
+          "description": "Comprehensive overview of modern mathematics",
+          "url": "https://press.princeton.edu/books/hardcover/9780691118802/the-princeton-companion-to-mathematics"
+        },
+        {
+          "name": "Annals of Mathematics",
+          "type": "Academic Journal",
+          "description": "Prestigious mathematics research journal",
+          "url": "http://annals.math.princeton.edu/"
+        },
+        {
+          "name": "Fields Institute",
+          "type": "Research Institute",
+          "description": "Advanced seminars and workshops in mathematics",
+          "url": "http://www.fields.utoronto.ca/"
+        },
+        {
+          "name": "MSRI - Mathematical Sciences Research Institute",
+          "type": "Research Institute",
+          "description": "Advanced programs and workshops in mathematics",
+          "url": "https://www.msri.org/"
+        },
+        {
+          "name": "ICM Proceedings",
+          "type": "Conference Proceedings",
+          "description": "Proceedings of the International Congress of Mathematicians",
+          "url": "https://www.mathunion.org/icm/proceedings"
+        },
+        {
+          "name": "AMS - Graduate Studies in Mathematics",
+          "type": "Book Series",
+          "description": "Advanced textbooks published by the American Mathematical Society",
+          "url": "https://bookstore.ams.org/GSM"
+        },
+        {
+          "name": "Notices of the AMS",
+          "type": "Magazine",
+          "description": "Professional magazine of the American Mathematical Society",
+          "url": "https://www.ams.org/notices"
+        },
+        {
+          "name": "Bourbaki Seminar",
+          "type": "Seminar Series",
+          "description": "Influential seminar series covering advanced mathematics",
+          "url": "https://www.bourbaki.fr/"
+        },
+        {
+          "name": "Clay Mathematics Institute",
+          "type": "Research Institute",
+          "description": "Resources on unsolved problems and advanced mathematics",
+          "url": "http://www.claymath.org/"
+        },
+        {
+          "name": "Journal of the AMS",
+          "type": "Academic Journal",
+          "description": "High-level research journal in pure mathematics",
+          "url": "https://www.ams.org/publications/journals/journalsframework/jams"
+        }
+      ]
+    }
+  }

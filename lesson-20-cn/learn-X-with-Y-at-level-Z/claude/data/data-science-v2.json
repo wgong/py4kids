@@ -1,0 +1,74 @@
+{
+    "dataScience": [
+        {
+        "name": "Coursera - Data Science Specialization",
+        "type": "Online Course",
+        "description": "A comprehensive series of courses covering various aspects of data science, offered by Johns Hopkins University.",
+        "url": "https://www.coursera.org/specializations/jhu-data-science",
+        "skillLevels": ["beginner", "intermediate"]
+        },
+        {
+        "name": "DataCamp",
+        "type": "Interactive Learning Platform",
+        "description": "Offers a wide range of courses and hands-on coding exercises for data science and analytics.",
+        "url": "https://www.datacamp.com/",
+        "skillLevels": ["novice", "beginner", "intermediate"]
+        },
+        {
+        "name": "Kaggle",
+        "type": "Community and Competition Platform",
+        "description": "Provides datasets, competitions, and a community for data scientists to learn and showcase their skills.",
+        "url": "https://www.kaggle.com/",
+        "skillLevels": ["beginner", "intermediate", "advanced", "expert"]
+        },
+        {
+        "name": "edX - Data Science MicroMasters",
+        "type": "Online Program",
+        "description": "A series of graduate-level courses offered by various universities, covering core data science concepts.",
+        "url": "https://www.edx.org/micromasters/data-science",
+        "skillLevels": ["intermediate", "advanced"]
+        },
+        {
+        "name": "Fast.ai",
+        "type": "Free Online Course",
+        "description": "Offers practical deep learning courses for coders, focusing on neural networks and machine learning.",
+        "url": "https://www.fast.ai/",
+        "skillLevels": ["intermediate", "advanced"]
+        },
+        {
+        "name": "Analytics Vidhya",
+        "type": "Community and Learning Platform",
+        "description": "Provides articles, tutorials, and courses on various data science topics, as well as hackathons and job opportunities.",
+        "url": "https://www.analyticsvidhya.com/",
+        "skillLevels": ["beginner", "intermediate", "advanced"]
+        },
+        {
+        "name": "MIT OpenCourseWare - Data Science and Statistics",
+        "type": "Free Online Courses",
+        "description": "Offers various courses from MIT covering data science, statistics, and machine learning topics.",
+        "url": "https://ocw.mit.edu/courses/find-by-topic/#cat=mathematics&subcat=probabilityandstatistics",
+        "skillLevels": ["intermediate", "advanced", "expert"]
+        },
+        {
+        "name": "DataQuest",
+        "type": "Interactive Learning Platform",
+        "description": "Provides hands-on coding experience and guided projects for learning data science skills.",
+        "url": "https://www.dataquest.io/",
+        "skillLevels": ["novice", "beginner", "intermediate"]
+        },
+        {
+        "name": "Towards Data Science",
+        "type": "Online Publication",
+        "description": "A Medium publication featuring articles and tutorials on various data science topics written by practitioners and experts.",
+        "url": "https://towardsdatascience.com/",
+        "skillLevels": ["beginner", "intermediate", "advanced", "expert"]
+        },
+        {
+        "name": "Data Science at the Command Line",
+        "type": "Free Online Book",
+        "description": "A comprehensive guide to data science using command-line tools, covering data manipulation, exploration, and analysis.",
+        "url": "https://datascienceatthecommandline.com/",
+        "skillLevels": ["intermediate", "advanced"]
+        }
+    ]
+}

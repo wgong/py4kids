@@ -1,0 +1,74 @@
+{
+    "mathResources": [
+      {
+        "name": "Khan Academy Math",
+        "type": "Online Course",
+        "description": "Free comprehensive math courses covering topics from elementary to college level.",
+        "url": "https://www.khanacademy.org/math",
+        "skillLevels": ["Novice", "Beginner", "Intermediate", "Advanced"]
+      },
+      {
+        "name": "Brilliant",
+        "type": "Interactive Learning Platform",
+        "description": "Problem-solving based courses in various math topics with increasing difficulty.",
+        "url": "https://brilliant.org/courses/#/science/mathematics",
+        "skillLevels": ["Beginner", "Intermediate", "Advanced"]
+      },
+      {
+        "name": "3Blue1Brown",
+        "type": "YouTube Channel",
+        "description": "Animated math videos explaining complex concepts with stunning visualizations.",
+        "url": "https://www.youtube.com/channel/UCYO_jab_esuFRV4b17AJtAw",
+        "skillLevels": ["Intermediate", "Advanced", "Expert"]
+      },
+      {
+        "name": "MIT OpenCourseWare Mathematics",
+        "type": "University Lectures",
+        "description": "Free access to MIT's undergraduate and graduate-level math course materials.",
+        "url": "https://ocw.mit.edu/courses/mathematics/",
+        "skillLevels": ["Intermediate", "Advanced", "Expert"]
+      },
+      {
+        "name": "Art of Problem Solving",
+        "type": "Online Community and Courses",
+        "description": "Resources for high-performing students, focusing on problem-solving and competition math.",
+        "url": "https://artofproblemsolving.com/",
+        "skillLevels": ["Intermediate", "Advanced", "Expert"]
+      },
+      {
+        "name": "Wolfram MathWorld",
+        "type": "Online Encyclopedia",
+        "description": "Comprehensive and in-depth encyclopedia of mathematics.",
+        "url": "https://mathworld.wolfram.com/",
+        "skillLevels": ["Intermediate", "Advanced", "Expert"]
+      },
+      {
+        "name": "IXL Math",
+        "type": "Interactive Practice Platform",
+        "description": "Adaptive math practice covering K-12 curriculum with immediate feedback.",
+        "url": "https://www.ixl.com/math/",
+        "skillLevels": ["Novice", "Beginner", "Intermediate"]
+      },
+      {
+        "name": "Paul's Online Math Notes",
+        "type": "Online Notes and Tutorials",
+        "description": "Detailed math notes and tutorials for algebra, calculus, and differential equations.",
+        "url": "https://tutorial.math.lamar.edu/",
+        "skillLevels": ["Intermediate", "Advanced"]
+      },
+      {
+        "name": "MathOverflow",
+        "type": "Q&A Forum",
+        "description": "Question and answer site for professional mathematicians.",
+        "url": "https://mathoverflow.net/",
+        "skillLevels": ["Advanced", "Expert"]
+      },
+      {
+        "name": "Numberphile",
+        "type": "YouTube Channel",
+        "description": "Videos featuring mathematicians discussing various number and math concepts.",
+        "url": "https://www.youtube.com/user/numberphile",
+        "skillLevels": ["Beginner", "Intermediate", "Advanced"]
+      }
+    ]
+  }

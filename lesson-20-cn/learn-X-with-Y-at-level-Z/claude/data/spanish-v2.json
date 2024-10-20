@@ -1,0 +1,74 @@
+{
+    "spanishResources": [
+      {
+        "name": "Duolingo",
+        "type": "Mobile App",
+        "description": "Gamified language learning app with bite-sized lessons and exercises.",
+        "url": "https://www.duolingo.com/course/es/en/Learn-Spanish",
+        "skillLevels": ["Novice", "Beginner"]
+      },
+      {
+        "name": "SpanishDict",
+        "type": "Online Dictionary and Learning Platform",
+        "description": "Comprehensive Spanish-English dictionary with translations, conjugations, and learning resources.",
+        "url": "https://www.spanishdict.com/",
+        "skillLevels": ["Novice", "Beginner", "Intermediate", "Advanced"]
+      },
+      {
+        "name": "Baselang",
+        "type": "Online Tutoring Platform",
+        "description": "Unlimited one-on-one Spanish tutoring with native speakers for a monthly fee.",
+        "url": "https://baselang.com/",
+        "skillLevels": ["Beginner", "Intermediate", "Advanced"]
+      },
+      {
+        "name": "Coffee Break Spanish",
+        "type": "Podcast",
+        "description": "Audio lessons for learning Spanish, ranging from beginner to advanced levels.",
+        "url": "https://radiolingua.com/coffeebreakspanish/",
+        "skillLevels": ["Beginner", "Intermediate", "Advanced"]
+      },
+      {
+        "name": "Busuu",
+        "type": "Mobile App and Online Platform",
+        "description": "Learn Spanish through interactive lessons and get feedback from native speakers.",
+        "url": "https://www.busuu.com/en/course/learn-spanish-online",
+        "skillLevels": ["Novice", "Beginner", "Intermediate"]
+      },
+      {
+        "name": "StudySpanish.com",
+        "type": "Online Learning Platform",
+        "description": "Comprehensive Spanish lessons covering grammar, vocabulary, and pronunciation.",
+        "url": "https://studyspanish.com/",
+        "skillLevels": ["Beginner", "Intermediate", "Advanced"]
+      },
+      {
+        "name": "News in Slow Spanish",
+        "type": "Podcast and Text",
+        "description": "Current events narrated in slow, clear Spanish with transcripts and exercises.",
+        "url": "https://www.newsinslowspanish.com/",
+        "skillLevels": ["Intermediate", "Advanced"]
+      },
+      {
+        "name": "LightSpeed Spanish",
+        "type": "YouTube Channel",
+        "description": "Free video lessons covering various aspects of Spanish language and culture.",
+        "url": "https://www.youtube.com/user/LightSpeedSpanish",
+        "skillLevels": ["Beginner", "Intermediate", "Advanced"]
+      },
+      {
+        "name": "Cervantes Institute",
+        "type": "Official Spanish Language and Cultural Center",
+        "description": "Official Spanish language courses and certifications from the Spanish government.",
+        "url": "https://www.cervantes.es/default.htm",
+        "skillLevels": ["Beginner", "Intermediate", "Advanced", "Expert"]
+      },
+      {
+        "name": "Readlang",
+        "type": "Web Reader and Flashcard Tool",
+        "description": "Read Spanish texts online with instant translations and create flashcards automatically.",
+        "url": "https://readlang.com/",
+        "skillLevels": ["Intermediate", "Advanced", "Expert"]
+      }
+    ]
+  }

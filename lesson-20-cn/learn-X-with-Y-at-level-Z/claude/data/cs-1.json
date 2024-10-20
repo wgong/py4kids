@@ -1,0 +1,44 @@
+{
+  "computer_science": {
+    "novice": [
+      {
+        "name": "Code.org",
+        "type": "Website",
+        "description": "Interactive programming courses for beginners, novice",
+        "url": "https://code.org/"
+      }
+    ],
+    "beginner": [
+      {
+        "name": "freeCodeCamp",
+        "type": "Website",
+        "description": "Free coding 'bootcamp' and \"certifications\"",
+        "url": "https://www.freecodecamp.org/"
+      }
+    ],
+    "intermediate": [
+      {
+        "name": "MIT OpenCourseWare - Introduction to Algorithms",
+        "type": "Online Course",
+        "description": "Comprehensive algorithms course from MIT",
+        "url": "https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-006-introduction-to-algorithms-fall-2011/"
+      }
+    ],
+    "advanced": [
+      {
+        "name": "MIT OpenCourseWare - Advanced Algorithms",
+        "type": "Online Course",
+        "description": "Graduate-level algorithms course from MIT",
+        "url": "https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-854j-advanced-algorithms-fall-2008/"
+      }
+    ],
+    "expert": [
+      {
+        "name": "ArXiv CS",
+        "type": "Preprint Repository",
+        "description": "Repository of computer science research papers",
+        "url": "https://arxiv.org/list/cs/recent"
+      }
+    ]
+  }
+}

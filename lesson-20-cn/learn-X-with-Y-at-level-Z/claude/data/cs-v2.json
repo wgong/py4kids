@@ -1,0 +1,74 @@
+{
+    "computerScienceResources": [
+      {
+        "name": "freeCodeCamp",
+        "type": "Online Learning Platform",
+        "description": "Free coding bootcamp offering certifications in various programming languages and CS concepts.",
+        "url": "https://www.freecodecamp.org/",
+        "skillLevels": ["Novice", "Beginner", "Intermediate"]
+      },
+      {
+        "name": "Codecademy",
+        "type": "Interactive Coding Platform",
+        "description": "Learn to code interactively with hands-on exercises and projects.",
+        "url": "https://www.codecademy.com/",
+        "skillLevels": ["Novice", "Beginner", "Intermediate"]
+      },
+      {
+        "name": "CS50: Introduction to Computer Science",
+        "type": "Online Course",
+        "description": "Harvard University's introduction to computer science and programming.",
+        "url": "https://cs50.harvard.edu/x/",
+        "skillLevels": ["Beginner", "Intermediate"]
+      },
+      {
+        "name": "LeetCode",
+        "type": "Coding Challenge Platform",
+        "description": "Platform for preparing technical coding interviews with a vast array of problems.",
+        "url": "https://leetcode.com/",
+        "skillLevels": ["Intermediate", "Advanced", "Expert"]
+      },
+      {
+        "name": "MIT OpenCourseWare: Electrical Engineering and Computer Science",
+        "type": "University Lectures",
+        "description": "Free access to MIT's undergraduate and graduate-level computer science course materials.",
+        "url": "https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/",
+        "skillLevels": ["Intermediate", "Advanced", "Expert"]
+      },
+      {
+        "name": "Coursera: Computer Science Courses",
+        "type": "Online Course Platform",
+        "description": "Wide range of computer science courses from various universities and institutions.",
+        "url": "https://www.coursera.org/browse/computer-science",
+        "skillLevels": ["Beginner", "Intermediate", "Advanced"]
+      },
+      {
+        "name": "GeeksforGeeks",
+        "type": "Tutorial Website",
+        "description": "Computer science portal with tutorials, articles, and coding problems.",
+        "url": "https://www.geeksforgeeks.org/",
+        "skillLevels": ["Beginner", "Intermediate", "Advanced"]
+      },
+      {
+        "name": "Stack Overflow",
+        "type": "Q&A Forum",
+        "description": "Community-driven question and answer site for programmers.",
+        "url": "https://stackoverflow.com/",
+        "skillLevels": ["Beginner", "Intermediate", "Advanced", "Expert"]
+      },
+      {
+        "name": "Udacity",
+        "type": "Online Learning Platform",
+        "description": "Offers nanodegree programs and courses in various computer science fields.",
+        "url": "https://www.udacity.com/school-of-programming",
+        "skillLevels": ["Beginner", "Intermediate", "Advanced"]
+      },
+      {
+        "name": "arXiv Computer Science",
+        "type": "Research Paper Repository",
+        "description": "Open access to a wealth of computer science research papers.",
+        "url": "https://arxiv.org/list/cs/recent",
+        "skillLevels": ["Advanced", "Expert"]
+      }
+    ]
+  }

@@ -1,0 +1,71 @@
+Subject,Level,Name,Type,Description,URL
+chinese,Novice : Beginner,Duolingo,Mobile App,Gamified language learning app with bite-sized lessons and exercises.,https://www.duolingo.com/course/zh/en/Learn-Chinese
+chinese,Novice : Beginner : Intermediate,HelloChinese,Mobile App,Comprehensive app designed specifically for learning Mandarin Chinese.,https://www.hellochinese.cc/
+chinese,Beginner : Intermediate : Advanced,ChinesePod,Podcast and Online Lessons,Audio lessons with accompanying text and exercises for various proficiency levels.,https://chinesepod.com/
+chinese,Beginner : Intermediate,Yoyo Chinese,Online Course,"'Structured video-based courses covering speaking, reading, and writing skills.'",https://www.yoyochinese.com/
+chinese,Novice : Beginner : Intermediate : Advanced : Expert,Pleco,Mobile App,Comprehensive Chinese-English dictionary app with flashcard system and document reader.,https://www.pleco.com/
+chinese,Beginner : Intermediate : Advanced,edX - MandarinX,Online Course,Free online Mandarin courses from Tsinghua University and other institutions.,https://www.edx.org/learn/mandarin
+chinese,Beginner : Intermediate : Advanced,Skritter,Mobile App,App focused on teaching Chinese characters through writing practice.,https://skritter.com/
+chinese,Intermediate : Advanced : Expert,The Chairman's Bao,Online News Platform,Simplified Chinese news articles with difficulty levels and learning tools.,https://www.thechairmansbao.com/
+chinese,Beginner : Intermediate : Advanced,Coursera - HSK Chinese courses,Online Course,Structured courses aligned with HSK (Chinese Proficiency Test) levels.,https://www.coursera.org/courses?query=hsk
+chinese,Intermediate : Advanced : Expert,Lang-8,Language Exchange Platform,Write in Chinese and get corrections from native speakers.,https://lang-8.com/
+computerScience,Novice : Beginner : Intermediate,freeCodeCamp,Online Learning Platform,Free coding bootcamp offering certifications in various programming languages and CS concepts.,https://www.freecodecamp.org/
+computerScience,Novice : Beginner : Intermediate,Codecademy,Interactive Coding Platform,Learn to code interactively with hands-on exercises and projects.,https://www.codecademy.com/
+computerScience,Beginner : Intermediate,CS50: Introduction to Computer Science,Online Course,Harvard University's introduction to computer science and programming.,https://cs50.harvard.edu/x/
+computerScience,Intermediate : Advanced : Expert,LeetCode,Coding Challenge Platform,Platform for preparing technical coding interviews with a vast array of problems.,https://leetcode.com/
+computerScience,Intermediate : Advanced : Expert,MIT OpenCourseWare: Electrical Engineering and Computer Science,University Lectures,Free access to MIT's undergraduate and graduate-level computer science course materials.,https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/
+computerScience,Beginner : Intermediate : Advanced,Coursera: Computer Science Courses,Online Course Platform,Wide range of computer science courses from various universities and institutions.,https://www.coursera.org/browse/computer-science
+computerScience,Beginner : Intermediate : Advanced,GeeksforGeeks,Tutorial Website,"'Computer science portal with tutorials, articles, and coding problems.'",https://www.geeksforgeeks.org/
+computerScience,Beginner : Intermediate : Advanced : Expert,Stack Overflow,Q&A Forum,Community-driven question and answer site for programmers.,https://stackoverflow.com/
+computerScience,Beginner : Intermediate : Advanced,Udacity,Online Learning Platform,Offers nanodegree programs and courses in various computer science fields.,https://www.udacity.com/school-of-programming
+computerScience,Advanced : Expert,arXiv Computer Science,Research Paper Repository,Open access to a wealth of computer science research papers.,https://arxiv.org/list/cs/recent
+dataScience,beginner : intermediate,Coursera - Data Science Specialization,Online Course,"'A comprehensive series of courses covering various aspects of data science, offered by Johns Hopkins University.'",https://www.coursera.org/specializations/jhu-data-science
+dataScience,novice : beginner : intermediate,DataCamp,Interactive Learning Platform,Offers a wide range of courses and hands-on coding exercises for data science and analytics.,https://www.datacamp.com/
+dataScience,beginner : intermediate : advanced : expert,Kaggle,Community and Competition Platform,"'Provides datasets, competitions, and a community for data scientists to learn and showcase their skills.'",https://www.kaggle.com/
+dataScience,intermediate : advanced,edX - Data Science MicroMasters,Online Program,"'A series of graduate-level courses offered by various universities, covering core data science concepts.'",https://www.edx.org/micromasters/data-science
+dataScience,intermediate : advanced,Fast.ai,Free Online Course,"'Offers practical deep learning courses for coders, focusing on neural networks and machine learning.'",https://www.fast.ai/
+dataScience,beginner : intermediate : advanced,Analytics Vidhya,Community and Learning Platform,"'Provides articles, tutorials, and courses on various data science topics, as well as hackathons and job opportunities.'",https://www.analyticsvidhya.com/
+dataScience,intermediate : advanced : expert,MIT OpenCourseWare - Data Science and Statistics,Free Online Courses,"'Offers various courses from MIT covering data science, statistics, and machine learning topics.'",https://ocw.mit.edu/courses/find-by-topic/#cat=mathematics&subcat=probabilityandstatistics
+dataScience,novice : beginner : intermediate,DataQuest,Interactive Learning Platform,Provides hands-on coding experience and guided projects for learning data science skills.,https://www.dataquest.io/
+dataScience,beginner : intermediate : advanced : expert,Towards Data Science,Online Publication,A Medium publication featuring articles and tutorials on various data science topics written by practitioners and experts.,https://towardsdatascience.com/
+dataScience,intermediate : advanced,Data Science at the Command Line,Free Online Book,"'A comprehensive guide to data science using command-line tools, covering data manipulation, exploration, and analysis.'",https://datascienceatthecommandline.com/
+english,Novice : Beginner,Duolingo,Mobile App,Gamified language learning app with bite-sized lessons and exercises.,https://www.duolingo.com/course/en/es/Learn-English
+english,Beginner : Intermediate : Advanced,BBC Learning English,Website and Mobile App,"'Free lessons, videos, and quizzes for English learners, including news-based materials.'",https://www.bbc.co.uk/learningenglish/
+english,Beginner : Intermediate : Advanced,EnglishCentral,Video-based Learning Platform,Learn English through popular videos with interactive transcripts and vocabulary tools.,https://www.englishcentral.com/
+english,Intermediate : Advanced : Expert,Grammarly,Writing Assistant Tool,"'AI-powered writing assistant that helps improve grammar, spelling, and style.'",https://www.grammarly.com/
+english,Beginner : Intermediate : Advanced,Coursera - English Language Courses,Online Course Platform,Various English language courses from top universities and institutions.,https://www.coursera.org/browse/language-learning/learning-english
+english,Beginner : Intermediate : Advanced,FluentU,Immersion Platform,"'Learn English through real-world videos like music videos, movie trailers, and news.'",https://www.fluentu.com/english/
+english,Novice : Beginner : Intermediate,Memrise,Mobile App,Vocabulary-focused app using spaced repetition and mnemonics for efficient learning.,https://www.memrise.com/languages/english/
+english,Beginner : Intermediate : Advanced : Expert,italki,Language Exchange Platform,Connect with native English speakers for one-on-one tutoring or language exchange.,https://www.italki.com/teachers/english
+english,Intermediate : Advanced : Expert,TED Talks,Video Platform,"'Engaging talks on various topics, great for listening practice and expanding vocabulary.'",https://www.ted.com/
+english,Beginner : Intermediate : Advanced : Expert,Linguee,Online Dictionary and Translation Tool,Dictionary that provides translations in context from real-world sources.,https://www.linguee.com/
+math,Novice : Beginner : Intermediate : Advanced,Khan Academy Math,Online Course,Free comprehensive math courses covering topics from elementary to college level.,https://www.khanacademy.org/math
+math,Beginner : Intermediate : Advanced,Brilliant,Interactive Learning Platform,Problem-solving based courses in various math topics with increasing difficulty.,https://brilliant.org/courses/#/science/mathematics
+math,Intermediate : Advanced : Expert,3Blue1Brown,YouTube Channel,Animated math videos explaining complex concepts with stunning visualizations.,https://www.youtube.com/channel/UCYO_jab_esuFRV4b17AJtAw
+math,Intermediate : Advanced : Expert,MIT OpenCourseWare Mathematics,University Lectures,Free access to MIT's undergraduate and graduate-level math course materials.,https://ocw.mit.edu/courses/mathematics/
+math,Intermediate : Advanced : Expert,Art of Problem Solving,Online Community and Courses,"'Resources for high-performing students, focusing on problem-solving and competition math.'",https://artofproblemsolving.com/
+math,Intermediate : Advanced : Expert,Wolfram MathWorld,Online Encyclopedia,Comprehensive and in-depth encyclopedia of mathematics.,https://mathworld.wolfram.com/
+math,Novice : Beginner : Intermediate,IXL Math,Interactive Practice Platform,Adaptive math practice covering K-12 curriculum with immediate feedback.,https://www.ixl.com/math/
+math,Intermediate : Advanced,Paul's Online Math Notes,Online Notes and Tutorials,"'Detailed math notes and tutorials for algebra, calculus, and differential equations.'",https://tutorial.math.lamar.edu/
+math,Advanced : Expert,MathOverflow,Q&A Forum,Question and answer site for professional mathematicians.,https://mathoverflow.net/
+math,Beginner : Intermediate : Advanced,Numberphile,YouTube Channel,Videos featuring mathematicians discussing various number and math concepts.,https://www.youtube.com/user/numberphile
+physics,Novice : Beginner : Intermediate,Khan Academy Physics,Online Course,Free comprehensive physics courses covering various topics from basic to advanced levels.,https://www.khanacademy.org/science/physics
+physics,Intermediate : Advanced : Expert,MIT OpenCourseWare,University Lectures,Free access to MIT's undergraduate and graduate-level physics course materials.,https://ocw.mit.edu/courses/physics/
+physics,Novice : Beginner : Intermediate,Physics Classroom,Interactive Tutorials,Comprehensive physics tutorials with interactive simulations and problem-solving exercises.,https://www.physicsclassroom.com/
+physics,Intermediate : Advanced : Expert,Feynman Lectures on Physics,Textbook,"'Classic physics lectures by Richard Feynman, covering a wide range of topics.'",https://www.feynmanlectures.caltech.edu/
+physics,Novice : Beginner : Intermediate,PhET Interactive Simulations,Simulations,Free interactive physics simulations to visualize and explore various concepts.,https://phet.colorado.edu/en/simulations/category/physics
+physics,Beginner : Intermediate : Advanced,edX Physics Courses,Online Course,"'A variety of physics courses from top universities, ranging from introductory to advanced topics.'",https://www.edx.org/learn/physics
+physics,Beginner : Intermediate : Advanced,HyperPhysics,Reference,Comprehensive physics reference with concept maps and detailed explanations.,http://hyperphysics.phy-astr.gsu.edu/hbase/hph.html
+physics,Beginner : Intermediate : Advanced,Brilliant.org Physics,Interactive Course,Problem-solving based courses covering various physics topics with increasing difficulty.,https://brilliant.org/courses/#/science/physics
+physics,Advanced : Expert,ArXiv Physics,Research Papers,Open-access archive for scholarly articles in physics and related fields.,https://arxiv.org/archive/physics
+physics,Intermediate : Advanced : Expert,Physics Stack Exchange,Q&A Forum,"'Community-driven question and answer site for physics researchers, academics, and students.'",https://physics.stackexchange.com/
+spanish,Novice : Beginner,Duolingo,Mobile App,Gamified language learning app with bite-sized lessons and exercises.,https://www.duolingo.com/course/es/en/Learn-Spanish
+spanish,Novice : Beginner : Intermediate : Advanced,SpanishDict,Online Dictionary and Learning Platform,"'Comprehensive Spanish-English dictionary with translations, conjugations, and learning resources.'",https://www.spanishdict.com/
+spanish,Beginner : Intermediate : Advanced,Baselang,Online Tutoring Platform,Unlimited one-on-one Spanish tutoring with native speakers for a monthly fee.,https://baselang.com/
+spanish,Beginner : Intermediate : Advanced,Coffee Break Spanish,Podcast,"'Audio lessons for learning Spanish, ranging from beginner to advanced levels.'",https://radiolingua.com/coffeebreakspanish/
+spanish,Novice : Beginner : Intermediate,Busuu,Mobile App and Online Platform,Learn Spanish through interactive lessons and get feedback from native speakers.,https://www.busuu.com/en/course/learn-spanish-online
+spanish,Beginner : Intermediate : Advanced,StudySpanish.com,Online Learning Platform,"'Comprehensive Spanish lessons covering grammar, vocabulary, and pronunciation.'",https://studyspanish.com/
+spanish,Intermediate : Advanced,News in Slow Spanish,Podcast and Text,"'Current events narrated in slow, clear Spanish with transcripts and exercises.'",https://www.newsinslowspanish.com/
+spanish,Beginner : Intermediate : Advanced,LightSpeed Spanish,YouTube Channel,Free video lessons covering various aspects of Spanish language and culture.,https://www.youtube.com/user/LightSpeedSpanish
+spanish,Beginner : Intermediate : Advanced : Expert,Cervantes Institute,Official Spanish Language and Cultural Center,Official Spanish language courses and certifications from the Spanish government.,https://www.cervantes.es/default.htm
+spanish,Intermediate : Advanced : Expert,Readlang,Web Reader and Flashcard Tool,Read Spanish texts online with instant translations and create flashcards automatically.,https://readlang.com/
