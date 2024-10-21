@@ -1,0 +1,164 @@
+id,question,content,training_data_type
+04a2068e-b7a5-54ce-9269-4fd9b73f337f-sql,List all albums and their corresponding artist names  ,"SELECT Album.Title AS AlbumTitle, Artist.Name AS ArtistName
+FROM Album
+JOIN Artist ON Album.ArtistId = Artist.ArtistId",sql
+19decd16-b8f9-5fb2-ba6e-238ce8b76c06-sql,"
+                For this question: which table stores customer's orders, 
+                your generated SQL statement:  The `Invoice` table stores customer's orders. results in the following exception: [ERROR-SQL] the generated SQL :  The `Invoice` table stores customer's orders.
+ does not starts with ('select','with') .
+                Can you please fix the error and re-generate the SQL statement?
+            ",SELECT name FROM sqlite_master WHERE type='table',sql
+392c8b16-e321-5fe7-a914-7adf3a75a002-sql,what are the top 5 countries that customers come from?,"SELECT Country, COUNT(*) AS CustomerCount
+FROM Customer
+GROUP BY Country
+ORDER BY CustomerCount DESC
+LIMIT 5",sql
+bd5c3bb4-fc60-507f-af02-28a130bf177c-sql,How many customers are there,SELECT COUNT(*) AS NumberOfCustomers FROM Customer,sql
+cf732417-47dd-5588-8216-3791c594a6b2-sql,"Find all tracks with a name containing ""What"" (case-insensitive) ","SELECT * FROM Track
+WHERE LOWER(Name) LIKE '%what%'",sql
+d8a2f948-dffa-5524-a5f9-174cc1a8da73-sql,Can you list all tables in the SQLite database catalog?,SELECT name FROM sqlite_master WHERE type='table',sql
+00e3136b-f688-5ae4-a2bb-3354635261fc-ddl,,CREATE INDEX IFK_CustomerSupportRepId ON Customer (SupportRepId),ddl
+04a3d9eb-fab7-5641-96a1-ae7924ae05e5-ddl,,CREATE INDEX IFK_EmployeeReportsTo ON Employee (ReportsTo),ddl
+11439f95-bfbc-530c-8b7f-91f9e45d2877-ddl,,"CREATE TABLE Track
+(
+    TrackId INTEGER  NOT NULL,
+    Name NVARCHAR(200)  NOT NULL,
+    AlbumId INTEGER,
+    MediaTypeId INTEGER  NOT NULL,
+    GenreId INTEGER,
+    Composer NVARCHAR(220),
+    Milliseconds INTEGER  NOT NULL,
+    Bytes INTEGER,
+    UnitPrice NUMERIC(10,2)  NOT NULL,
+    CONSTRAINT PK_Track PRIMARY KEY  (TrackId),
+    FOREIGN KEY (AlbumId) REFERENCES Album (AlbumId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION,
+    FOREIGN KEY (GenreId) REFERENCES Genre (GenreId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION,
+    FOREIGN KEY (MediaTypeId) REFERENCES MediaType (MediaTypeId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION
+)",ddl
+29f57d6d-552a-5cc2-8c8c-cb78918d1646-ddl,,"CREATE TABLE Genre
+(
+    GenreId INTEGER  NOT NULL,
+    Name NVARCHAR(120),
+    CONSTRAINT PK_Genre PRIMARY KEY  (GenreId)
+)",ddl
+33d9efb0-969c-59b8-95f1-04b3e0ddd2df-ddl,,CREATE INDEX IFK_TrackAlbumId ON Track (AlbumId),ddl
+37bc3b25-2dc1-5160-bcae-baf85b93f023-ddl,,"CREATE TABLE InvoiceLine
+(
+    InvoiceLineId INTEGER  NOT NULL,
+    InvoiceId INTEGER  NOT NULL,
+    TrackId INTEGER  NOT NULL,
+    UnitPrice NUMERIC(10,2)  NOT NULL,
+    Quantity INTEGER  NOT NULL,
+    CONSTRAINT PK_InvoiceLine PRIMARY KEY  (InvoiceLineId),
+    FOREIGN KEY (InvoiceId) REFERENCES Invoice (InvoiceId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION,
+    FOREIGN KEY (TrackId) REFERENCES Track (TrackId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION
+)",ddl
+4893f9e4-2275-53cb-89da-43de3063acf1-ddl,,"CREATE TABLE PlaylistTrack
+(
+    PlaylistId INTEGER  NOT NULL,
+    TrackId INTEGER  NOT NULL,
+    CONSTRAINT PK_PlaylistTrack PRIMARY KEY  (PlaylistId, TrackId),
+    FOREIGN KEY (PlaylistId) REFERENCES Playlist (PlaylistId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION,
+    FOREIGN KEY (TrackId) REFERENCES Track (TrackId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION
+)",ddl
+82dfbbaf-4fe6-5213-8c5a-2e765f459ca1-ddl,,"CREATE TABLE Artist
+(
+    ArtistId INTEGER  NOT NULL,
+    Name NVARCHAR(120),
+    CONSTRAINT PK_Artist PRIMARY KEY  (ArtistId)
+)",ddl
+8a3cbf5f-a4d9-5429-93de-e49ef72c5bd5-ddl,,"CREATE TABLE Customer
+(
+    CustomerId INTEGER  NOT NULL,
+    FirstName NVARCHAR(40)  NOT NULL,
+    LastName NVARCHAR(20)  NOT NULL,
+    Company NVARCHAR(80),
+    Address NVARCHAR(70),
+    City NVARCHAR(40),
+    State NVARCHAR(40),
+    Country NVARCHAR(40),
+    PostalCode NVARCHAR(10),
+    Phone NVARCHAR(24),
+    Fax NVARCHAR(24),
+    Email NVARCHAR(60)  NOT NULL,
+    SupportRepId INTEGER,
+    CONSTRAINT PK_Customer PRIMARY KEY  (CustomerId),
+    FOREIGN KEY (SupportRepId) REFERENCES Employee (EmployeeId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION
+)",ddl
+93344862-5b4e-5a02-8c70-982b08c6badf-ddl,,CREATE INDEX IFK_InvoiceLineInvoiceId ON InvoiceLine (InvoiceId),ddl
+96df68d6-cba8-5982-9b6e-4dd4e797683f-ddl,,CREATE INDEX IFK_AlbumArtistId ON Album (ArtistId),ddl
+97594156-2183-5f7b-82f6-a6ae2d3e248c-ddl,,CREATE INDEX IFK_InvoiceLineTrackId ON InvoiceLine (TrackId),ddl
+9f818206-3266-527b-8906-e9644c2414f4-ddl,,"CREATE TABLE Employee
+(
+    EmployeeId INTEGER  NOT NULL,
+    LastName NVARCHAR(20)  NOT NULL,
+    FirstName NVARCHAR(20)  NOT NULL,
+    Title NVARCHAR(30),
+    ReportsTo INTEGER,
+    BirthDate DATETIME,
+    HireDate DATETIME,
+    Address NVARCHAR(70),
+    City NVARCHAR(40),
+    State NVARCHAR(40),
+    Country NVARCHAR(40),
+    PostalCode NVARCHAR(10),
+    Phone NVARCHAR(24),
+    Fax NVARCHAR(24),
+    Email NVARCHAR(60),
+    CONSTRAINT PK_Employee PRIMARY KEY  (EmployeeId),
+    FOREIGN KEY (ReportsTo) REFERENCES Employee (EmployeeId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION
+)",ddl
+b586614d-f6de-5d5e-aa55-692d9fbbc325-ddl,,"CREATE TABLE Playlist
+(
+    PlaylistId INTEGER  NOT NULL,
+    Name NVARCHAR(120),
+    CONSTRAINT PK_Playlist PRIMARY KEY  (PlaylistId)
+)",ddl
+b5cb3609-158b-57bb-9124-1425c39eb7d6-ddl,,CREATE INDEX IFK_TrackGenreId ON Track (GenreId),ddl
+bf1f06a1-8065-512c-bfe7-591d0e017d3e-ddl,,"CREATE TABLE Invoice
+(
+    InvoiceId INTEGER  NOT NULL,
+    CustomerId INTEGER  NOT NULL,
+    InvoiceDate DATETIME  NOT NULL,
+    BillingAddress NVARCHAR(70),
+    BillingCity NVARCHAR(40),
+    BillingState NVARCHAR(40),
+    BillingCountry NVARCHAR(40),
+    BillingPostalCode NVARCHAR(10),
+    Total NUMERIC(10,2)  NOT NULL,
+    CONSTRAINT PK_Invoice PRIMARY KEY  (InvoiceId),
+    FOREIGN KEY (CustomerId) REFERENCES Customer (CustomerId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION
+)",ddl
+c88034a5-9a78-5b9b-b864-d9b542ffff77-ddl,,"CREATE TABLE MediaType
+(
+    MediaTypeId INTEGER  NOT NULL,
+    Name NVARCHAR(120),
+    CONSTRAINT PK_MediaType PRIMARY KEY  (MediaTypeId)
+)",ddl
+ca1e33d8-8948-52fa-8c3d-0b5f6b0cccdc-ddl,,CREATE INDEX IFK_TrackMediaTypeId ON Track (MediaTypeId),ddl
+cfe3064c-0442-5555-be9c-bbc8fa9542a8-ddl,,CREATE INDEX IFK_InvoiceCustomerId ON Invoice (CustomerId),ddl
+e9124f31-fca1-5503-b473-9b995624b92e-ddl,,"CREATE TABLE Album
+(
+    AlbumId INTEGER  NOT NULL,
+    Title NVARCHAR(160)  NOT NULL,
+    ArtistId INTEGER  NOT NULL,
+    CONSTRAINT PK_Album PRIMARY KEY  (AlbumId),
+    FOREIGN KEY (ArtistId) REFERENCES Artist (ArtistId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION
+)",ddl
+f4b619e3-ec27-5093-a24f-938a38bd48a2-ddl,,CREATE INDEX IFK_PlaylistTrackTrackId ON PlaylistTrack (TrackId),ddl
+2b4dda0a-a6ac-5e34-8f76-e41c0734d55e-doc,,In the chinook database invoice means order,documentation
+ece10d36-9223-5045-9ac8-4b5bc090acb5-doc,,"
+    In the 'customers' table, address column names do not have 'Billing' prefix, 
+    e.g. country column name is 'country', not 'BillingCountry'
+    ",documentation
