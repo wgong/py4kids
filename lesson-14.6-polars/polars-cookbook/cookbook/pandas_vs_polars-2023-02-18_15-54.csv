@@ -1,0 +1,2 @@
+pandas	polars	unit	use-case	datafile	dataset
+0.075418	0.034166	sec	case_008: calculate RSI	../data/spy/spy.sqlite	spy

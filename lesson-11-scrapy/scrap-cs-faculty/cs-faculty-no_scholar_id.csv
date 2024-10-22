@@ -1,0 +1,230 @@
+name,name_school
+"Ada, Anil","Ada, Anil CMU"
+"Berger, Daniel","Berger, Daniel CMU"
+"Blum, Manuel","Blum, Manuel CMU"
+"Brookes, Stephen","Brookes, Stephen CMU"
+"Chrysanthis, Panos","Chrysanthis, Panos CMU"
+"DeYoung, Henry","DeYoung, Henry CMU"
+"Donahue, Chris","Donahue, Chris CMU"
+"Eckhardt, Dave","Eckhardt, Dave CMU"
+"Erdmann, Michael","Erdmann, Michael CMU"
+"Fatahalian, Kayvon","Fatahalian, Kayvon CMU"
+"Gligor, Virgil","Gligor, Virgil CMU"
+"Guruswami, Venkatesan","Guruswami, Venkatesan CMU"
+"Jahanian, Farnam","Jahanian, Farnam CMU"
+"Kaynar, Zeliha Dilsun","Kaynar, Zeliha Dilsun CMU"
+"Kohlbrenner, Anne","Kohlbrenner, Anne CMU"
+"Kosbie, David","Kosbie, David CMU"
+"Labrinidis, Alexandros","Labrinidis, Alexandros CMU"
+"Needham, Kit","Needham, Kit CMU"
+"Procaccia, Ariel","Procaccia, Ariel CMU"
+"Sherry, Justine","Sherry, Justine CMU"
+"Vinayak, Rashmi Korlakai","Vinayak, Rashmi Korlakai CMU"
+"Wing, Jeannette","Wing, Jeannette CMU"
+"Zheng, Wenting","Zheng, Wenting CMU"
+David Albonesi,David Albonesi 
+Anne Bracy,Anne Bracy 
+Robert Constable,Robert Constable 
+Alan Demers,Alan Demers 
+K-Y. Daisy Fan,K-Y. Daisy Fan 
+Carla Gomes,Carla Gomes 
+Donald Greenberg,Donald Greenberg 
+Curran Muhlberger,Curran Muhlberger 
+Martha E. Pollack,Martha E. Pollack 
+"Alexander ""Sasha"" Rush","Alexander ""Sasha"" Rush "
+G. Edward Suh,G. Edward Suh 
+A. Kevin Tang,A. Kevin Tang 
+Tim Teitelbaum,Tim Teitelbaum 
+Walker White,Walker White 
+Zhiru Zhang,Zhiru Zhang 
+Hal Abelson,Hal Abelson MIT
+Elfar Adalsteinsson,Elfar Adalsteinsson MIT
+Regina Barzilay,Regina Barzilay MIT
+YuFeng (Kevin)  Chen,YuFeng (Kevin)  Chen MIT
+Isaac Chuang,Isaac Chuang MIT
+Connor Wilson Coley,Connor Wilson Coley MIT
+Luca Daniel,Luca Daniel MIT
+Frederic Durand,Frederic Durand MIT
+Dennis Freeman,Dennis Freeman MIT
+David Gifford,David Gifford MIT
+W. Eric L Grimson,W. Eric L Grimson MIT
+Tomás Lozano-Pérez,Tomás Lozano-Pérez MIT
+Alan Oppenheim,Alan Oppenheim MIT
+Asu Ozdaglar,Asu Ozdaglar MIT
+Yury Polyanskiy,Yury Polyanskiy MIT
+Jeffrey Shapiro,Jeffrey Shapiro MIT
+Collin Stultz,Collin Stultz MIT
+Gerald Sussman,Gerald Sussman MIT
+Christopher Tanner,Christopher Tanner MIT
+Jacob White,Jacob White MIT
+Lizhong Zheng,Lizhong Zheng MIT
+Victor Zue,Victor Zue MIT
+Brynmor Chapman,Brynmor Chapman MIT
+Shafrira Goldwasser,Shafrira Goldwasser MIT
+M. Frans Kaashoek,M. Frans Kaashoek MIT
+Butler Lampson,Butler Lampson MIT
+Steven Leeb,Steven Leeb MIT
+Barbara Liskov,Barbara Liskov MIT
+Silvio Micali,Silvio Micali MIT
+Anand V Natarajan,Anand V Natarajan MIT
+Nir Shavit,Nir Shavit MIT
+Michael Stonebraker,Michael Stonebraker MIT
+Andrew Wang,Andrew Wang MIT
+Gill Bejerano,Gill Bejerano Stanford
+Ron Fedkiw,Ron Fedkiw Stanford
+Fred Kjoelstad,Fred Kjoelstad Stanford
+Fred Kjolstad,Fred Kjolstad Stanford
+Karen Liu,Karen Liu Stanford
+Chris Manning,Chris Manning Stanford
+Mendel Rosenblum,Mendel Rosenblum Stanford
+Aviad Rubinstein,Aviad Rubinstein Stanford
+Matei Zaharia,Matei Zaharia Stanford
+Jay Borenstein,Jay Borenstein Stanford
+Jerry Cain,Jerry Cain Stanford
+Nick Parlante,Nick Parlante Stanford
+Keith Schwarz,Keith Schwarz Stanford
+Nick Troccoli,Nick Troccoli Stanford
+Christina Wodtke,Christina Wodtke Stanford
+Patrick Young,Patrick Young Stanford
+Julie Zelenski,Julie Zelenski Stanford
+David Cheriton,David Cheriton Stanford
+Tom Dienstbier,Tom Dienstbier Stanford
+Edward Feigenbaum,Edward Feigenbaum Stanford
+Richard Fikes,Richard Fikes Stanford
+Jean-Claude Latombe,Jean-Claude Latombe Stanford
+Teresa Meng,Teresa Meng Stanford
+Vaughan Pratt,Vaughan Pratt Stanford
+Eric Roberts,Eric Roberts Stanford
+Terry Winograd,Terry Winograd Stanford
+Camille Utterback,Camille Utterback Stanford
+Peter Bailis,Peter Bailis Stanford
+Changhoon Kim,Changhoon Kim Stanford
+Daphne Koller,Daphne Koller Stanford
+Juan Carlos Niebles Duque,Juan Carlos Niebles Duque Stanford
+Sebastian Thrun,Sebastian Thrun Stanford
+Chris Hahn,Chris Hahn Stanford
+Dolière Francis Somé,Dolière Francis Somé Stanford
+Zhikun Zhang,Zhikun Zhang Stanford
+Rediet Abebe,Rediet Abebe Berkeley
+Babak Ayazifar,Babak Ayazifar Berkeley
+Ruzena Bajcsy,Ruzena Bajcsy Berkeley
+Brian A. Barsky,Brian A. Barsky Berkeley
+Lenore Blum,Lenore Blum Berkeley
+Manuel Blum,Manuel Blum Berkeley
+John F. Canny,John F. Canny Berkeley
+Sarah Chasins,Sarah Chasins Berkeley
+Alessandro Chiesa,Alessandro Chiesa Berkeley
+Phillip Colella,Phillip Colella Berkeley
+David E. Culler,David E. Culler Berkeley
+Prabal Dutta,Prabal Dutta Berkeley
+Alexei (Alyosha) Efros,Alexei (Alyosha) Efros Berkeley
+Hany Farid,Hany Farid Berkeley
+Richard J. Fateman,Richard J. Fateman Berkeley
+Jerome A. Feldman,Jerome A. Feldman Berkeley
+Domenico Ferrari,Domenico Ferrari Berkeley
+Jack Gallant,Jack Gallant Berkeley
+Sanjam Garg,Sanjam Garg Berkeley
+Shafi Goldwasser,Shafi Goldwasser Berkeley
+Susan L. Graham,Susan L. Graham Berkeley
+Venkatesan Guruswami,Venkatesan Guruswami Berkeley
+Nika Haghtalab,Nika Haghtalab Berkeley
+Moritz Hardt,Moritz Hardt Berkeley
+Michael A. Harrison,Michael A. Harrison Berkeley
+Björn Hartmann,Björn Hartmann Berkeley
+Brian Harvey,Brian Harvey Berkeley
+Marti Hearst,Marti Hearst Berkeley
+Joseph M. Hellerstein,Joseph M. Hellerstein Berkeley
+Paul N. Hilfinger,Paul N. Hilfinger Berkeley
+Joshua Hug,Joshua Hug Berkeley
+Christopher Hunn,Christopher Hunn Berkeley
+Nilah Ioannidis,Nilah Ioannidis Berkeley
+Jiantao Jiao,Jiantao Jiao Berkeley
+Michael Jordan,Michael Jordan Berkeley
+Anthony D. Joseph,Anthony D. Joseph Berkeley
+William M. Kahan,William M. Kahan Berkeley
+Peyrin Kao,Peyrin Kao Berkeley
+Richard M. Karp,Richard M. Karp Berkeley
+Randy H. Katz,Randy H. Katz Berkeley
+Daniel Klein,Daniel Klein Berkeley
+John D. Kubiatowicz,John D. Kubiatowicz Berkeley
+Edward A. Lee,Edward A. Lee Berkeley
+Igor Mordatch,Igor Mordatch Berkeley
+Jelani Nelson,Jelani Nelson Berkeley
+Ren Ng,Ren Ng Berkeley
+Narges Norouzi,Narges Norouzi Berkeley
+James O'Brien,James O'Brien Berkeley
+Christos Papadimitriou,Christos Papadimitriou Berkeley
+Beresford N. Parlett,Beresford N. Parlett Berkeley
+Vern Paxson,Vern Paxson Berkeley
+Prasad Raghavendra,Prasad Raghavendra Berkeley
+Satish Rao,Satish Rao Berkeley
+Benjamin Recht,Benjamin Recht Berkeley
+Lawrence A. Rowe,Lawrence A. Rowe Berkeley
+Jaijeet Roychowdhury,Jaijeet Roychowdhury Berkeley
+Stuart J. Russell,Stuart J. Russell Berkeley
+Anant Sahai,Anant Sahai Berkeley
+Koushik Sen,Koushik Sen Berkeley
+Carlo H. Séquin,Carlo H. Séquin Berkeley
+Jonathan Shewchuk,Jonathan Shewchuk Berkeley
+Alistair Sinclair,Alistair Sinclair Berkeley
+Yun S. Song,Yun S. Song Berkeley
+Costas J. Spanos,Costas J. Spanos Berkeley
+Jacob Steinhardt,Jacob Steinhardt Berkeley
+Michael Stonebraker,Michael Stonebraker Berkeley
+Bernd Sturmfels,Bernd Sturmfels Berkeley
+Umesh Vazirani,Umesh Vazirani Berkeley
+Martin Wainwright,Martin Wainwright Berkeley
+Jean Walrand,Jean Walrand Berkeley
+John Wawrzynek,John Wawrzynek Berkeley
+Nicholas Weaver,Nicholas Weaver Berkeley
+John Wright,John Wright Berkeley
+Lisa Yan,Lisa Yan Berkeley
+Katherine A. Yelick,Katherine A. Yelick Berkeley
+Justin Yokota,Justin Yokota Berkeley
+Nir Yosef,Nir Yosef Berkeley
+Matei Zaharia,Matei Zaharia Berkeley
+Sarita V. Adve,Sarita V. Adve UIUC
+Ram Alagappan,Ram Alagappan UIUC
+Mattox Alan Beckman,Mattox Alan Beckman UIUC
+Geoffrey Werner Challen,Geoffrey Werner Challen UIUC
+Timothy Moon-Yew Chan,Timothy Moon-Yew Chan UIUC
+Chandra Sekhar Chekuri,Chandra Sekhar Chekuri UIUC
+Ryan Matthew Cunningham,Ryan Matthew Cunningham UIUC
+Neal E. Davis,Neal E. Davis UIUC
+Carl Evans,Carl Evans UIUC
+Wade A. Fagen-Ulmschneider,Wade A. Fagen-Ulmschneider UIUC
+Christopher Wardlaw Fletcher,Christopher Wardlaw Fletcher UIUC
+Michael A. Forbes,Michael A. Forbes UIUC
+William D. Gropp,William D. Gropp UIUC
+Geoffrey Lindsay Herman,Geoffrey Lindsay Herman UIUC
+Derek W. Hoiem,Derek W. Hoiem UIUC
+Sheldon Howard Jacobson,Sheldon Howard Jacobson UIUC
+Daniel  Kang,Daniel  Kang UIUC
+Andreas Paul Eberhard Kloeckner,Andreas Paul Eberhard Kloeckner UIUC
+Robin Hillary Kravets,Robin Hillary Kravets UIUC
+Steven M. LaValle,Steven M. LaValle UIUC
+Hongye  Liu,Hongye  Liu UIUC
+Marco Morales Aguirre,Marco Morales Aguirre UIUC
+Hao Peng,Hao Peng UIUC
+Jian  Peng,Jian  Peng UIUC
+Eric Gene Shaffer,Eric Gene Shaffer UIUC
+Mariana  Silva,Mariana  Silva UIUC
+Makrand SINHA,Makrand SINHA UIUC
+Brad R. Solomon,Brad R. Solomon UIUC
+Sarah Gimbert Sterman,Sarah Gimbert Sterman UIUC
+Matus Jan Telgarsky,Matus Jan Telgarsky UIUC
+Luther Tychonievich,Luther Tychonievich UIUC
+Tiffani L. Williams,Tiffani L. Williams UIUC
+Michael Joseph Woodley,Michael Joseph Woodley UIUC
+Craig Zilles,Craig Zilles UIUC
+Michael Chang,Michael Chang Stanford
+Serge Plotkin,Serge Plotkin Stanford
+Shahar Dobzinski,Shahar Dobzinski Stanford
+Marco Vassena,Marco Vassena Stanford
+Michael J. Clancy,Michael J. Clancy Berkeley
+David A. Patterson,David A. Patterson Berkeley
+Sanjit A. Seshia,Sanjit A. Seshia Berkeley
+David A. Wagner,David A. Wagner Berkeley
+Stella Yu,Stella Yu Berkeley
+Gul A. Agha,Gul A. Agha UIUC
+John F. Reid,John F. Reid UIUC

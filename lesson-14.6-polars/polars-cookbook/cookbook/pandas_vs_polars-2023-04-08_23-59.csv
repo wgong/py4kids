@@ -1,0 +1,2 @@
+pandas	polars	unit	use-case	datafile	dataset
+	5.585921	sec	case_009: analyze web logs	../data/kaggle/wowah_data.csv	kaggle

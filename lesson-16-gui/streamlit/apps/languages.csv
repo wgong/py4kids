@@ -1,0 +1,9 @@
+name,code,num_speakers,family,branch,url,description,note,name_native,is_natural,is_active
+Mandarin Chinese,zh,939,Sino-Tibetan,Sinitic,https://en.wikipedia.org/wiki/Mandarin_Chinese,,,中文 汉语,1,0
+Spanish,es,485,Indo-European,Romance,https://en.wikipedia.org/wiki/ISO_639:spa,,,español,1,0
+English,en,380,Indo-European,Germanic,https://en.wikipedia.org/wiki/ISO_639:eng,,,English,1,0
+Russian,ru,147,Indo-European,Balto-Slavic,https://en.wikipedia.org/wiki/ISO_639:rus,,,русский язык,1,0
+French,fr,80.8,Indo-European,Romance,https://en.wikipedia.org/wiki/ISO_639:fra,,,français,1,0
+Arabic,ar,,,,https://en.wikipedia.org/wiki/Arabic,,,العربية,1,0
+Python,python,2,System,scripting,https://www.python.org/,,,,0,0
+Java,java,,System,compiled,https://en.wikipedia.org/wiki/Java_(programming_language),,,,,
