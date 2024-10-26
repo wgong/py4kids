@@ -148,6 +148,7 @@ CREATE_TABLE_DDL = {
         created_at TEXT,
         updated_by TEXT,
         updated_at TEXT
+    )
     ''',
 }
 
