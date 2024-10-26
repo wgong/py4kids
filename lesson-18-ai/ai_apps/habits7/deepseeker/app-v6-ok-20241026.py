@@ -33,8 +33,14 @@ LIST_TASK_STATUS = ["ToDo", "Doing", "Done"]
 LIST_PROGRESS = ["0%", "25%", "50%", "75%", "100%"]
 LIST_TASK_CATEGORY = ["", "learning", "research", "project", "fun"]
 
-TABLE_H7_TASK = "habits7_task"
 TABLE_H7_USER = "habits7_user"
+TABLE_H7_TASK = "habits7_task"
+TABLE_H7_NOTE = "habits7_note"
+
+PAGE_EDIT_USER = "Edit User"
+PAGE_MANAGE_TASK = "Manage Task"
+PAGE_7_HABITS_TASK = "7-Habits-Task View"
+PAGE_HOME = "Home"
 
 # Aggrid options
 # how to set column width
@@ -86,33 +92,34 @@ def run_sql(sql_stmt, DEBUG_SQL=False):
     if DEBUG_SQL:
         print(sql_stmt)
 
-    try:
-        with DBConn() as conn:
-            if sql_stmt.lower().strip().startswith("select") or \
-                sql_stmt.lower().strip().startswith("with"):
-                return pd.read_sql_query(sql_stmt, conn)
-                # read_sql_query is more efficient than read_sql
+    with DBConn() as conn:
+        if sql_stmt.lower().strip().startswith("select") or \
+            sql_stmt.lower().strip().startswith("with"):
+            return pd.read_sql_query(sql_stmt, conn)
+            # read_sql_query is more efficient than read_sql
 
-            c = conn.cursor()
+        c = conn.cursor()
 
-            x = [s.strip() for s in sql_stmt.split(";") if s.strip()]
-            if len(x) < 1: 
-                return None 
-            if len(x) > 1:
-                c.executescript(sql_stmt)
-                conn.commit()
-                return None 
-            
-            c.execute(sql_stmt)
+        x = [s.strip() for s in sql_stmt.split(";") if s.strip()]
+        if len(x) < 1: 
+            return None 
+        if len(x) > 1:
+            c.executescript(sql_stmt)
+            conn.commit()
+            return None 
+        
+        df = None
+        c.execute(sql_stmt)
+        try:
             data = c.fetchall() 
             columns = [description[0] for description in c.description]
             df = pd.DataFrame(data, columns=columns)
             conn.commit()
+        except Exception as e:
+            print(f"[ERROR-DB] run_sql():\n {str(e)}")
 
-            return df
+        return df
 
-    except Exception as e:
-        print(f"[DB-ERROR] {str(e)}")
 
 CREATE_TABLE_DDL = {
     TABLE_H7_USER: f'''
@@ -411,7 +418,7 @@ def get_user_by_id(username):
 
 # New function for the Edit User page
 def edit_user_page(username, is_admin):
-    st.subheader("Edit User")
+    st.subheader(PAGE_EDIT_USER)
     user = get_user_by_id(username)
     if user:
         c1, c2,c3 = st.columns([2,2,1])
@@ -721,13 +728,16 @@ def main():
     
     username = st.session_state['username']
     is_admin = st.session_state['is_admin']
+
+
     
     menu = [
-        "Home", 
-        "7-Habits-Task View", 
-        "Manage Tasks", 
-        "Edit User"
+        PAGE_HOME, 
+        PAGE_7_HABITS_TASK, 
+        PAGE_MANAGE_TASK, 
+        PAGE_EDIT_USER,
     ]
+
     if is_admin:
         menu_admin = [
             "Add User", 
@@ -743,12 +753,12 @@ def main():
         st.write("Welcome to the 7 Habits Task Manager. Use the sidebar to navigate through the app.")
         st.write("[Learn more about the 7 Habits of Highly Effective People](https://en.wikipedia.org/wiki/The_7_Habits_of_Highly_Effective_People)")
 
-    elif choice == "Manage Tasks":
-        st.subheader("Manage Tasks")
+    elif choice == PAGE_MANAGE_TASK:
+        st.subheader(PAGE_MANAGE_TASK)
         df = view_all_tasks(username)
         handle_task_form(df, username, key_name="task_df_all")
 
-    elif choice == "7-Habits-Task View":
+    elif choice == PAGE_7_HABITS_TASK:
         st.subheader("7 Habits View")
 
         # Filters
@@ -787,7 +797,7 @@ def main():
             df_4 = df[(df['is_important'] == 'Y') & (df['is_urgent'] == 'N')][selected_cols]
             grid_resp_4 = _display_df_grid(df_4, key_name="df_4", page_size=PAGE_SIZE, grid_height=GRID_HEIGHT)
 
-    elif choice == "Edit User":
+    elif choice == PAGE_EDIT_USER:
         edit_user_page(username, is_admin)
 
     elif choice == "Add User" and is_admin:
