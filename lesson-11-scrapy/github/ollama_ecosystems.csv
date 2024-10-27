@@ -1,0 +1,33 @@
+stars,forks,url,name,category
+910,80,https://github.com/bionic-gpt/bionic-gpt,Bionic GPT,Web & Desktop
+305,50,https://github.com/rtcfirefly/ollama-ui,HTML UI,Web & Desktop
+472,69,https://github.com/ivanfioravanti/chatbot-ollama,Chatbot UI,Web & Desktop
+136,22,https://github.com/ollama-interface/Ollama-Gui?tab=readme-ov-file,Typescript UI,Web & Desktop
+97,18,https://github.com/richawo/minimal-llm-ui,Minimalistic React UI for Ollama Models,Web & Desktop
+3080,294,https://github.com/ollama-webui/ollama-webui,Web UI,Web & Desktop
+261,16,https://github.com/kevinhermawan/Ollamac,Ollamac,Web & Desktop
+2239,571,https://github.com/enricoros/big-agi/blob/main/docs/config-ollama.md,big-AGI,Web & Desktop
+1458,184,https://github.com/cheshire-cat-ai/core,Cheshire Cat assistant framework,Web & Desktop
+281,39,https://github.com/semperai/amica,Amica,Web & Desktop
+536,35,https://github.com/BruceMacD/chatd,chatd,Web & Desktop
+26,4,https://github.com/kghandour/Ollama-SwiftUI,Ollama-SwiftUI,Web & Desktop
+271,11,https://github.com/ggozad/oterm,oterm,Terminal
+149,13,https://github.com/s-kostyaev/ellama,Ellama Emacs client,Terminal
+27,3,https://github.com/zweifisch/ollama,Emacs client,Terminal
+494,34,https://github.com/David-Kunz/gen.nvim,gen.nvim,Terminal
+79,10,https://github.com/nomnivore/ollama.nvim,ollama.nvim,Terminal
+25,6,https://github.com/huynle/ogpt.nvim,ogpt.nvim,Terminal
+631,67,https://github.com/karthink/gptel,gptel Emacs client,Terminal
+200,12,https://github.com/dustinblackman/oatmeal,Oatmeal,Terminal
+27,3,https://github.com/pgibler/cmdh,cmdh,Terminal
+73115,10965,https://github.com/langchain-ai/langchain,LangChain,Libraries
+1915,320,https://github.com/tmc/langchaingo/,LangChainGo,Libraries
+26321,3339,https://github.com/run-llama/llama_index,LlamaIndex,Libraries
+4259,418,https://github.com/BerriAI/litellm,LiteLLM,Libraries
+49,9,https://github.com/awaescher/OllamaSharp,OllamaSharp for .NET,Libraries
+94,9,https://github.com/pepperoni21/ollama-rs,Ollama-rs for Rust,Libraries
+43,3,https://github.com/amithkoujalgi/ollama4j,Ollama4j for Java,Libraries
+28,6,https://github.com/kevinhermawan/OllamaKit,OllamaKit for Swift,Libraries
+11,0,https://github.com/breitburg/dart-ollama,Ollama for Dart,Libraries
+121,4,https://github.com/cloudstudio/ollama-laravel,Ollama for Laravel,Libraries
+199,41,https://github.com/davidmigloz/langchain_dart,LangChainDart,Libraries

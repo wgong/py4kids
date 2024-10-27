@@ -69,7 +69,7 @@ class DBConn(object):
         self.conn.commit()
         self.conn.close()
 
-def run_sql(sql_stmt, DEBUG_SQL=False):
+def run_sql(sql_stmt, DEBUG_SQL=True):
     """ 
     Helper to execute SQL without parametrized columns.
     Otherwise, create cursor and call execute() API.
@@ -148,6 +148,7 @@ CREATE_TABLE_DDL = {
         created_at TEXT,
         updated_by TEXT,
         updated_at TEXT
+    )
     ''',
 }
 
@@ -194,7 +195,7 @@ def _display_df_grid(df,
     URL link stopped working - see fix reported here
     https://discuss.streamlit.io/t/streamlit-aggrid-version-creating-an-aggrid-with-columns-with-embedded-urls/39640/2
     """
-
+    # st.dataframe(df)
     gb = GridOptionsBuilder.from_dataframe(df)
     gb.configure_selection(selection_mode,
             use_checkbox=True,
@@ -745,6 +746,7 @@ def main():
     elif choice == "Manage Tasks":
         st.subheader("Manage Tasks")
         df = view_all_tasks(username)
+        st.dataframe(df)
         handle_task_form(df, username, key_name="task_df_all")
 
     elif choice == "7-Habits-Task View":

@@ -1,0 +1,294 @@
+id,question,content,training_data_type
+044525bf-7479-5210-90fe-69edba8b9ada-sql,"
+        For the question List all genres and the number of tracks in each genre:, 
+        the generated SQL statement SELECT g.GenreId, Name, COUNT(t.TrackId) as NumTracks
+FROM ""tracks"" t
+JOIN ""genres"" g ON t.GenreId = g.GenreId
+GROUP BY g.GenreId, Name results in the following exception [ERROR-DB] Failed to execute SQL: SELECT g.GenreId, Name, COUNT(t.TrackId) as NumTracks
+FROM ""tracks"" t
+JOIN ""genres"" g ON t.GenreId = g.GenreId
+GROUP BY g.GenreId, Name
+ Execution failed on sql 'SELECT g.GenreId, Name, COUNT(t.TrackId) as NumTracks
+FROM ""tracks"" t
+JOIN ""genres"" g ON t.GenreId = g.GenreId
+GROUP BY g.GenreId, Name': ambiguous column name: Name .
+        Please fix the error and re-generate the SQL
+        ","SELECT g.Name, COUNT(t.TrackId) as NumTracks
+FROM ""tracks"" t
+JOIN ""genres"" g ON t.GenreId = g.GenreId
+GROUP BY g.Name",sql
+0658ba3d-98ff-51f4-9006-a24f87045858-sql,How many customers are there,"SELECT COUNT(*) FROM ""customers""",sql
+0c78319d-9ef3-5fe4-a1db-dc8015eb4a88-sql,List all albums and their corresponding artist names  ,"SELECT a.Title, ar.Name 
+FROM ""albums"" a 
+JOIN ""artists"" ar ON a.ArtistId = ar.ArtistId",sql
+23bb38d7-6289-5c98-91be-ec005cf2e620-sql,"
+        For the question Find the customer who bought the most albums in total quantity (across all invoices):, 
+        the generated SQL statement SELECT c.CustomerId, SUM(i.Quantity) as TotalQuantity
+FROM ""invoices"" i
+JOIN ""customers"" c ON i.CustomerId = c.CustomerId
+GROUP BY c.CustomerId
+ORDER BY TotalQuantity DESC
+LIMIT 1 results in the following exception [ERROR-DB] Failed to execute SQL: SELECT c.CustomerId, SUM(i.Quantity) as TotalQuantity
+FROM ""invoices"" i
+JOIN ""customers"" c ON i.CustomerId = c.CustomerId
+GROUP BY c.CustomerId
+ORDER BY TotalQuantity DESC
+LIMIT 1
+ Execution failed on sql 'SELECT c.CustomerId, SUM(i.Quantity) as TotalQuantity
+FROM ""invoices"" i
+JOIN ""customers"" c ON i.CustomerId = c.CustomerId
+GROUP BY c.CustomerId
+ORDER BY TotalQuantity DESC
+LIMIT 1': no such column: i.Quantity .
+        Please fix the error and re-generate the SQL
+        ","SELECT c.CustomerId, SUM(ii.Total) as TotalAmount
+FROM ""invoices"" ii
+JOIN ""customers"" c ON ii.CustomerId = c.CustomerId
+GROUP BY c.CustomerId
+ORDER BY TotalAmount DESC
+LIMIT 1",sql
+36ddec4d-3a14-5102-8c03-af7b143c9d8c-sql,Find the customer with the most invoices ,"SELECT c.CustomerId, COUNT(i.InvoiceId) as TotalInvoices
+FROM ""invoices"" i
+JOIN ""customers"" c ON i.CustomerId = c.CustomerId
+GROUP BY c.CustomerId
+ORDER BY TotalInvoices DESC
+LIMIT 1",sql
+43b5bbe8-8c2d-56e9-a455-166ca0a44a47-sql,List all customers from Canada and their email addresses:,"SELECT c.FirstName, c.Email
+FROM ""customers"" c
+WHERE c.Country = 'Canada'",sql
+499a40f0-6d04-5d5d-bb5b-77fd0bcf8471-sql,"  
+         Find the top 5 customers who spent the most money overall,  
+         Hint: order total can be found on invoices table, calculation using invoice_items detail table is unnecessary 
+    ","SELECT c.CustomerId, SUM(i.Total) as TotalSpent
+FROM ""invoices"" i
+JOIN ""customers"" c ON i.CustomerId = c.CustomerId
+GROUP BY c.CustomerId
+ORDER BY TotalSpent DESC
+LIMIT 5",sql
+59a42027-e18d-51f1-91e1-703b11ff0b71-sql,Find all invoices since 2010 and the total amount invoiced:,"SELECT * 
+FROM ""invoices"" 
+WHERE InvoiceDate >= '2010-01-01' 
+ORDER BY Total DESC",sql
+64066657-1282-5754-95d0-b09872aec3a9-sql,what are the top 5 countries that customers come from?,"SELECT Country, COUNT(*) as Count
+FROM ""customers""
+GROUP BY Country
+ORDER BY Count DESC
+LIMIT 5",sql
+65197a54-8685-5144-a506-d3a8db32f606-sql,"Find all tracks with a name containing ""What"" (case-insensitive) ","SELECT * 
+FROM ""tracks"" 
+WHERE Name LIKE '%what%'",sql
+8e70d1b3-0ebe-54c4-b917-fb9eaa30ab50-sql,List all invoices with a total exceeding $10,"SELECT * 
+FROM ""invoices"" 
+WHERE Total > 10.00",sql
+96eeb465-c188-52bd-8131-0f3dbd48179f-sql,"
+        For the question Get all playlists containing at least 10 tracks and the total duration of those tracks:, 
+        the generated SQL statement SELECT p.PlaylistId, Name, SUM(t.Milliseconds / 1000) as TotalDuration
+FROM ""playlists"" p
+JOIN ""playlist_track"" pt ON p.PlaylistId = pt.PlaylistId
+JOIN ""tracks"" t ON pt.TrackId = t.TrackId
+GROUP BY p.PlaylistId, Name
+HAVING COUNT(pt.PlaylistId) >= 10 results in the following exception [ERROR-DB] Failed to execute SQL: SELECT p.PlaylistId, Name, SUM(t.Milliseconds / 1000) as TotalDuration
+FROM ""playlists"" p
+JOIN ""playlist_track"" pt ON p.PlaylistId = pt.PlaylistId
+JOIN ""tracks"" t ON pt.TrackId = t.TrackId
+GROUP BY p.PlaylistId, Name
+HAVING COUNT(pt.PlaylistId) >= 10
+ Execution failed on sql 'SELECT p.PlaylistId, Name, SUM(t.Milliseconds / 1000) as TotalDuration
+FROM ""playlists"" p
+JOIN ""playlist_track"" pt ON p.PlaylistId = pt.PlaylistId
+JOIN ""tracks"" t ON pt.TrackId = t.TrackId
+GROUP BY p.PlaylistId, Name
+HAVING COUNT(pt.PlaylistId) >= 10': ambiguous column name: Name .
+        Please fix the error and re-generate the SQL
+        ","SELECT p.PlaylistId, p.Name, SUM(t.Milliseconds / 1000) as TotalDuration
+FROM ""playlists"" p
+JOIN ""playlist_track"" pt ON p.PlaylistId = pt.PlaylistId
+JOIN ""tracks"" t ON pt.TrackId = t.TrackId
+GROUP BY p.PlaylistId, p.Name
+HAVING COUNT(pt.PlaylistId) >= 10",sql
+999ea0b0-1541-5052-9800-1715ba31b925-sql,Find the total number of invoices per country,"SELECT c.Country, COUNT(i.InvoiceId) as TotalInvoices
+FROM ""invoices"" i
+JOIN ""customers"" c ON i.CustomerId = c.CustomerId
+GROUP BY c.Country",sql
+a7ca7de3-2956-5b0d-b4c0-b0de3b29e0a1-sql,"
+        For the question which table stores customer's orders, 
+        the generated SQL statement The ""invoices"" table stores customers' orders (also referred to as invoices). results in the following exception [ERROR-SQL] the generated SQL : The ""invoices"" table stores customers' orders (also referred to as invoices).
+ does not starts with ('select','with') .
+        Please fix the error and re-generate the SQL
+        ","SELECT * FROM ""invoices""",sql
+b188f08b-9fb2-5686-92c5-2e03a0dcf6f5-sql,Get the total number of invoices for each customer,"SELECT c.CustomerId, COUNT(i.InvoiceId) as TotalInvoices
+FROM ""invoices"" i
+JOIN ""customers"" c ON i.CustomerId = c.CustomerId
+GROUP BY c.CustomerId",sql
+c172280b-5d2a-5feb-b880-cdc6159ea9fa-sql,List all employees and their reporting manager's name (if any):,"SELECT e.FirstName, e.LastName, 
+       COALESCE(m.FirstName, 'N/A') AS ReportingManagerFirstName,
+       COALESCE(m.LastName, 'N/A') AS ReportingManagerLastName
+FROM ""employees"" e
+LEFT JOIN ""employees"" m ON e.ReportsTo = m.EmployeeId",sql
+c6f9d8ce-65d3-5f9e-b8a4-9c0c9bd500e8-sql," 
+        Can you find the top 10 most popular artists based on the number of tracks?
+        Hint: There are 3 tables - artists, albums and tracks, 
+        where albums and artists are linked by ArtistId, albums and tracks are linked by AlbumId,
+    ","SELECT a.ArtistId, a.Name, COUNT(t.TrackId) as NumTracks
+FROM ""artists"" a
+JOIN ""albums"" al ON a.ArtistId = al.ArtistId
+JOIN ""tracks"" t ON al.AlbumId = t.AlbumId
+GROUP BY a.ArtistId, a.Name
+ORDER BY NumTracks DESC
+LIMIT 10",sql
+d8a2f948-dffa-5524-a5f9-174cc1a8da73-sql,Can you list all tables in the SQLite database catalog?,SELECT name FROM sqlite_master WHERE type='table',sql
+de3f86e6-982a-508a-96ed-a64993966db7-sql,Find the top 5 most expensive tracks (based on unit price):,"SELECT t.TrackId, t.Name, t.UnitPrice
+FROM ""tracks"" t
+ORDER BY t.UnitPrice DESC
+LIMIT 5",sql
+e705d8e7-0ef4-532b-bd27-6a3c2e64c027-sql, Get the average invoice total for each customer:,"SELECT c.CustomerId, AVG(i.Total) as AverageInvoiceTotal
+FROM ""invoices"" i
+JOIN ""customers"" c ON i.CustomerId = c.CustomerId
+GROUP BY c.CustomerId",sql
+e7138bb0-b00c-5299-b3ab-10dd2946b6d1-sql,"      
+        Find the top 5 customers who bought the most albums in total quantity (across all invoices):
+        Hint: album quantity is found in invoice_items, 
+    ","SELECT c.CustomerId, SUM(ii.Quantity) as TotalQuantity
+FROM ""invoice_items"" ii
+JOIN ""invoices"" i ON ii.InvoiceId = i.InvoiceId
+JOIN ""customers"" c ON i.CustomerId = c.CustomerId
+GROUP BY c.CustomerId
+ORDER BY TotalQuantity DESC
+LIMIT 5",sql
+039f9d54-59f7-5f29-8c04-14dbc3e95671-ddl,,"CREATE TABLE ""artists""
+(
+    ArtistId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    Name NVARCHAR(120)
+)",ddl
+0db84e3d-ef41-563c-803e-21c1b985dc19-ddl,,"CREATE TABLE ""invoices""
+(
+    InvoiceId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    CustomerId INTEGER  NOT NULL,
+    InvoiceDate DATETIME  NOT NULL,
+    BillingAddress NVARCHAR(70),
+    BillingCity NVARCHAR(40),
+    BillingState NVARCHAR(40),
+    BillingCountry NVARCHAR(40),
+    BillingPostalCode NVARCHAR(10),
+    Total NUMERIC(10,2)  NOT NULL,
+    FOREIGN KEY (CustomerId) REFERENCES ""customers"" (CustomerId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION
+)",ddl
+10cba811-ddba-5042-9e90-d764dfcd1629-ddl,,"CREATE INDEX IFK_InvoiceCustomerId ON ""invoices"" (CustomerId)",ddl
+2c711317-b93d-5f60-a728-cb1c6fcbc040-ddl,,"CREATE INDEX IFK_CustomerSupportRepId ON ""customers"" (SupportRepId)",ddl
+37319c81-65f7-50ee-956b-795de244bee5-ddl,,"CREATE TABLE sqlite_stat1(tbl,idx,stat)",ddl
+40bd77cd-e1de-5872-8693-624117ff413c-ddl,,"CREATE INDEX IFK_InvoiceLineInvoiceId ON ""invoice_items"" (InvoiceId)",ddl
+41130543-7164-562a-90a7-0fd0a409c154-ddl,,"CREATE TABLE ""albums""
+(
+    AlbumId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    Title NVARCHAR(160)  NOT NULL,
+    ArtistId INTEGER  NOT NULL,
+    FOREIGN KEY (ArtistId) REFERENCES ""artists"" (ArtistId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION
+)",ddl
+458debc8-8082-5450-a17a-66028bd55ace-ddl,,"CREATE TABLE ""playlists""
+(
+    PlaylistId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    Name NVARCHAR(120)
+)",ddl
+4815f3fd-925b-53ce-9dfa-0e4285d5abd3-ddl,,"CREATE TABLE ""invoice_items""
+(
+    InvoiceLineId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    InvoiceId INTEGER  NOT NULL,
+    TrackId INTEGER  NOT NULL,
+    UnitPrice NUMERIC(10,2)  NOT NULL,
+    Quantity INTEGER  NOT NULL,
+    FOREIGN KEY (InvoiceId) REFERENCES ""invoices"" (InvoiceId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION,
+    FOREIGN KEY (TrackId) REFERENCES ""tracks"" (TrackId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION
+)",ddl
+48d484e9-984c-58ff-b391-75521c69d486-ddl,,"CREATE INDEX IFK_PlaylistTrackTrackId ON ""playlist_track"" (TrackId)",ddl
+551e1120-a6ee-554f-8b8a-ccf4f22d3636-ddl,,"CREATE INDEX IFK_AlbumArtistId ON ""albums"" (ArtistId)",ddl
+5ff4911e-45c1-5a59-9566-243a9b6a3320-ddl,,"CREATE TABLE ""employees""
+(
+    EmployeeId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    LastName NVARCHAR(20)  NOT NULL,
+    FirstName NVARCHAR(20)  NOT NULL,
+    Title NVARCHAR(30),
+    ReportsTo INTEGER,
+    BirthDate DATETIME,
+    HireDate DATETIME,
+    Address NVARCHAR(70),
+    City NVARCHAR(40),
+    State NVARCHAR(40),
+    Country NVARCHAR(40),
+    PostalCode NVARCHAR(10),
+    Phone NVARCHAR(24),
+    Fax NVARCHAR(24),
+    Email NVARCHAR(60),
+    FOREIGN KEY (ReportsTo) REFERENCES ""employees"" (EmployeeId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION
+)",ddl
+65df0648-bf05-5f75-9365-c21f54b2302d-ddl,,"CREATE TABLE ""media_types""
+(
+    MediaTypeId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    Name NVARCHAR(120)
+)",ddl
+6b585176-e66d-5b23-8d86-ca8a80e3af3d-ddl,,"CREATE INDEX IFK_EmployeeReportsTo ON ""employees"" (ReportsTo)",ddl
+868758b8-e018-55e7-8cc3-75c0e6d211c8-ddl,,"CREATE INDEX IFK_TrackAlbumId ON ""tracks"" (AlbumId)",ddl
+9ea4613d-c1be-5a77-ada9-c54ee3f0cab7-ddl,,"CREATE INDEX IFK_TrackMediaTypeId ON ""tracks"" (MediaTypeId)",ddl
+a9c9a852-608d-5ef2-aede-26ba098d83d1-ddl,,"CREATE INDEX IFK_TrackGenreId ON ""tracks"" (GenreId)",ddl
+b42cc9e1-9219-5a42-9a06-de906f76239e-ddl,,"CREATE TABLE ""tracks""
+(
+    TrackId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    Name NVARCHAR(200)  NOT NULL,
+    AlbumId INTEGER,
+    MediaTypeId INTEGER  NOT NULL,
+    GenreId INTEGER,
+    Composer NVARCHAR(220),
+    Milliseconds INTEGER  NOT NULL,
+    Bytes INTEGER,
+    UnitPrice NUMERIC(10,2)  NOT NULL,
+    FOREIGN KEY (AlbumId) REFERENCES ""albums"" (AlbumId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION,
+    FOREIGN KEY (GenreId) REFERENCES ""genres"" (GenreId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION,
+    FOREIGN KEY (MediaTypeId) REFERENCES ""media_types"" (MediaTypeId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION
+)",ddl
+c387b9d2-5ff4-5a07-8364-f5dab45bb2a9-ddl,,"CREATE TABLE ""genres""
+(
+    GenreId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    Name NVARCHAR(120)
+)",ddl
+d654f328-dc36-549e-84c3-06ee0db7e0f7-ddl,,"CREATE TABLE ""playlist_track""
+(
+    PlaylistId INTEGER  NOT NULL,
+    TrackId INTEGER  NOT NULL,
+    CONSTRAINT PK_PlaylistTrack PRIMARY KEY  (PlaylistId, TrackId),
+    FOREIGN KEY (PlaylistId) REFERENCES ""playlists"" (PlaylistId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION,
+    FOREIGN KEY (TrackId) REFERENCES ""tracks"" (TrackId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION
+)",ddl
+d93f0d68-023d-5afb-8121-ba346699d318-ddl,,"CREATE TABLE ""customers""
+(
+    CustomerId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    FirstName NVARCHAR(40)  NOT NULL,
+    LastName NVARCHAR(20)  NOT NULL,
+    Company NVARCHAR(80),
+    Address NVARCHAR(70),
+    City NVARCHAR(40),
+    State NVARCHAR(40),
+    Country NVARCHAR(40),
+    PostalCode NVARCHAR(10),
+    Phone NVARCHAR(24),
+    Fax NVARCHAR(24),
+    Email NVARCHAR(60)  NOT NULL,
+    SupportRepId INTEGER,
+    FOREIGN KEY (SupportRepId) REFERENCES ""employees"" (EmployeeId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION
+)",ddl
+e5879308-329e-543f-a693-0c14e2f9972e-ddl,,"CREATE INDEX IFK_InvoiceLineTrackId ON ""invoice_items"" (TrackId)",ddl
+ea84418b-1a28-59b4-a1f4-2fb674208adc-ddl,,"CREATE TABLE sqlite_sequence(name,seq)",ddl
+2b4dda0a-a6ac-5e34-8f76-e41c0734d55e-doc,,In the chinook database invoice means order,documentation
+ece10d36-9223-5045-9ac8-4b5bc090acb5-doc,,"
+    In the 'customers' table, address column names do not have 'Billing' prefix, 
+    e.g. country column name is 'country', not 'BillingCountry'
+    ",documentation
