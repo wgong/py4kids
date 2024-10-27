@@ -32,12 +32,14 @@ LIST_Y_N = ["Y", "N"]
 LIST_TASK_STATUS = ["ToDo", "Doing", "Done"]
 LIST_PROGRESS = ["0%", "25%", "50%", "75%", "100%"]
 LIST_TASK_CATEGORY = ["", "learning", "research", "project", "fun"]
+LIST_NOTE_TYPE = ["", "learning", "research", "project", "journal"]
 
 TABLE_H7_USER = "habits7_user"
 TABLE_H7_TASK = "habits7_task"
 TABLE_H7_NOTE = "habits7_note"
 
 PAGE_EDIT_USER = "Edit User"
+PAGE_MANAGE_NOTE = "Manage Note"
 PAGE_MANAGE_TASK = "Manage Task"
 PAGE_7_HABITS_TASK = "7-Habits-Task View"
 PAGE_HOME = "Home"
@@ -75,7 +77,7 @@ class DBConn(object):
         self.conn.commit()
         self.conn.close()
 
-def run_sql(sql_stmt, DEBUG_SQL=False):
+def run_sql(sql_stmt, DEBUG_SQL=True):
     """ 
     Helper to execute SQL without parametrized columns.
     Otherwise, create cursor and call execute() API.
@@ -138,6 +140,7 @@ CREATE_TABLE_DDL = {
         updated_at TEXT
     )
     ''',
+
     TABLE_H7_TASK: f'''
     CREATE TABLE IF NOT EXISTS {TABLE_H7_TASK} (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -157,6 +160,22 @@ CREATE_TABLE_DDL = {
         updated_at TEXT
     )
     ''',
+
+    TABLE_H7_NOTE: f'''
+    CREATE TABLE IF NOT EXISTS {TABLE_H7_NOTE} (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        title TEXT NOT NULL,
+        url text,
+        note_type TEXT DEFAULT '' CHECK(note_type IN ('', 'learning', 'research', 'project', 'journal')),
+        note TEXT,
+        tags TEXT,
+        created_by TEXT,
+        created_at TEXT,
+        updated_by TEXT,
+        updated_at TEXT
+    )
+    ''',
+
 }
 
 def ddl_to_label_dict(ddl, reserved_words=['if', 'not', 'exists', 'table', 'create', 'primary', 'constraint', 'foreign', 'references', 'DEFAULT']):
@@ -172,7 +191,10 @@ def ddl_to_label_dict(ddl, reserved_words=['if', 'not', 'exists', 'table', 'crea
         return ' '.join(word.capitalize() for word in string.split('_'))
     
     # Create dictionary with column names as keys and title-cased labels as values
-    return {col: to_title_case(col) for col in column_defs if col.lower() not in reserved_words}
+    col_label_dict = {col: to_title_case(col) for col in column_defs if col.lower() not in reserved_words}
+    if "url" in col_label_dict:  # special
+        col_label_dict.update({"url": "URL"})  
+    return col_label_dict
 
 COL_LABELS = {k: ddl_to_label_dict(v) for k,v in CREATE_TABLE_DDL.items() }
 
@@ -184,6 +206,11 @@ def create_user_table():
 # Function to create task table
 def create_task_table():
     sql_stmt = CREATE_TABLE_DDL[TABLE_H7_TASK]
+    run_sql(sql_stmt)
+
+# Function to create note table
+def create_note_table():
+    sql_stmt = CREATE_TABLE_DDL[TABLE_H7_NOTE]
     run_sql(sql_stmt)
 
 def _display_df_grid(df, 
@@ -505,6 +532,116 @@ def manage_users_page():
             st.success("User updated successfully")
             st.rerun()
 
+# Function to view all data
+def view_all_notes(username):
+    sql_stmt = f'''
+        SELECT * FROM {TABLE_H7_NOTE} where created_by = '{username}' order by updated_at desc;
+    '''
+    return run_sql(sql_stmt)
+
+def add_note(title, url, note_type, note, tags, created_at, username, updated_at):
+    try:
+        with DBConn() as conn:
+            c = conn.cursor()
+            c.execute(f'''
+            INSERT INTO {TABLE_H7_NOTE} (title, url, note_type, note, tags, created_by, created_at, updated_by, updated_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ''', (title, url, note_type, note, tags, username, created_at, username, updated_at))
+    except Exception as e:
+        print(f"[DB-ERROR] {str(e)}")
+
+def delete_note_by_id(note_id, username):
+    try:
+        sql_stmt = f'''
+            DELETE FROM {TABLE_H7_NOTE} where id={note_id} and created_by = '{username}';
+        '''
+        return run_sql(sql_stmt)
+    except Exception as e:
+        print(f"[DB-ERROR] {str(e)}")
+
+def edit_note_by_id(new_title, new_url, new_note_type, new_note, new_tags, new_updated_by, new_updated_at, note_id, username):
+    try:
+        with DBConn() as conn:
+            c = conn.cursor()
+            c.execute(f'''
+                UPDATE {TABLE_H7_NOTE} 
+                SET title=?, url=?, note_type=?, note=?, tags=?, updated_by=?, updated_at=?
+                WHERE id=? and created_by=?
+            ''', (new_title, new_url, new_note_type, new_note, new_tags, new_updated_by, new_updated_at
+                , note_id, username)
+            )
+            return c.fetchall()
+    except Exception as e:
+        print(f"[DB-ERROR] {str(e)}")
+
+def handle_note_form(df, username, key_name):
+    # display note list
+    grid_resp = _display_df_grid(df, key_name=key_name)
+    selected_rows = grid_resp['selected_rows']
+
+    # streamlit-aggrid==1.0.5
+    selected_row = None if selected_rows is None or len(selected_rows) < 1 else selected_rows.to_dict(orient='records')[0]
+    # display task form
+    if selected_row is None:
+        v_id = v_title = v_url = v_note = v_note_type = v_tags = ""
+        v_created_by = v_updated_by = username
+        v_created_at = v_updated_at = date.today()
+    else:
+        v_id = selected_row.get("id") 
+        v_title = selected_row.get("title")
+        v_dev_urlscription = selected_row.get("url")
+        v_note = selected_row.get("note")
+        v_note_type = selected_row.get("note_type")
+        v_tags = selected_row.get("tags")
+        v_created_by = selected_row.get("created_by")
+        v_updated_by = selected_row.get("updated_by")
+        v_created_at = datetime.strptime(selected_row.get("created_at"), "%Y-%m-%d")
+        v_updated_at = datetime.strptime(selected_row.get("updated_at"), "%Y-%m-%d")
+
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        title = st.text_input(COL_LABELS[TABLE_H7_NOTE]['title'], value=v_title)
+        url = st.text_area(COL_LABELS[TABLE_H7_NOTE]['url'],  value=v_url)
+        note_type = st.selectbox(COL_LABELS[TABLE_H7_NOTE]['note_type'], LIST_NOTE_TYPE, index=LIST_NOTE_TYPE.index(""))
+
+    with col2:
+        note = st.text_area(COL_LABELS[TABLE_H7_NOTE]['note'],  value=v_note)
+        tags = st.text_area(COL_LABELS[TABLE_H7_NOTE]['tags'],  value=v_tags)
+
+    with col3:
+        id = st.text_input(COL_LABELS[TABLE_H7_NOTE]['id'],  value=v_id, disabled=True)
+        # created_by = st.text_input(COL_LABELS[TABLE_H7_NOTE]['created_by'],  value=v_created_by)
+        created_at = st.date_input(COL_LABELS[TABLE_H7_NOTE]['created_at'],  value=v_created_at)
+        updated_by = st.text_input(COL_LABELS[TABLE_H7_NOTE]['updated_by'],  value=v_updated_by)
+        updated_at = st.date_input(COL_LABELS[TABLE_H7_NOTE]['updated_at'],  value=v_updated_at)
+
+    if selected_row is None or not v_id: 
+        c_1, _, _ = st.columns(3)
+        with c_1:
+            btn = st.button("Add Note")
+
+        if btn:
+            add_note(title, url, note_type, note, tags, created_at, username, updated_at)
+            st.success(f"Note Added: {title}")
+
+    else:
+        delete_flag = False
+        c_1, _, c_2 = st.columns(3)
+        with c_1:
+            btn = st.button("Update Note")
+        with c_2:
+            delete_flag = st.checkbox("Delete?", value=False)
+
+        if btn:
+            if delete_flag:
+                delete_note_by_id(v_id, username)
+                st.success(f"Note Deleted: {v_id}")
+            else:
+                edit_note_by_id(title, url, note_type, note, tags, updated_by, updated_at, v_id, username)
+                st.success(f"Note Updated: {v_id}")
+
+
+
 # Function to add data
 def add_task(task_name, description, task_group, is_urgent, is_important, status, pct_completed, due_date, category, note, created_by, created_at, updated_by, updated_at):
     try:
@@ -734,7 +871,8 @@ def main():
     menu = [
         PAGE_HOME, 
         PAGE_7_HABITS_TASK, 
-        PAGE_MANAGE_TASK, 
+        PAGE_MANAGE_TASK,
+        PAGE_MANAGE_NOTE, 
         PAGE_EDIT_USER,
     ]
 
@@ -752,6 +890,11 @@ def main():
         st.subheader("Home")
         st.write("Welcome to the 7 Habits Task Manager. Use the sidebar to navigate through the app.")
         st.write("[Learn more about the 7 Habits of Highly Effective People](https://en.wikipedia.org/wiki/The_7_Habits_of_Highly_Effective_People)")
+
+    elif choice == PAGE_MANAGE_NOTE:
+        st.subheader(PAGE_MANAGE_NOTE)
+        df = view_all_notes(username)
+        handle_note_form(df, username, key_name="note_df_all")
 
     elif choice == PAGE_MANAGE_TASK:
         st.subheader(PAGE_MANAGE_TASK)
@@ -825,6 +968,7 @@ def clear_database():
     st.write("[DEBUG] Database cleared")
 
 if __name__ == '__main__':
-    create_task_table()  # Create tasks table
     create_user_table()  # Create users table
+    create_task_table()  # Create tasks table
+    create_note_table()  # Create notes table
     main()
