@@ -33,8 +33,14 @@ LIST_TASK_STATUS = ["ToDo", "Doing", "Done"]
 LIST_PROGRESS = ["0%", "25%", "50%", "75%", "100%"]
 LIST_TASK_CATEGORY = ["", "learning", "research", "project", "fun"]
 
-TABLE_H7_TASK = "habits7_task"
 TABLE_H7_USER = "habits7_user"
+TABLE_H7_TASK = "habits7_task"
+TABLE_H7_NOTE = "habits7_note"
+
+PAGE_EDIT_USER = "Edit User"
+PAGE_MANAGE_TASK = "Manage Task"
+PAGE_7_HABITS_TASK = "7-Habits-Task View"
+PAGE_HOME = "Home"
 
 # Aggrid options
 # how to set column width
@@ -69,7 +75,7 @@ class DBConn(object):
         self.conn.commit()
         self.conn.close()
 
-def run_sql(sql_stmt, DEBUG_SQL=False):
+def run_sql(sql_stmt, DEBUG_SQL=True):
     """ 
     Helper to execute SQL without parametrized columns.
     Otherwise, create cursor and call execute() API.
@@ -86,33 +92,34 @@ def run_sql(sql_stmt, DEBUG_SQL=False):
     if DEBUG_SQL:
         print(sql_stmt)
 
-    try:
-        with DBConn() as conn:
-            if sql_stmt.lower().strip().startswith("select") or \
-                sql_stmt.lower().strip().startswith("with"):
-                return pd.read_sql_query(sql_stmt, conn)
-                # read_sql_query is more efficient than read_sql
+    with DBConn() as conn:
+        if sql_stmt.lower().strip().startswith("select") or \
+            sql_stmt.lower().strip().startswith("with"):
+            return pd.read_sql_query(sql_stmt, conn)
+            # read_sql_query is more efficient than read_sql
 
-            c = conn.cursor()
+        c = conn.cursor()
 
-            x = [s.strip() for s in sql_stmt.split(";") if s.strip()]
-            if len(x) < 1: 
-                return None 
-            if len(x) > 1:
-                c.executescript(sql_stmt)
-                conn.commit()
-                return None 
-            
-            c.execute(sql_stmt)
+        x = [s.strip() for s in sql_stmt.split(";") if s.strip()]
+        if len(x) < 1: 
+            return None 
+        if len(x) > 1:
+            c.executescript(sql_stmt)
+            conn.commit()
+            return None 
+        
+        df = None
+        c.execute(sql_stmt)
+        try:
             data = c.fetchall() 
             columns = [description[0] for description in c.description]
             df = pd.DataFrame(data, columns=columns)
             conn.commit()
+        except Exception as e:
+            print(f"[ERROR-DB] run_sql():\n {str(e)}")
 
-            return df
+        return df
 
-    except Exception as e:
-        print(f"[DB-ERROR] {str(e)}")
 
 CREATE_TABLE_DDL = {
     TABLE_H7_USER: f'''
@@ -148,6 +155,7 @@ CREATE_TABLE_DDL = {
         created_at TEXT,
         updated_by TEXT,
         updated_at TEXT
+    )
     ''',
 }
 
@@ -194,7 +202,7 @@ def _display_df_grid(df,
     URL link stopped working - see fix reported here
     https://discuss.streamlit.io/t/streamlit-aggrid-version-creating-an-aggrid-with-columns-with-embedded-urls/39640/2
     """
-
+    # st.dataframe(df)
     gb = GridOptionsBuilder.from_dataframe(df)
     gb.configure_selection(selection_mode,
             use_checkbox=True,
@@ -384,10 +392,7 @@ def get_all_users():
     sql_stmt = f"SELECT id, email, username, is_admin, is_active, profile, note FROM {TABLE_H7_USER}"
     df = run_sql(sql_stmt)
     return df
-    # with DBConn() as conn:
-    #     c = conn.cursor()
-    #     c.execute()
-    #     return c.fetchall()
+
 
 # Function to update user
 def update_user(username, email, is_admin, is_active, profile, note):
@@ -413,7 +418,7 @@ def get_user_by_id(username):
 
 # New function for the Edit User page
 def edit_user_page(username, is_admin):
-    st.subheader("Edit User")
+    st.subheader(PAGE_EDIT_USER)
     user = get_user_by_id(username)
     if user:
         c1, c2,c3 = st.columns([2,2,1])
@@ -600,10 +605,13 @@ def parse_task_id(task_string):
 #     return run_sql(sql_stmt)
 
 def delete_task_by_id(task_id, username):
-    sql_stmt = f'''
-        DELETE FROM {TABLE_H7_TASK} where id={task_id} and created_by = '{username}';
-    '''
-    return run_sql(sql_stmt)
+    try:
+        sql_stmt = f'''
+            DELETE FROM {TABLE_H7_TASK} where id={task_id} and created_by = '{username}';
+        '''
+        return run_sql(sql_stmt)
+    except Exception as e:
+        print(f"[DB-ERROR] {str(e)}")
 
 
 # Function to hash password
@@ -614,11 +622,14 @@ def hash_password(password):
 # Function to verify user
 def verify_user(email, password):
     hashed_password = hash_password(password)
-    with DBConn() as conn:
-        c = conn.cursor()
-        c.execute(f"SELECT * FROM {TABLE_H7_USER} WHERE email = ? AND password = ?", (email, hashed_password))
-        user = c.fetchone()
-        return user
+    try:
+        with DBConn() as conn:
+            c = conn.cursor()
+            c.execute(f"SELECT * FROM {TABLE_H7_USER} WHERE email = ? AND password = ?", (email, hashed_password))
+            user = c.fetchone()
+            return user
+    except Exception as e:
+        print(f"[DB-ERROR] {str(e)}")
 
 # Function to check if email exists
 def email_exists(email):
@@ -717,13 +728,16 @@ def main():
     
     username = st.session_state['username']
     is_admin = st.session_state['is_admin']
+
+
     
     menu = [
-        "Home", 
-        "7-Habits-Task View", 
-        "Manage Tasks", 
-        "Edit User"
+        PAGE_HOME, 
+        PAGE_7_HABITS_TASK, 
+        PAGE_MANAGE_TASK, 
+        PAGE_EDIT_USER,
     ]
+
     if is_admin:
         menu_admin = [
             "Add User", 
@@ -739,12 +753,13 @@ def main():
         st.write("Welcome to the 7 Habits Task Manager. Use the sidebar to navigate through the app.")
         st.write("[Learn more about the 7 Habits of Highly Effective People](https://en.wikipedia.org/wiki/The_7_Habits_of_Highly_Effective_People)")
 
-    elif choice == "Manage Tasks":
-        st.subheader("Manage Tasks")
+    elif choice == PAGE_MANAGE_TASK:
+        st.subheader(PAGE_MANAGE_TASK)
         df = view_all_tasks(username)
+        st.dataframe(df)
         handle_task_form(df, username, key_name="task_df_all")
 
-    elif choice == "7-Habits-Task View":
+    elif choice == PAGE_7_HABITS_TASK:
         st.subheader("7 Habits View")
 
         # Filters
@@ -783,7 +798,7 @@ def main():
             df_4 = df[(df['is_important'] == 'Y') & (df['is_urgent'] == 'N')][selected_cols]
             grid_resp_4 = _display_df_grid(df_4, key_name="df_4", page_size=PAGE_SIZE, grid_height=GRID_HEIGHT)
 
-    elif choice == "Edit User":
+    elif choice == PAGE_EDIT_USER:
         edit_user_page(username, is_admin)
 
     elif choice == "Add User" and is_admin:
