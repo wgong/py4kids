@@ -1,0 +1,1 @@
+python ~/projects/wgong/py4kids/lesson-18-ai/Utils/cleanup_tmp_folders.py 
