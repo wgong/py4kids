@@ -2,7 +2,7 @@
 -- Assuming the current date is '2024-10-16' for created_at and updated_at
 -- Assuming 'h7user1@gmail.com' as the user for created_by and updated_by
 
-INSERT INTO habits7_task (task_name, description, task_group, is_urgent, is_important, status, pct_completed, due_date, category, note, created_by, created_at, updated_by, updated_at)
+INSERT INTO habits7_task (task_name, description, task_group, is_urgent, is_important, status, pct_completed, due_date, task_type, note, created_by, created_at, updated_by, updated_at)
 VALUES 
 ('Submit conference paper on deep learning', 'Finalize and submit the paper on recent deep learning advancements', 'Work', 'Y', 'Y', 'Doing', '75%', '2024-11-01', 'research', 'Remember to include latest experimental results', 'h7user1@gmail.com', '2024-10-16', 'h7user1@gmail.com', '2024-10-16'),
 
