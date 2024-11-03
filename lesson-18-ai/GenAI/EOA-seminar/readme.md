@@ -14,10 +14,11 @@ Key takeaways of this seminar:
      - <DIAGRAM> AI > ML > DL > GenAI > ChatGPT | Agent | DeepMind | Deep Science
    - Key milestones in GenAI development
      - <DIAGRAM> major AI milestones
-   - Introduction of GPT models: 
+   - Introduction of GPT models:
+     - LLM Model Lifecycle
      - ChatGPT releases
 
-## 2. The Current State of GenAI
+## 2. The Present State of GenAI
    - Overview of GenAI Capabilities
       - <DEMO> Claude 3.5 Sonnet
       - Text, image, audio and video generation
@@ -29,6 +30,7 @@ Key takeaways of this seminar:
       - Brainstorming and private conversation
         - What is Human Intelligence (HI) ?
       - Scientific Research and discovery
+        - 2024 Nobel Prize in Physics and Chemistry
         - AlphaFold by Google DeepMind to solve protein folding problem
         - SciAgents by MIT to design experiment on bio-material
 
@@ -43,7 +45,7 @@ Key takeaways of this seminar:
         - <DEMO> data-copilot to empower analysts using both cloud/local LLM models
       - Challenges and lessons learned
 
-## 3. The Future of GenAI
+## 3. The Future of AI
     - Emerging powerful LLM models surpassing human knowledge-based intelligence
     - Human & Agent: co-existence, co-laboration and co-creation
     - Autonomous factory staffed by worker agents

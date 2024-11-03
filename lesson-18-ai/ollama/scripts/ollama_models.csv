@@ -1,0 +1,60 @@
+model-name,description,tags,pulls-count,last-updated,hf-search_url
+llama2,The most popular model for general use.,,https://huggingface.co/search/full-text?q=llama2&type=model,222100,2023-12-30
+mistral,"The 7B model released by Mistral AI, updated to version 0.2.",,https://huggingface.co/search/full-text?q=mistral&type=model,135100,2023-12-30
+llava,🌋 A novel end-to-end trained large multimodal model that combines a vision encoder and Vicuna for general-purpose visual and language understanding.,,https://huggingface.co/search/full-text?q=llava&type=model,11100,2023-12-30
+mixtral,A high-quality Mixture of Experts (MoE) model with open weights by Mistral AI.,,https://huggingface.co/search/full-text?q=mixtral&type=model,26500,2023-12-30
+starling-lm,Starling is a large language model trained by reinforcement learning from AI feedback focused on improving chatbot helpfulness.,,https://huggingface.co/search/full-text?q=starling-lm&type=model,5572,2023-12-02
+neural-chat,A fine-tuned model based on Mistral with good coverage of domain and language.,,https://huggingface.co/search/full-text?q=neural-chat&type=model,6819,2023-12-23
+codellama,A large language model that can use text prompts to generate and discuss code.,code,https://huggingface.co/search/full-text?q=codellama&type=model,99000,2023-11-13
+dolphin-mixtral,"An uncensored, fine-tuned model based on the Mixtral mixture of experts model that excels at coding tasks. Created by Eric Hartford.",code,https://huggingface.co/search/full-text?q=dolphin-mixtral&type=model,84600,2024-01-02
+mistral-openorca,"Mistral OpenOrca is a 7 billion parameter model, fine-tuned on top of the Mistral 7B model using the OpenOrca dataset.",,https://huggingface.co/search/full-text?q=mistral-openorca&type=model,61600,2023-10-13
+llama2-uncensored,Uncensored Llama 2 model by George Sung and Jarrad Hope.,,https://huggingface.co/search/full-text?q=llama2-uncensored&type=model,48400,2023-11-13
+orca-mini,"A general-purpose model ranging from 3 billion parameters to 70 billion, suitable for entry-level hardware.",,https://huggingface.co/search/full-text?q=orca-mini&type=model,36700,2023-11-13
+vicuna,General use chat model based on Llama and Llama 2 with 2K to 16K context sizes.,,https://huggingface.co/search/full-text?q=vicuna&type=model,24300,2023-11-13
+wizard-vicuna-uncensored,"Wizard Vicuna Uncensored is a 7B, 13B, and 30B parameter model based on Llama 2 uncensored by Eric Hartford.",,https://huggingface.co/search/full-text?q=wizard-vicuna-uncensored&type=model,19900,2023-11-13
+deepseek-coder,DeepSeek Coder is a capable coding model trained on two trillion code and natural language tokens.,code,https://huggingface.co/search/full-text?q=deepseek-coder&type=model,16600,2023-12-30
+zephyr,"Zephyr beta is a fine-tuned 7B version of mistral that was trained on on a mix of publicly available, synthetic datasets.",,https://huggingface.co/search/full-text?q=zephyr&type=model,14800,2023-12-30
+dolphin-mistral,The uncensored Dolphin model based on Mistral that excels at coding tasks. Updated to version 2.6.,code,https://huggingface.co/search/full-text?q=dolphin-mistral&type=model,13700,2024-01-11
+phind-codellama,Code generation model based on Code Llama.,code,https://huggingface.co/search/full-text?q=phind-codellama&type=model,12900,2023-12-30
+wizardcoder,State-of-the-art code generation model,code,https://huggingface.co/search/full-text?q=wizardcoder&type=model,12900,2024-01-06
+phi,Phi-2: a 2.7B language model by Microsoft Research that demonstrates outstanding reasoning and language understanding capabilities.,logic,https://huggingface.co/search/full-text?q=phi&type=model,12200,2024-01-06
+llama2-chinese,Llama 2 based model fine tuned to improve Chinese dialogue ability.,chinese,https://huggingface.co/search/full-text?q=llama2-chinese&type=model,10100,2023-11-13
+nous-hermes,General use models based on Llama and Llama 2 from Nous Research.,,https://huggingface.co/search/full-text?q=nous-hermes&type=model,9753,2023-11-13
+orca2,"Orca 2 is built by Microsoft research, and are a fine-tuned version of Meta's Llama 2 models.  The model is designed to excel particularly in reasoning.",logic,https://huggingface.co/search/full-text?q=orca2&type=model,9558,2023-11-25
+wizard-math,Model focused on math and logic problems,logic / math,https://huggingface.co/search/full-text?q=wizard-math&type=model,9553,2023-12-23
+openhermes,OpenHermes 2.5 is a 7B model fine-tuned by Teknium on Mistral with fully open datasets.,,https://huggingface.co/search/full-text?q=openhermes&type=model,9052,2023-12-30
+falcon,"A large language model built by the Technology Innovation Institute (TII) for use in summarization, text generation, and chat bots.",,https://huggingface.co/search/full-text?q=falcon&type=model,8814,2023-11-13
+openchat,"A family of open-source models trained on a wide variety of data, surpassing ChatGPT on various benchmarks. Updated to version 3.5-0106.",,https://huggingface.co/search/full-text?q=openchat&type=model,7467,2024-01-11
+codeup,Great code generation model based on Llama2.,code,https://huggingface.co/search/full-text?q=codeup&type=model,7169,2023-11-13
+stable-beluga,Llama 2 based model fine tuned on an Orca-style dataset. Originally called Free Willy.,,https://huggingface.co/search/full-text?q=stable-beluga&type=model,6606,2023-11-13
+everythinglm,Uncensored Llama2 based model with support for a 16K context window.,,https://huggingface.co/search/full-text?q=everythinglm&type=model,6216,2023-12-30
+medllama2,Fine-tuned Llama 2 model to answer medical questions based on an open source medical dataset.,medical,https://huggingface.co/search/full-text?q=medllama2&type=model,5926,2023-11-13
+wizardlm-uncensored,Uncensored version of Wizard LM model,,https://huggingface.co/search/full-text?q=wizardlm-uncensored&type=model,5740,2023-11-13
+starcoder,StarCoder is a code generation model trained on 80+ programming languages.,code,https://huggingface.co/search/full-text?q=starcoder&type=model,5540,2023-11-13
+yi,"A high-performing, bilingual language model.",chinese,https://huggingface.co/search/full-text?q=yi&type=model,4719,2023-12-30
+bakllava,BakLLaVA is a multimodal model consisting of the Mistral 7B base model augmented with the LLaVA  architecture.,,https://huggingface.co/search/full-text?q=bakllava&type=model,4411,2023-12-16
+yarn-mistral,An extension of Mistral to support context windows of 64K or 128K.,,https://huggingface.co/search/full-text?q=yarn-mistral&type=model,4062,2023-12-30
+wizard-vicuna,Wizard Vicuna is a 13B parameter model based on Llama 2 trained by MelodysDreamj.,,https://huggingface.co/search/full-text?q=wizard-vicuna&type=model,3978,2023-11-13
+tinyllama,The TinyLlama project is an open endeavor to train a compact 1.1B Llama model on 3 trillion tokens.,,https://huggingface.co/search/full-text?q=tinyllama&type=model,3880,2024-01-01
+solar,"A compact, yet powerful 10.7B large language model designed for single-turn conversation.",,https://huggingface.co/search/full-text?q=solar&type=model,3717,2023-12-23
+dolphin-phi,"2.7B uncensored Dolphin model by Eric Hartford, based on the Phi language model by Microsoft Research.",,https://huggingface.co/search/full-text?q=dolphin-phi&type=model,3576,2023-12-30
+open-orca-platypus2,Merge of the Open Orca OpenChat model and the Garage-bAInd Platypus 2 model. Designed for chat and code generation.,code,https://huggingface.co/search/full-text?q=open-orca-platypus2&type=model,3343,2023-11-13
+samantha-mistral,"A companion assistant trained in philosophy, psychology, and personal relationships. Based on Mistral.",,https://huggingface.co/search/full-text?q=samantha-mistral&type=model,3308,2023-10-13
+sqlcoder,SQLCoder is a code completion model fined-tuned on StarCoder for SQL generation tasks,code,https://huggingface.co/search/full-text?q=sqlcoder&type=model,3272,2023-11-13
+meditron,Open-source medical large language model adapted from Llama 2 to the medical domain.,medical,https://huggingface.co/search/full-text?q=meditron&type=model,3030,2023-12-09
+stablelm-zephyr,"A lightweight chat model allowing accurate, and responsive output without requiring high-end hardware.",,https://huggingface.co/search/full-text?q=stablelm-zephyr&type=model,2929,2023-12-30
+yarn-llama2,An extension of Llama 2 that supports a context of up to 128k tokens.,,https://huggingface.co/search/full-text?q=yarn-llama2&type=model,2840,2023-11-13
+deepseek-llm,An advanced language model crafted with 2 trillion bilingual tokens.,chinese,https://huggingface.co/search/full-text?q=deepseek-llm&type=model,2719,2023-12-16
+magicoder,"🎩 Magicoder is a family of 7B parameter models trained on 75K synthetic instruction data using OSS-Instruct, a novel approach to enlightening LLMs with open-source code snippets.",code,https://huggingface.co/search/full-text?q=magicoder&type=model,2643,2023-12-09
+codebooga,A high-performing code instruct model created by merging two existing code models.,code,https://huggingface.co/search/full-text?q=codebooga&type=model,2188,2023-11-13
+mistrallite,MistralLite is a fine-tuned model based on Mistral with enhanced capabilities of processing long contexts.,,https://huggingface.co/search/full-text?q=mistrallite&type=model,2023,2023-11-13
+nous-hermes2,The powerful family of models by Nous Research that excels at scientific discussion and coding tasks.,code,https://huggingface.co/search/full-text?q=nous-hermes2&type=model,1989,2024-01-02
+goliath,A language model created by combining two fine-tuned Llama 2 70B models into one.,,https://huggingface.co/search/full-text?q=goliath&type=model,1743,2023-11-18
+nexusraven,Nexus Raven is a 13B instruction tuned model for function calling tasks.,,https://huggingface.co/search/full-text?q=nexusraven&type=model,1616,2024-01-09
+wizardlm,General use 70 billion parameter model based on Llama 2.,,https://huggingface.co/search/full-text?q=wizardlm&type=model,1612,2023-11-13
+alfred,A robust conversational model designed to be used for both chat and instruct use cases.,,https://huggingface.co/search/full-text?q=alfred&type=model,1327,2023-11-25
+notux,"A top-performing mixture of experts model, fine-tuned with high-quality data.",,https://huggingface.co/search/full-text?q=notux&type=model,1219,2024-01-02
+xwinlm,Conversational model based on Llama 2 that performs competitively on various benchmarks.,,https://huggingface.co/search/full-text?q=xwinlm&type=model,1169,2023-11-13
+llama-pro,"An expansion of Llama 2 that specializes in integrating both general language understanding and domain-specific knowledge, particularly in programming and mathematics.",code / math,https://huggingface.co/search/full-text?q=llama-pro&type=model,947,2024-01-09
+notus,A 7B chat model fine-tuned with high-quality data and based on Zephyr.,,https://huggingface.co/search/full-text?q=notus&type=model,674,2024-01-02
+megadolphin,MegaDolphin-2.2-120b is a transformation of Dolphin-2.2-70b created by interleaving the model with itself.,,https://huggingface.co/search/full-text?q=megadolphin&type=model,449,2024-01-11
