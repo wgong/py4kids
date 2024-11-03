@@ -6,12 +6,12 @@ https://code.tutsplus.com/quick-tip-how-to-work-with-github-and-multiple-account
 
 - With two GitHub accounts: wgong, gongwork
   - use two different browsers: e.g wgong in Brave, gongwork in Chrome
-  - Use git:
-    - git clone git@github.com:wgong/embedchain.git (into wgong account)
-    - git clone git@github.com-work:gongwork/embedchain.git (into gongwork account, Note: `-work` suffix configured inside `.ssh` folder)
 
-  - clone:
-    - git clone git@github.com-work:gongwork/data-copilot.git
+  - Account: wgong
+    - git clone git@github.com:wgong/embedchain.git (into wgong account)
+
+  - Account: gongwork
+    - git clone git@github.com-work:gongwork/embedchain.git (into gongwork account, Note: `-work` suffix configured inside `.ssh` folder)
     - git add .
     - git commit -m "init"
     - git push
