@@ -60,6 +60,8 @@ the app-v3.py is pasted here: <pasted>
 ```
 h7user1@gmail.com
 
+h7user2@gmail.com
+
 h7admin@gmail.com
 
 ducklover@gmail.com
