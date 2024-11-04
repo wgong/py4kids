@@ -17,8 +17,9 @@ Key takeaways of this seminar:
    - Introduction of GPT models:
      - LLM Model Lifecycle
      - ChatGPT releases
+     - 2024 Nobel Prizes in Physics & Chemistry
 
-## 2. The Present State of GenAI
+## 2. The Present: Current State of GenAI
    - Overview of GenAI Capabilities
       - <DEMO> Claude 3.5 Sonnet
       - Text, image, audio and video generation
@@ -27,28 +28,26 @@ Key takeaways of this seminar:
         - <DEMO> holistic Zi prompt for learning Chinese (with Claude)
       - Code generation and analysis
         - <DEMO> code (with Claude)
-      - Brainstorming and private conversation
+      - Brainstorming and consultation
         - What is Human Intelligence (HI) ?
       - Scientific Research and discovery
-        - 2024 Nobel Prize in Physics and Chemistry
         - AlphaFold by Google DeepMind to solve protein folding problem
-        - SciAgents by MIT to design experiment on bio-material
+        - SciAgents by MIT to design bio-materials
 
-   - Leading Players and Models
+   - Frontier Models
       - Brief overview of major companies and models
         - <DIAGRAM> HuggingFace LLM leader board
 
-   - Personal Experience with GenAI Applications
+   - Develop GenAI App at Work
       - text-to-SQL and code generation
         - <DEMO> gpt3sql - my first GenAI streamlit app in Aug 2022 using OpenAI GPT-3
       - self-service analytics
         - <DEMO> data-copilot to empower analysts using both cloud/local LLM models
-      - Challenges and lessons learned
 
-## 3. The Future of AI
+## 3. The Future: Towards AGI ?
     - Emerging powerful LLM models surpassing human knowledge-based intelligence
     - Human & Agent: co-existence, co-laboration and co-creation
-    - Autonomous factory staffed by worker agents
+    - Autonomous factory with worker agents
     - Robotics powered by AI becoming environment-aware
     - Geo-political tension: AI race between US and China
     - AI regulation: Ethical/safety concerns and responsible AI development
