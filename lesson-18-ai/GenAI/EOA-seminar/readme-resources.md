@@ -50,4 +50,11 @@ Prioritising your needs and reaching towards self-actualisation
 
 - [LLM Powered Autonomous Agents](https://lilianweng.github.io/posts/2023-06-23-agent/)
 
-- [State of AI Report-2024](https://docs.google.com/presentation/d/1GmZmoWOa2O92BPrncRcTKa15xvQGhq7g4I4hJSNlC0M/preview?slide=id.g24daeb7f4f0_0_3435)
+- Air State of AI Report-2024
+    - https://docs.google.com/presentation/d/1GmZmoWOa2O92BPrncRcTKa15xvQGhq7g4I4hJSNlC0M/preview?slide=id.g24daeb7f4f0_0_3435
+    - https://press.airstreet.com/p/state-of-ai-report-2024
+
+- Robotics
+    - https://www.youtube.com/watch?v=SDtt_XpV0K8
+    - https://tech.co/news/personal-robots-for-your-home-2017-09
+    - https://www.nytimes.com/interactive/2018/11/23/technology/robot-nurse-zora.html

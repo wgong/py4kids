@@ -45,13 +45,13 @@ Key takeaways of this seminar:
         - <DEMO> data-copilot to empower analysts using both cloud/local LLM models
 
 ## 3. The Future: Towards AGI ?
+    - Geo-political tension: AI race between US and China
+    - Robotics powered by AI becoming environment-aware
+    - Autonomous factory with worker agents
     - Emerging powerful LLM models surpassing human knowledge-based intelligence
     - Human & Agent: co-existence, co-laboration and co-creation
-    - Autonomous factory with worker agents
-    - Robotics powered by AI becoming environment-aware
-    - Geo-political tension: AI race between US and China
     - AI regulation: Ethical/safety concerns and responsible AI development
-    - When/where will AGI emerge?
+    - Path to AGI
 
 ## 4. Q&A Session
 
