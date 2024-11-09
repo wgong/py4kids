@@ -2,70 +2,69 @@
 
 ## Opening
 
-"Hello everyone! Today, on November 16th, 2024, we're going to explore one of the most transformative technologies of our time - Generative AI. Think of this presentation as our journey through the land of AI - much like Dorothy's adventure in the Wizard of Oz. We'll witness the gathering storm of AI development, follow our own yellow brick road through current applications, and peek behind the curtain at future possibilities.
+"Hello everyone! Welcome to this journey through the landscape of Generative AI on November 16th, 2024. Like Dorothy's adventure in the Wizard of Oz, we'll experience the gathering storm of AI development, follow our own yellow brick road through current applications, and peek behind the curtain at future possibilities.
 
 ## Past Section - The 'Storm Gathering'
 
-[Slide: AI > ML > DL > GenAI]
-"Let's start with a quick overview. Think of AI as a family tree. Artificial Intelligence is the grandparent, Machine Learning is the parent, Deep Learning is the child, and Generative AI is the newest member of the family. Each generation brought new capabilities and possibilities."
+"Let's begin with understanding not just what GenAI is, but why it represents such a transformative moment in technology."
 
-[Slide: AI History]
-"AI's story is fascinating. It started in the 1950s with a simple question: 'Can machines think?' What began as rule-based systems evolved into something far more sophisticated through decades of research, breakthroughs, and yes, several 'AI winters' where progress seemed to stall."
+[AI > ML > DL > GenAI]
+"Think of AI as an evolving family tree. Artificial Intelligence is the grandparent, Machine Learning the parent, Deep Learning the child, and Generative AI our newest family member. Each generation has brought new capabilities and insights."
 
-[Slide: AI Growth & Milestones]
-"But look at where we are now! The exponential growth in computing power, data availability, and algorithmic improvements has led to achievements that seemed impossible just a decade ago."
+[AI History through AI Growth & Milestones]
+"The AI journey began in the 1950s with a simple yet profound question: 'Can machines think?' Through decades of research, breakthroughs, and several 'AI winters,' we've arrived at a remarkable moment. The exponential growth in computing power, data availability, and algorithmic improvements has led us to achievements that seemed impossible just years ago."
 
-[Slide: OpenAI: ChatGPT]
-"ChatGPT's release in late 2022 was a watershed moment. Suddenly, AI wasn't just a tech industry topic - it became dinner table conversation. But how does it actually work?"
+[OpenAI: ChatGPT]
+"ChatGPT's release marked a watershed moment when AI moved from tech conferences to dinner table conversations. But how does it actually work?"
 
-[Slides: How GenAI Works, Neural Network, LLM: y = f(x)]
-"At its core, GenAI is like a massive pattern recognition system. Imagine teaching a child language - they learn by seeing millions of examples. Similarly, these models learn from vast amounts of text, code, and data. The neural networks are like digital brain cells, working together to understand and generate content."
+[How GenAI works, Learning: Neural Network, LLM: y = f(x)]
+"At its core, GenAI works like a sophisticated pattern recognition system, processing information through layers of neural networks, much like our own brains process information."
+
+[LLM Explainability]
+"To understand why these systems work so effectively, let's look at three key theoretical foundations, brilliantly explained by MIT's Tomaso Poggio: Generalization Theory explains how these networks learn despite their complexity, Representation Learning shows how they develop internal structures similar to biological brains, and Optimization Dynamics helps us understand why these systems consistently find good solutions in incredibly complex spaces."
 
 ## Present Section - "Following the Yellow Brick Road"
 
-[Slide: 2024 Nobel Prizes]
-"The scientific community has recognized the profound impact of these technologies. The breakthroughs that enabled modern AI have been acknowledged at the highest levels of scientific achievement, setting the stage for where we are today."
+[2024 Nobel Prizes]
+"The scientific impact of these technologies has been recognized at the highest levels, with groundbreaking AI research being acknowledged by the Nobel committee."
 
-[Slide: State of AI - 2024]
-"And where are we now? We're in what I call the 'exploration phase.' Companies, researchers, and enthusiasts are discovering new applications almost daily."
+[State of AI through Model Types]
+"We're now in what I call the 'exploration phase,' where new applications and capabilities emerge almost daily. The AI landscape is diverse, with different models optimized for different tasks."
 
-[Slides: Model Types, Leading Players, HuggingFace]
-"The AI landscape is diverse. We have different types of models optimized for different tasks. While big tech companies lead many developments, the open-source community through platforms like HuggingFace is democratizing access to these technologies."
+[GenAI Leading Players through HuggingFace]
+"While major tech companies lead development, open-source platforms are democratizing access to these technologies."
 
-[Slide: GenAI Use-Cases]
-"The applications span virtually every industry and field you can imagine, from creative arts to scientific research."
+[Ollama Platform]
+"Speaking of accessibility, platforms like Ollama are making it possible for anyone to run state-of-the-art AI models locally. It's open, runs on your own computer, and keeps your data private - perfect for experimenting with AI technology without dependencies on cloud services."
 
-[Slides: Agent Concept & Systems]
-"One of the most exciting developments is AI agents - systems that can plan, reason, and execute tasks with increasing autonomy. Think of them as digital assistants that can handle complex workflows."
+[Model Benchmarks through Use-Cases]
+"As models evolve, we're seeing impressive improvements in capabilities across various benchmarks, opening up exciting new use cases."
 
-[Slides: AI for Math, Sciences, SciAgents]
-"In mathematics, AI is helping prove theorems. In sciences, it's accelerating discovery. These aren't just tools - they're research partners."
+[Agent Concept through SciAgents]
+"One of the most exciting developments is AI agents - systems that can plan, reason, and execute complex tasks. From mathematical proofs to scientific discovery, these systems are becoming valuable research partners."
 
-[Examples Slides]
-"Let me share some concrete examples of how GenAI is being used today... [specific examples]"
+[GenAI Examples]
+"Let me show you some concrete examples of how GenAI is being applied today..."
 
-[Text2SQL Project Slide]
-"Here's a project I've worked on personally - converting natural language to SQL queries. It shows both the potential and current limitations of these systems."
+[Text2SQL Project]
+"Here's something I've worked on personally - a project that converts natural language to SQL queries. You can check out the demo video at the link shown."
 
 ## Future Section - "Behind the Curtain"
 
-[Geopolitics Slide]
-"The development of AI has become a matter of national strategic importance. Different regions are taking different approaches to development and regulation."
+[Geopolitics through Robot Workers]
+"As we peek behind the curtain, we see both opportunities and challenges. AI development has become a matter of national importance, while robotics and automation raise important questions about the future of work."
 
-[Robotics & Workers Slides]
-"As AI meets robotics, we're seeing new possibilities - and new challenges. Job displacement is a real concern, but history shows that new technologies often create new types of jobs."
+[Privacy through AGI Slides]
+"What happens to privacy in an AI-powered world? And what does it mean when we talk about Artificial General Intelligence?"
 
-[Privacy & AGI Slides]
-"The questions we face are profound. What happens to privacy in an AI-powered world? And perhaps most intriguingly - what is AGI, and how close are we to achieving it?"
+[HI – AGI – GenAI Slides]
+"Perhaps most intriguingly, could we achieve higher forms of intelligence through the partnership of human and artificial intelligence? This isn't just about smarter machines - it's about augmenting human capabilities."
 
-[HI-AGI-GenAI Slides]
-"Could we achieve higher forms of intelligence through this partnership between human and artificial intelligence? This isn't just about making smarter machines - it's about augmenting and evolving human capabilities."
+[What Makes Us Human?]
+"As we stand at this technological frontier, perhaps the most important question isn't about artificial intelligence at all - it's about human intelligence and what truly makes us human."
 
-[What Makes Us Human? Slide]
-"As we stand at this technological frontier, perhaps the most important question isn't about artificial intelligence at all - it's about human intelligence. What truly makes us human?"
-
-[Journey to the Unknown? Slide]
-"Like Dorothy in the Wizard of Oz, we're on a journey into the unknown. AI might seem like a powerful storm transforming our landscape, but remember - behind every AI system are human creators, human values, and human choices. The technology is powerful, yes, but like the Wizard behind the curtain, once understood, it becomes a tool we can use wisely."
+[Journey to the Unknown?]
+"Like Dorothy in Oz, we're on a journey into the unknown. AI might seem like a powerful storm transforming our landscape, but remember - behind every AI system are human creators, human values, and human choices. Once understood, it becomes a tool we can use wisely for the benefit of humanity."
 
 ## Q&A
-"Now, I'd love to hear your thoughts and questions. What aspects of this AI journey intrigue you most? What concerns do you have? Let's explore these ideas together."
+"Now, I'd love to hear your thoughts and questions. What aspects of this AI journey intrigue or concern you most? Let's explore these ideas together."
