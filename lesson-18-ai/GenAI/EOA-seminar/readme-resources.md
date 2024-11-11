@@ -63,10 +63,6 @@ Prioritising your needs and reaching towards self-actualisation
     - https://www.youtube.com/watch?v=-OVTUwT8AFM&t=838s
     - https://mcgovern.mit.edu/profile/tomaso-poggio/
 
-Tomaso Poggio at MIT Center for Brains, Minds, and Machines:
-- Generalization Theory: 
-Explain why deep networks can learn effectively despite having more parameters than training examples;
-- Representation Learning: 
-Study how neural networks develop hierarchical internal representations similar to biological brains;
-- Optimization Dynamics: 
-Investigate why gradient descent consistently finds good solutions in highly complex parameter spaces
+
+- Operational Research
+    - https://web.stanford.edu/~yyye/  Yinyu Ye 叶荫宇

@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+    <!-- Title -->
+    <text x="250" y="50" font-size="28" font-weight="bold" fill="#333">3 Stages of AI Evolution</text>
+    
+    <!-- First Step - Perception -->
+    <g transform="translate(100,300)">
+        <rect x="0" y="0" width="200" height="150" fill="#0047AB" />
+        <text x="20" y="40" font-size="22" font-weight="bold" fill="white">Perception</text>
+        <text x="20" y="70" font-size="16" fill="white">Perceiving the world</text>
+        <text x="20" y="100" font-size="12" fill="white">• Computer vision</text>
+        <text x="20" y="120" font-size="12" fill="white">• Speech recognition</text>
+        <text x="20" y="140" font-size="12" fill="white">• Sensor data processing</text>
+    </g>
+    
+    <!-- Second Step - Cognition -->
+    <g transform="translate(300,225)">
+        <rect x="0" y="0" width="200" height="225" fill="#006400" />
+        <text x="20" y="40" font-size="22" font-weight="bold" fill="white">Cognition</text>
+        <text x="20" y="70" font-size="16" fill="white">Understanding the world</text>
+        <text x="20" y="100" font-size="12" fill="white">• Context comprehension</text>
+        <text x="20" y="120" font-size="12" fill="white">• Language understanding</text>
+        <text x="20" y="140" font-size="12" fill="white">• Knowledge processing</text>
+    </g>
+    
+    <!-- Third Step - Decision Making -->
+    <g transform="translate(500,150)">
+        <rect x="0" y="0" width="200" height="300" fill="#8B1A1A" />
+        <text x="20" y="40" font-size="22" font-weight="bold" fill="white">Decision Making</text>
+        <text x="20" y="70" font-size="16" fill="white">Optimizing our world</text>
+        <text x="20" y="100" font-size="12" fill="white">• Optimization systems</text>
+        <text x="20" y="120" font-size="12" fill="white">• Autonomous decision-making</text>
+        <text x="20" y="140" font-size="12" fill="white">• Intelligent automation</text>
+    </g>
+</svg>
