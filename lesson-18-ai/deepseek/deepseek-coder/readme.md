@@ -1,2 +1,0 @@
-- git@github.com:deepseek-ai/DeepSeek-Coder-V2.git
-    - ~/projects/AI/DeepSeek-Coder-V2

@@ -1,7 +1,0 @@
-Feature,Google Translate,DeepL,Microsoft Translator,Yandex Translate,Amazon Translate,IBM Watson Translation Service
-Languages supported,Over 100,Over 100,Over 100,Over 90,Over 70,Over 50
-Accuracy,High,Very high,High,High,High,High
-Scalability,Excellent,Good,Good,Excellent,Excellent,Good
-Pricing,Pay as you go,Tiered,Pay as you go,Pay as you go,Pay as you go,Tiered
-Additional features,Real-time translation,Domain-specific translation,Customizable translation,Document translation,Speech-to-text translation,Text-to-speech translation
-URL,https://cloud.google.com/translate/docs/reference/rest,https://www.deepl.com/en/translator,https://translator.microsoft.com/,https://translate.yandex.com/en/translator/English-Russian,https://aws.amazon.com/translate/,https://www.ibm.com/products/natural-language-processing
