@@ -58,6 +58,8 @@ the app-v3.py is pasted here: <pasted>
 
 ## Misc
 ```
+conda activate zinet
+
 H7_Super_007@gmail.com
 H7_User1@gmail.com
 

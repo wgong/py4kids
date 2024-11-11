@@ -1,6 +1,9 @@
 """
 Task Management App based on Stephen Covey's 7 Habits of highly effectively people
 
+- 2024-11-10
+    - download task, note
+
 - 2024-11-03
     - V7
         - refactor
@@ -89,14 +92,20 @@ MENU_ITEMS = [
 DB_FILE = "habits7.sqlite"
 
 # LOV
+BLANK_STR_VALUE = ""
 LIST_TASK_GROUP = ['Work', 'Personal']
 LIST_Y_N = ["Y", "N"]
 LIST_TASK_STATUS = ["ToDo", "Doing", "Done"]
 LIST_PROGRESS = ["0%", "25%", "50%", "75%", "100%"]
-LIST_TASK_CATEGORY = ["", "learning", "research", "project", "fun"]
+LIST_TASK_TYPE = ["", "learning", "research", "project", "fun"]
 LIST_NOTE_TYPE = ["", "learning", "research", "project", "journal"]
 
 LABEL_REQUIRED = "(*)"
+
+EXPORT_FILE_EXT = {
+    "CSV" : "csv",
+    "JSON" : "json",
+}
 
 # table names
 TABLE_H7_USER = "habits7_user"
@@ -127,13 +136,13 @@ CREATE_TABLE_DDL = {
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         task_name TEXT NOT NULL,
         description TEXT,
-        task_type TEXT DEFAULT '' CHECK(task_type IN ('', 'learning', 'research', 'project', 'fun')),
         task_group TEXT DEFAULT 'Personal' CHECK(task_group IN ('','Work', 'Personal')),
         is_urgent TEXT DEFAULT 'N' CHECK(is_urgent IN ('Y', 'N')),
         is_important TEXT DEFAULT 'N' CHECK(is_important IN ('Y', 'N')),
         status TEXT DEFAULT '' CHECK(status IN ('', 'ToDo', 'Doing', 'Done')),
         pct_completed TEXT DEFAULT '0%' CHECK(pct_completed IN ('0%', '25%', '50%', '75%', '100%')),
         due_date TEXT,
+        task_type TEXT DEFAULT '' CHECK(task_type IN ('', 'learning', 'research', 'project', 'fun')),
         note TEXT,
         created_by TEXT,
         created_at TEXT,
@@ -166,6 +175,67 @@ USER_KEY_COLS = {
     TABLE_H7_NOTE: ["note_name", "url", "note_type"],
 }
 
+def handle_export_csv(df, DATA_ENTITY="Task"):
+    # add download button
+    df_data = df.to_csv(index=False)
+    st.download_button(
+        label=f"Download {DATA_ENTITY}",
+        data=df_data,
+        file_name=f"{DATA_ENTITY}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv",
+        mime="text/csv"
+    )   
+
+# For JSON export
+def export_df_to_json(df, orient='records'):
+    """
+    Export DataFrame to JSON string.
+    
+    Args:
+        df: DataFrame to export
+        orient: JSON format orientation, common options are:
+               - 'records' : list-like [{column -> value}, ... ]
+               - 'split' : dict-like {'index' -> [index], 'columns' -> [columns], 'data' -> [values]}
+               - 'table' : dict-like {'schema': {schema}, 'data': {data}}
+    """
+    return df.to_json(orient=orient, date_format='iso')
+
+def handle_export_json(df, DATA_ENTITY="Task"):
+    # add download button
+    df_data = export_df_to_json(df)
+    st.download_button(
+        label=f"Download {DATA_ENTITY}",
+        data=df_data,
+        file_name=f"{DATA_ENTITY}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json",
+        mime="application/json"
+    )  
+
+# For .xlsx (Excel 2007+)
+def export_df_to_excel(df):
+    # Requires openpyxl for .xlsx format
+    from io import BytesIO
+    output = BytesIO()
+    with pd.ExcelWriter(output, engine='openpyxl') as writer:
+        df.to_excel(writer, index=False)
+    return output.getvalue()
+
+def handle_export_xlsx(df, DATA_ENTITY="Task"):
+    # add download button
+    df_data = export_df_to_excel(df)
+    st.download_button(
+        label=f"Download {DATA_ENTITY}",
+        data=df_data,
+        file_name=f"{DATA_ENTITY}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.xlsx",
+        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    ) 
+
+def handle_export(df, DATA_ENTITY="Task"):
+    export_format = st.selectbox("Export Format", ["CSV", "Excel", "JSON"])
+    if export_format == "Excel":
+        handle_export_xlsx(df, DATA_ENTITY)
+    elif export_format == "JSON":
+        handle_export_json(df, DATA_ENTITY)
+    else:
+        handle_export_csv(df, DATA_ENTITY)
 
 class DBConn(object):
     def __init__(self, db_file=DB_FILE):
@@ -327,9 +397,14 @@ def query_user_keys(key_data):
         return df["id"].to_list()[0]
 
 
+def sanitize_search_input(value):
+    """Sanitize search input to prevent SQL injection"""
+    if value is None:
+        return ""
+    return value.replace("'", "''")
 
 # Function to check if the user is the first user (super-user)
-@st.cache_data
+# @st.cache_data
 def is_first_user():
     sql_stmt = f"SELECT COUNT(*) FROM {TABLE_H7_USER}"
     df = run_sql(sql_stmt)
@@ -475,18 +550,27 @@ def admin_job_page():
     file_list = sorted(glob("tests/*.sql"))
     selected_script_path = st.selectbox("Select script", file_list)
     sql_stmt = open(selected_script_path).read()
-    st.text_area("Review", value=sql_stmt, height=400, disabled=True)
-    if st.button(f"Run Script"):
-        run_sql(sql_stmt)
+    st.text_area("Review", value=sql_stmt, height=300, disabled=True)
+    c1, _ = st.columns(2)
+    with c1:
+        USERNAME = st.text_input("USERNAME", value="H7_User1@gmail.com")
+        DATA_DATE = datetime.now().strftime("%Y-%m-%d")
+
+    sql = ""
+    if USERNAME:
+        sql = sql_stmt.replace("USERNAME", USERNAME).replace("DATA_DATE", DATA_DATE)
+        # st.code(sql)
+    if st.button(f"Run Script") and sql:
+        run_sql(sql, DEBUG_SQL=False)
 
 
 # Note related
 # ==================================
 # Function to view all data
 
-def handle_note_form(df, username, key_name):
+def handle_note_form(df, username, key_name, DATA_ENTITY="Note"):
     # display note list
-    grid_resp = _display_df_grid(df, key_name=key_name)
+    grid_resp = _display_df_grid(df, key_name=key_name, clickable_columns=["url"])
     selected_rows = grid_resp['selected_rows']
 
     # streamlit-aggrid==1.0.5
@@ -525,8 +609,8 @@ def handle_note_form(df, username, key_name):
         updated_by = st.text_input(COL_LABELS[TABLE_H7_NOTE]['updated_by'],  value=v_updated_by)
         updated_at = st.date_input(COL_LABELS[TABLE_H7_NOTE]['updated_at'],  value=v_updated_at)
 
+    c_1, c_2, c_3, c_4 = st.columns([2,2,2,2])
     if selected_row is None or not v_id: 
-        c_1, _, _ = st.columns([3,3,2])
         with c_1:
             btn_add = st.button("Add Note")
 
@@ -541,7 +625,6 @@ def handle_note_form(df, username, key_name):
 
     else:
         delete_flag = False
-        c_1, _, c_2 = st.columns([3,3,2])
         with c_1:
             btn = st.button("Update Note")
         with c_2:
@@ -555,9 +638,18 @@ def handle_note_form(df, username, key_name):
                 edit_note_by_id(note_name, url, note_type, note, tags, updated_by, updated_at, v_id, username)
                 st.success(f"Note Updated: {v_id}")
 
-def query_all_notes(username):
+    with c_4:
+        if df is not None and not df.empty:
+            handle_export(df, DATA_ENTITY="Note") 
+
+ 
+
+def query_all_notes(username, where_clause=" 1=1 "):
     sql_stmt = f'''
-        SELECT * FROM {TABLE_H7_NOTE} where created_by = '{username}' order by updated_at desc;
+        SELECT * 
+        FROM {TABLE_H7_NOTE} 
+        where created_by = '{username}' and {where_clause}
+        order by updated_at desc;
     '''
     return run_sql(sql_stmt)
 
@@ -612,9 +704,11 @@ def edit_note_by_id(new_note_name, new_url, new_note_type, new_note, new_tags, n
 
 # Task related
 # ==================================
-def handle_task_form(df, username, key_name, page_size=PAGE_SIZE, grid_height=GRID_HEIGHT):
+def handle_task_form(df, username, key_name, page_size=PAGE_SIZE, grid_height=GRID_HEIGHT, DATA_ENTITY="Task"):
     # display task list
     grid_resp = _display_df_grid(df, page_size=page_size, grid_height=grid_height, key_name=key_name)
+
+
     selected_rows = grid_resp['selected_rows']
 
     # streamlit-aggrid==1.0.5
@@ -651,7 +745,7 @@ def handle_task_form(df, username, key_name, page_size=PAGE_SIZE, grid_height=GR
     with col1:
         task_name = st.text_input(COL_LABELS[TABLE_H7_TASK]['task_name'] + LABEL_REQUIRED, value=v_task_name)
         description = st.text_area(COL_LABELS[TABLE_H7_TASK]['description'] + LABEL_REQUIRED,  value=v_description)
-        task_type = st.selectbox(COL_LABELS[TABLE_H7_TASK]['task_type'] + LABEL_REQUIRED, LIST_TASK_CATEGORY, index=LIST_TASK_CATEGORY.index(v_task_type))
+        task_type = st.selectbox(COL_LABELS[TABLE_H7_TASK]['task_type'] + LABEL_REQUIRED, LIST_TASK_TYPE, index=LIST_TASK_TYPE.index(v_task_type))
 
     with col2:
         is_urgent = st.selectbox(COL_LABELS[TABLE_H7_TASK]['is_urgent'], LIST_Y_N, index=LIST_Y_N.index(v_is_urgent))
@@ -671,8 +765,8 @@ def handle_task_form(df, username, key_name, page_size=PAGE_SIZE, grid_height=GR
         updated_by = st.text_input(COL_LABELS[TABLE_H7_TASK]['updated_by'],  value=v_updated_by)
         updated_at = st.date_input(COL_LABELS[TABLE_H7_TASK]['updated_at'],  value=v_updated_at)
 
+    c_1, c_2, c_3, c_4 = st.columns([2,2,2,2])
     if selected_row is None or not v_id: 
-        c_1, _, _, _ = st.columns([2,2,2,2])
         with c_1:
             btn_add = st.button("Add Task")
 
@@ -687,7 +781,6 @@ def handle_task_form(df, username, key_name, page_size=PAGE_SIZE, grid_height=GR
 
     else:
         delete_flag = False
-        c_1, _, _, c_2 = st.columns([2,2,2,2])
         with c_1:
             btn = st.button("Update Task")
         with c_2:
@@ -701,6 +794,10 @@ def handle_task_form(df, username, key_name, page_size=PAGE_SIZE, grid_height=GR
                 edit_task_by_id(task_name, description, task_group, is_urgent, is_important, status, pct_completed, due_date, task_type, note, updated_by, updated_at, 
                     v_id, username)
                 st.success(f"Task Updated: {v_id}")
+    with c_4:
+        # add download button
+        if key_name in ["task_df_all"] and df is not None and not df.empty:
+            handle_export(df, DATA_ENTITY)
 
 
 # Function to add data
@@ -730,9 +827,12 @@ def add_task(task_name, description, task_group, is_urgent, is_important, status
 
 
 # Function to view all data
-def query_all_tasks(username):
+def query_all_tasks(username, where_clause=" 1=1 "):
     sql_stmt = f'''
-        SELECT * FROM {TABLE_H7_TASK} where created_by = '{username}' order by updated_at desc;
+        SELECT * 
+        FROM {TABLE_H7_TASK} 
+        where created_by = '{username}' and {where_clause}
+        order by updated_at desc;
     '''
     return run_sql(sql_stmt)
 
@@ -1185,16 +1285,77 @@ def main(DEBUG_FLAG = False):
 
     elif choice == STR_MANAGE_NOTE:
         st.subheader(STR_MANAGE_NOTE)
-        df = query_all_notes(username)
+        DATA_ENTITY = "NOTE"
+       # allow search
+        c_keyword, c_note_type = st.columns([3,1])
+        with c_keyword:
+            q_keyword = st.text_input("🔍Keyword:", key=f"{DATA_ENTITY}_keyword")
+            q_keyword = sanitize_search_input(q_keyword.strip())
+        with c_note_type:
+            note_type_options = LIST_NOTE_TYPE
+            q_note_type = st.selectbox("Note Type", note_type_options, index=note_type_options.index(BLANK_STR_VALUE), key=f"{DATA_ENTITY}_note_type")
+        where_clause = " 1=1 " 
+        if q_keyword:
+            where_clause += f""" and (
+                    note_name like '%{q_keyword}%'
+                    OR url like '%{q_keyword}%'
+                    OR note like '%{q_keyword}%'
+                    OR tags like '%{q_keyword}%'
+                ) """
+        if q_note_type:
+            where_clause += f""" and note_type = '{q_note_type}' """
+
+        df = query_all_notes(username, where_clause=where_clause)
         handle_note_form(df, username, key_name="note_df_all")
 
     elif choice == STR_MANAGE_TASK:
         st.subheader(STR_MANAGE_TASK)
-        df = query_all_tasks(username)
+        DATA_ENTITY = "TASK"
+        # allow search
+        c_keyword, c_task_group, c_task_type, c_status, c_urgent, c_important = st.columns([1,1,1,1,1,1])
+        with c_keyword:
+            q_keyword = st.text_input("🔍Keyword:", key=f"{DATA_ENTITY}_keyword")
+            q_keyword = sanitize_search_input(q_keyword.strip())
+        with c_task_group:
+            task_group_options = [BLANK_STR_VALUE] + LIST_TASK_GROUP
+            q_task_group = st.selectbox("Task Group", task_group_options, index=task_group_options.index(BLANK_STR_VALUE), key=f"{DATA_ENTITY}_task_group")
+        with c_task_type:
+            task_type_options = LIST_TASK_TYPE
+            q_task_type = st.selectbox("Task Type", task_type_options, index=task_type_options.index(BLANK_STR_VALUE), key=f"{DATA_ENTITY}_task_type")
+        with c_status:
+            status_options = [BLANK_STR_VALUE] + LIST_TASK_STATUS
+            q_status = st.selectbox("Status", status_options, index=status_options.index(BLANK_STR_VALUE), key=f"{DATA_ENTITY}_status")
+        with c_urgent:
+            urgent_options = [BLANK_STR_VALUE] + LIST_Y_N
+            q_urgent = st.selectbox("Urgent", urgent_options, index=urgent_options.index(BLANK_STR_VALUE), key=f"{DATA_ENTITY}_urgent")
+        with c_important:
+            important_options = [BLANK_STR_VALUE] + LIST_Y_N
+            q_important = st.selectbox("Important", important_options, index=important_options.index(BLANK_STR_VALUE), key=f"{DATA_ENTITY}_important")
+
+        where_clause = " 1=1 " 
+        if q_keyword:
+            where_clause += f""" and (
+                    task_name like '%{q_keyword}%'
+                    OR description like '%{q_keyword}%'
+                    OR note like '%{q_keyword}%'
+                ) """
+        if q_task_group:
+            where_clause += f""" and task_group = '{q_task_group}' """
+        if q_task_type:
+            where_clause += f""" and task_type = '{q_task_type}' """
+        if q_status:
+            where_clause += f""" and status = '{q_status}' """
+        if q_urgent:
+            where_clause += f""" and is_urgent = '{q_urgent}' """
+        if q_important:
+            where_clause += f""" and is_important = '{q_important}' """
+
+        df = query_all_tasks(username, where_clause=where_clause)
         handle_task_form(df, username, 
                         page_size=_GRID_OPTIONS["paginationPageSize"], 
                         grid_height=_GRID_OPTIONS["grid_height"],                          
                         key_name="task_df_all")
+    
 
     elif choice == STR_HABITS_7_TASK:
         st.subheader("7 Habits View")

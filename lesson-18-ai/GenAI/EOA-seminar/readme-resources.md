@@ -58,3 +58,15 @@ Prioritising your needs and reaching towards self-actualisation
     - https://www.youtube.com/watch?v=SDtt_XpV0K8
     - https://tech.co/news/personal-robots-for-your-home-2017-09
     - https://www.nytimes.com/interactive/2018/11/23/technology/robot-nurse-zora.html
+
+- Emergence
+    - https://www.youtube.com/watch?v=-OVTUwT8AFM&t=838s
+    - https://mcgovern.mit.edu/profile/tomaso-poggio/
+
+Tomaso Poggio at MIT Center for Brains, Minds, and Machines:
+- Generalization Theory: 
+Explain why deep networks can learn effectively despite having more parameters than training examples;
+- Representation Learning: 
+Study how neural networks develop hierarchical internal representations similar to biological brains;
+- Optimization Dynamics: 
+Investigate why gradient descent consistently finds good solutions in highly complex parameter spaces

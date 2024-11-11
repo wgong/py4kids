@@ -2,3 +2,4 @@
 # streamlit==1.38.0
 streamlit-aggrid==1.0.5
 bcrypt
+openpyxl
