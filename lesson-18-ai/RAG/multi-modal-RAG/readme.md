@@ -2,7 +2,8 @@ Chinese Textbook project
 
 
 ## Multi-modal Retrieval
-- [M3DOCRAG](https://arxiv.org/pdf/2411.04952): Multi-modal Retrieval is What You Need for Multi-page Multi-document Understanding
+- [M3DOCRAG](https://arxiv.org/pdf/2411.04952): Multi-modal Retrieval is What You Need for Multi-page Multi-document Understanding (M3DocRAG with ColPali and Qwen2-VL 7B achieves superior performance than many strong baselines, including state-of-the-art performance in MP-DocVQA)
+    - [code coming soon](https://m3docrag.github.io/)
 
 - [ColPali](https://github.com/illuin-tech/colpali) - Efficient Document Retrieval with Vision Language Models
     - combining ColBERT and PaliGemma, to leverage VLMs to construct efficient multi-vector embeddings in the visual space for document retrieval
