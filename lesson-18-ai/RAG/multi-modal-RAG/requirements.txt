@@ -1,0 +1,8 @@
+pdf2image
+torch
+git+https://github.com/huggingface/transformers.git
+qwen-vl-utils
+flash-attn
+byaldi
+ipywidgets
+notebook   # required
