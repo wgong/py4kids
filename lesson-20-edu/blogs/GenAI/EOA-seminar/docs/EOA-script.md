@@ -1,88 +1,88 @@
 # Introduction to GenAI: Past > Present > Future
-## Presentation Narration Script
+Date: 2024-11-16
 
-### Opening
-Welcome everyone. Today we're going to explore the fascinating world of Generative AI through an unexpected lens - the story of "The Wizard of Oz." Just as Dorothy and her companions journeyed to the Emerald City, we're on our own journey through the landscape of AI, seeking understanding, capability, and wisdom.
+## Opening
+Welcome everyone to this seminar on Introduction to Generative AI. Today, we'll embark on a journey through the past, present, and future of GenAI, structured like Dorothy's journey in "The Wizard of Oz" - following the yellow brick road to discover the transformative power of this technology.
 
-### The Journey Framework
-Like our friends from Oz, we're each on this AI journey:
-- Dorothy represents us - already possessing the power to shape this technology
-- The Scarecrow seeking a brain mirrors AI's quest for intelligence
-- The Tin Man seeking a heart reflects our concerns about AI and emotion
-- The Cowardly Lion seeking courage represents our need to boldly face AI challenges
+## Past - "The Storm Gathering"
 
-### Past - "The Storm Gathering"
-Let's start with where we've been - the gathering storm that brought us to this moment.
+### Slide 3: AI > ML > DL > GenAI
+Let's start by understanding the hierarchy of artificial intelligence. GenAI is part of a larger family: AI encompasses all artificial intelligence, Machine Learning is a subset of AI, Deep Learning is a specialized form of ML, and Generative AI represents the latest evolution in this field.
 
-#### The Evolution (Slide 4)
-We'll trace the path from broad AI concepts, through Machine Learning, into Deep Learning, and finally to today's Generative AI. Each step has built upon the previous, creating increasingly sophisticated systems.
+### Slide 4: AI History
+The journey to GenAI has been built on crucial technological milestones:
+- 1984: Apple Mac introduced personal computing to the masses
+- 1989: Tim Berners-Lee created the World Wide Web at CERN
+- 1998: Google Search transformed information access
+- 2015: OpenAI's founding marked a new era in AI research
+- 2018: The Turing Award recognized the deep learning pioneers
+- 2022: ChatGPT's launch revolutionized public perception of AI
 
-#### Historical Context (Slide 5)
-Our journey has key milestones:
-- 1984: Apple Mac revolutionized personal computing
-- 1989: The World Wide Web gave us global connectivity
-- 2006: AWS Cloud enabled massive computational power
-- 2015: OpenAI's founding marked a new era
-- 2022: ChatGPT changed everything
+### Slide 5: The Turing Test
+The Turing Test, proposed by Alan Turing, remains a fundamental benchmark for machine intelligence. It asks whether a machine can exhibit intelligent behavior indistinguishable from a human - a concept now more relevant than ever with modern GenAI systems.
 
-#### The Turing Test (Slide 6)
-We began with a simple question: Can machines think? Alan Turing gave us a framework to approach this question, setting the stage for everything that followed.
+### Slides 8-11: How GenAI Works
+Let's demystify the technology:
+- LLMs are built through massive data training
+- Neural networks learn patterns through layers of processing
+- At its core, an LLM is a function (y = f(x)) that predicts the most likely next token
+- Training involves optimizing billions of parameters
 
-### Present - "Following the Yellow Brick Road"
+### Slide 12: LLM Explainability
+Dr. Tomaso Poggio's work helps us understand three crucial aspects:
+- Generalization Theory: How networks learn effectively despite parameter complexity
+- Representation Learning: The development of hierarchical internal representations
+- Optimization Dynamics: The effectiveness of gradient descent in complex spaces
 
-#### State of 2024 (Slides 15-16)
-We're in a remarkable moment, with AI achievements being recognized at the highest levels, including Nobel Prizes. The technology is advancing at an unprecedented pace.
+## Present - "Following the Yellow Brick Road"
 
-#### Technology Landscape (Slides 17-19)
-Today's AI ecosystem includes:
-- Various LLM model types serving different needs
-- A mix of commercial and open-source solutions
-- Platforms like HuggingFace democratizing access
-- Local solutions like Ollama enabling private deployment
+### Slides 14-15: State of AI 2024
+The field has achieved remarkable recognition, including Nobel Prize contributions. The current state shows explosive growth in capabilities and applications.
 
-#### Applications and Demonstrations (Slides 23-38)
-We're seeing AI transform various fields:
-- ChatBots revolutionizing customer service
-- AI Agents handling complex tasks
-- Mathematical problem-solving
-- Scientific discovery automation
-- Real-world applications in analytics (Text2SQL)
+### Slides 16-17: LLM Models and Players
+We're seeing diverse model types and a competitive landscape with key players:
+- Open source initiatives
+- Commercial leaders
+- Research institutions
 
-### Future - "Behind the Curtain"
+### Slides 18-19: Open Source Platforms
+- HuggingFace serves as a central hub for open-source AI
+- Ollama enables local, private LLM deployment
+  - Open: Run state-of-the-art models locally
+  - Local: Simple setup on personal machines
+  - Private: Data remains under your control
 
-#### Global Impact (Slides 40-44)
-The future brings both opportunities and challenges:
-- Geopolitical implications of AI leadership
-- Integration with robotics
-- Privacy concerns
-- Broader social impact
+### Slides 22-24: Applications and Agents
+Modern applications extend beyond simple chatbots:
+- Intelligent agents can perform complex tasks
+- Systems like CrewAI and AutoGen enable sophisticated workflows
+- Mathematical and scientific applications show promising results
 
-#### Evolution and Understanding (Slides 45-50)
-We're moving toward:
-- The concept of AGI
-- Three-stage evolution: Perception → Cognition → Decision Making
-- Understanding what truly makes us human
+### Slides 25-37: GenAI Demonstrations
+[Note: Here you would insert specific narration about each demo shown in your slides]
 
-### Closing Thoughts
-Like Dorothy, we're discovering that the power to shape this technology has been with us all along. The key is understanding how to use it wisely and ethically.
+## Future - "Behind the Curtain"
 
-### Key Talking Points for Q&A
-- Current limitations of GenAI
-- Ethical considerations
-- Practical implementation strategies
-- Future development paths
+### Slides 39-42: Geopolitics and Robotics
+- The global AI race has significant geopolitical implications
+- Integration of AI with robotics is creating new possibilities
+- Privacy concerns become increasingly important
 
-## Timing Guidelines
-- Introduction: 5 minutes
-- Past section: 15 minutes
-- Present section: 20 minutes
-- Future section: 15 minutes
-- Q&A: 5 minutes
-- Total: 60 minutes
+### Slides 43-46: Social Impact and AGI
+- We must consider the broader social implications
+- The path to AGI (Artificial General Intelligence) raises important questions
+- AI evolution follows distinct stages toward greater capability
 
-## Notes for Presenter
-- Pause for audience engagement after each major section
-- Use demos as breathing points in the presentation
-- Connect back to the Oz metaphor at transition points
-- Emphasize both opportunities and responsibilities
-- Keep technical details accessible while maintaining depth
+### Slides 47-49: Higher Intelligence and Human Nature
+- The relationship between Human Intelligence, AGI, and GenAI
+- Fundamental questions about what makes us human
+- The importance of maintaining human values and ethics
+
+## Closing
+Like Dorothy's companions in Oz, we're seeking intelligence (Scarecrow), heart (Tin Man), and courage (Lion) in our AI systems. The real power, like Dorothy's ruby slippers, has been with humanity all along - it's about how we choose to use these tools.
+
+[Contact Information]
+LinkedIn: linkedin.com/in/wen-g-gong/
+GitHub: github.com/gongwork/data-copilot
+
+Would you like me to expand on any particular section or add more specific details to certain slides?
