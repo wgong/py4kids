@@ -2,7 +2,9 @@
 # This script installs Ollama on Linux.
 # It detects the current operating system architecture and installs the appropriate version of Ollama.
 
-export OLLAMA_HOME="/opt/ollama"
+# install with custom model storage
+export OLLAMA_HOME="/usr/share/ollama"
+export OLLAMA_MODELS="/opt/ollama/.ollama/models"
 
 set -eu
 
