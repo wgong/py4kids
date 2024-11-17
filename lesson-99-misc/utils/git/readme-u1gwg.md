@@ -10,7 +10,7 @@ https://code.tutsplus.com/quick-tip-how-to-work-with-github-and-multiple-account
   - Account: wgong
     - git clone git@github.com:wgong/embedchain.git (into wgong account)
 
-  - Account: gongwork
+  - Account: gongwork (p2p2learn@gmail.com)
     - git clone git@github.com-work:gongwork/embedchain.git (into gongwork account, Note: `-work` suffix configured inside `.ssh` folder)
     - git add .
     - git commit -m "init"

@@ -1,0 +1,14 @@
+[Unit]
+Description=Ollama Service
+After=network-online.target
+
+[Service]
+ExecStart=/bin/bash -c 'env > /tmp/ollama_env.log && OLLAMA_HOME=/usr/share/ollama OLLAMA_MODELS=/opt/ollama/.ollama/models /usr/local/bin/ollama serve'
+User=root
+Group=root
+Restart=always
+RestartSec=3
+Environment="PATH=/home/papagame/anaconda3/bin:/home/papagame/anaconda3/condabin:/usr/local/cuda-12.4/bin:/home/papagame/.local/bin:/usr/local/cuda-12.4/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin"
+
+[Install]
+WantedBy=default.target
