@@ -50,19 +50,31 @@ class ApiKeyStore():
         else:
             return cfg[sub_cat].get("API_KEY") if sub_cat else None
 
-            
+def show_code(k,v, show_val=False):
+    c_str = f"""
+from api_key_store import ApiKeyStore
+api_key = ApiKeyStore().get_api_key("{k}")
+    """
+    if show_val:
+        c_str += f"""
+# {v}\n"""
+    return c_str
+
 if __name__ == "__main__":
     s = ApiKeyStore()
-    # print(f"API Providers: {s.list_api_providers()}")
-        
-    API_KEYS = {}
+    verify_key_val = False # True # 
+    API_KEYS = []
     for p in s.api_providers:
         cfg = s.cfg[p]
         if "API_KEY" in cfg:
-            API_KEYS[f"{p}_API_KEY"] = s.get_api_key(p)
+            k = p
+            v = s.get_api_key(k)
+            API_KEYS.append(show_code(k,v, show_val=verify_key_val))
         else:
             for sub_cat in [k for k in cfg.keys() if k not in ["ORG_ID", "MODELS", "DESCRIPTION", "Chat_URL"]]:
-                API_KEYS[f"{p}_API_KEY_{sub_cat}"] = s.get_api_key(f"{p}/{sub_cat}")
+                k = f"{p}/{sub_cat}"
+                v = s.get_api_key(k)
+                API_KEYS.append(show_code(k,v, show_val=verify_key_val))
 
-    print(API_KEYS)
+    print("\n#######".join(API_KEYS))
 
