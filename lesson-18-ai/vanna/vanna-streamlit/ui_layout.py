@@ -77,18 +77,7 @@ COLUMN_PROPS = {
         'widget_type': 'text_input',
         'label_text': 'ID'
     },
-    'llm_api_key': {
-        'is_system_col': False,
-        'is_user_key': False,
-        'is_required': False,
-        'is_visible': True,
-        'is_editable': True,
-        'is_clickable': False,
-        'datatype': 'text',
-        'form_column': 'COL_2-2',
-        'widget_type': 'text_input',
-        'label_text': 'API Key'
-    },
+
     'db_url': {
         'is_system_col': False,
         'is_user_key': False,

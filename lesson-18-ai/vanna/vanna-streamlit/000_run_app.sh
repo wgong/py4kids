@@ -1,0 +1,1 @@
+streamlit run Data-Copilot.py

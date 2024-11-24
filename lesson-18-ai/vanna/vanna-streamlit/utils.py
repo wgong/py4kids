@@ -1,9 +1,7 @@
 """
 # ToDo
-- [2024-01-20]
 
 # Done
-- [2024-01-20]
 """
 
 # basic libs
@@ -11,9 +9,11 @@ from datetime import datetime
 from io import StringIO 
 import os
 import re
+from glob import glob
 from traceback import format_exc
 from pathlib import Path
 from uuid import uuid4
+import json
 import jsonlines
 
 # special libs
@@ -33,17 +33,20 @@ from st_aggrid import (
 from ui_layout import *
 
 from vanna_calls import (
-    setup_vanna,
-    generate_questions_cached,
+    setup_vanna_cached,
     generate_sql_cached,
     run_sql_cached,
     generate_plotly_code_cached,
     generate_plot_cached,
-    generate_followup_cached,
     should_generate_chart_cached,
-    is_sql_valid_cached,
     generate_summary_cached,
+    parse_llm_model_spec,
+    DEFAULT_LLM_MODEL,
+    LLM_MODEL_MAP, 
+    LLM_MODEL_REVERSE_MAP, 
 )
+
+from vanna.base import SQL_DIALECTS, VECTOR_DB_LIST
 
 #############################
 # Config params (1st)
@@ -57,12 +60,13 @@ VANNA_ICON_URL  = "https://cdn-icons-png.flaticon.com/128/13298/13298257.png"
 
 STR_APP_NAME             = "Data Copilot"
 STR_MENU_HOME            = "Home"
-STR_MENU_ASK             = "Ask AI"
+STR_MENU_ASK_RAG         = "Retrieval Augmented Generation (RAG)"
 STR_MENU_EVAL            = "Evaluation"
-STR_MENU_CONFIG          = "Experiment Setup"
+STR_MENU_IMPORT_DATA     = "Import Data"
+STR_MENU_CONFIG          = "Settings"
 STR_MENU_TRAIN           = "KnowledgeBase"
 STR_MENU_DB              = "DataBase"
-STR_MENU_RESULT          = "Q & A Results"
+STR_MENU_RESULT          = "Question & Anwser Results"
 STR_MENU_NOTE            = "Take Notes"
 STR_MENU_ACKNOWLEDGE     = "Acknowledgement"
 
@@ -72,7 +76,7 @@ CFG = {
     "SQL_EXECUTION_FLAG" : True, #  False, #   control SQL
     
     "DB_META_DATA" : Path(__file__).parent / "db" / "data_copilot.sqlite3",
-    "DB_APP_DATA" : Path(__file__).parent / "db" / "chinook.sqlite3",
+    "DDL_SCRIPT" : Path(__file__).parent / "db" / "data_copilot_ddl.sql",
 
     # assign table names
     "TABLE_QA" : "t_qa",                # Question/Answer pair
@@ -206,6 +210,34 @@ def dump_jsonl(file_path):
         for obj in st.session_state["my_results"]:
             writer.write(obj)  
 
+def trim_str_col_val(data):
+    data_new = {}
+    for k,v in data.items():
+        if isinstance(v, str):
+            v = v.strip()
+        data_new.update({k:v})
+    return data_new
+
+def list_datasets(db_type="SQLite"):
+    """
+    traverse db subfolder to get all db files
+
+    Returns:
+        dict of datasets
+    """
+    sufix = db_type.lower()
+    datasets = {}
+    cwd = os.getcwd()
+    for p in [i for i in glob(f"db/**/*.{sufix}*", recursive=True) if "data_copilot" not in i and sufix in i.lower()]:
+        db_url = os.path.abspath(os.path.join(cwd, p))
+        l = Path(db_url).parts
+        db_name = l[l.index("db")+1]
+        datasets[db_name] = dict(db_type=db_type, db_url=db_url)
+    return datasets
+
+#############################
+#  DB Helpers
+#############################
 def db_run_sql(sql_stmt, conn=None, debug=CFG["DEBUG_FLAG"]):
     """handles both select and insert/update/delete
     """
@@ -214,7 +246,8 @@ def db_run_sql(sql_stmt, conn=None, debug=CFG["DEBUG_FLAG"]):
     
     debug_print(sql_stmt, debug=debug)
 
-    if sql_stmt.lower().strip().startswith("select"):
+    x = sql_stmt.lower().strip()
+    if x.startswith("select") or x.startswith("with"):
         return pd.read_sql(sql_stmt, conn)
     
     cur = conn.cursor()
@@ -224,18 +257,34 @@ def db_run_sql(sql_stmt, conn=None, debug=CFG["DEBUG_FLAG"]):
     return None
 
 
-def db_execute(sql_statement, 
+def db_execute(sql_stmt, 
                debug=CFG["DEBUG_FLAG"], 
                execute_flag=CFG["SQL_EXECUTION_FLAG"],):
     """handles insert/update/delete
     """
     with DBConn() as _conn:
-        debug_print(sql_statement, debug=debug)
+        debug_print(sql_stmt, debug=debug)
         if execute_flag:
-            _conn.execute(sql_statement)
+            _conn.execute(sql_stmt)
             _conn.commit()
         else:
             print("[WARN] SQL Execution is off ! ")   
+
+def db_list_tables_sqlite(db_url):
+    """get a list of tables from SQLite database
+    """
+    with DBConn(db_url) as _conn:
+        sql_stmt = f'''
+        SELECT 
+            name
+        FROM 
+            sqlite_schema
+        WHERE 
+            type ='table' AND 
+            name NOT LIKE 'sqlite_%';
+        '''
+        df = pd.read_sql(sql_stmt, _conn)
+    return df["name"].to_list()
 
 
 def db_get_row_count(table_name):
@@ -256,22 +305,15 @@ def db_select_by_id(table_name, id_value=""):
         sql_stmt = f"""
             select *
             from {table_name} 
-            where u_id = '{id_value}' ;
+            where id = '{id_value}' ;
         """
         return pd.read_sql(sql_stmt, _conn).fillna("").to_dict('records')
 
 
-def trim_str_col_val(data):
-    data_new = {}
-    for k,v in data.items():
-        if isinstance(v, str):
-            v = v.strip()
-        data_new.update({k:v})
-    return data_new
-
 def db_upsert(data, user_key_cols="title", call_meta_func=False):
     """ 
     """
+    # print(f"data = {data}")
     if not data: 
         return None
 
@@ -290,17 +332,17 @@ def db_upsert(data, user_key_cols="title", call_meta_func=False):
     data = trim_str_col_val(data)
 
     sql_type = "INSERT"
-    u_id = data.get(user_key_cols, "")
-    if not u_id:
+    uk_val = data.get(user_key_cols, "")
+    if not uk_val:
         id = ""
         sql_type = "INSERT"
     else:
         with DBConn() as _conn:
-            u_id = escape_single_quote(u_id)
+            uk_val = escape_single_quote(uk_val)
             sql_stmt = f"""
                 select *
                 from {table_name} 
-                where {user_key_cols} = '{u_id}';
+                where {user_key_cols} = '{uk_val}';
             """
             rows = pd.read_sql(sql_stmt, _conn).to_dict('records')
 
@@ -369,6 +411,7 @@ def db_upsert(data, user_key_cols="title", call_meta_func=False):
             """
 
     if upsert_sql:
+        # print(f"upsert_sql = {upsert_sql}")
         try:
             db_execute(upsert_sql, 
                     debug=CFG["DEBUG_FLAG"], 
@@ -377,8 +420,32 @@ def db_upsert(data, user_key_cols="title", call_meta_func=False):
         except Exception as ex:
             print(f"[ERROR] db_upsert():\n\t{str(ex)}")
 
-def db_query_config():
-    with DBConn() as _conn:
+def db_query_data(db_url, table_name, limit=50, order_by=""):
+    with DBConn(db_url) as _conn:
+        order_by = order_by.strip()
+        order_by_clause = f" order by {order_by} " if order_by else " "
+        limit_clause = f" limit {limit} " if limit and limit > 0 else " "
+
+        sql_stmt = f"""
+            select 
+                *
+            from {table_name}
+            {order_by_clause}
+            {limit_clause}
+            ;
+        """
+        return pd.read_sql(sql_stmt, _conn)
+
+def db_current_cfg(id_config=""):
+    if id_config:
+        sql_stmt = f"""
+            select 
+                *
+            from t_config
+            where id = '{id_config}'
+            ;
+        """
+    else:
         sql_stmt = f"""
             select 
                 *
@@ -389,10 +456,12 @@ def db_query_config():
             limit 1
             ;
         """
-        # print(sql_stmt)
+    # print(sql_stmt)
+
+    with DBConn(CFG["DB_META_DATA"]) as _conn:
         df = pd.read_sql(sql_stmt, _conn)
     if df is None or df.empty:
-        st.error("Config is missing")
+        # st.error("Config is missing")
         return {}
     
     return df.to_dict("records")[0]
@@ -405,13 +474,13 @@ def db_delete_by_id(data):
     if not table_name:
         raise Exception(f"[ERROR] Missing table_name: {data}")
 
-    id_val = data.get("u_id", "")
+    id_val = data.get("id", "")
     if not id_val:
         return None
     
     delete_sql = f"""
         delete from {table_name}
-        where u_id = '{id_val}';
+        where id = '{id_val}';
     """
     db_execute(delete_sql, 
                 debug=CFG["DEBUG_FLAG"], 
@@ -426,7 +495,7 @@ def db_update_by_id(data, update_changed=True):
     if not table_name:
         raise Exception(f"[ERROR] Missing table_name: {data}")
 
-    id_val = data.get("u_id", "")
+    id_val = data.get("id", "")
     if not id_val:
         return
 
@@ -457,7 +526,7 @@ def db_update_by_id(data, update_changed=True):
         update_sql = f"""
             update {table_name}
             set {', '.join(set_clause)}
-            where u_id = '{id_val}';
+            where id = '{id_val}';
         """
         db_execute(update_sql, 
                     debug=CFG["DEBUG_FLAG"], 
@@ -465,7 +534,7 @@ def db_update_by_id(data, update_changed=True):
             )
 
 #############################
-#  Misc
+#  Misc Helpers
 #############################
 def debug_print(msg, debug=CFG["DEBUG_FLAG"]):
     if debug and msg:
@@ -536,7 +605,6 @@ AGGRID_OPTIONS = {
     "return_mode_value": DataReturnMode.__members__["FILTERED"],
     "update_mode_value": GridUpdateMode.__members__["MODEL_CHANGED"],
     "fit_columns_on_grid_load": True,
-    "min_column_width": 4,
     "selection_mode": "single",  #  "multiple",  # 
     "allow_unsafe_jscode": True,
     "groupSelectsChildren": True,
@@ -829,9 +897,9 @@ def ui_layout_form(selected_row, table_name):
     data = {"table_name": table_name}
 
     # copy id if present
-    id_val = old_row.get("u_id", "")
+    id_val = old_row.get("id", "")
     if id_val:
-        data.update({"u_id" : id_val})
+        data.update({"id" : id_val})
 
     # display form and populate data dict
     col_col = {}
@@ -923,10 +991,10 @@ def ui_layout_form(selected_row, table_name):
             try:
                 delete_flag = data.get("delelte_record", False)
                 if delete_flag:
-                    if data.get("u_id"):
+                    if data.get("id"):
                         db_delete_by_id(data)
                 else:
-                    if data.get("u_id"):
+                    if data.get("id"):
                         data.update({"ts": get_ts_now(),
                                     })
                         db_update_by_id(data)
@@ -950,7 +1018,6 @@ def ui_layout_form(selected_row, table_name):
 def ui_display_df_grid(df, 
         selection_mode="single",  # "multiple", 
         fit_columns_on_grid_load=AGGRID_OPTIONS["fit_columns_on_grid_load"],
-        min_column_width=AGGRID_OPTIONS["min_column_width"],
         page_size=AGGRID_OPTIONS["paginationPageSize"],
         grid_height=AGGRID_OPTIONS["grid_height"],
         clickable_columns=[],
@@ -960,7 +1027,7 @@ def ui_display_df_grid(df,
     """show input df in a grid and return selected row
     """
 
-    gb = GridOptionsBuilder.from_dataframe(df, min_column_width=min_column_width)
+    gb = GridOptionsBuilder.from_dataframe(df)
     gb.configure_selection(selection_mode,
             use_checkbox=True,
             groupSelectsChildren=AGGRID_OPTIONS["groupSelectsChildren"], 
@@ -1063,3 +1130,14 @@ def merge_single_col(data):
     for d in ds:
         break
     return d
+
+
+def gen_markdown_text(data, keys=["llm_vendor","llm_model","vector_db","db_type","db_name","db_url"]):
+    table = "| Param | Value |\n|-----|-------|\n"
+    table += "\n".join([f"| {k} | {v} |" for k,v in data.items() if k in keys])
+    return table
+
+def cfg_show_data(data):
+    config_table_md = gen_markdown_text(data)
+    st.markdown(config_table_md, unsafe_allow_html=True) 
+

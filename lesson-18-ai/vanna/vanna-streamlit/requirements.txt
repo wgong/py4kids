@@ -6,7 +6,8 @@ streamlit_option_menu
 jsonlines
 notebook
 ollama
-vanna
+# vanna
+# use wgong/ssadata (install from git source) v0.7.4
 streamlit
 streamlit_code_editor
 python-dotenv
@@ -17,3 +18,4 @@ openai
 mistralai
 anthropic
 google-generativeai
+boto3
