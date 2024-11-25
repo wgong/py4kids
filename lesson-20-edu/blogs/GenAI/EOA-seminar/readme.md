@@ -1,3 +1,5 @@
+https://www.slideshare.net/slideshow/introduction-to-genai-past-present-future/273565748
+
 # GenAI Seminar Outline 
 
 ## 0 Objectives

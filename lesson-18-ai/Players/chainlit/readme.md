@@ -29,4 +29,9 @@ chainlit run app-01.py
 [2024-11-20 20:20:43] Done processing !!!
 ```
 
+https://github.com/Chainlit/chainlit/issues/1538
+
+```
+python app-02.py
+```
 
