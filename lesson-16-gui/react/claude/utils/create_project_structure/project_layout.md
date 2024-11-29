@@ -1,0 +1,18 @@
+csv-import-app
+    - frontend                 # React frontend
+        - public
+        - src
+            - components
+                - CSVImportApp.jsx
+            - App.jsx
+            - index.jsx
+        - package.json
+        - .env
+    - backend                  # FastAPI backend
+        - app
+            - __init__.py
+            - main.py          # FastAPI application
+            - utils.py         # Utility functions
+        - requirements.txt
+        - .env
+    - README.md

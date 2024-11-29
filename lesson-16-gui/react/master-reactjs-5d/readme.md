@@ -13,8 +13,7 @@ papagame:~/projects/UI/master-reactjs
 git clone git@github.com:wgong/DigiSafari-React.git
 
 
-https://learn.digi-safari.com/user/profile.php?id=1507
-wen_gong Web_Boy@27519
+https://learn.digi-safari.com/user/profile.php?id=1507 @wen_gong||Web_Boy@27519
 
 ## GitHub
 - py4kids/lesson-16-gui/react/master-reactjs-5d

@@ -1,0 +1,7 @@
+## 2 popular and elegant options to handle CLI arguments
+
+click 
+# Built by Pallets (Flask creators), intuitive decorator-based API, extensive documentation
+
+typer
+# Modern, type-hint based, built on Click, even more intuitive for Python 3.6+
