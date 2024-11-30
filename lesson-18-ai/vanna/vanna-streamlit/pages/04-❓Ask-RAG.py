@@ -290,7 +290,10 @@ def do_sidebar():
 
 def main():
     do_sidebar()
-    ask_ai()
+    try:
+        ask_ai()
+    except Exception as e:
+        st.error(f"Revise question, try again:\n {str(e)}")
 
 if __name__ == '__main__':
     main()

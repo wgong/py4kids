@@ -6,7 +6,7 @@ st.set_page_config(
      initial_sidebar_state="expanded",
 )
 st.header(f"{STR_MENU_ACKNOWLEDGE} 💜")
-st.image("./docs/thank-you.png")
+st.image("https://github.com/gongwork/data-copilot/blob/main/docs/thank-you.png?raw=true")
 st.markdown(f"""
 - [Vanna.ai](https://github.com/vanna-ai)
 - [Streamlit](https://streamlit.io/)            

@@ -52,8 +52,7 @@ def sqlite_import_tool():
         if st.button("Create Dataset"):
             try:
                 # Create directory
-                Path("db").mkdir(exist_ok=True)
-                Path(f"db/{dataset_name}").mkdir(exist_ok=True)
+                Path(f"db/{dataset_name}").mkdir(eparents=True, exist_ok=True)
                 st.success(f"Created dataset directory: db/{dataset_name}")
             except Exception as e:
                 st.error(f"Error creating dataset directory: {str(e)}")

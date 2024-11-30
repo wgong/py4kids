@@ -8,6 +8,7 @@ notebook
 ollama
 # vanna
 # use wgong/ssadata (install from git source) v0.7.4
+git+https://github.com/wgong/ssadata.git
 streamlit
 streamlit_code_editor
 python-dotenv
@@ -19,3 +20,4 @@ mistralai
 anthropic
 google-generativeai
 boto3
+openpyxl>=3.1.0

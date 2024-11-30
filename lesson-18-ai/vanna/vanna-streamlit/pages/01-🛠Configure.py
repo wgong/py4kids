@@ -7,7 +7,24 @@ st.header(f"{STR_MENU_CONFIG} 🛠")
 TABLE_NAME = CFG["TABLE_CONFIG"]
 KEY_PREFIX = f"col_{TABLE_NAME}"
 
-llm_model_list = list(LLM_MODEL_MAP.keys())
+def filter_by_ollama_model(llm_models):
+    """
+    If Ollama is not installed, open-source models will not be listed
+    """
+    ollama_models = get_ollama_model_names()
+    model_list = []
+    for m in llm_models:
+        if "(Open)" not in m:
+            model_list.append(m)
+        else:
+            ollama_model_name = LLM_MODEL_MAP.get(m, "")
+            for n in ollama_models:
+                if ollama_model_name and ollama_model_name in n:
+                    model_list.append(m)
+                    break
+    return model_list
+
+llm_model_list = filter_by_ollama_model(list(LLM_MODEL_MAP.keys()))
 
 def db_upsert_cfg(data):
     llm_vendor=data.get("llm_vendor")
@@ -127,21 +144,65 @@ def do_config():
         with c1:
             db_name = st.selectbox(
                 "DB Name",
-                options=avail_dbs.keys(),
-                index=list(avail_dbs.keys()).index(cfg_data.get("db_name"))
+                options=(list(avail_dbs.keys()) + ["New DB"]),
+                index=list(avail_dbs.keys()).index(cfg_data.get("db_name")),
+                key="cfg_db_name_select"
             )
         with c2:
             db_type = st.selectbox(
                 "DB Type",
                 options=db_list,
-                index=db_list.index(cfg_data.get("db_type"))
+                index=db_list.index(cfg_data.get("db_type")),
+                key="cfg_db_type_select"
             )
         with c3:
+            if db_name == "New DB":
+                db_url_value = ""
+            else:
+                db_url_value = avail_dbs[db_name].get("db_url")
+
             db_url = st.text_input(
                 "DB URL",
-                value=avail_dbs[db_name].get("db_url"),
-                disabled=True
+                value=db_url_value,
+                key="cfg_db_url"
             )
+        if db_name == "New DB":
+            c_1, c_2, c_3, c_4, _, c_5 = st.columns([3,3,3,3,1,2])
+            with c_1:
+                db_instance = st.text_input(
+                    "DB Instance", 
+                    value="", 
+                    key="cfg_db_instance"
+                )
+            with c_2:
+                db_username = st.text_input(
+                    "DB Username", 
+                    value="", 
+                    key="cfg_db_username"
+                )
+            with c_3:
+                db_password = st.text_input(
+                    "DB Password", 
+                    value="", 
+                    type="password", 
+                    key="cfg_db_password"
+                )
+            with c_4:
+                db_name_new = st.text_input(
+                    "DB Name (New)",
+                    value="",
+                    key="cfg_db_name_new"
+                )
+
+            with c_5:
+                db_connect = st.button("Connect", key="cfg_db_connect")
+                if db_connect:
+                    # TODO
+                    # try to connect
+                    # if successful, capture db params
+                    # see habits7 repo on hashing password
+                    pass
+
 
     st.markdown(f"""
     ##### Knowledge Base
@@ -162,7 +223,7 @@ def do_config():
 
     with st.expander("Specify LLM model: (default - Alibaba QWen 2.5 Coder) ", expanded=True):
         ollama_link = """
-        <span style="color: red;"><a href=https://ollama.com/search>Ollama</a></span> is required to run open-source LLM models (with '(Open)'-suffix)
+        <span style="color: red;"><a href=https://ollama.com/search>Ollama</a></span> is required to run open-source LLM models (suffix = '(Open)')
         """
         st.markdown(ollama_link, unsafe_allow_html=True)
         llm_model_name = LLM_MODEL_REVERSE_MAP.get(cfg_data.get("llm_model"), DEFAULT_LLM_MODEL)

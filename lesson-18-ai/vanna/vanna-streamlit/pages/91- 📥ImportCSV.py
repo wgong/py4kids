@@ -123,8 +123,7 @@ def csv_import_tool():
         if st.button("Create Dataset"):
             try:
                 # Create directories
-                Path("db").mkdir(exist_ok=True)
-                Path(f"db/{dataset_name}").mkdir(exist_ok=True)
+                Path(f"db/{dataset_name}").mkdir(eparents=True, exist_ok=True)
                 st.success(f"Created dataset directory: db/{dataset_name}")
             except Exception as e:
                 st.error(f"Error creating dataset directory: {str(e)}")
@@ -145,6 +144,7 @@ def csv_import_tool():
                     
                     # Validate DataFrame
                     if not validate_dataframe(df, file.name):
+                        st.warning(f"invalid data file: {file.name}")
                         continue
                     
                     table_name = snake_case(os.path.splitext(file.name)[0])

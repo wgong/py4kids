@@ -1,4 +1,5 @@
 from utils import *
+from vanna.utils import convert_to_string_list 
 
 st.set_page_config(layout="wide")
 st.header(f"{STR_MENU_TRAIN} 📚")
@@ -62,10 +63,25 @@ def do_knowledgebase():
         doc_sample = """table "t_book" stores information on book title and author """
         doc_text = st.text_area("Documentation", value="", height=100, key="add_doc"
                             ,placeholder=doc_sample)
-        if st.button("Add", key="btn_add_doc") and doc_text:
-            result = vn.train(documentation=doc_text, dataset=DB_NAME)
-            st.write(result)
 
+        df_doc = None
+        table_bus_term = "bus_term" 
+        try:
+            df_doc = vn.run_sql(f"select * from {table_bus_term}")       
+            st.dataframe(df_doc)
+        except Exception as e:
+            st.warning(f"table '{table_bus_term}' not found, skip!")
+
+        if st.button("Add", key="btn_add_doc"):
+            if doc_text:
+                result = vn.train(documentation=doc_text, dataset=DB_NAME)
+                st.write(result)
+
+            if df_doc is not None:
+                business_docs = convert_to_string_list(df_doc)
+                for doc_text in business_docs:
+                    result = vn.train(documentation=doc_text, dataset=DB_NAME)
+                    st.write(result)
 
     with st.expander("Manage Knowledge", expanded=False):
         c_1, c_2, c_3 = st.columns([4,1,3])

@@ -1,14 +1,15 @@
 import streamlit as st
 # from vanna.remote import VannaDefault
 
+
 from vanna.ollama import Ollama
 from vanna.google import GoogleGeminiChat
 from vanna.openai import OpenAI_Chat
 from vanna.anthropic import Anthropic_Chat
-from vanna.bedrock import Bedrock_Converse
+from vanna.bedrock import Bedrock_Converse, Bedrock_Chat
 from vanna.chromadb.chromadb_vector import ChromaDB_VectorStore
 
-
+import boto3
 
 # from api_key_store import ApiKeyStore
 import os
@@ -34,13 +35,13 @@ LLM_MODEL_MAP = {
     "Alibaba QWen 2.5 (Open)": 'qwen2.5:latest',
     "CodeGeeX4 (Open)": 'codegeex4:latest',
     "DeepSeek Coder v2 (Open)": 'deepseek-coder-v2:latest',
-    "Meta Llama 3.1 (Open)": 'llama3.1',
-    "Meta Llama 3 (Open)": 'llama3',
-    "Microsoft Phi 3.5 (Open)": 'phi3.5',
+    "Meta Llama 3.1 (Open)": 'llama3.1:latest',
+    "Meta Llama 3 (Open)": 'llama3:latest',
+    "Microsoft Phi 3.5 (Open)": 'phi3.5:latest',
     "Google Gemma2 (Open)": 'gemma2:latest',
-    "Google CodeGemma (Open)": 'codegemma',
-    "Mistral (Open)": 'mistral',
-    "Mistral Nemo(Open)": 'mistral-nemo',
+    "Google CodeGemma (Open)": 'codegemma:latest',
+    "Mistral (Open)": 'mistral:latest',
+    "Mistral Nemo(Open)": 'mistral-nemo:latest',
 }
 
 LLM_MODEL_REVERSE_MAP = {v:k for k, v in LLM_MODEL_MAP.items()}
@@ -98,10 +99,10 @@ class MyVannaAnthropic(ChromaDB_VectorStore, Anthropic_Chat):
         ChromaDB_VectorStore.__init__(self, config=config)
         Anthropic_Chat.__init__(self, config=config)
 
-class MyVannaBedrock(ChromaDB_VectorStore, Bedrock_Converse):
+class MyVannaBedrockChat(ChromaDB_VectorStore, Bedrock_Chat):
     def __init__(self, config=None):
         ChromaDB_VectorStore.__init__(self, config=config)
-        Bedrock_Converse.__init__(self, config=config)
+        Bedrock_Chat.__init__(self, config=config)
 
 class MyVannaOllama(ChromaDB_VectorStore, Ollama):
     def __init__(self, config=None):
@@ -126,32 +127,40 @@ def setup_vanna(llm_vendor,llm_model,vector_db,db_type,db_url):
         st.error(f"Unsupported vector_db: {vector_db}")
         return None
 
-    llm_api_key = lookup_llm_api_key(llm_model, llm_vendor)
-    if not llm_api_key:
-        st.error(f"Missing llm_api_key")
-        return None
-
-    elif llm_api_key == "OLLAMA":
+    if llm_vendor == "AWS":  
+        model_name = "anthropic.claude-3-sonnet-20240229-v1:0"
         config = {
-            'model': llm_model,  # 'llama3' 
+            "modelId": model_name,
+            "dialect": "SQLite",
         }
-        vn = MyVannaOllama(config=config)
+        bedrock_client = boto3.client(service_name="bedrock-runtime")
+        vn = MyVannaBedrockChat(client=bedrock_client, config=config)
     else:
-        config = {
-            'api_key': llm_api_key, 
-            'model': llm_model,  # 'llama3' 
-        }
-        if llm_vendor == "OpenAI":  
-            vn = MyVannaOpenAI(config=config)
-        elif llm_vendor == "Google":  
-            vn = MyVannaGoogle(config=config)
-        elif llm_vendor == "Anthropic":  
-            vn = MyVannaAnthropic(config=config)
-        # elif llm_vendor == "AWS":  
-        #     vn = MyVannaBedrock(config=config)
-        else:
-            st.error(f"Unsupported LLM vendor: {llm_vendor}")
+
+        llm_api_key = lookup_llm_api_key(llm_model, llm_vendor)
+        if not llm_api_key:
+            st.error(f"Missing llm_api_key")
             return None
+
+        elif llm_api_key == "OLLAMA":
+            config = {
+                'model': llm_model,  # 'llama3' 
+            }
+            vn = MyVannaOllama(config=config)
+        else:
+            config = {
+                'api_key': llm_api_key, 
+                'model': llm_model,  # 'llama3' 
+            }
+            if llm_vendor == "OpenAI":  
+                vn = MyVannaOpenAI(config=config)
+            elif llm_vendor == "Google":  
+                vn = MyVannaGoogle(config=config)
+            elif llm_vendor == "Anthropic":  
+                vn = MyVannaAnthropic(config=config)
+            else:
+                st.error(f"Unsupported LLM vendor: {llm_vendor}")
+                return None
 
     vn.connect_to_sqlite(db_url)
 
@@ -214,5 +223,15 @@ def generate_summary_cached(cfg_data, question, df):
 # def show_training_data_cached(cfg_data):
 #     vn = setup_vanna_cached(cfg_data)
 #     return vn.get_training_data()
+
+@st.cache_data
+def get_ollama_model_names():
+    model_names = []
+    try:
+        import ollama
+        model_names = [m.model for m in ollama.list().models]
+    except Exception as e:
+        print("Failed to get Ollama models")
+    return model_names
 
 

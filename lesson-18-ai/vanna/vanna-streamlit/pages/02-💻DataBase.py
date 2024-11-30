@@ -64,10 +64,10 @@ def do_database():
 
 
     st.subheader("Dataset info")
-    st.markdown(db_info.get(DB_NAME), unsafe_allow_html=True)    
+    st.markdown(db_info.get(DB_NAME, DB_NAME), unsafe_allow_html=True)    
 
     if DB_NAME == "chinook":
-        st.image("./docs/sqlite-sample-database-chinook.jpg")
+        st.image("https://github.com/gongwork/data-copilot/blob/main/docs/sqlite-sample-database-chinook.jpg?raw=true")
 
 
 ## sidebar Menu
