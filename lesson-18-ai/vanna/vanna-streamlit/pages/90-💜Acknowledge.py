@@ -14,6 +14,7 @@ st.markdown(f"""
 - [Ollama](https://ollama.com/)
 - [SQLite](https://www.sqlite.org/)
 - [SQL Assistant](https://medium.com/@romina.elena.mendez/sql-assistant-text-to-sql-application-in-streamlit-b54f65d06b97)
+- [GitHub](https://github.com/gongwork/data-copilot)
 - Emoji
      - [Wikipedia - Emoji](https://en.wikipedia.org/wiki/Emoji)
      - [Unicode Emoji](https://unicode.org/emoji/charts/full-emoji-list.html)

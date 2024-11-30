@@ -1,7 +1,7 @@
 from utils import *
 
 st.set_page_config(layout="wide")
-st.subheader(f"{STR_MENU_IMPORT_DATA} 📥")
+
 
 def get_all_tables(db_path):
     """Get list of all tables in SQLite database."""
@@ -34,7 +34,7 @@ def preview_table(db_path, table_name):
         return None
 
 def sqlite_import_tool():
-    st.header("SQlite Import Tool")
+    st.header("SQlite Import Tool 📥")
     DB_LOADED = False
 
     # Section 1: Upload SQLite

@@ -1,7 +1,7 @@
 from utils import *
 
 st.set_page_config(layout="wide")
-st.subheader(f"{STR_MENU_IMPORT_DATA} 📥")
+
 
 def snake_case(s):
     """Convert string to snake_case."""
@@ -98,7 +98,7 @@ def create_sqlite_ddl(df, table_name, file_name, column_mapping):
         return None
 
 def csv_import_tool():
-    st.header("CSV Import Tool")
+    st.header("CSV Import Tool 📥")
     
     # Initialize session state
     if 'dataframes' not in st.session_state:

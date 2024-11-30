@@ -44,7 +44,7 @@ from vanna_calls import (
     DEFAULT_LLM_MODEL,
     LLM_MODEL_MAP, 
     LLM_MODEL_REVERSE_MAP, 
-    get_ollama_model_names,
+    get_ollama_models,
 )
 
 from vanna.base import SQL_DIALECTS, VECTOR_DB_LIST

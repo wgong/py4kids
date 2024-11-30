@@ -1,7 +1,7 @@
 import streamlit as st
 # from vanna.remote import VannaDefault
 
-
+from typing import List, Optional
 from vanna.ollama import Ollama
 from vanna.google import GoogleGeminiChat
 from vanna.openai import OpenAI_Chat
@@ -16,8 +16,9 @@ import os
 from dotenv import load_dotenv  # type: ignore
 load_dotenv()
 
-DEFAULT_LLM_MODEL = "Alibaba QWen 2.5 Coder (Open)"
 
+
+DEFAULT_LLM_MODEL = "OpenAI GPT 3.5 Turbo" # "Alibaba QWen 2.5 Coder (Open)"
 LLM_MODEL_MAP = {
     "Anthropic Claude 3 Sonnet": 'claude-3-sonnet-20240229',
     "Anthropic Claude 3.5 Sonnet": 'claude-3-5-sonnet-20240620',
@@ -84,6 +85,32 @@ def lookup_llm_api_key(llm_model, llm_vendor):
         st.error(f"Unknown LLM vendor: {vendor} | {llm_vendor}")
         return None
 
+############################
+## Ask LLM directly
+############################
+class MyOpenAI(OpenAI_Chat):
+    def __init__(self, config=None):
+        OpenAI_Chat.__init__(self, config=config)
+
+class MyGoogle(GoogleGeminiChat):
+    def __init__(self, config=None):
+        GoogleGeminiChat.__init__(self, config=config)
+
+class MyAnthropic(Anthropic_Chat):
+    def __init__(self, config=None):
+        Anthropic_Chat.__init__(self, config=config)
+
+class MyBedrockChat(Bedrock_Chat):
+    def __init__(self, config=None):
+        Bedrock_Chat.__init__(self, config=config)
+
+class MyOllama(Ollama):
+    def __init__(self, config=None):
+        Ollama.__init__(self, config=config)
+
+############################
+## Ask LLM with RAG
+############################
 class MyVannaOpenAI(ChromaDB_VectorStore, OpenAI_Chat):
     def __init__(self, config=None):
         ChromaDB_VectorStore.__init__(self, config=config)
@@ -225,13 +252,13 @@ def generate_summary_cached(cfg_data, question, df):
 #     return vn.get_training_data()
 
 @st.cache_data
-def get_ollama_model_names():
-    model_names = []
+def get_ollama_models() -> List[str]:
+    ollama_models = []
     try:
-        import ollama
-        model_names = [m.model for m in ollama.list().models]
+        ollama_ = __import__("ollama")
+        client = ollama_.Client("http://localhost:11434")
+        response = client.list()
+        ollama_models = [model['model'] for model in response.get('models', [])]
     except Exception as e:
-        print("Failed to get Ollama models")
-    return model_names
-
-
+        print(f"Error loading Ollama models: {str(e)}")
+    return ollama_models

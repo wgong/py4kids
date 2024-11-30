@@ -1,30 +1,34 @@
 from utils import *
 
+
 st.set_page_config(layout="wide")
 st.header(f"{STR_MENU_CONFIG} 🛠")
 
-
 TABLE_NAME = CFG["TABLE_CONFIG"]
 KEY_PREFIX = f"col_{TABLE_NAME}"
+
+ollama_models = get_ollama_models()
+# st.info(f"ollama_models = {ollama_models}")
 
 def filter_by_ollama_model(llm_models):
     """
     If Ollama is not installed, open-source models will not be listed
     """
-    ollama_models = get_ollama_model_names()
     model_list = []
     for m in llm_models:
         if "(Open)" not in m:
             model_list.append(m)
         else:
             ollama_model_name = LLM_MODEL_MAP.get(m, "")
-            for n in ollama_models:
-                if ollama_model_name and ollama_model_name in n:
-                    model_list.append(m)
-                    break
+            if ollama_models:
+                for n in ollama_models:
+                    if ollama_model_name and ollama_model_name in n:
+                        model_list.append(m)
+                        break
     return model_list
 
 llm_model_list = filter_by_ollama_model(list(LLM_MODEL_MAP.keys()))
+# st.info(llm_model_list)
 
 def db_upsert_cfg(data):
     llm_vendor=data.get("llm_vendor")
@@ -220,11 +224,11 @@ def do_config():
     ##### GenAI Model
 
     """, unsafe_allow_html=True)    
+    ollama_link = """
+    <span style="color: red;"><a href=https://ollama.com/search>Ollama</a></span> is required to run open-source LLM models (suffix = '(Open)')
+    """
 
-    with st.expander("Specify LLM model: (default - Alibaba QWen 2.5 Coder) ", expanded=True):
-        ollama_link = """
-        <span style="color: red;"><a href=https://ollama.com/search>Ollama</a></span> is required to run open-source LLM models (suffix = '(Open)')
-        """
+    with st.expander(f"Specify LLM model: (default - {DEFAULT_LLM_MODEL})", expanded=True):
         st.markdown(ollama_link, unsafe_allow_html=True)
         llm_model_name = LLM_MODEL_REVERSE_MAP.get(cfg_data.get("llm_model"), DEFAULT_LLM_MODEL)
         model_selected = st.radio(

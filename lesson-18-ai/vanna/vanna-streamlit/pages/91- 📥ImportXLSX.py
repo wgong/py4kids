@@ -1,7 +1,7 @@
 from utils import *
 
 st.set_page_config(layout="wide")
-st.subheader(f"Import Excel 📊")
+
 
 def snake_case(s):
     """Convert string to snake_case."""
@@ -92,7 +92,7 @@ def create_sqlite_ddl(df, table_name, sheet_name, column_mapping, ignored_column
         return None
 
 def xlsx_import_tool():
-    st.title("Excel Sheet Import Tool")
+    st.header(f"Excel Sheet Import Tool 📊")
     
     # Initialize session state
     if 'sheets_data' not in st.session_state:
@@ -107,7 +107,7 @@ def xlsx_import_tool():
         st.session_state.ignored_columns = {}
     
     # Section 1: Upload Excel File
-    st.header("1. Upload Excel File")
+    st.subheader("1. Upload Excel File")
 
     c1, _, c2 = st.columns([3,1,6])
     with c1:
@@ -159,7 +159,7 @@ def xlsx_import_tool():
     
     # Section 2: Review Sheets
     if st.session_state.sheets_data:
-        st.header("2. Review Sheets")
+        st.subheader("2. Review Sheets")
         
         for sheet_name, df in st.session_state.sheets_data.items():
             st.subheader(f"Sheet: '{sheet_name}'")
@@ -215,7 +215,7 @@ def xlsx_import_tool():
     
     # Section 3: Create Tables
     if st.session_state.sheets_data:
-        st.header("3. Create Tables")
+        st.subheader("3. Create Tables")
         
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         all_ddl = [
@@ -269,7 +269,7 @@ def xlsx_import_tool():
     
     # Section 4: Load Data
     if st.session_state.sheets_data:
-        st.header("4. Load Data")
+        st.subheader("4. Load Data")
         
         if st.button("Load Data"):
             loaded_tables = []
