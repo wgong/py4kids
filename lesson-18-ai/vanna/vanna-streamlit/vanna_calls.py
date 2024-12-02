@@ -204,6 +204,12 @@ def setup_vanna_cached(cfg_data):
         raise Exception(f"setup_vanna() failed: llm_vendor,llm_model,vector_db,db_type,db_url = {llm_vendor}; {llm_model}; {vector_db}; {db_type}; {db_url}")
     return vn
 
+@st.cache_data(show_spinner="Ask LLM directly ...")
+def ask_llm_cached(cfg_data, question: str):
+    vn = setup_vanna_cached(cfg_data)
+    resp = vn.ask_llm(question=question)
+    return resp
+
 ## Streamlit will not hash an argument with a leading underscore
 @st.cache_data(show_spinner="Generating SQL query ...")
 def generate_sql_cached(cfg_data, question: str):

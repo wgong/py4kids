@@ -61,7 +61,7 @@ VANNA_ICON_URL  = "https://cdn-icons-png.flaticon.com/128/13298/13298257.png"
 
 STR_APP_NAME             = "Data Copilot"
 STR_MENU_HOME            = "Home"
-STR_MENU_ASK_RAG         = "Retrieval Augmented Generation (RAG)"
+STR_MENU_ASK_RAG         = "AI - Retrieval Augmented Generation (RAG)"
 STR_MENU_EVAL            = "Evaluation"
 STR_MENU_IMPORT_DATA     = "Import Data"
 STR_MENU_CONFIG          = "Settings"

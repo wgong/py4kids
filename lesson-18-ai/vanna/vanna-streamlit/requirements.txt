@@ -7,8 +7,9 @@ jsonlines
 notebook
 ollama
 # vanna
-# use wgong/ssadata (install from git source) v0.7.4
-git+https://github.com/wgong/ssadata.git
+# use wgong/ssadata (install from git source) v0.7.5
+# uncomment before to install from source remotely
+# git+https://github.com/wgong/ssadata.git
 streamlit
 streamlit_code_editor
 python-dotenv

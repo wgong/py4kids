@@ -30,6 +30,50 @@ nvidia-smi      # see GPU memory info
 ### quick start
 https://github.com/build-on-aws/amazon-bedrock-quick-start
 
+## Feature Roadmap
+
+- add auth (register/login) 
+    - see `habits7`
+
+- add access to resources 
+    - t_user
+    - t_resource (DB/LLM)
+        - 1st user owns the added resource
+        - other user request access to the resource, approved by owner
+    - t_user_resource (intersection) similar to IAM Role
+
+- add rate limit based on pricing plan
+    - demo (chinook/gpt-3.5-turbo)
+    - developer
+    - team
+    - org
+
+- add more data types/sources 
+
+- chat with docs (PDF, text, ...)
+
+- RAG on/off
+
+- allows user to manage app data, knowledge data
+    - import
+    - export
+
+- SaaS integrations
+    - example: https://raizuum.onrender.com/ (https://discuss.streamlit.io/t/my-saas-is-100-streamlit-and-it-survived-1000-connected-users-and-4months-without-a-service-fail/86177) 
+    - payment service (stripe)
+    - email service (mailJet)
+    - usage metrics (Statcounter)
+
+- manage task
+
+- manage note
+
+- BI on data (task, note, user, resource, knowledge)
+    - recommender
+    - dashboard
+    - report
+
+
 
 ## Change Logs
 
