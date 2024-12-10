@@ -3,42 +3,71 @@
 ## Demo Script
 
 1. Welcome/Architecture Page:
-"Welcome to Data-Copilot, a game-changing tool for Self-Service Analytics. Built on cutting-edge GenAI technology, it empowers data professionals to unlock insights faster than ever. Let me walk you through its key features and architecture.
 
-At its core, Data-Copilot offers three main capabilities: ChatGPT for general queries, RAG for dataset-specific questions, and an optional privacy feature using Ollama for local model deployment. The architecture diagram shows how these components work together, connecting analysts with their data through an intelligent knowledge base."
+Welcome to Data-Copilot!
+An AI Assistant, powered by GenAI, acts like an interpreter between Analysts and Data. Data-Copilot speaks both natural language (like English) and machine languages (such as SQL and Python). Analysts can now talk to data and derive insight faster than ever. With gained productivity, they can spend more time on deep analysis and strategic decision-making.
+
+The architecture diagram shows how Data-Copilot works:
+
+In short, Data-Copilot offers three main features: 
+- RAG for dataset-specific questions, 
+- ChatGPT for general queries, 
+- Data privacy using Ollama for local model deployment. 
+
 
 2. Configuration Page:
-"Let's look at how flexible Data-Copilot is to set up. Here in the configuration page, you can choose your database type, vector store for the knowledge base, and select from a wide range of LLM models. Whether you prefer cloud-based services like Claude and GPT, or want to run open-source models locally, Data-Copilot has you covered. The setup is straightforward but powerful."
+Let's first look at how flexible Data-Copilot is to set up. 
+Here in the configuration page, 
+you can choose your 
+1) database, 
+2) vector store for the knowledge base, and 
+3) LLM models from a wide range of choices. 
+
+Whether you prefer cloud-based services like Claude and GPT, or want to run open-source models locally, Data-Copilot has you covered. 
+The configuration setup is dynamic, straightforward, and powerful.
+
 
 3. Knowledge Base Training Page:
-"The knowledge base is where the magic happens. You can train it in three ways: by adding database schemas through DDL scripts, incorporating business terminology and context, or providing sample question-SQL pairs. This creates a rich foundation for accurate query generation and data understanding."
+The knowledge base is where the magic happens. 
+You can train it in three ways: 
+- by adding database schemas through DDL scripts, 
+- incorporating business terminology and context, or 
+- providing sample question-SQL pairs. 
+
+This creates a rich foundation for accurate query generation and data understanding.
 
 4. Ask AI (RAG) - Simple Query Page:
-"Now let's see Data-Copilot in action. Here I'm asking for the top 10 customers by sales. Watch how it translates this natural language question into SQL, executes the query, and automatically creates both a table and a visualization of the results. You can toggle to see both the SQL and Python visualization code."
+Now let's see Data-Copilot in action. Here I'm asking for the top 10 customers by sales. Watch how it translates this natural language question into SQL, executes the query, and automatically creates both a table and a visualization of the results. You can toggle to see both the SQL and Python visualization code.
 
 5. Ask AI (RAG) - Complex Query Page:
-"Here's a more complex query about artists with albums containing tracks in multiple genres. Notice how Data-Copilot handles the multiple joins and aggregations required, demonstrating its ability to tackle sophisticated analytical questions."
+Here's a more complex query about artists with albums containing tracks in multiple genres. Notice how Data-Copilot handles the multiple joins and aggregations required, demonstrating its ability to tackle sophisticated analytical questions.
 
 6. Schema Exploration Page:
-"Data-Copilot also makes it easy to explore your data structure. By asking 'What tables store order information?', we get a clear overview of the relevant tables and their purposes. This natural language approach to schema exploration makes database navigation much more intuitive."
+Data-Copilot also makes it easy to explore your data structure. By asking 'What tables store order information?', we get a clear overview of the relevant tables and their purposes. This natural language approach to schema exploration makes database navigation much more intuitive.
 
 7. Direct LLM Chat Page:
-"A unique feature of Data-Copilot is the ability to toggle RAG on and off. Here, with RAG disabled, you can interact directly with the LLM for general programming help, like creating this Fibonacci sequence function. This flexibility makes Data-Copilot a versatile development companion."
+A unique feature of Data-Copilot is the ability to toggle RAG on and off. Here, with RAG disabled, you can interact directly with the LLM for general programming help, like creating this Fibonacci sequence function. This flexibility makes Data-Copilot a versatile development companion.
 
 8. Q&A History Page:
-"Every interaction is recorded in the Q&A history, making it easy to review and reuse previous queries. The history includes the original questions, generated SQL, validity checks, and any visualizations created. This feature is invaluable for learning and documentation."
+Every interaction is recorded in the Q&A history, making it easy to review and reuse previous queries. The history includes the original questions, generated SQL, validity checks, and any visualizations created. This feature is invaluable for learning and documentation.
 
 9. SQLite Import Tool Page:
-"Data import is streamlined with our SQLite import tool. You can easily upload databases, preview the data structure, and verify the import with sample data views. The process is user-friendly while maintaining robust data handling."
+Data import is streamlined with our SQLite import tool. You can easily upload databases, preview the data structure, and verify the import with sample data views. The process is user-friendly while maintaining robust data handling.
 
 10. LLM Model Evaluation Page:
-"We've extensively tested Data-Copilot with various LLM models. This evaluation matrix shows the results of 24 diverse queries across different models, both closed and open-source. The high success rates demonstrate the tool's reliability across different scenarios."
+We've extensively tested Data-Copilot with various LLM models. 
+This evaluation matrix shows the results of 24 diverse queries across different models, both closed and open-source. The high success rates demonstrate the tool's reliability across different scenarios.
 
 11. Notes Page:
-"The notes feature helps you document your findings and insights. You can add titles, tags, and detailed notes, with options to export to CSV for sharing. It's a great way to maintain a knowledge repository of your analytical work."
+The notes feature helps you document your findings and insights. You can add titles, tags, and detailed notes, with options to export to CSV for sharing. It's a great way to maintain a knowledge repository of your analytical work.
 
 12. Thank You Page:
-"Finally, none of this would be possible without the amazing open-source community. We're grateful to tools like Vanna.ai, Streamlit, Ollama, SQLite, and many others that form the foundation of Data-Copilot. Thank you for exploring Data-Copilot with me today!"
+Finally, none of this would be possible without the amazing open-source community. We're grateful to tools like Vanna.ai, Streamlit, Ollama, SQLite, and many others that form the foundation of Data-Copilot. 
+
+Thank you for exploring Data-Copilot with me today!
+
+
+
 
 ## Presentation Structure Tips
 1. Flow Design:
@@ -70,8 +99,8 @@ At its core, Data-Copilot offers three main capabilities: ChatGPT for general qu
 
 ### Slide Design Recommendations
 - **Title Slide:**
-  * Clean "Data-Copilot" logo
-  * Tagline: "Your AI-Powered Data Analysis Companion"
+  * Clean Data-Copilot logo
+  * Tagline: Your AI-Powered Data Analysis Companion
   * Subtle data visualization background
 
 - **Problem Statement Slide:**
@@ -154,7 +183,7 @@ This architecture enables a powerful yet intuitive workflow where business users
 ## 4. Ask AI (RAG) - Simple Query
 
 ### Demo Flow
-- Start with basic "top 10 customers" query
+- Start with basic top 10 customers query
 - Show real-time SQL generation
 - Demonstrate automatic visualization
 - Toggle code visibility

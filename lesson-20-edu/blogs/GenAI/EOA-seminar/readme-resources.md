@@ -1,4 +1,8 @@
 
+- LLM Model Leaderboard
+    - [LMArena](https://lmarena.ai/?leaderboard)
+
+
 - Introduction to Generative AI
     - https://www.youtube.com/watch?v=2p5OHDxR2l8
 
