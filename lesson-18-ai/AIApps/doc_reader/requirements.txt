@@ -4,4 +4,5 @@ langchain-community
 PyPDF2
 chromadb
 ollama
+boto3   # AWS
 typing
