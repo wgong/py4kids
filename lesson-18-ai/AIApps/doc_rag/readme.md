@@ -1,4 +1,12 @@
 
+## Ollama
+
+### Claude-3.5 v1
+see `app_ollama-v1.py`
+
+### Claude-3.5 v2
+use ChromaDB and st.chat_input()
+see `app_ollama-v2.py`
 
 
 ### Prompt
