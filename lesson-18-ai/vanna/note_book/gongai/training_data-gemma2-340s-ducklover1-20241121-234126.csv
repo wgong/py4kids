@@ -1,0 +1,420 @@
+id,question,content,training_data_type
+036324ce-bf85-5a57-a00d-532cabb88454-sql,"
+                    Generating SQL for this question:  Get the average invoice total for each customer:
+                    results in the following error: [ERROR-VIZ] Failed to visualize df with plotly:
+ str(e) .
+                    Can you try to fix the error and re-generate the SQL statement?
+                ","SELECT 
+    c.CustomerId, 
+    c.FirstName, 
+    c.LastName, 
+    AVG(i.Total) AS AverageInvoiceTotal
+FROM 
+    customers c
+JOIN 
+    invoices i ON c.CustomerId = i.CustomerId
+GROUP BY 
+    c.CustomerId, c.FirstName, c.LastName 
+ORDER BY 
+    AverageInvoiceTotal DESC LIMIT 20",sql
+075d6bab-c47f-51d2-bf0b-df89bcfd7509-sql,How many customers are there,"SELECT COUNT(*) FROM ""customers"" LIMIT 20",sql
+16388fba-acee-533b-9e85-135fa98c03d8-sql," 
+        Can you find the top 10 most popular artists based on the number of tracks?
+        Hint: There are 3 tables - artists, albums and tracks, 
+        where albums and artists are linked by ArtistId, albums and tracks are linked by AlbumId,
+    ","SELECT 
+  ar.Name AS ArtistName, 
+  COUNT(t.TrackId) AS TrackCount
+FROM artists ar
+JOIN albums al ON ar.ArtistId = al.ArtistId
+JOIN tracks t ON al.AlbumId = t.AlbumId
+GROUP BY ar.Name
+ORDER BY TrackCount DESC
+LIMIT 10;",sql
+198be005-3d10-5b95-8e39-9a73ae76e6bc-sql,List all invoices with a total exceeding $10,SELECT * FROM invoices WHERE Total > 10 LIMIT 20,sql
+1b78e1d7-95f1-58ad-a271-3e0f2bb93c1a-sql,Find the customer with the most invoices ,"SELECT c.FirstName, 
+       c.LastName, 
+       COUNT(i.InvoiceId) AS TotalInvoices
+FROM customers c
+JOIN invoices i ON c.CustomerId = i.CustomerId
+GROUP BY c.FirstName, c.LastName
+ORDER BY TotalInvoices DESC
+LIMIT 1;",sql
+1fa3b9ff-3645-5a83-845a-aa7eddf273ee-sql,List all employees and their reporting manager's name (if any):,"SELECT 
+  e.FirstName || ' ' || e.LastName AS EmployeeName,
+  CASE
+    WHEN e.ReportsTo IS NULL THEN 'None'
+    ELSE (SELECT FirstName || ' ' || LastName FROM employees WHERE EmployeeId = e.ReportsTo) END AS ManagerName
+FROM 
+  employees e LIMIT 20",sql
+33d6ba56-9dd9-5506-a69f-8c85033826a2-sql,"
+                    Generating SQL for this question: List all albums and their corresponding artist names  
+                    results in the following error: [ERROR-VIZ] Failed to visualize df with plotly:
+ str(e) .
+                    Can you try to fix the error and re-generate the SQL statement?
+                ","SELECT 
+    a.Title, 
+    ar.Name
+FROM 
+    albums a
+JOIN 
+    artists ar ON a.ArtistId = ar.ArtistId LIMIT 20",sql
+44611482-10bd-587c-9a19-e0bdb3b3eaec-sql,Identify artists who have albums with tracks appearing in multiple genres:,"SELECT 
+  ar.Name AS ArtistName
+FROM 
+  artists ar
+JOIN 
+  albums al ON ar.ArtistId = al.ArtistId
+JOIN 
+  tracks t ON al.AlbumId = t.AlbumId
+GROUP BY 
+  ar.Name
+HAVING 
+  COUNT(DISTINCT t.GenreId) > 1 LIMIT 20",sql
+475c8bd5-41d6-5f8f-bfc0-480ef28e8a27-sql,"
+                    Generating SQL for this question: 
+                    Generating SQL for this question: Get all playlists containing at least 10 tracks and the total duration of those tracks:
+                    results in the following error: [ERROR-DB] Failed to execute SQL: SELECT p.Name, SUM(Milliseconds) AS TotalDuration 
+FROM playlists p
+JOIN playlist_track pt ON p.PlaylistId = pt.PlaylistId
+GROUP BY p.Name
+HAVING COUNT(pt.TrackId) >= 10 LIMIT 20
+ Execution failed on sql 'SELECT p.Name, SUM(Milliseconds) AS TotalDuration 
+FROM playlists p
+JOIN playlist_track pt ON p.PlaylistId = pt.PlaylistId
+GROUP BY p.Name
+HAVING COUNT(pt.TrackId) >= 10 LIMIT 20': no such column: Milliseconds .
+                    Can you try to fix the error and re-generate the SQL statement?
+                
+                    results in the following error: [ERROR-DB] Failed to execute SQL: SELECT p.Name, SUM(Milliseconds) AS TotalDuration 
+FROM playlists p
+JOIN playlist_track pt ON p.PlaylistId = pt.PlaylistId
+GROUP BY p.Name
+HAVING COUNT(pt.TrackId) >= 10 LIMIT 20
+ Execution failed on sql 'SELECT p.Name, SUM(Milliseconds) AS TotalDuration 
+FROM playlists p
+JOIN playlist_track pt ON p.PlaylistId = pt.PlaylistId
+GROUP BY p.Name
+HAVING COUNT(pt.TrackId) >= 10 LIMIT 20': no such column: Milliseconds .
+                    Can you try to fix the error and re-generate the SQL statement?
+                ","SELECT 
+  p.Name,
+  SUM(t.Milliseconds) AS TotalDuration
+FROM playlists p
+JOIN playlist_track pt ON p.PlaylistId = pt.PlaylistId
+JOIN tracks t ON pt.TrackId = t.TrackId
+GROUP BY p.Name
+HAVING COUNT(pt.TrackId) >= 10
+LIMIT 20;",sql
+5456e605-2d79-5f12-a2f8-26613e6e3a2b-sql,List all customers from Canada and their email addresses:,"SELECT FirstName, LastName, Email FROM customers WHERE Country = 'Canada' LIMIT 20;",sql
+5ba63d87-afb1-5446-8c40-ea0a21d718ca-sql,List all genres and the number of tracks in each genre:,"SELECT g.Name, COUNT(t.GenreId) AS TrackCount
+FROM genres g
+JOIN tracks t ON g.GenreId = t.GenreId
+GROUP BY g.Name 
+ORDER BY TrackCount DESC LIMIT 20",sql
+5be0e1e8-e81d-5a72-93e4-a19f4cdacd50-sql, Get the average invoice total for each customer:,"SELECT c.CustomerId, c.FirstName, c.LastName, AVG(i.Total) AS AverageInvoiceTotal
+FROM customers c
+JOIN invoices i ON c.CustomerId = i.CustomerId
+GROUP BY c.CustomerId, c.FirstName, c.LastName LIMIT 20;",sql
+63f95068-7771-564e-90fe-180e8838c446-sql,"
+                    Generating SQL for this question: 
+                    Generating SQL for this question: 
+                    Generating SQL for this question: List all albums and their corresponding artist names  
+                    results in the following error: [ERROR-VIZ] Failed to visualize df with plotly:
+ str(e) .
+                    Can you try to fix the error and re-generate the SQL statement?
+                
+                    results in the following error: [ERROR-VIZ] Failed to visualize df with plotly:
+ str(e) .
+                    Can you try to fix the error and re-generate the SQL statement?
+                
+                    results in the following error: [ERROR-VIZ] Failed to visualize df with plotly:
+ str(e) .
+                    Can you try to fix the error and re-generate the SQL statement?
+                ","SELECT 
+    a.Title, 
+    ar.Name
+FROM 
+    albums a
+JOIN 
+    artists ar ON a.ArtistId = ar.ArtistId LIMIT 20",sql
+6bbfa50b-a56b-5e43-81ec-8e82a17fac1e-sql,"
+                    Generating SQL for this question: Find all tracks with a name containing ""What"" (case-insensitive) 
+                    results in the following error: [ERROR-VIZ] Failed to visualize df with plotly:
+ str(e) .
+                    Can you try to fix the error and re-generate the SQL statement?
+                ","SELECT * 
+FROM tracks 
+WHERE LOWER(Name) LIKE '%what%' LIMIT 20;",sql
+72d385ef-ba1c-52cb-9362-793801248d57-sql,"
+                    Generating SQL for this question: Get all playlists containing at least 10 tracks and the total duration of those tracks:
+                    results in the following error: [ERROR-DB] Failed to execute SQL: SELECT p.Name, SUM(Milliseconds) AS TotalDuration 
+FROM playlists p
+JOIN playlist_track pt ON p.PlaylistId = pt.PlaylistId
+GROUP BY p.Name
+HAVING COUNT(pt.TrackId) >= 10 LIMIT 20
+ Execution failed on sql 'SELECT p.Name, SUM(Milliseconds) AS TotalDuration 
+FROM playlists p
+JOIN playlist_track pt ON p.PlaylistId = pt.PlaylistId
+GROUP BY p.Name
+HAVING COUNT(pt.TrackId) >= 10 LIMIT 20': no such column: Milliseconds .
+                    Can you try to fix the error and re-generate the SQL statement?
+                ","SELECT p.Name, SUM(t.Milliseconds) AS TotalDuration 
+FROM playlists p
+JOIN playlist_track pt ON p.PlaylistId = pt.PlaylistId
+JOIN tracks t ON pt.TrackId = t.TrackId
+GROUP BY p.Name
+HAVING COUNT(DISTINCT t.TrackId) >= 10 LIMIT 20;",sql
+9339c325-d36b-596f-8000-e1ea5948a4af-sql,what are the top 5 countries that customers come from?,"SELECT Country, COUNT(*) AS CustomerCount
+FROM customers
+GROUP BY Country
+ORDER BY CustomerCount DESC
+LIMIT 5;",sql
+936730a8-f4bc-5eaa-b0fb-fb1cf7dcd696-sql,"Find all tracks with a name containing ""What"" (case-insensitive) ","SELECT * 
+FROM tracks 
+WHERE LOWER(Name) LIKE '%what%' LIMIT 20",sql
+9511bf81-393c-5083-a6b8-d81ff5db1fa2-sql,Find the customer who bought the most albums in total quantity (across all invoices):,"SELECT 
+  c.FirstName, 
+  c.LastName, 
+  SUM(ii.Quantity) AS TotalAlbumsPurchased
+FROM customers c
+JOIN invoice_items ii ON c.CustomerId = ii.InvoiceId
+GROUP BY c.FirstName, c.LastName
+ORDER BY TotalAlbumsPurchased DESC 
+LIMIT 1;",sql
+96920efb-e39d-5ac8-a707-184242a5fe8b-sql,Find all invoices since 2010 and the total amount invoiced:,"SELECT InvoiceDate, SUM(Total) AS TotalInvoiced
+FROM invoices
+WHERE InvoiceDate >= '2010-01-01'
+GROUP BY InvoiceDate
+LIMIT 20;",sql
+9e68cff2-cb26-50ac-b681-ee4e473f7543-sql,"
+                    Generating SQL for this question: Identify artists who have albums with tracks appearing in multiple genres:
+                    results in the following error: [ERROR-VIZ] Failed to visualize df with plotly:
+ str(e) .
+                    Can you try to fix the error and re-generate the SQL statement?
+                ","SELECT 
+  ar.Name AS ArtistName
+FROM 
+  artists ar
+JOIN 
+  albums al ON ar.ArtistId = al.ArtistId
+JOIN 
+  tracks t ON al.AlbumId = t.AlbumId
+GROUP BY 
+  ar.Name
+HAVING 
+  COUNT(DISTINCT t.GenreId) > 1 LIMIT 20;",sql
+9e797e1e-1598-5d00-b823-567766d2909d-sql,"
+                    Generating SQL for this question: 
+                    Generating SQL for this question: List all albums and their corresponding artist names  
+                    results in the following error: [ERROR-VIZ] Failed to visualize df with plotly:
+ str(e) .
+                    Can you try to fix the error and re-generate the SQL statement?
+                
+                    results in the following error: [ERROR-VIZ] Failed to visualize df with plotly:
+ str(e) .
+                    Can you try to fix the error and re-generate the SQL statement?
+                ","SELECT 
+    a.Title, 
+    ar.Name
+FROM 
+    albums a
+JOIN 
+    artists ar ON a.ArtistId = ar.ArtistId  LIMIT 20;",sql
+9f0f11b0-a4ff-5087-8d18-cb3801c113c8-sql,List all albums and their corresponding artist names  ,"SELECT 
+    a.Title, 
+    ar.Name
+FROM 
+    albums a
+JOIN 
+    artists ar ON a.ArtistId = ar.ArtistId LIMIT 20",sql
+9f52b00e-4ebd-5eda-b218-51645a2fbdc1-sql,Can you list all tables in the SQLite database catalog?,SELECT name FROM sqlite_master WHERE type='table' LIMIT 20,sql
+aaaf7795-b149-5512-b0c1-8f8a8822bd92-sql,"  
+         Find the top 5 customers who spent the most money overall,  
+         Hint: order total can be found on invoices table, calculation using invoice_items detail table is unnecessary 
+    ","SELECT 
+  c.FirstName,
+  c.LastName,
+  SUM(i.Total) AS TotalSpent
+FROM customers c
+JOIN invoices i ON c.CustomerId = i.CustomerId
+GROUP BY c.FirstName, c.LastName
+ORDER BY TotalSpent DESC
+LIMIT 5;",sql
+ba837b66-1205-53e4-897b-03d3faa8a35c-sql,Find the top 5 most expensive tracks (based on unit price):,"SELECT 
+  Name, 
+  UnitPrice
+FROM 
+  tracks
+ORDER BY 
+  UnitPrice DESC
+LIMIT 5;",sql
+baafeed0-d922-5310-ab1b-9107246f8078-sql,Get the total number of invoices for each customer,"SELECT 
+  c.FirstName,
+  c.LastName,
+  COUNT(i.InvoiceId) AS TotalInvoices
+FROM 
+  customers c
+JOIN 
+  invoices i ON c.CustomerId = i.CustomerId
+GROUP BY 
+  c.FirstName, c.LastName LIMIT 20",sql
+d285cc68-3bae-5079-8727-c46f7810865f-sql,"      
+        Find the top 5 customers who bought the most albums in total quantity (across all invoices):
+        Hint: album quantity is found in invoice_items, 
+    ","SELECT 
+  c.FirstName, 
+  c.LastName, 
+  SUM(ii.Quantity) AS TotalAlbumsPurchased
+FROM customers c
+JOIN invoice_items ii ON c.CustomerId = ii.InvoiceId
+GROUP BY c.FirstName, c.LastName
+ORDER BY TotalAlbumsPurchased DESC
+LIMIT 5;",sql
+d6828053-60d6-5339-ab15-13fa7b23d885-sql,Find the total number of invoices per country,"SELECT i.BillingCountry, COUNT(*) AS TotalInvoices
+FROM invoices i
+GROUP BY i.BillingCountry LIMIT 20",sql
+e8dacb51-520c-5449-9f22-f76de346772b-sql,which table stores customer's orders,SELECT name FROM sqlite_master WHERE type='table' AND name='invoices' LIMIT 20,sql
+ebe59b04-4253-569e-bbb4-e885ffd28269-sql,"
+                    Generating SQL for this question: List all customers from Canada and their email addresses:
+                    results in the following error: [ERROR-VIZ] Failed to visualize df with plotly:
+ str(e) .
+                    Can you try to fix the error and re-generate the SQL statement?
+                ","SELECT FirstName, LastName, Email FROM customers WHERE Country = 'Canada' LIMIT 20;",sql
+039f9d54-59f7-5f29-8c04-14dbc3e95671-ddl,,"CREATE TABLE ""artists""
+(
+    ArtistId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    Name NVARCHAR(120)
+)",ddl
+0db84e3d-ef41-563c-803e-21c1b985dc19-ddl,,"CREATE TABLE ""invoices""
+(
+    InvoiceId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    CustomerId INTEGER  NOT NULL,
+    InvoiceDate DATETIME  NOT NULL,
+    BillingAddress NVARCHAR(70),
+    BillingCity NVARCHAR(40),
+    BillingState NVARCHAR(40),
+    BillingCountry NVARCHAR(40),
+    BillingPostalCode NVARCHAR(10),
+    Total NUMERIC(10,2)  NOT NULL,
+    FOREIGN KEY (CustomerId) REFERENCES ""customers"" (CustomerId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION
+)",ddl
+10cba811-ddba-5042-9e90-d764dfcd1629-ddl,,"CREATE INDEX IFK_InvoiceCustomerId ON ""invoices"" (CustomerId)",ddl
+2c711317-b93d-5f60-a728-cb1c6fcbc040-ddl,,"CREATE INDEX IFK_CustomerSupportRepId ON ""customers"" (SupportRepId)",ddl
+37319c81-65f7-50ee-956b-795de244bee5-ddl,,"CREATE TABLE sqlite_stat1(tbl,idx,stat)",ddl
+40bd77cd-e1de-5872-8693-624117ff413c-ddl,,"CREATE INDEX IFK_InvoiceLineInvoiceId ON ""invoice_items"" (InvoiceId)",ddl
+41130543-7164-562a-90a7-0fd0a409c154-ddl,,"CREATE TABLE ""albums""
+(
+    AlbumId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    Title NVARCHAR(160)  NOT NULL,
+    ArtistId INTEGER  NOT NULL,
+    FOREIGN KEY (ArtistId) REFERENCES ""artists"" (ArtistId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION
+)",ddl
+458debc8-8082-5450-a17a-66028bd55ace-ddl,,"CREATE TABLE ""playlists""
+(
+    PlaylistId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    Name NVARCHAR(120)
+)",ddl
+4815f3fd-925b-53ce-9dfa-0e4285d5abd3-ddl,,"CREATE TABLE ""invoice_items""
+(
+    InvoiceLineId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    InvoiceId INTEGER  NOT NULL,
+    TrackId INTEGER  NOT NULL,
+    UnitPrice NUMERIC(10,2)  NOT NULL,
+    Quantity INTEGER  NOT NULL,
+    FOREIGN KEY (InvoiceId) REFERENCES ""invoices"" (InvoiceId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION,
+    FOREIGN KEY (TrackId) REFERENCES ""tracks"" (TrackId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION
+)",ddl
+48d484e9-984c-58ff-b391-75521c69d486-ddl,,"CREATE INDEX IFK_PlaylistTrackTrackId ON ""playlist_track"" (TrackId)",ddl
+551e1120-a6ee-554f-8b8a-ccf4f22d3636-ddl,,"CREATE INDEX IFK_AlbumArtistId ON ""albums"" (ArtistId)",ddl
+5ff4911e-45c1-5a59-9566-243a9b6a3320-ddl,,"CREATE TABLE ""employees""
+(
+    EmployeeId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    LastName NVARCHAR(20)  NOT NULL,
+    FirstName NVARCHAR(20)  NOT NULL,
+    Title NVARCHAR(30),
+    ReportsTo INTEGER,
+    BirthDate DATETIME,
+    HireDate DATETIME,
+    Address NVARCHAR(70),
+    City NVARCHAR(40),
+    State NVARCHAR(40),
+    Country NVARCHAR(40),
+    PostalCode NVARCHAR(10),
+    Phone NVARCHAR(24),
+    Fax NVARCHAR(24),
+    Email NVARCHAR(60),
+    FOREIGN KEY (ReportsTo) REFERENCES ""employees"" (EmployeeId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION
+)",ddl
+65df0648-bf05-5f75-9365-c21f54b2302d-ddl,,"CREATE TABLE ""media_types""
+(
+    MediaTypeId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    Name NVARCHAR(120)
+)",ddl
+6b585176-e66d-5b23-8d86-ca8a80e3af3d-ddl,,"CREATE INDEX IFK_EmployeeReportsTo ON ""employees"" (ReportsTo)",ddl
+868758b8-e018-55e7-8cc3-75c0e6d211c8-ddl,,"CREATE INDEX IFK_TrackAlbumId ON ""tracks"" (AlbumId)",ddl
+9ea4613d-c1be-5a77-ada9-c54ee3f0cab7-ddl,,"CREATE INDEX IFK_TrackMediaTypeId ON ""tracks"" (MediaTypeId)",ddl
+a9c9a852-608d-5ef2-aede-26ba098d83d1-ddl,,"CREATE INDEX IFK_TrackGenreId ON ""tracks"" (GenreId)",ddl
+b42cc9e1-9219-5a42-9a06-de906f76239e-ddl,,"CREATE TABLE ""tracks""
+(
+    TrackId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    Name NVARCHAR(200)  NOT NULL,
+    AlbumId INTEGER,
+    MediaTypeId INTEGER  NOT NULL,
+    GenreId INTEGER,
+    Composer NVARCHAR(220),
+    Milliseconds INTEGER  NOT NULL,
+    Bytes INTEGER,
+    UnitPrice NUMERIC(10,2)  NOT NULL,
+    FOREIGN KEY (AlbumId) REFERENCES ""albums"" (AlbumId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION,
+    FOREIGN KEY (GenreId) REFERENCES ""genres"" (GenreId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION,
+    FOREIGN KEY (MediaTypeId) REFERENCES ""media_types"" (MediaTypeId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION
+)",ddl
+c387b9d2-5ff4-5a07-8364-f5dab45bb2a9-ddl,,"CREATE TABLE ""genres""
+(
+    GenreId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    Name NVARCHAR(120)
+)",ddl
+d654f328-dc36-549e-84c3-06ee0db7e0f7-ddl,,"CREATE TABLE ""playlist_track""
+(
+    PlaylistId INTEGER  NOT NULL,
+    TrackId INTEGER  NOT NULL,
+    CONSTRAINT PK_PlaylistTrack PRIMARY KEY  (PlaylistId, TrackId),
+    FOREIGN KEY (PlaylistId) REFERENCES ""playlists"" (PlaylistId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION,
+    FOREIGN KEY (TrackId) REFERENCES ""tracks"" (TrackId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION
+)",ddl
+d93f0d68-023d-5afb-8121-ba346699d318-ddl,,"CREATE TABLE ""customers""
+(
+    CustomerId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    FirstName NVARCHAR(40)  NOT NULL,
+    LastName NVARCHAR(20)  NOT NULL,
+    Company NVARCHAR(80),
+    Address NVARCHAR(70),
+    City NVARCHAR(40),
+    State NVARCHAR(40),
+    Country NVARCHAR(40),
+    PostalCode NVARCHAR(10),
+    Phone NVARCHAR(24),
+    Fax NVARCHAR(24),
+    Email NVARCHAR(60)  NOT NULL,
+    SupportRepId INTEGER,
+    FOREIGN KEY (SupportRepId) REFERENCES ""employees"" (EmployeeId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION
+)",ddl
+e5879308-329e-543f-a693-0c14e2f9972e-ddl,,"CREATE INDEX IFK_InvoiceLineTrackId ON ""invoice_items"" (TrackId)",ddl
+ea84418b-1a28-59b4-a1f4-2fb674208adc-ddl,,"CREATE TABLE sqlite_sequence(name,seq)",ddl
+2b4dda0a-a6ac-5e34-8f76-e41c0734d55e-doc,,In the chinook database invoice means order,documentation
+ece10d36-9223-5045-9ac8-4b5bc090acb5-doc,,"
+    In the 'customers' table, address column names do not have 'Billing' prefix, 
+    e.g. country column name is 'country', not 'BillingCountry'
+    ",documentation
