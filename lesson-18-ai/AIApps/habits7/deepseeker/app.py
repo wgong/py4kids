@@ -549,19 +549,21 @@ def admin_job_page():
     st.subheader(STR_ADMIN_JOB)
     file_list = sorted(glob("tests/*.sql"))
     selected_script_path = st.selectbox("Select script", file_list)
-    sql_stmt = open(selected_script_path).read()
-    st.text_area("Review", value=sql_stmt, height=300, disabled=True)
-    c1, _ = st.columns(2)
+    c1, c2 = st.columns([3,7])
+    DATA_DATE = datetime.now().strftime("%Y-%m-%d")
     with c1:
-        USERNAME = st.text_input("USERNAME", value="H7_User1@gmail.com")
-        DATA_DATE = datetime.now().strftime("%Y-%m-%d")
+        USERNAME = st.text_input("USERNAME", value="H7_User_001@gmail.com")
+    with c2:
+        sql_stmt_orig = open(selected_script_path).read()
+        sql_stmt = sql_stmt_orig.replace("USERNAME", USERNAME).replace("DATA_DATE", DATA_DATE)
+        sql_stmt = st.text_area("Review", value=sql_stmt, height=300, disabled=True)
 
     sql = ""
     if USERNAME:
-        sql = sql_stmt.replace("USERNAME", USERNAME).replace("DATA_DATE", DATA_DATE)
+        sql = sql_stmt
         # st.code(sql)
     if st.button(f"Run Script") and sql:
-        run_sql(sql, DEBUG_SQL=False)
+        run_sql(sql, DEBUG_SQL=True)
 
 
 # Note related
