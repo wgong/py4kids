@@ -648,9 +648,7 @@ def handle_note_form(df, username, key_name, DATA_ENTITY="Note"):
 
 def query_all_notes(username, where_clause=" 1=1 "):
     sql_stmt = f'''
-        SELECT note_name,url,note_type,note,tags,
-            id, updated_by, updated_at,
-            created_by, created_at
+        SELECT * 
         FROM {TABLE_H7_NOTE} 
         where created_by = '{username}' and {where_clause}
         order by updated_at desc;
@@ -833,11 +831,7 @@ def add_task(task_name, description, task_group, is_urgent, is_important, status
 # Function to view all data
 def query_all_tasks(username, where_clause=" 1=1 "):
     sql_stmt = f'''
-        SELECT  task_name, description, task_group, 
-            is_urgent, is_important, status, pct_completed,
-            due_date, task_type, note, 
-            id, updated_by, updated_at,
-            created_by, created_at
+        SELECT * 
         FROM {TABLE_H7_TASK} 
         where created_by = '{username}' and {where_clause}
         order by updated_at desc;
@@ -1189,34 +1183,12 @@ def email_exists(email):
         user = c.fetchone()
         return user is not None
 
-# Registration page
-def registration_page():
-    st.markdown("##### Register")
-    email = st.text_input("Email", key="enroll_email")
-    username = st.text_input("Username", key="enroll_username")
-    password = st.text_input("Password", type="password", key="enroll_password")
-    confirm_password = st.text_input("Confirm Password", type="password", key="enroll_password2")
-    
-    if st.button("Register", key="enroll_btn_register"):      
-        if password != confirm_password:
-            st.error("Passwords do not match")
-        elif email_exists(email):
-            st.error("Email already exists")
-        else:
-            try:
-                add_user(email, password, username)
-                st.success("Registration successful. Please login.")
-                # check_database_state()  # Check the database state after registration
-            except Exception as e:
-                st.error(f"An error occurred during registration: {str(e)}")
-                # check_database_state()  # Check the database state even if there's an error
-
 # Login page
 def login_page():
-    st.markdown("##### Login")
-    email = st.text_input("Email", key="login_email")
-    password = st.text_input("Password", type="password", key="login_password")
-    if st.button("Login", key="login_btn_login"):
+    st.subheader("Login")
+    email = st.text_input("Email")
+    password = st.text_input("Password", type="password")
+    if st.button("Login"):
         user = verify_user(email, password)
         st.write(user)
         if user:
@@ -1230,6 +1202,28 @@ def login_page():
         else:
             st.error("Incorrect email or password or account is inactive")
 
+# Registration page
+def registration_page():
+    st.subheader("Register")
+    
+    email = st.text_input("Email")
+    username = st.text_input("Username")
+    password = st.text_input("Password", type="password")
+    confirm_password = st.text_input("Confirm Password", type="password")
+    
+    if st.button("Register"):      
+        if password != confirm_password:
+            st.error("Passwords do not match")
+        elif email_exists(email):
+            st.error("Email already exists")
+        else:
+            try:
+                add_user(email, password, username)
+                st.success("Registration successful. Please login.")
+                # check_database_state()  # Check the database state after registration
+            except Exception as e:
+                st.error(f"An error occurred during registration: {str(e)}")
+                # check_database_state()  # Check the database state even if there's an error
 
 # Main app logic
 # ================================
@@ -1263,13 +1257,11 @@ def main(DEBUG_FLAG = False):
             init_session_state()
             st.rerun()
     else:
-        tab_login, tab_register = st.tabs(["Login", "Register"])
-        with tab_login:
+        auth_option = st.sidebar.radio("Choose an option", ["Login", "Register"])
+        if auth_option == "Login":
             login_page()
-        with tab_register:
+        else:
             registration_page()
-
-
 
     # Only show the app if logged in
     if not st.session_state['logged_in']:
@@ -1316,7 +1308,6 @@ def main(DEBUG_FLAG = False):
             where_clause += f""" and note_type = '{q_note_type}' """
 
         df = query_all_notes(username, where_clause=where_clause)
-
         handle_note_form(df, username, key_name="note_df_all")
 
     elif choice == STR_MANAGE_TASK:
@@ -1362,7 +1353,6 @@ def main(DEBUG_FLAG = False):
             where_clause += f""" and is_important = '{q_important}' """
 
         df = query_all_tasks(username, where_clause=where_clause)
-        # st.write(list(df.columns))
         handle_task_form(df, username, 
                         page_size=_GRID_OPTIONS["paginationPageSize"], 
                         grid_height=_GRID_OPTIONS["grid_height"],                          
