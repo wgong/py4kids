@@ -1,12 +1,13 @@
 root-folder:
   - readme.md
   - requirements.txt
+  - docs
+    - st_app_logo.png
   - src:
     - app.py
     - settings.py
     - images:
       - icon_1.png
-      - icon_2.png
     - admin:
       - admin_1.py
       - admin_2.py

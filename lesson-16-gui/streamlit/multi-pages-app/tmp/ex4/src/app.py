@@ -6,7 +6,7 @@ import streamlit as st
 
 st.title("Streamlit Multipage Demo")
 st.logo(
-    "images/horizontal_blue.png", 
+    "https://raw.githubusercontent.com/wgong/data-copilot/refs/heads/main/docs/00-data-copilot-arch-design.png", 
     icon_image="https://docs.streamlit.io/logo.svg",
     # icon_image="images/icon_blue.png",
 )
