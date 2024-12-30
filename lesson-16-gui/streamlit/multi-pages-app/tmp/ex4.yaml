@@ -1,5 +1,6 @@
 root-folder:
   - readme.md
+  - requirements.txt
   - src:
     - app.py
     - settings.py

@@ -4,8 +4,12 @@ https://docs.streamlit.io/develop/tutorials/multipage/dynamic-navigation
 
 import streamlit as st
 
-st.title("Streamlit Multi-page Demo")
-st.logo("images/horizontal_blue.png", icon_image="images/icon_blue.png")
+st.title("Streamlit Multipage Demo")
+st.logo(
+    "images/horizontal_blue.png", 
+    icon_image="https://docs.streamlit.io/logo.svg",
+    # icon_image="images/icon_blue.png",
+)
 
 NO_ROLE = ""
 if "role" not in st.session_state:
@@ -14,9 +18,16 @@ if "role" not in st.session_state:
 role_list = [NO_ROLE, "Requester", "Responder", "Admin"]
 
 def login():
-    st.header("Log in")
-    role = st.selectbox("Choose your role", role_list)
-    if st.button("Log in"):
+    st.markdown("""
+### What is Streamlit Multipage App ?
+
+- [Concept of Multipage Apps](https://docs.streamlit.io/develop/concepts/multipage-apps)
+- [Create dynamic navigation menus](https://docs.streamlit.io/develop/tutorials/multipage/dynamic-navigation)
+"""               
+    )
+    st.sidebar.subheader("Log in")
+    role = st.sidebar.selectbox("Choose a role", role_list)
+    if st.sidebar.button("Log in"):
         st.session_state.role = role
         st.rerun()
 
@@ -26,7 +37,9 @@ def logout():
 
 role = st.session_state.role
 
-login_page = st.Page(login)
+login_page = st.Page(
+    login,
+)
 
 logout_page = st.Page(
     logout, 
@@ -34,40 +47,40 @@ logout_page = st.Page(
     icon=":material/logout:"
 )
 
-settings = st.Page(
+settings_page = st.Page(
     "settings.py", 
     title="Settings", 
     icon=":material/settings:"
 )
 
-request_1 = st.Page(
+request_1_page = st.Page(
     "request/request_1.py",
     title="Request 1",
     icon=":material/help:",
     default=(role == "Requester"),
 )
-request_2 = st.Page(
+request_2_page = st.Page(
     "request/request_2.py", 
     title="Request 2", 
     icon=":material/bug_report:"
 )
-respond_1 = st.Page(
+respond_1_page = st.Page(
     "respond/respond_1.py",
     title="Respond 1",
     icon=":material/healing:",
     default=(role == "Responder"),
 )
-respond_2 = st.Page(
+respond_2_page = st.Page(
     "respond/respond_2.py", 
     title="Respond 2", 
     icon=":material/handyman:"
 )
-admin_1 = st.Page(
+admin_1_page = st.Page(
     "admin/admin_1.py",
     title="Admin 1",
     icon=":material/person_add:",
 )
-admin_2 = st.Page(
+admin_2_page = st.Page(
     "admin/admin_2.py", 
     title="Admin 2", 
     icon=":material/security:",
@@ -75,10 +88,10 @@ admin_2 = st.Page(
 )
 
 # grouping pages
-account_pages = [logout_page, settings]
-request_pages = [request_1, request_2]
-respond_pages = [respond_1, respond_2]
-admin_pages = [admin_1, admin_2]
+account_pages = [logout_page, settings_page]
+request_pages = [request_1_page, request_2_page]
+respond_pages = [respond_1_page, respond_2_page]
+admin_pages = [admin_1_page, admin_2_page]
 
 page_dict = {}
 if role:
