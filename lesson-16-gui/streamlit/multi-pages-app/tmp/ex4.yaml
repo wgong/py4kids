@@ -1,0 +1,17 @@
+root-folder:
+  - readme.md
+  - src:
+    - app.py
+    - settings.py
+    - images:
+      - icon_1.png
+      - icon_2.png
+    - admin:
+      - admin_1.py
+      - admin_2.py
+    - request:
+      - request_1.py
+      - request_2.py
+    - respond:
+      - respond_1.py
+      - respond_2.py
