@@ -1,0 +1,254 @@
+id,question,content,training_data_type
+039b490a-6b1c-59b0-bf59-4dabace53c75-sql,List all customers from Canada and their email addresses:,"SELECT FirstName, LastName, Email 
+FROM customers 
+WHERE Country = 'Canada' 
+LIMIT 20",sql
+09244fbf-7b47-5bea-a3fc-e419c20e4366-sql,Find the top 5 most expensive tracks (based on unit price):,"SELECT * 
+FROM tracks 
+ORDER BY UnitPrice DESC 
+LIMIT 5",sql
+0eb0b1cb-152c-5c2c-9235-491007a9fcb6-sql,"      
+        Find the top 5 customers who bought the most albums in total quantity (across all invoices):
+        Hint: album quantity is found in invoice_items, 
+    ","SELECT i.CustomerId, SUM(ii.Quantity) as TotalQuantity
+FROM invoice_items ii
+JOIN invoices i ON ii.InvoiceId = i.InvoiceId
+GROUP BY i.CustomerId
+ORDER BY TotalQuantity DESC
+LIMIT 5",sql
+2b65c1c4-ff74-5b15-be07-143d624f990a-sql, Get the average invoice total for each customer:,"SELECT CustomerId, AVG(Total) as AverageInvoiceTotal 
+FROM invoices 
+GROUP BY CustomerId 
+LIMIT 20",sql
+2d7363bf-ba0a-57de-ade1-db647d6264a3-sql,"Find all tracks with a name containing ""What"" (case-insensitive) ","SELECT * 
+FROM tracks 
+WHERE Name LIKE '%What%' 
+COLLATE NOCASE
+LIMIT 20",sql
+3e2b0f53-fa5a-5065-ab3e-264a2f53b80b-sql,Get all playlists containing at least 10 tracks and the total duration of those tracks:,"SELECT p.PlaylistId, p.Name, COUNT(pt.TrackId) as NumberOfTracks, SUM(t.Milliseconds) as TotalDuration
+FROM playlists p
+JOIN playlist_track pt ON p.PlaylistId = pt.PlaylistId
+JOIN tracks t ON pt.TrackId = t.TrackId
+GROUP BY p.PlaylistId, p.Name
+HAVING COUNT(pt.TrackId) >= 10
+LIMIT 20",sql
+50bbc8c8-d201-5c9a-bca7-8fa8f7c5e1d7-sql,Find all invoices since 2010 and the total amount invoiced:,"SELECT InvoiceDate, SUM(Total) as TotalAmount
+FROM invoices
+WHERE InvoiceDate >= '2010-01-01'
+GROUP BY InvoiceDate
+LIMIT 20",sql
+55ba17ae-bd10-58ef-ab2f-35afebdf9013-sql,List all employees and their reporting manager's name (if any):,"SELECT e1.FirstName || ' ' || e1.LastName AS EmployeeName, 
+       e2.FirstName || ' ' || e2.LastName AS ManagerName
+FROM employees e1
+LEFT JOIN employees e2 ON e1.ReportsTo = e2.EmployeeId
+LIMIT 20",sql
+5c21a5d8-4c12-5705-8fed-5d9584d401e4-sql,"
+                    Generating SQL for this question: 
+                    Generating SQL for this question: which table stores customer's orders
+                    results in the following error: [ERROR-SQL] the generated SQL : The customer's orders are stored in the ""invoices"" table.
+ does not starts with ('select','with') .
+                    Can you try to fix the error and re-generate the SQL statement?
+                
+                    results in the following error: [ERROR-SQL] the generated SQL : The customer's orders are stored in the ""invoices"" table.
+ does not starts with ('select','with') .
+                    Can you try to fix the error and re-generate the SQL statement?
+                ",SELECT * FROM invoices LIMIT 20,sql
+5e526ae4-4473-5cc5-9185-b16c465687c0-sql,How many customers are there,SELECT COUNT(*) FROM customers LIMIT 20,sql
+6d691763-c407-54ab-b6ff-507b6a4522a8-sql,Find the customer with the most invoices ,"SELECT CustomerId, COUNT(*) as NumberOfInvoices 
+FROM invoices 
+GROUP BY CustomerId 
+ORDER BY NumberOfInvoices DESC 
+LIMIT 1",sql
+71b893f0-3fd1-5cfb-8967-ce76db7b8231-sql,Find the total number of invoices per country,"SELECT c.Country, COUNT(*) as NumberOfInvoices 
+FROM invoices i
+JOIN customers c ON i.CustomerId = c.CustomerId
+GROUP BY c.Country 
+LIMIT 20",sql
+76922778-a648-5a4c-8516-7828263fde77-sql,List all albums and their corresponding artist names  ,"SELECT a.Title AS Album, ar.Name AS Artist
+FROM albums a
+JOIN artists ar ON a.ArtistId = ar.ArtistId
+LIMIT 20",sql
+791ffcb1-04bc-58be-9221-205009ca149d-sql,Find the customer who bought the most albums in total quantity (across all invoices):,"SELECT i.CustomerId, SUM(ii.Quantity) as TotalQuantity
+FROM invoice_items ii
+JOIN invoices i ON ii.InvoiceId = i.InvoiceId
+GROUP BY i.CustomerId
+ORDER BY TotalQuantity DESC
+LIMIT 1",sql
+9f52b00e-4ebd-5eda-b218-51645a2fbdc1-sql,Can you list all tables in the SQLite database catalog?,SELECT name FROM sqlite_master WHERE type='table' LIMIT 20,sql
+c36b4f4c-2548-5112-a1d8-fa5c58684541-sql,what are the top 5 countries that customers come from?,"SELECT Country, COUNT(*) as NumberOfCustomers 
+FROM customers 
+GROUP BY Country 
+ORDER BY NumberOfCustomers DESC 
+LIMIT 5",sql
+c38050ee-835b-58ac-88a0-f4425ae89891-sql," 
+        Can you find the top 10 most popular artists based on the number of tracks?
+        Hint: There are 3 tables - artists, albums and tracks, 
+        where albums and artists are linked by ArtistId, albums and tracks are linked by AlbumId,
+    ","SELECT ar.Name as Artist, COUNT(*) as NumberOfTracks
+FROM tracks t
+JOIN albums a ON t.AlbumId = a.AlbumId
+JOIN artists ar ON a.ArtistId = ar.ArtistId
+GROUP BY ar.Name
+ORDER BY NumberOfTracks DESC
+LIMIT 10",sql
+eec02d0d-e944-55b9-a339-909278777ab9-sql,"  
+         Find the top 5 customers who spent the most money overall,  
+         Hint: order total can be found on invoices table, calculation using invoice_items detail table is unnecessary 
+    ","SELECT CustomerId, SUM(Total) as TotalSpent
+FROM invoices
+GROUP BY CustomerId
+ORDER BY TotalSpent DESC
+LIMIT 5",sql
+f174daa6-04a5-5e26-84dc-c022c41f49dd-sql,List all genres and the number of tracks in each genre:,"SELECT g.Name as Genre, COUNT(t.TrackId) as NumberOfTracks
+FROM genres g
+JOIN tracks t ON g.GenreId = t.GenreId
+GROUP BY g.Name
+LIMIT 20",sql
+f6662577-8edd-5609-a96d-72a3f37de5c6-sql,List all invoices with a total exceeding $10,"SELECT * 
+FROM invoices 
+WHERE Total > 10 
+LIMIT 20",sql
+f93916b7-2ac5-5134-bebd-38b626675c8a-sql,Identify artists who have albums with tracks appearing in multiple genres:,"SELECT ar.Name as Artist
+FROM artists ar
+JOIN albums a ON ar.ArtistId = a.ArtistId
+JOIN tracks t ON a.AlbumId = t.AlbumId
+GROUP BY ar.Name
+HAVING COUNT(DISTINCT t.GenreId) > 1
+LIMIT 20",sql
+fcad3a16-773f-519e-87d2-fc5f74633269-sql,Get the total number of invoices for each customer,"SELECT CustomerId, COUNT(*) as NumberOfInvoices 
+FROM invoices 
+GROUP BY CustomerId 
+LIMIT 20",sql
+039f9d54-59f7-5f29-8c04-14dbc3e95671-ddl,,"CREATE TABLE ""artists""
+(
+    ArtistId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    Name NVARCHAR(120)
+)",ddl
+0db84e3d-ef41-563c-803e-21c1b985dc19-ddl,,"CREATE TABLE ""invoices""
+(
+    InvoiceId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    CustomerId INTEGER  NOT NULL,
+    InvoiceDate DATETIME  NOT NULL,
+    BillingAddress NVARCHAR(70),
+    BillingCity NVARCHAR(40),
+    BillingState NVARCHAR(40),
+    BillingCountry NVARCHAR(40),
+    BillingPostalCode NVARCHAR(10),
+    Total NUMERIC(10,2)  NOT NULL,
+    FOREIGN KEY (CustomerId) REFERENCES ""customers"" (CustomerId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION
+)",ddl
+10cba811-ddba-5042-9e90-d764dfcd1629-ddl,,"CREATE INDEX IFK_InvoiceCustomerId ON ""invoices"" (CustomerId)",ddl
+2c711317-b93d-5f60-a728-cb1c6fcbc040-ddl,,"CREATE INDEX IFK_CustomerSupportRepId ON ""customers"" (SupportRepId)",ddl
+37319c81-65f7-50ee-956b-795de244bee5-ddl,,"CREATE TABLE sqlite_stat1(tbl,idx,stat)",ddl
+40bd77cd-e1de-5872-8693-624117ff413c-ddl,,"CREATE INDEX IFK_InvoiceLineInvoiceId ON ""invoice_items"" (InvoiceId)",ddl
+41130543-7164-562a-90a7-0fd0a409c154-ddl,,"CREATE TABLE ""albums""
+(
+    AlbumId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    Title NVARCHAR(160)  NOT NULL,
+    ArtistId INTEGER  NOT NULL,
+    FOREIGN KEY (ArtistId) REFERENCES ""artists"" (ArtistId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION
+)",ddl
+458debc8-8082-5450-a17a-66028bd55ace-ddl,,"CREATE TABLE ""playlists""
+(
+    PlaylistId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    Name NVARCHAR(120)
+)",ddl
+4815f3fd-925b-53ce-9dfa-0e4285d5abd3-ddl,,"CREATE TABLE ""invoice_items""
+(
+    InvoiceLineId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    InvoiceId INTEGER  NOT NULL,
+    TrackId INTEGER  NOT NULL,
+    UnitPrice NUMERIC(10,2)  NOT NULL,
+    Quantity INTEGER  NOT NULL,
+    FOREIGN KEY (InvoiceId) REFERENCES ""invoices"" (InvoiceId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION,
+    FOREIGN KEY (TrackId) REFERENCES ""tracks"" (TrackId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION
+)",ddl
+48d484e9-984c-58ff-b391-75521c69d486-ddl,,"CREATE INDEX IFK_PlaylistTrackTrackId ON ""playlist_track"" (TrackId)",ddl
+551e1120-a6ee-554f-8b8a-ccf4f22d3636-ddl,,"CREATE INDEX IFK_AlbumArtistId ON ""albums"" (ArtistId)",ddl
+5ff4911e-45c1-5a59-9566-243a9b6a3320-ddl,,"CREATE TABLE ""employees""
+(
+    EmployeeId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    LastName NVARCHAR(20)  NOT NULL,
+    FirstName NVARCHAR(20)  NOT NULL,
+    Title NVARCHAR(30),
+    ReportsTo INTEGER,
+    BirthDate DATETIME,
+    HireDate DATETIME,
+    Address NVARCHAR(70),
+    City NVARCHAR(40),
+    State NVARCHAR(40),
+    Country NVARCHAR(40),
+    PostalCode NVARCHAR(10),
+    Phone NVARCHAR(24),
+    Fax NVARCHAR(24),
+    Email NVARCHAR(60),
+    FOREIGN KEY (ReportsTo) REFERENCES ""employees"" (EmployeeId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION
+)",ddl
+65df0648-bf05-5f75-9365-c21f54b2302d-ddl,,"CREATE TABLE ""media_types""
+(
+    MediaTypeId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    Name NVARCHAR(120)
+)",ddl
+6b585176-e66d-5b23-8d86-ca8a80e3af3d-ddl,,"CREATE INDEX IFK_EmployeeReportsTo ON ""employees"" (ReportsTo)",ddl
+868758b8-e018-55e7-8cc3-75c0e6d211c8-ddl,,"CREATE INDEX IFK_TrackAlbumId ON ""tracks"" (AlbumId)",ddl
+9ea4613d-c1be-5a77-ada9-c54ee3f0cab7-ddl,,"CREATE INDEX IFK_TrackMediaTypeId ON ""tracks"" (MediaTypeId)",ddl
+a9c9a852-608d-5ef2-aede-26ba098d83d1-ddl,,"CREATE INDEX IFK_TrackGenreId ON ""tracks"" (GenreId)",ddl
+b42cc9e1-9219-5a42-9a06-de906f76239e-ddl,,"CREATE TABLE ""tracks""
+(
+    TrackId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    Name NVARCHAR(200)  NOT NULL,
+    AlbumId INTEGER,
+    MediaTypeId INTEGER  NOT NULL,
+    GenreId INTEGER,
+    Composer NVARCHAR(220),
+    Milliseconds INTEGER  NOT NULL,
+    Bytes INTEGER,
+    UnitPrice NUMERIC(10,2)  NOT NULL,
+    FOREIGN KEY (AlbumId) REFERENCES ""albums"" (AlbumId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION,
+    FOREIGN KEY (GenreId) REFERENCES ""genres"" (GenreId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION,
+    FOREIGN KEY (MediaTypeId) REFERENCES ""media_types"" (MediaTypeId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION
+)",ddl
+c387b9d2-5ff4-5a07-8364-f5dab45bb2a9-ddl,,"CREATE TABLE ""genres""
+(
+    GenreId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    Name NVARCHAR(120)
+)",ddl
+d654f328-dc36-549e-84c3-06ee0db7e0f7-ddl,,"CREATE TABLE ""playlist_track""
+(
+    PlaylistId INTEGER  NOT NULL,
+    TrackId INTEGER  NOT NULL,
+    CONSTRAINT PK_PlaylistTrack PRIMARY KEY  (PlaylistId, TrackId),
+    FOREIGN KEY (PlaylistId) REFERENCES ""playlists"" (PlaylistId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION,
+    FOREIGN KEY (TrackId) REFERENCES ""tracks"" (TrackId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION
+)",ddl
+d93f0d68-023d-5afb-8121-ba346699d318-ddl,,"CREATE TABLE ""customers""
+(
+    CustomerId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    FirstName NVARCHAR(40)  NOT NULL,
+    LastName NVARCHAR(20)  NOT NULL,
+    Company NVARCHAR(80),
+    Address NVARCHAR(70),
+    City NVARCHAR(40),
+    State NVARCHAR(40),
+    Country NVARCHAR(40),
+    PostalCode NVARCHAR(10),
+    Phone NVARCHAR(24),
+    Fax NVARCHAR(24),
+    Email NVARCHAR(60)  NOT NULL,
+    SupportRepId INTEGER,
+    FOREIGN KEY (SupportRepId) REFERENCES ""employees"" (EmployeeId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION
+)",ddl
+e5879308-329e-543f-a693-0c14e2f9972e-ddl,,"CREATE INDEX IFK_InvoiceLineTrackId ON ""invoice_items"" (TrackId)",ddl
+ea84418b-1a28-59b4-a1f4-2fb674208adc-ddl,,"CREATE TABLE sqlite_sequence(name,seq)",ddl
+2b4dda0a-a6ac-5e34-8f76-e41c0734d55e-doc,,In the chinook database invoice means order,documentation

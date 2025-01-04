@@ -24,3 +24,20 @@
 
 
 ## Temp
+```
+
+compute_cosine_similarity(dog_embedding, cat_embedding)
+0.8220817
+
+compute_cosine_similarity(delicious_embedding, tasty_embedding)
+0.8482092
+
+compute_cosine_similarity(apple_embedding, delicious_embedding)
+0.5347655
+
+compute_cosine_similarity(dog_embedding, apple_embedding)
+0.22881003
+
+compute_cosine_similarity(truck_embedding, delicious_embedding)
+0.08978759
+```

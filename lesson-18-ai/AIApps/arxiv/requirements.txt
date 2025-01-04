@@ -1,0 +1,5 @@
+pdfminer.six>=20221105   # Core PDF text extraction
+PyMuPDF>=1.23.7          # Enhanced PDF handling and image extraction
+numpy>=1.24.0            # Required for some PDF processing operations
+python-dateutil>=2.8.2   # Helpful for date parsing in documents
+click>=8.1.7             # CLI interface

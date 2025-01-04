@@ -1,0 +1,7 @@
+streamlit>=1.24.0
+sentence-transformers>=2.2.2
+deep-translator>=1.11.4
+numpy>=1.24.0
+pandas>=2.0.0
+plotly>=5.13.0
+torch>=2.0.0  # Required by sentence-transformers

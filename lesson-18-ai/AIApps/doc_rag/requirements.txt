@@ -1,0 +1,10 @@
+streamlit
+langchain
+# langchain-community
+langchain-ollama
+langchain-chroma
+PyPDF2
+chromadb
+ollama
+# boto3   # AWS
+typing
