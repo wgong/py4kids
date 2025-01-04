@@ -1,7 +1,0 @@
-markdown-it-py
-mdit-py-plugins
-weasyprint
-pdfkit
-PyMuPDF
-pymupdf4llm
-notebook
