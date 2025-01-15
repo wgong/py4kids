@@ -2,6 +2,7 @@
 **/*u1gwg*
 **/*.bin
 **/stores.yaml
+**/.virtual_documents/
 
 # temp/cache
 **/tmp*.*
