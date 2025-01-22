@@ -2,6 +2,8 @@
 **/*u1gwg*
 **/*.bin
 **/stores.yaml
+**/.virtual_documents/
+**/*.drawio.bkp
 
 # temp/cache
 **/tmp*.*
