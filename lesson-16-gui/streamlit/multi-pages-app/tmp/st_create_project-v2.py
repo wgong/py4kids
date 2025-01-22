@@ -18,6 +18,10 @@ def create_file_content(file_path: str, dir_name: str, file_name: str) -> str:
         file_name (str): File name
     """
     if not file_name.endswith('.py'):
+        
+        if file_name.endswith('requirements.txt'):
+            return """streamlit"""
+
         return ''  # Return empty content for non-Python files
         
     # Special case for admin_1.py

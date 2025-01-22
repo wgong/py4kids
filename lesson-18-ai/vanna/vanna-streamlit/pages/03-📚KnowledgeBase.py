@@ -1,5 +1,4 @@
 from utils import *
-from vanna.utils import convert_to_string_list 
 
 st.set_page_config(layout="wide")
 st.header(f"{STR_MENU_TRAIN} 📚")
@@ -10,10 +9,39 @@ DB_URL = cfg_data.get("db_url")
 # st.write(DB_NAME, DB_URL)
 
 def do_knowledgebase():
+    df = None
     
     vn = setup_vanna_cached(cfg_data)
 
-    with st.expander("Add Schema", expanded=True):
+    with st.expander("Manage Knowledge", expanded=True):
+        c_1, _, c_2, c_3, c_4 = st.columns([2,1,1,2,1])
+        with c_1:
+            if st.button("Show"):
+                df = vn.get_training_data(dataset=DB_NAME)
+
+        with c_2:
+            btn_rm_all = st.button("Remove All")
+            if btn_rm_all:
+                vn.remove_collection()
+
+        with c_3:
+            doc_ids = st.text_input("Enter vector ID(s)", value="", key="del_collection")
+        with c_4:
+            btn_rm_id = st.button("Remove")
+            if btn_rm_id and doc_ids:
+                for doc_id in parse_id_list(doc_ids):
+                    vn.remove_training_data(id=doc_id)
+
+        if df is not None and not df.empty:
+            st.dataframe(df)
+            st.download_button(
+                label="Download CSV",
+                data=df_to_csv(df, index=False),
+                file_name=f"knowledgebase-{get_ts_now()}.csv",
+                mime='text/csv',
+            )
+
+    with st.expander("Add Schema", expanded=False):
         c1, c2 = st.columns([2,2])
         with c1:
             btn_add_all_ddl = st.button("Add All DDL scripts")
@@ -33,7 +61,7 @@ def do_knowledgebase():
             ddl_sample = """CREATE TABLE IF NOT EXISTS t_person (
                 id INT PRIMARY KEY,
                 name text,
-                email text
+                email_address text
             );
             """
             ddl_text = st.text_area("DDL script", value="", height=100, key="add_ddl"
@@ -45,6 +73,35 @@ def do_knowledgebase():
                 result = vn.train(ddl=ddl_text, dataset=DB_NAME)
                 # st.write(result)
 
+
+    with st.expander("Add Documentation", expanded=False):
+        doc_sample = """table "t_book" stores information on book title and author """
+        doc_text = st.text_area("Documentation", value="", height=100, key="add_doc"
+                            ,placeholder=doc_sample)
+
+        if st.button("Add", key="btn_add_a_doc") and doc_text:
+            result = vn.train(documentation=doc_text, dataset=DB_NAME)
+            st.write(result)
+            st.session_state["add_doc"] = ""
+                
+
+        df_doc = None
+        TABLE_BUS_TERM = CFG["TABLE_BUS_TERM"]
+        try:
+            df_doc = vn.run_sql(f"select * from {TABLE_BUS_TERM}")       
+            st.dataframe(df_doc)
+        except Exception as e:
+            st.warning(f"table '{TABLE_BUS_TERM}' not found, skip!")
+
+        if st.button("Add Bus Term", key="btn_add_bus_term"):
+            try:
+                if df_doc is not None and not df_doc.empty:
+                    business_docs = convert_to_string_list(df_doc)
+                    for doc_text in business_docs:
+                        result = vn.train(documentation=doc_text, dataset=DB_NAME)
+                        st.write(result)
+            except Exception as e:
+                st.warning(str(e))
 
     with st.expander("Add Question/SQL Pair", expanded=False):
         q_sample, sql_sample = "Get book counts", "select count(*) from t_book;"
@@ -58,52 +115,10 @@ def do_knowledgebase():
         if st.button("Add", key="btn_add_question_sql") and sql_text and q_text:
             result = vn.train(question=q_text, sql=sql_text, dataset=DB_NAME)
             st.write(result)
+            st.session_state["add_sql_q"] = ""
+            st.session_state["add_sql"] = ""
 
-    with st.expander("Add Documentation", expanded=False):
-        doc_sample = """table "t_book" stores information on book title and author """
-        doc_text = st.text_area("Documentation", value="", height=100, key="add_doc"
-                            ,placeholder=doc_sample)
 
-        df_doc = None
-        table_bus_term = "bus_term" 
-        try:
-            df_doc = vn.run_sql(f"select * from {table_bus_term}")       
-            st.dataframe(df_doc)
-        except Exception as e:
-            st.warning(f"table '{table_bus_term}' not found, skip!")
-
-        if st.button("Add", key="btn_add_doc"):
-            if doc_text:
-                result = vn.train(documentation=doc_text, dataset=DB_NAME)
-                st.write(result)
-
-            if df_doc is not None:
-                business_docs = convert_to_string_list(df_doc)
-                for doc_text in business_docs:
-                    result = vn.train(documentation=doc_text, dataset=DB_NAME)
-                    st.write(result)
-
-    with st.expander("Manage Knowledge", expanded=False):
-        c_1, c_2, c_3 = st.columns([4,1,3])
-        df = None
-        with c_1:
-            if st.button("Show"):
-                df = vn.get_training_data(dataset=DB_NAME)
-
-        with c_3:
-            collection_id = st.text_input("Enter collection ID", value="", key="del_collection")
-            btn_rm_id = st.button("Remove")
-            if btn_rm_id and collection_id:
-                vn.remove_training_data(id=collection_id)
-
-        with c_2:
-            btn_rm_all = st.button("Remove All")
-            if btn_rm_all:
-                for c in ["sql", "ddl", "documentation"]:
-                    vn.remove_collection(c)
-
-        if df is not None and not df.empty:
-            st.dataframe(df)
 
 ## sidebar Menu
 def do_sidebar():
@@ -113,7 +128,10 @@ def do_sidebar():
 
 def main():
     do_sidebar()
-    do_knowledgebase()
+    try:
+        do_knowledgebase()
+    except Exception as e:
+        st.error(str(e))
 
 if __name__ == '__main__':
     main()

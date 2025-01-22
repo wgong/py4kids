@@ -1,4 +1,7 @@
 
+currently my web-ui runs on 
+URL = http://localhost:8080/
+
 URL = https://github.com/open-webui/open-webui
 
 ollama running on the same host:
