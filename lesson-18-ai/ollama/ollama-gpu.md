@@ -4,6 +4,10 @@ common issues:
 - If you don’t have enough VRAM it will use CPU.
 - after ollama falls sleep, it won't load model into GPU
 
+- https://github.com/ollama/ollama/issues/5464
+Ollama fails to work with CUDA after Linux suspend/resume, unlike other CUDA services #5464
+
+
 - https://forums.developer.nvidia.com/t/solution-for-nvidia-sleep-wake-issue-in-linux/110911
 
 
