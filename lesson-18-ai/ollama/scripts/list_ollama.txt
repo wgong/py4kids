@@ -1,0 +1,23 @@
+(base) gongai@ducklover1:~/projects/digital-duck/st_ragents$ list_oliama
+codegeex4:latest    867b8e81d938  5.5 GB  3 months ago
+codegemma:latest    0c96700aaada  5.0 GB  3 months ago
+deepseek-coder-v2:latest    63fb193b3a9b  8.9 GB  3 months ago
+deepseek-r1:1.5b    a42b25d8c10a  1.1 GB  5 days ago
+deepseek-r1:latest    0a8c26691023  4.7 GB  5 days ago
+gemma2:latest    ff02c3702132  5.4 GB  3 months ago
+llama3.1:latest    42182419e95b  4.7 GB  2 months ago
+llama3.2:latest    a80c41f12acd5  2.0 GB  3 months ago
+llava:latest    8dd3616bbcb1  4.7 GB  6 months ago
+mistral:latest    f974a74358d6  4.1 GB  2 months ago
+mistral-nemo:latest    994f3b8b7801  7.1 GB  2 months ago
+nemotron-mini:latest    e07faab18784f  2.7 GB  4 months ago
+neural-chat:latest    89fa737d3b85  4.1 GB  5 days ago
+nomic-embed-text:latest    0a109f422b47  274 MB  10 months ago
+phi3.5:latest    61819fb37ba3  2.2 GB  3 months ago
+# phi4:latest    ac896eb5b834  9.1 GB  2 weeks ago
+qwen2.5-coder:14b    3028237cc8c5  9.0 GB  2 months ago
+qwen2.5-coder:1.5b    7088ac567b1e  986 MB  3 months ago
+qwen2.5-coder:latest    2b0496514337  4.7 GB  2 months ago
+qwen2.5:latest    845dbda0ea48  4.7 GB  3 months ago
+snowflake-arctic-embed2:latest    5de93a84837d  1.2 GB  5 days ago
+snowflake-arctic-embed:latest    21ab8b9b0545  669 MB  5 days ago
