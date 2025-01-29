@@ -1,0 +1,302 @@
+id,dataset,question,content,training_data_type
+020848a7-bac7-53cf-9af9-ca0f8e540216-ddl,default,,"CREATE INDEX IFK_EmployeeReportsTo ON ""employees"" (ReportsTo)",ddl
+02ee8d00-a7dd-5598-b62b-e3a06084dbda-ddl,default,,"CREATE TABLE ""playlists""
+(
+    PlaylistId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    Name NVARCHAR(120)
+)",ddl
+039a70d7-499f-57e5-9cff-73e7c23dd2b3-ddl,default,,"CREATE TABLE ""media_types""
+(
+    MediaTypeId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    Name NVARCHAR(120)
+)",ddl
+093ce170-6e30-5f22-b6df-9d232c3b1bab-sql,default,"
+                    Generating SQL for this question: 
+                    Generating SQL for this question: Find all invoices since 2010 and the total amount invoiced:
+                    results in the following error: [ERROR-SQL] Failed to generate SQL for prompt: Find all invoices since 2010 and the total amount invoiced: with the following exception: 
+an unknown error was encountered while running the model  .
+                    Can you try to fix the error and re-generate the SQL statement?
+                
+                    results in the following error: [ERROR-SQL] Failed to generate SQL for prompt: Find all invoices since 2010 and the total amount invoiced: with the following exception: 
+an unknown error was encountered while running the model  .
+                    Can you try to fix the error and re-generate the SQL statement?
+                ","SELECT InvoiceId, SUM(Total) AS TotalAmountInvoiced
+FROM invoices
+WHERE InvoiceDate >= '2010-01-01'
+GROUP BY InvoiceId limit 20",sql
+0f11423b-66c8-5ba4-8e59-2e4f617db70e-ddl,default,,"CREATE TABLE ""invoices""
+(
+    InvoiceId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    CustomerId INTEGER  NOT NULL,
+    InvoiceDate DATETIME  NOT NULL,
+    BillingAddress NVARCHAR(70),
+    BillingCity NVARCHAR(40),
+    BillingState NVARCHAR(40),
+    BillingCountry NVARCHAR(40),
+    BillingPostalCode NVARCHAR(10),
+    Total NUMERIC(10,2)  NOT NULL,
+    FOREIGN KEY (CustomerId) REFERENCES ""customers"" (CustomerId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION
+)",ddl
+1323a585-b921-528b-a12c-54697d3801d3-ddl,default,,"CREATE TABLE ""employees""
+(
+    EmployeeId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    LastName NVARCHAR(20)  NOT NULL,
+    FirstName NVARCHAR(20)  NOT NULL,
+    Title NVARCHAR(30),
+    ReportsTo INTEGER,
+    BirthDate DATETIME,
+    HireDate DATETIME,
+    Address NVARCHAR(70),
+    City NVARCHAR(40),
+    State NVARCHAR(40),
+    Country NVARCHAR(40),
+    PostalCode NVARCHAR(10),
+    Phone NVARCHAR(24),
+    Fax NVARCHAR(24),
+    Email NVARCHAR(60),
+    FOREIGN KEY (ReportsTo) REFERENCES ""employees"" (EmployeeId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION
+)",ddl
+1b4e1e26-6cfa-573b-94b7-055aa1257b40-ddl,default,,"CREATE INDEX IFK_CustomerSupportRepId ON ""customers"" (SupportRepId)",ddl
+21e0fda8-6d16-57af-9304-d14b98d8ec8a-sql,default,List all customers from Canada and their email addresses:,"SELECT FirstName, LastName, Email
+FROM customers
+WHERE Country = 'Canada' limit 20",sql
+24618c90-c90e-58d3-97d5-0baaa94d5fae-sql,default,"
+                    Generating SQL for this question: 
+                    Generating SQL for this question: Identify artists who have albums with tracks appearing in multiple genres:
+                    results in the following error: [ERROR-SQL] Failed to generate SQL for prompt: Identify artists who have albums with tracks appearing in multiple genres: with the following exception: 
+an unknown error was encountered while running the model  .
+                    Can you try to fix the error and re-generate the SQL statement?
+                
+                    results in the following error: [ERROR-SQL] Failed to generate SQL for prompt: Identify artists who have albums with tracks appearing in multiple genres: with the following exception: 
+an unknown error was encountered while running the model  .
+                    Can you try to fix the error and re-generate the SQL statement?
+                ","SELECT a.Name AS ArtistName
+FROM artists a
+JOIN albums al ON a.ArtistId = al.ArtistId
+JOIN tracks t ON al.AlbumId = t.AlbumId
+JOIN genres g ON t.GenreId = g.GenreId
+GROUP BY a.ArtistId
+HAVING COUNT(DISTINCT g.GenreId) > 1 limit 20",sql
+24ecfae0-fd59-599e-b6a0-b3ac0fa44dd1-doc,default,,"
+    In the 'customers' table, address column names do not have 'Billing' prefix, 
+    e.g. country column name is 'country', not 'BillingCountry'
+    ",documentation
+29a795c2-f536-548c-85b1-494e94c547c4-ddl,default,,"CREATE TABLE ""albums""
+(
+    AlbumId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    Title NVARCHAR(160)  NOT NULL,
+    ArtistId INTEGER  NOT NULL,
+    FOREIGN KEY (ArtistId) REFERENCES ""artists"" (ArtistId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION
+)",ddl
+38197d19-a90b-5ebe-b51d-eeee8760b334-ddl,default,,"CREATE TABLE ""playlist_track""
+(
+    PlaylistId INTEGER  NOT NULL,
+    TrackId INTEGER  NOT NULL,
+    CONSTRAINT PK_PlaylistTrack PRIMARY KEY  (PlaylistId, TrackId),
+    FOREIGN KEY (PlaylistId) REFERENCES ""playlists"" (PlaylistId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION,
+    FOREIGN KEY (TrackId) REFERENCES ""tracks"" (TrackId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION
+)",ddl
+3e8ad041-3706-5980-b8e4-d183a275c204-sql,default,"
+                    Generating SQL for this question: 
+                    Generating SQL for this question: List all employees and their reporting manager's name (if any):
+                    results in the following error: [ERROR-SQL] Failed to generate SQL for prompt: List all employees and their reporting manager's name (if any): with the following exception: 
+an unknown error was encountered while running the model  .
+                    Can you try to fix the error and re-generate the SQL statement?
+                
+                    results in the following error: [ERROR-SQL] Failed to generate SQL for prompt: List all employees and their reporting manager's name (if any): with the following exception: 
+an unknown error was encountered while running the model  .
+                    Can you try to fix the error and re-generate the SQL statement?
+                ","SELECT e.FirstName || ' ' || e.LastName AS EmployeeName, m.FirstName || ' ' || m.LastName AS ManagerName
+FROM employees e
+LEFT JOIN employees m ON e.ReportsTo = m.EmployeeId limit 20",sql
+403c39a7-35d6-5518-aa3a-5d165dc904bd-sql,default,"
+                    Generating SQL for this question:  Get the average invoice total for each customer:
+                    results in the following error: [ERROR-SQL] Failed to generate SQL for prompt:  Get the average invoice total for each customer: with the following exception: 
+an unknown error was encountered while running the model  .
+                    Can you try to fix the error and re-generate the SQL statement?
+                ","SELECT c.FirstName, c.LastName, AVG(i.Total) AS AverageInvoiceTotal
+FROM customers c
+JOIN invoices i ON c.CustomerId = i.CustomerId
+GROUP BY c.CustomerId limit 20",sql
+438a0d93-291e-5426-b9fd-1166bb56ccd2-sql,default,Get all playlists containing at least 10 tracks and the total duration of those tracks:,"SELECT p.Name AS PlaylistName, SUM(t.Milliseconds) / 1000 AS TotalDurationSeconds
+FROM playlists p
+JOIN playlist_track pt ON p.PlaylistId = pt.PlaylistId
+JOIN tracks t ON pt.TrackId = t.TrackId
+GROUP BY p.PlaylistId
+HAVING COUNT(pt.TrackId) >= 10 limit 20",sql
+45cc2ab5-fbeb-5d2f-b58b-0eda6b3e89af-sql,default,List all albums and their corresponding artist names  ,"SELECT albums.Title AS AlbumTitle, artists.Name AS ArtistName
+FROM albums
+JOIN artists ON albums.ArtistId = artists.ArtistId limit 20",sql
+4bbdce6c-4cbd-53a7-98d6-455b65c23f1c-ddl,default,,"CREATE INDEX IFK_TrackAlbumId ON ""tracks"" (AlbumId)",ddl
+4bef4b19-ef11-5269-ac37-b411d70a1eca-sql,default,Can you list all tables in the SQLite database catalog?,SELECT name FROM sqlite_master WHERE type='table' limit 20,sql
+4ce614e1-1af5-502f-a106-5c71bd49c66c-ddl,default,,"CREATE TABLE sqlite_sequence(name,seq)",ddl
+4cf7f4c4-941f-591c-829e-432db4a6c2ad-sql,default,"
+                    Generating SQL for this question: 
+                    Generating SQL for this question: which table stores customer's orders
+                    results in the following error: [ERROR-DF] Invalid dataframe .
+                    Can you try to fix the error and re-generate the SQL statement?
+                
+                    results in the following error: [ERROR-DF] Invalid dataframe .
+                    Can you try to fix the error and re-generate the SQL statement?
+                ",SELECT * FROM invoices limit 20;,sql
+4dc745a8-375e-51c7-b9cb-e93f6b179882-ddl,default,,"CREATE INDEX IFK_InvoiceLineTrackId ON ""invoice_items"" (TrackId)",ddl
+4f473333-1374-5c92-bdaf-2dce6c0464ea-sql,default,Find the top 5 most expensive tracks (based on unit price):,"SELECT Name, UnitPrice
+FROM tracks
+ORDER BY UnitPrice DESC
+LIMIT 5;",sql
+4fda5e13-93c9-5c90-aa11-80518b55a64d-sql,default,"
+                    Generating SQL for this question: List all invoices with a total exceeding $10
+                    results in the following error: [ERROR-SQL] Failed to generate SQL for prompt: List all invoices with a total exceeding $10 with the following exception: 
+an unknown error was encountered while running the model  .
+                    Can you try to fix the error and re-generate the SQL statement?
+                ",SELECT * FROM invoices WHERE Total > 10 limit 20,sql
+58dac216-497c-5225-8d22-b59885250762-ddl,default,,"CREATE INDEX IFK_InvoiceLineInvoiceId ON ""invoice_items"" (InvoiceId)",ddl
+82b7a437-7db2-5369-9c63-b8e1a8030ddb-sql,default,"  
+         Find the top 5 customers who spent the most money overall,  
+         Hint: order total can be found on invoices table, calculation using invoice_items detail table is unnecessary 
+    ","SELECT c.CustomerId, c.FirstName || ' ' || c.LastName AS CustomerName, SUM(i.Total) AS TotalSpent
+FROM customers c
+JOIN invoices i ON c.CustomerId = i.CustomerId
+GROUP BY c.CustomerId
+ORDER BY TotalSpent DESC
+LIMIT 5",sql
+833f07cf-68a0-5ca8-afda-dcf56dd90d92-ddl,default,,"CREATE TABLE ""tracks""
+(
+    TrackId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    Name NVARCHAR(200)  NOT NULL,
+    AlbumId INTEGER,
+    MediaTypeId INTEGER  NOT NULL,
+    GenreId INTEGER,
+    Composer NVARCHAR(220),
+    Milliseconds INTEGER  NOT NULL,
+    Bytes INTEGER,
+    UnitPrice NUMERIC(10,2)  NOT NULL,
+    FOREIGN KEY (AlbumId) REFERENCES ""albums"" (AlbumId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION,
+    FOREIGN KEY (GenreId) REFERENCES ""genres"" (GenreId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION,
+    FOREIGN KEY (MediaTypeId) REFERENCES ""media_types"" (MediaTypeId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION
+)",ddl
+88d03b79-b19b-5851-a54e-4650cd084666-ddl,default,,"CREATE INDEX IFK_TrackMediaTypeId ON ""tracks"" (MediaTypeId)",ddl
+90be1638-159a-51d4-b376-762b805aae91-ddl,default,,"CREATE TABLE ""invoice_items""
+(
+    InvoiceLineId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    InvoiceId INTEGER  NOT NULL,
+    TrackId INTEGER  NOT NULL,
+    UnitPrice NUMERIC(10,2)  NOT NULL,
+    Quantity INTEGER  NOT NULL,
+    FOREIGN KEY (InvoiceId) REFERENCES ""invoices"" (InvoiceId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION,
+    FOREIGN KEY (TrackId) REFERENCES ""tracks"" (TrackId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION
+)",ddl
+90d6de66-fbf7-52fd-bf7d-c39796669b7f-ddl,default,,"CREATE TABLE ""customers""
+(
+    CustomerId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    FirstName NVARCHAR(40)  NOT NULL,
+    LastName NVARCHAR(20)  NOT NULL,
+    Company NVARCHAR(80),
+    Address NVARCHAR(70),
+    City NVARCHAR(40),
+    State NVARCHAR(40),
+    Country NVARCHAR(40),
+    PostalCode NVARCHAR(10),
+    Phone NVARCHAR(24),
+    Fax NVARCHAR(24),
+    Email NVARCHAR(60)  NOT NULL,
+    SupportRepId INTEGER,
+    FOREIGN KEY (SupportRepId) REFERENCES ""employees"" (EmployeeId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION
+)",ddl
+91f68c88-0e04-5283-8ef4-ca869e07801c-sql,default," 
+        Can you find the top 10 most popular artists based on the number of tracks?
+        Hint: There are 3 tables - artists, albums and tracks, 
+        where albums and artists are linked by ArtistId, albums and tracks are linked by AlbumId,
+    ","SELECT a.Name AS ArtistName, COUNT(t.TrackId) AS NumberOfTracks
+FROM artists a
+JOIN albums al ON a.ArtistId = al.ArtistId
+JOIN tracks t ON al.AlbumId = t.AlbumId
+GROUP BY a.ArtistId
+ORDER BY NumberOfTracks DESC
+LIMIT 10;",sql
+936085d5-f00d-5aa3-b6aa-7215e2dbc4c6-sql,default,"Find all tracks with a name containing ""What"" (case-insensitive) ","SELECT * FROM tracks
+WHERE LOWER(Name) LIKE '%what%' limit 20",sql
+93908e71-4aa4-5332-b504-7749472931a8-ddl,default,,"CREATE TABLE sqlite_stat1(tbl,idx,stat)",ddl
+981a8f6a-292e-5da4-b8f6-c979b05f60b2-ddl,default,,"CREATE TABLE ""artists""
+(
+    ArtistId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    Name NVARCHAR(120)
+)",ddl
+a8d77d80-5afb-5178-8491-a4ed1eb6112d-ddl,default,,"CREATE TABLE ""genres""
+(
+    GenreId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    Name NVARCHAR(120)
+)",ddl
+a9a6eea5-de78-5fc3-8650-31d9b258fda6-ddl,default,,"CREATE INDEX IFK_InvoiceCustomerId ON ""invoices"" (CustomerId)",ddl
+b6c69452-a061-5dd5-a90f-341b01baa45d-sql,default,"
+                    Generating SQL for this question: 
+                    Generating SQL for this question: 
+                    Generating SQL for this question: which table stores customer's orders
+                    results in the following error: [ERROR-DF] Invalid dataframe .
+                    Can you try to fix the error and re-generate the SQL statement?
+                
+                    results in the following error: [ERROR-DF] Invalid dataframe .
+                    Can you try to fix the error and re-generate the SQL statement?
+                
+                    results in the following error: [ERROR-DF] Invalid dataframe .
+                    Can you try to fix the error and re-generate the SQL statement?
+                ",SELECT name FROM sqlite_master WHERE type='table' limit 20,sql
+bb5b15de-95e3-5a54-bf49-a808285bc886-ddl,default,,"CREATE INDEX IFK_PlaylistTrackTrackId ON ""playlist_track"" (TrackId)",ddl
+c4ac6533-13e1-5879-bf15-9abf51e0c61c-ddl,default,,"CREATE INDEX IFK_AlbumArtistId ON ""albums"" (ArtistId)",ddl
+c73bc82c-d1c2-5001-b56c-d4deff793359-sql,default,List all genres and the number of tracks in each genre:,"SELECT g.Name AS Genre, COUNT(t.TrackId) AS NumberOfTracks
+FROM genres g
+LEFT JOIN tracks t ON g.GenreId = t.GenreId
+GROUP BY g.GenreId limit 20",sql
+cec55741-f7e6-50f6-ace5-f7ee61430d57-ddl,default,,"CREATE INDEX IFK_TrackGenreId ON ""tracks"" (GenreId)",ddl
+e2cdfd36-5040-5cc6-82cc-24af4c8ec105-doc,default,,In the chinook database invoice means order,documentation
+f452c60e-ea2b-560c-b080-bac3d7cc7dd9-sql,default,"
+                    Generating SQL for this question: 
+                    Generating SQL for this question:       
+        Find the top 5 customers who bought the most albums in total quantity (across all invoices):
+        Hint: album quantity is found in invoice_items, 
+    
+                    results in the following error: [ERROR-SQL] Failed to generate SQL for prompt:       
+        Find the top 5 customers who bought the most albums in total quantity (across all invoices):
+        Hint: album quantity is found in invoice_items, 
+     with the following exception: 
+an unknown error was encountered while running the model  .
+                    Can you try to fix the error and re-generate the SQL statement?
+                
+                    results in the following error: [ERROR-SQL] Failed to generate SQL for prompt:       
+        Find the top 5 customers who bought the most albums in total quantity (across all invoices):
+        Hint: album quantity is found in invoice_items, 
+     with the following exception: 
+an unknown error was encountered while running the model  .
+                    Can you try to fix the error and re-generate the SQL statement?
+                ","SELECT c.CustomerId, c.FirstName, c.LastName, SUM(ii.Quantity) AS TotalAlbumQuantity
+FROM customers c
+JOIN invoices i ON c.CustomerId = i.CustomerId
+JOIN invoice_items ii ON i.InvoiceId = ii.InvoiceId
+GROUP BY c.CustomerId
+ORDER BY TotalAlbumQuantity DESC
+LIMIT 5;",sql
+f9d38a33-ea24-5b92-8eec-8f6df3cf2e48-sql,default,"
+                    Generating SQL for this question: Find the total number of invoices per country
+                    results in the following error: [ERROR-SQL] Failed to generate SQL for prompt: Find the total number of invoices per country with the following exception: 
+an unknown error was encountered while running the model  .
+                    Can you try to fix the error and re-generate the SQL statement?
+                ","SELECT BillingCountry, COUNT(*) AS TotalInvoices
+FROM invoices
+GROUP BY BillingCountry limit 20",sql
+fdb952df-8481-52dc-a55a-42999c989d69-sql,default,what are the top 5 countries that customers come from?,"SELECT BillingCountry, COUNT(*) AS CustomerCount
+FROM invoices
+GROUP BY BillingCountry
+ORDER BY CustomerCount DESC
+LIMIT 5;",sql
+fe21da76-acb9-58af-bc77-8a503824ebd4-sql,default,How many customers are there,SELECT COUNT(*) AS NumberOfCustomers FROM customers limit 20,sql
