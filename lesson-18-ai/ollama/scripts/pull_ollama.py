@@ -1,5 +1,28 @@
 import subprocess
 
+CMD_DICT = {
+    "pull": {
+        "txt_1": "Pulling",
+        "txt_2": "pulled",
+        "txt_3": "pull",
+    },
+    "rm": {
+        "txt_1": "Removing",
+        "txt_2": "removed",
+        "txt_3": "remove",
+    }
+}
+
+def run_ollama_cmd(model, cmd="pull"):
+    try:
+        d = CMD_DICT.get(cmd,"pull")
+        print(f"{d['txt_1']} '{model}' ...")
+        subprocess.run(['ollama', cmd, model], check=True)
+        print(f"Successfully {d['txt_2']} '{model}'\n")
+    except Exception as e:
+        print(f"[ERROR] Fail to {d['txt_3']} '{model}'\n str(e)")
+
+
 def parse_model(line):
     # pickup model name
     model_name = ""
@@ -47,14 +70,10 @@ if b_dry_run:
     print("Models to remove:\n", models_to_rm)
 else:
     # Execute ollama pull commands
-    for model in models_to_pull:
-        print(f"Pulling {model}...")
-        subprocess.run(['ollama', 'pull', model], check=True)
-        print(f"Successfully pulled {model}\n")
+    for model in sorted(list(models_to_pull)):
+        run_ollama_cmd(model, cmd="pull")
 
     # remove models
-    for model in models_to_rm:
-        print(f"Removing {model}...")
-        subprocess.run(['ollama', 'rm', model], check=True)
-        print(f"Successfully removed {model}\n")
+    for model in sorted(list(models_to_rm)):
+        run_ollama_cmd(model, cmd="rm")
 

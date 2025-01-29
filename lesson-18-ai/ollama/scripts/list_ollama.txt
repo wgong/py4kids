@@ -21,3 +21,29 @@ qwen2.5-coder:latest    2b0496514337  4.7 GB  2 months ago
 qwen2.5:latest    845dbda0ea48  4.7 GB  3 months ago
 snowflake-arctic-embed2:latest    5de93a84837d  1.2 GB  5 days ago
 snowflake-arctic-embed:latest    21ab8b9b0545  669 MB  5 days ago
+
+(base) papagame@papa-game:~/projects/wgong/py4kids/lesson-18-ai/ollama$ ollama list
+llama3.2-vision:latest      38107a0cd119    7.9 GB    2 months ago    
+qwen2.5-coder:latest        2b0496514337    4.7 GB    2 months ago    
+nomic-embed-text:latest     0a109f422b47    274 MB    3 months ago    
+qwen2-math:latest           28cc3a337734    4.4 GB    3 months ago    
+tinyllama:latest            2644915ede35    637 MB    3 months ago    
+mathstral:latest            4ee7052be55a    4.1 GB    3 months ago    
+# nemotron-mini:latest        ed76ab18784f    2.7 GB    3 months ago    
+mistral-nemo:latest         994f3b8b7801    7.1 GB    3 months ago    
+duckdb-nsql:latest          3ed734989690    3.8 GB    3 months ago    
+qwen2.5:3b                  357c53fb659c    1.9 GB    3 months ago    
+phi3.5:latest               61819fb370a3    2.2 GB    3 months ago    
+granite-code:8b             36c3c3b9683b    4.6 GB    3 months ago    
+granite-code:latest         becc94fe1876    2.0 GB    3 months ago    
+qwen2.5-coder:1.5b          7088ac567b1e    986 MB    3 months ago    
+qwen2.5:latest              845dbda0ea48    4.7 GB    3 months ago    
+codegemma:latest            0c96700aaada    5.0 GB    3 months ago    
+gemma2:latest               ff02c3702f32    5.4 GB    3 months ago    
+llama3.2:latest             a80c4f17acd5    2.0 GB    3 months ago    
+llama3.1:latest             42182419e950    4.7 GB    3 months ago    
+# llama3:latest               365c0bd3c000    4.7 GB    3 months ago    
+deepseek-coder-v2:latest    63fb193b3a9b    8.9 GB    3 months ago    
+starcoder2:7b               1550ab21b10d    4.0 GB    3 months ago    
+starcoder2:latest           9f4ae0aff61e    1.7 GB    3 months ago    
+codegeex4:latest            867b8e81d038    5.5 GB    3 months ago  
