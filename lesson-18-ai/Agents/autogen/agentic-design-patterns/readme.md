@@ -11,3 +11,9 @@ https://learn.deeplearning.ai/courses/ai-agentic-design-patterns-with-autogen/le
 
 https://www.gptbots.ai/blog/how-to-build-ai-services-with-agents
 
+# Setup
+
+```
+
+```
+
