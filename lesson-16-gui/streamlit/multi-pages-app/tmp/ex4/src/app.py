@@ -1,12 +1,11 @@
-"""
-https://docs.streamlit.io/develop/tutorials/multipage/dynamic-navigation
-"""
+"https://docs.streamlit.io/develop/tutorials/multipage/dynamic-navigation"
 
 import streamlit as st
 
 st.title("Streamlit Multipage Demo")
+
 st.logo(
-    "https://raw.githubusercontent.com/wgong/data-copilot/refs/heads/main/docs/00-data-copilot-arch-design.png", 
+    "https://raw.githubusercontent.com/gongwork/data-copilot/refs/heads/main/docs/st_app_logo.png", 
     icon_image="https://docs.streamlit.io/logo.svg",
     # icon_image="images/icon_blue.png",
 )

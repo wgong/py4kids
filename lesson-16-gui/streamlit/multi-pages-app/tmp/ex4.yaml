@@ -1,4 +1,4 @@
-root-folder:
+project-root-folder:
   - readme.md
   - requirements.txt
   - docs

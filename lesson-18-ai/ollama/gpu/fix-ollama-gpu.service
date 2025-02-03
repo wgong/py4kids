@@ -1,0 +1,12 @@
+# /etc/systemd/system/fix-ollama-gpu.service
+
+[Unit]
+Description=Fix Ollama GPU access after suspend
+After=sleep.target suspend.target hibernate.target hybrid-sleep.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/fix-ollama-gpu.sh
+
+[Install]
+WantedBy=sleep.target suspend.target hibernate.target hybrid-sleep.target

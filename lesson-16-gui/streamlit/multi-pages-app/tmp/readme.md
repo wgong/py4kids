@@ -26,6 +26,11 @@ root-folder/
 
 
 
+python st_create_project-v3.py create ex5.yaml --dry-run
+
+python st_create_project-v3.py create ex5.yaml
+
+
 # Using YAML filename as directory name (example-4.yaml -> example-4)
 python st_create_project.py create example-4.yaml --dry-run
 

@@ -1,24 +1,50 @@
 ## check https://github.com/vanna-ai/vanna/blob/main/pyproject.toml
-## for any missing pkg
-streamlit-aggrid
-lxml
-streamlit_option_menu
-jsonlines
-notebook
-ollama
-# vanna
-# use wgong/ssadata (install from git source) v0.7.5
-# uncomment before to install from source remotely
-# git+https://github.com/wgong/ssadata.git
+
+#==================================================================
+# ssadata is forked from source vanna (https://github.com/vanna-ai/vanna) 
+# version 0.7.5 as of 2024-12-03
+# 
+# uncomment below to install from github
+#==================================================================
+# git+https://github.com/digital-duck/ssadata.git
+
+# uncomment below to install from local clone
+#==================================================================
+# mkdir digital-duck
+# cd digital-duck
+# git clone https://github.com/digital-duck/ssadata.git
+# cd ssadata
+# pip install -e .                      # to verify: pip show vanna
+#==================================================================
+
+python-dotenv
+
+#==================================================================
+# Streamlit
+#==================================================================
 streamlit
 streamlit_code_editor
-python-dotenv
+streamlit_option_menu
+streamlit-aggrid
+
+#==================================================================
+# VectorDB/LLM
+#==================================================================
+chromadb
+
+ollama
 google-generativeai
 google-cloud-aiplatform
-chromadb
 openai
 mistralai
 anthropic
 google-generativeai
-boto3
+boto3  # required for AWS Bedrock
+
+# Misc
 openpyxl>=3.1.0
+lxml
+jsonlines
+notebook
+xlsxwriter  # used to combine CSV into one .xlsx
+

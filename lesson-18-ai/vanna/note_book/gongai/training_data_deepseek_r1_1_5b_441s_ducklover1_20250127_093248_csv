@@ -1,0 +1,177 @@
+id,dataset,question,content,training_data_type
+020848a7-bac7-53cf-9af9-ca0f8e540216-ddl,default,,"CREATE INDEX IFK_EmployeeReportsTo ON ""employees"" (ReportsTo)",ddl
+02ee8d00-a7dd-5598-b62b-e3a06084dbda-ddl,default,,"CREATE TABLE ""playlists""
+(
+    PlaylistId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    Name NVARCHAR(120)
+)",ddl
+039a70d7-499f-57e5-9cff-73e7c23dd2b3-ddl,default,,"CREATE TABLE ""media_types""
+(
+    MediaTypeId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    Name NVARCHAR(120)
+)",ddl
+0f11423b-66c8-5ba4-8e59-2e4f617db70e-ddl,default,,"CREATE TABLE ""invoices""
+(
+    InvoiceId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    CustomerId INTEGER  NOT NULL,
+    InvoiceDate DATETIME  NOT NULL,
+    BillingAddress NVARCHAR(70),
+    BillingCity NVARCHAR(40),
+    BillingState NVARCHAR(40),
+    BillingCountry NVARCHAR(40),
+    BillingPostalCode NVARCHAR(10),
+    Total NUMERIC(10,2)  NOT NULL,
+    FOREIGN KEY (CustomerId) REFERENCES ""customers"" (CustomerId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION
+)",ddl
+1323a585-b921-528b-a12c-54697d3801d3-ddl,default,,"CREATE TABLE ""employees""
+(
+    EmployeeId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    LastName NVARCHAR(20)  NOT NULL,
+    FirstName NVARCHAR(20)  NOT NULL,
+    Title NVARCHAR(30),
+    ReportsTo INTEGER,
+    BirthDate DATETIME,
+    HireDate DATETIME,
+    Address NVARCHAR(70),
+    City NVARCHAR(40),
+    State NVARCHAR(40),
+    Country NVARCHAR(40),
+    PostalCode NVARCHAR(10),
+    Phone NVARCHAR(24),
+    Fax NVARCHAR(24),
+    Email NVARCHAR(60),
+    FOREIGN KEY (ReportsTo) REFERENCES ""employees"" (EmployeeId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION
+)",ddl
+1b4e1e26-6cfa-573b-94b7-055aa1257b40-ddl,default,,"CREATE INDEX IFK_CustomerSupportRepId ON ""customers"" (SupportRepId)",ddl
+24ecfae0-fd59-599e-b6a0-b3ac0fa44dd1-doc,default,,"
+    In the 'customers' table, address column names do not have 'Billing' prefix, 
+    e.g. country column name is 'country', not 'BillingCountry'
+    ",documentation
+29a795c2-f536-548c-85b1-494e94c547c4-ddl,default,,"CREATE TABLE ""albums""
+(
+    AlbumId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    Title NVARCHAR(160)  NOT NULL,
+    ArtistId INTEGER  NOT NULL,
+    FOREIGN KEY (ArtistId) REFERENCES ""artists"" (ArtistId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION
+)",ddl
+37930d34-1822-55de-a43b-1b91e0521e0f-sql,default,"
+                    Generating SQL for this question: 
+                    Generating SQL for this question: Can you list all tables in the SQLite database catalog?
+                    results in the following error: [ERROR-DB] Failed to execute SQL: with no parameters, does it actually create a table? Or do I need to specify something else? I think in SQLite, you have to provide at least one parameter for the table name. Maybe it's like CREATE TABLE [table_name] limit 20
+ Execution failed on sql 'with no parameters, does it actually create a table? Or do I need to specify something else? I think in SQLite, you have to provide at least one parameter for the table name. Maybe it's like CREATE TABLE [table_name] limit 20': near ""parameters"": syntax error .
+                    Can you try to fix the error and re-generate the SQL statement?
+                
+                    results in the following error: [ERROR-DB] Failed to execute SQL: with no parameters, does it actually create a table? Or do I need to specify something else? I think in SQLite, you have to provide at least one parameter for the table name. Maybe it's like CREATE TABLE [table_name] limit 20
+ Execution failed on sql 'with no parameters, does it actually create a table? Or do I need to specify something else? I think in SQLite, you have to provide at least one parameter for the table name. Maybe it's like CREATE TABLE [table_name] limit 20': near ""parameters"": syntax error .
+                    Can you try to fix the error and re-generate the SQL statement?
+                ",SELECT * FROM sqlite_master limit 20,sql
+38197d19-a90b-5ebe-b51d-eeee8760b334-ddl,default,,"CREATE TABLE ""playlist_track""
+(
+    PlaylistId INTEGER  NOT NULL,
+    TrackId INTEGER  NOT NULL,
+    CONSTRAINT PK_PlaylistTrack PRIMARY KEY  (PlaylistId, TrackId),
+    FOREIGN KEY (PlaylistId) REFERENCES ""playlists"" (PlaylistId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION,
+    FOREIGN KEY (TrackId) REFERENCES ""tracks"" (TrackId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION
+)",ddl
+4bbdce6c-4cbd-53a7-98d6-455b65c23f1c-ddl,default,,"CREATE INDEX IFK_TrackAlbumId ON ""tracks"" (AlbumId)",ddl
+4ce614e1-1af5-502f-a106-5c71bd49c66c-ddl,default,,"CREATE TABLE sqlite_sequence(name,seq)",ddl
+4dc745a8-375e-51c7-b9cb-e93f6b179882-ddl,default,,"CREATE INDEX IFK_InvoiceLineTrackId ON ""invoice_items"" (TrackId)",ddl
+58dac216-497c-5225-8d22-b59885250762-ddl,default,,"CREATE INDEX IFK_InvoiceLineInvoiceId ON ""invoice_items"" (InvoiceId)",ddl
+833f07cf-68a0-5ca8-afda-dcf56dd90d92-ddl,default,,"CREATE TABLE ""tracks""
+(
+    TrackId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    Name NVARCHAR(200)  NOT NULL,
+    AlbumId INTEGER,
+    MediaTypeId INTEGER  NOT NULL,
+    GenreId INTEGER,
+    Composer NVARCHAR(220),
+    Milliseconds INTEGER  NOT NULL,
+    Bytes INTEGER,
+    UnitPrice NUMERIC(10,2)  NOT NULL,
+    FOREIGN KEY (AlbumId) REFERENCES ""albums"" (AlbumId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION,
+    FOREIGN KEY (GenreId) REFERENCES ""genres"" (GenreId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION,
+    FOREIGN KEY (MediaTypeId) REFERENCES ""media_types"" (MediaTypeId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION
+)",ddl
+88d03b79-b19b-5851-a54e-4650cd084666-ddl,default,,"CREATE INDEX IFK_TrackMediaTypeId ON ""tracks"" (MediaTypeId)",ddl
+90be1638-159a-51d4-b376-762b805aae91-ddl,default,,"CREATE TABLE ""invoice_items""
+(
+    InvoiceLineId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    InvoiceId INTEGER  NOT NULL,
+    TrackId INTEGER  NOT NULL,
+    UnitPrice NUMERIC(10,2)  NOT NULL,
+    Quantity INTEGER  NOT NULL,
+    FOREIGN KEY (InvoiceId) REFERENCES ""invoices"" (InvoiceId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION,
+    FOREIGN KEY (TrackId) REFERENCES ""tracks"" (TrackId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION
+)",ddl
+90d6de66-fbf7-52fd-bf7d-c39796669b7f-ddl,default,,"CREATE TABLE ""customers""
+(
+    CustomerId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    FirstName NVARCHAR(40)  NOT NULL,
+    LastName NVARCHAR(20)  NOT NULL,
+    Company NVARCHAR(80),
+    Address NVARCHAR(70),
+    City NVARCHAR(40),
+    State NVARCHAR(40),
+    Country NVARCHAR(40),
+    PostalCode NVARCHAR(10),
+    Phone NVARCHAR(24),
+    Fax NVARCHAR(24),
+    Email NVARCHAR(60)  NOT NULL,
+    SupportRepId INTEGER,
+    FOREIGN KEY (SupportRepId) REFERENCES ""employees"" (EmployeeId) 
+		ON DELETE NO ACTION ON UPDATE NO ACTION
+)",ddl
+93908e71-4aa4-5332-b504-7749472931a8-ddl,default,,"CREATE TABLE sqlite_stat1(tbl,idx,stat)",ddl
+981a8f6a-292e-5da4-b8f6-c979b05f60b2-ddl,default,,"CREATE TABLE ""artists""
+(
+    ArtistId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    Name NVARCHAR(120)
+)",ddl
+a8d77d80-5afb-5178-8491-a4ed1eb6112d-ddl,default,,"CREATE TABLE ""genres""
+(
+    GenreId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    Name NVARCHAR(120)
+)",ddl
+a9a6eea5-de78-5fc3-8650-31d9b258fda6-ddl,default,,"CREATE INDEX IFK_InvoiceCustomerId ON ""invoices"" (CustomerId)",ddl
+bb5b15de-95e3-5a54-bf49-a808285bc886-ddl,default,,"CREATE INDEX IFK_PlaylistTrackTrackId ON ""playlist_track"" (TrackId)",ddl
+c4ac6533-13e1-5879-bf15-9abf51e0c61c-ddl,default,,"CREATE INDEX IFK_AlbumArtistId ON ""albums"" (ArtistId)",ddl
+cec55741-f7e6-50f6-ace5-f7ee61430d57-ddl,default,,"CREATE INDEX IFK_TrackGenreId ON ""tracks"" (GenreId)",ddl
+e2cdfd36-5040-5cc6-82cc-24af4c8ec105-doc,default,,In the chinook database invoice means order,documentation
+f64c22d6-f381-5207-bfe0-4438d6748dae-sql,default,"
+                    Generating SQL for this question: How many customers are there
+                    results in the following error: [ERROR-DB] Failed to execute SQL: with a primary key for CustomerId.
+
+**Step-by-step Explanation:**
+
+1. **Identify the Table:** The relevant table is the 'customers' table.
+2. **Select the Column:** We are interested in the CustomerId column.
+3. **Count Distinct Values:** Use the COUNT(*) function to count how many unique CustomerIds exist.
+
+**SQL Query:**
+
+```sql
+SELECT COUNT(*) AS NumberOfCustomers FROM customers limit 20
+ Execution failed on sql 'with a primary key for CustomerId.
+
+**Step-by-step Explanation:**
+
+1. **Identify the Table:** The relevant table is the 'customers' table.
+2. **Select the Column:** We are interested in the CustomerId column.
+3. **Count Distinct Values:** Use the COUNT(*) function to count how many unique CustomerIds exist.
+
+**SQL Query:**
+
+```sql
+SELECT COUNT(*) AS NumberOfCustomers FROM customers limit 20': near ""primary"": syntax error .
+                    Can you try to fix the error and re-generate the SQL statement?
+                ",SELECT COUNT(*) AS NumberOfCustomers FROM customers limit 20,sql
