@@ -24,7 +24,7 @@ Here's how to implement it:
 
 ### 1. Create a Script
 
-Create a script file (e.g., `fix-ollama-gpu.sh`) with the following contents:
+Create a script file (e.g., `/usr/local/bin/fix-ollama-gpu.sh`) with the following contents:
 
 ```bash
 #!/bin/bash
@@ -68,17 +68,15 @@ exit 0
 ### 2. Make the Script Executable
 
 ```bash
-sudo chmod +x /path/to/your/fix-ollama-gpu.sh
+sudo chmod a+x /usr/local/bin/fix-ollama-gpu.sh
 ```
-
-(Replace `/path/to/your/` with the actual path to where you saved the script, e.g., `/usr/local/bin/fix-ollama-gpu.sh`)
 
 ### 3. Run the Script After Resume (Manually)
 
 After your system wakes up from suspend, open a terminal and run the script with sudo privileges:
 
 ```bash
-sudo /path/to/your/fix-ollama-gpu.sh
+sudo /usr/local/bin/fix-ollama-gpu.sh
 ```
 
 ### 4. Automate with systemd (Optional but Recommended)
@@ -100,7 +98,7 @@ After=sleep.target suspend.target hibernate.target hybrid-sleep.target
 
 [Service]
 Type=oneshot
-ExecStart=/path/to/your/fix-ollama-gpu.sh
+ExecStart=/usr/local/bin/fix-ollama-gpu.sh
 
 [Install]
 WantedBy=sleep.target suspend.target hibernate.target hybrid-sleep.target
