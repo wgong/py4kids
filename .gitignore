@@ -4,6 +4,7 @@
 **/stores.yaml
 **/.virtual_documents/
 **/*.drawio.bkp
+**/.env
 
 # temp/cache
 **/tmp*.*
