@@ -1,0 +1,305 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Image Gallery</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 20px;
+                background-color: #f0f0f0;
+            }
+            .gallery {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                gap: 20px;
+                padding: 20px;
+            }
+            .image-container {
+                background: white;
+                padding: 10px;
+                border-radius: 5px;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+                cursor: pointer;
+                transition: all 0.3s ease;
+            }
+            .image-container:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            }
+            .image-container img {
+                width: 100%;
+                height: 200px;
+                object-fit: cover;
+                border-radius: 3px;
+                transition: transform 0.3s ease;
+            }
+            .timestamp {
+                margin-top: 10px;
+                color: #666;
+                font-size: 0.8em;
+            }
+            #zoom-view {
+                display: none;          /* Only this display property */
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                z-index: 1000;
+                background: white;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 0 20px rgba(0,0,0,0.5);
+                width: 90vw;
+                height: 90vh;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+            #zoom-view img {
+                width: auto;
+                height: auto;
+                max-width: 100%;
+                max-height: calc(80vh - 160px); /* Leave space for info and buttons */
+                display: block;
+            }
+            .image-info {
+                width: 100%;
+                text-align: center;
+                margin: 15px 0;
+                color: #333;
+            }
+            .counter {
+                color: #666;
+                font-size: 0.9em;
+            }
+            .loading {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: rgba(0,0,0,0.8);
+                color: white;
+                padding: 20px;
+                border-radius: 10px;
+                z-index: 1001;
+                display: none;
+            }
+            .overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.8);
+                z-index: 999;
+            }
+            .nav-buttons {
+                width: 100%;           /* Take full width */
+                display: flex;
+                justify-content: center;
+                gap: 15px;
+                margin-top: 15px;
+                position: relative;    /* Position relative to zoom-view */
+                bottom: 0;            /* Align to bottom */
+            }
+            .nav-button {
+                padding: 10px 20px;
+                background-color: #4CAF50;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 16px;
+                transition: all 0.3s ease;
+            }
+            .nav-button:hover {
+                background-color: #45a049;
+                transform: scale(1.05);
+            }
+            .nav-button:disabled {
+                background-color: #cccccc;
+                cursor: not-allowed;
+            }
+            @media (max-width: 768px) {
+                .gallery {
+                    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                }
+                .nav-buttons {
+                    gap: 10px;
+                }
+                .nav-button {
+                    padding: 8px 16px;
+                    font-size: 14px;
+                }
+            }
+        </style>
+    </head>
+    
+    <body>
+        <h1>Charts</h1>
+        <div class="gallery">
+    
+            <div class="image-container" onclick="showZoom('Life-Ins-Trades-2023-11-03.png')">
+                <img src="C:\\Users\\p2p2l\\Documents\\ShareX\\Screenshots\\2023-11/Life-Ins-Trades-2023-11-03.png" alt="Life-Ins-Trades-2023-11-03.png" loading="lazy">
+                <div class="timestamp">ts: 2023-11-03 14:24:29</div>
+            </div>
+        
+            <div class="image-container" onclick="showZoom('DBA-Monthly.png')">
+                <img src="C:\\Users\\p2p2l\\Documents\\ShareX\\Screenshots\\2023-11/DBA-Monthly.png" alt="DBA-Monthly.png" loading="lazy">
+                <div class="timestamp">ts: 2023-11-04 08:11:09</div>
+            </div>
+        
+            <div class="image-container" onclick="showZoom('DBA-Weekly.png')">
+                <img src="C:\\Users\\p2p2l\\Documents\\ShareX\\Screenshots\\2023-11/DBA-Weekly.png" alt="DBA-Weekly.png" loading="lazy">
+                <div class="timestamp">ts: 2023-11-04 08:11:43</div>
+            </div>
+        
+            <div class="image-container" onclick="showZoom('DBA-daily.png')">
+                <img src="C:\\Users\\p2p2l\\Documents\\ShareX\\Screenshots\\2023-11/DBA-daily.png" alt="DBA-daily.png" loading="lazy">
+                <div class="timestamp">ts: 2023-11-04 08:12:10</div>
+            </div>
+        
+            <div class="image-container" onclick="showZoom('DBA-Max.png')">
+                <img src="C:\\Users\\p2p2l\\Documents\\ShareX\\Screenshots\\2023-11/DBA-Max.png" alt="DBA-Max.png" loading="lazy">
+                <div class="timestamp">ts: 2023-11-04 08:42:11</div>
+            </div>
+        
+            <div class="image-container" onclick="showZoom('WEAT-max.png')">
+                <img src="C:\\Users\\p2p2l\\Documents\\ShareX\\Screenshots\\2023-11/WEAT-max.png" alt="WEAT-max.png" loading="lazy">
+                <div class="timestamp">ts: 2023-11-04 08:45:11</div>
+            </div>
+        
+            <div class="image-container" onclick="showZoom('ICLN-max.png')">
+                <img src="C:\\Users\\p2p2l\\Documents\\ShareX\\Screenshots\\2023-11/ICLN-max.png" alt="ICLN-max.png" loading="lazy">
+                <div class="timestamp">ts: 2023-11-04 08:57:18</div>
+            </div>
+        
+            <div class="image-container" onclick="showZoom('GDX-max.png')">
+                <img src="C:\\Users\\p2p2l\\Documents\\ShareX\\Screenshots\\2023-11/GDX-max.png" alt="GDX-max.png" loading="lazy">
+                <div class="timestamp">ts: 2023-11-04 09:09:09</div>
+            </div>
+        
+            <div class="image-container" onclick="showZoom('AU-max.png')">
+                <img src="C:\\Users\\p2p2l\\Documents\\ShareX\\Screenshots\\2023-11/AU-max.png" alt="AU-max.png" loading="lazy">
+                <div class="timestamp">ts: 2023-11-04 09:12:54</div>
+            </div>
+        
+            <div class="image-container" onclick="showZoom('brave_WPRkollQIN.png')">
+                <img src="C:\\Users\\p2p2l\\Documents\\ShareX\\Screenshots\\2023-11/brave_WPRkollQIN.png" alt="brave_WPRkollQIN.png" loading="lazy">
+                <div class="timestamp">ts: 2023-11-04 23:06:53</div>
+            </div>
+        
+            <div class="image-container" onclick="showZoom('brave_pzfuSeaYb6.png')">
+                <img src="C:\\Users\\p2p2l\\Documents\\ShareX\\Screenshots\\2023-11/brave_pzfuSeaYb6.png" alt="brave_pzfuSeaYb6.png" loading="lazy">
+                <div class="timestamp">ts: 2023-11-23 13:01:10</div>
+            </div>
+        
+        </div>
+        <div class="loading" id="loading">Loading...</div>
+        <div class="overlay" id="overlay" onclick="hideZoom()"></div>
+        <div id="zoom-view">
+            <img id="zoom-image" src="" alt="Zoomed image" onload="hideLoading()" onerror="hideLoading()">
+            <div class="image-info">
+                <div id="image-name"></div>
+                <div class="counter" id="counter"></div>
+            </div>
+            <div class="nav-buttons">
+                <button class="nav-button" onclick="navigateImage('first')">&lt;&lt;</button>
+                <button class="nav-button" onclick="navigateImage('prev')">&lt;</button>
+                <button class="nav-button" onclick="navigateImage('next')">&gt;</button>
+                <button class="nav-button" onclick="navigateImage('last')">&gt;&gt;</button>
+            </div>
+        </div>
+        
+        <script>
+            let currentImageIndex = 0;
+            const imageFolder = 'C:\\Users\\p2p2l\\Documents\\ShareX\\Screenshots\\2023-11';
+            const images = [
+    'Life-Ins-Trades-2023-11-03.png','DBA-Monthly.png','DBA-Weekly.png','DBA-daily.png','DBA-Max.png','WEAT-max.png','ICLN-max.png','GDX-max.png','AU-max.png','brave_WPRkollQIN.png','brave_pzfuSeaYb6.png',
+            ];
+            
+            function showLoading() {
+                document.getElementById('loading').style.display = 'block';
+            }
+            
+            function hideLoading() {
+                document.getElementById('loading').style.display = 'none';
+            }
+            
+            function updateImageInfo() {
+                const counter = document.getElementById('counter');
+                const imageName = document.getElementById('image-name');
+                counter.textContent = `Image ${currentImageIndex + 1} of ${images.length}`;
+                imageName.textContent = images[currentImageIndex];
+            }
+            
+            function showZoom(filename) {
+                currentImageIndex = images.indexOf(filename);
+                const zoomView = document.getElementById('zoom-view');
+                // Set image source first
+                document.getElementById('zoom-image').src = imageFolder + '/' + images[currentImageIndex];
+                updateImageInfo();
+                // Show elements with correct display properties
+                zoomView.style.display = 'flex';  // Use flex when showing
+                document.getElementById('overlay').style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            }
+            
+            function hideZoom() {
+                document.getElementById('zoom-view').style.display = 'none';
+                document.getElementById('overlay').style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+            
+            function updateZoomImage() {
+                showLoading();
+                const zoomImage = document.getElementById('zoom-image');
+                zoomImage.src = imageFolder + '/' + images[currentImageIndex];
+                updateImageInfo();
+            }
+            
+            function navigateImage(direction) {
+                switch(direction) {
+                    case 'first':
+                        currentImageIndex = 0;
+                        break;
+                    case 'prev':
+                        currentImageIndex = Math.max(0, currentImageIndex - 1);
+                        break;
+                    case 'next':
+                        currentImageIndex = Math.min(images.length - 1, currentImageIndex + 1);
+                        break;
+                    case 'last':
+                        currentImageIndex = images.length - 1;
+                        break;
+                }
+                updateZoomImage();
+            }
+            
+            // Close on escape key
+            document.addEventListener('keydown', function(event) {
+                switch(event.key) {
+                    case 'Escape':
+                        hideZoom();
+                        break;
+                    case 'ArrowLeft':
+                        navigateImage('prev');
+                        break;
+                    case 'ArrowRight':
+                        navigateImage('next');
+                        break;
+                    case 'Home':
+                        navigateImage('first');
+                        break;
+                    case 'End':
+                        navigateImage('last');
+                        break;
+                }
+            });
+        </script>
+    </body>
+    </html>
+    

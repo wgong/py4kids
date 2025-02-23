@@ -1,0 +1,1 @@
+python gallery_browser.py -o charts.html -i "C:\\Users\\p2p2l\\Documents\\ShareX\\Screenshots\\2023-11" -t "Charts"
