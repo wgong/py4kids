@@ -1,0 +1,375 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Image Gallery</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 20px;
+                background-color: #f0f0f0;
+            }
+            .gallery {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                gap: 20px;
+                padding: 20px;
+            }
+            .image-container {
+                background: white;
+                padding: 10px;
+                border-radius: 5px;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+                cursor: pointer;
+                transition: all 0.3s ease;
+            }
+            .image-container:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            }
+            .image-container img {
+                width: 100%;
+                height: 200px;
+                object-fit: cover;
+                border-radius: 3px;
+                transition: transform 0.3s ease;
+            }
+            .timestamp {
+                margin-top: 10px;
+                color: #666;
+                font-size: 0.8em;
+            }
+            #zoom-view {
+                display: none;          /* Only this display property */
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                z-index: 1000;
+                background: white;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 0 20px rgba(0,0,0,0.5);
+                width: 90vw;
+                height: 90vh;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+            #zoom-view img {
+                width: auto;
+                height: auto;
+                max-width: 100%;
+                max-height: calc(80vh - 160px); /* Leave space for info and buttons */
+                display: block;
+            }
+            .image-info {
+                width: 100%;
+                text-align: center;
+                margin: 15px 0;
+                color: #333;
+            }
+            .counter {
+                color: #666;
+                font-size: 0.9em;
+            }
+            .loading {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: rgba(0,0,0,0.8);
+                color: white;
+                padding: 20px;
+                border-radius: 10px;
+                z-index: 1001;
+                display: none;
+            }
+            .overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.8);
+                z-index: 999;
+            }
+            .nav-buttons {
+                width: 100%;           /* Take full width */
+                display: flex;
+                justify-content: center;
+                gap: 15px;
+                margin-top: 15px;
+                position: relative;    /* Position relative to zoom-view */
+                bottom: 0;            /* Align to bottom */
+            }
+            .nav-button {
+                padding: 10px 20px;
+                background-color: #4CAF50;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 16px;
+                transition: all 0.3s ease;
+            }
+            .nav-button:hover {
+                background-color: #45a049;
+                transform: scale(1.05);
+            }
+            .nav-button:disabled {
+                background-color: #cccccc;
+                cursor: not-allowed;
+            }
+            @media (max-width: 768px) {
+                .gallery {
+                    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                }
+                .nav-buttons {
+                    gap: 10px;
+                }
+                .nav-button {
+                    padding: 8px 16px;
+                    font-size: 14px;
+                }
+            }
+        </style>
+    </head>
+    
+    <body>
+        <h1>Quantum Computing</h1>
+        <div class="gallery">
+    
+            <div class="image-container" onclick="showZoom('Zoom_5L4PMdxqvs.png')">
+                <img src="images/Zoom_5L4PMdxqvs.png" alt="Zoom_5L4PMdxqvs.png" loading="lazy">
+                <div class="timestamp">ts: 2025-02-22 21:36:57</div>
+            </div>
+        
+            <div class="image-container" onclick="showZoom('Zoom_tnDqRUjQb0.png')">
+                <img src="images/Zoom_tnDqRUjQb0.png" alt="Zoom_tnDqRUjQb0.png" loading="lazy">
+                <div class="timestamp">ts: 2025-02-22 21:38:53</div>
+            </div>
+        
+            <div class="image-container" onclick="showZoom('Zoom_C0Tj7cOsEo.png')">
+                <img src="images/Zoom_C0Tj7cOsEo.png" alt="Zoom_C0Tj7cOsEo.png" loading="lazy">
+                <div class="timestamp">ts: 2025-02-22 21:39:37</div>
+            </div>
+        
+            <div class="image-container" onclick="showZoom('Zoom_G0Y8IDkOnq.png')">
+                <img src="images/Zoom_G0Y8IDkOnq.png" alt="Zoom_G0Y8IDkOnq.png" loading="lazy">
+                <div class="timestamp">ts: 2025-02-22 21:40:10</div>
+            </div>
+        
+            <div class="image-container" onclick="showZoom('Zoom_VHJ77cAN7y.png')">
+                <img src="images/Zoom_VHJ77cAN7y.png" alt="Zoom_VHJ77cAN7y.png" loading="lazy">
+                <div class="timestamp">ts: 2025-02-22 21:42:17</div>
+            </div>
+        
+            <div class="image-container" onclick="showZoom('Zoom_Fx6JtBoPCM.png')">
+                <img src="images/Zoom_Fx6JtBoPCM.png" alt="Zoom_Fx6JtBoPCM.png" loading="lazy">
+                <div class="timestamp">ts: 2025-02-22 21:43:15</div>
+            </div>
+        
+            <div class="image-container" onclick="showZoom('Zoom_kRLTEQmTxU.png')">
+                <img src="images/Zoom_kRLTEQmTxU.png" alt="Zoom_kRLTEQmTxU.png" loading="lazy">
+                <div class="timestamp">ts: 2025-02-22 21:46:57</div>
+            </div>
+        
+            <div class="image-container" onclick="showZoom('Zoom_FXHv4bwBYq.png')">
+                <img src="images/Zoom_FXHv4bwBYq.png" alt="Zoom_FXHv4bwBYq.png" loading="lazy">
+                <div class="timestamp">ts: 2025-02-22 21:48:46</div>
+            </div>
+        
+            <div class="image-container" onclick="showZoom('Zoom_VBb9d9SkM3.png')">
+                <img src="images/Zoom_VBb9d9SkM3.png" alt="Zoom_VBb9d9SkM3.png" loading="lazy">
+                <div class="timestamp">ts: 2025-02-22 21:49:37</div>
+            </div>
+        
+            <div class="image-container" onclick="showZoom('Zoom_rcmvMo1v56.png')">
+                <img src="images/Zoom_rcmvMo1v56.png" alt="Zoom_rcmvMo1v56.png" loading="lazy">
+                <div class="timestamp">ts: 2025-02-22 21:50:35</div>
+            </div>
+        
+            <div class="image-container" onclick="showZoom('Zoom_4VhHzrgZ3E.png')">
+                <img src="images/Zoom_4VhHzrgZ3E.png" alt="Zoom_4VhHzrgZ3E.png" loading="lazy">
+                <div class="timestamp">ts: 2025-02-22 21:50:42</div>
+            </div>
+        
+            <div class="image-container" onclick="showZoom('Zoom_mRwqBOEOCf.png')">
+                <img src="images/Zoom_mRwqBOEOCf.png" alt="Zoom_mRwqBOEOCf.png" loading="lazy">
+                <div class="timestamp">ts: 2025-02-22 21:52:45</div>
+            </div>
+        
+            <div class="image-container" onclick="showZoom('Zoom_B3rGqMKjhF.png')">
+                <img src="images/Zoom_B3rGqMKjhF.png" alt="Zoom_B3rGqMKjhF.png" loading="lazy">
+                <div class="timestamp">ts: 2025-02-22 21:53:34</div>
+            </div>
+        
+            <div class="image-container" onclick="showZoom('Zoom_wo6QoExSDU.png')">
+                <img src="images/Zoom_wo6QoExSDU.png" alt="Zoom_wo6QoExSDU.png" loading="lazy">
+                <div class="timestamp">ts: 2025-02-22 21:54:05</div>
+            </div>
+        
+            <div class="image-container" onclick="showZoom('Zoom_EheB3MLGHb.png')">
+                <img src="images/Zoom_EheB3MLGHb.png" alt="Zoom_EheB3MLGHb.png" loading="lazy">
+                <div class="timestamp">ts: 2025-02-22 21:55:53</div>
+            </div>
+        
+            <div class="image-container" onclick="showZoom('Zoom_LZIRh2Bxlx.png')">
+                <img src="images/Zoom_LZIRh2Bxlx.png" alt="Zoom_LZIRh2Bxlx.png" loading="lazy">
+                <div class="timestamp">ts: 2025-02-22 21:57:38</div>
+            </div>
+        
+            <div class="image-container" onclick="showZoom('Zoom_1VIgQt1i6y.png')">
+                <img src="images/Zoom_1VIgQt1i6y.png" alt="Zoom_1VIgQt1i6y.png" loading="lazy">
+                <div class="timestamp">ts: 2025-02-22 21:59:36</div>
+            </div>
+        
+            <div class="image-container" onclick="showZoom('Zoom_ydVmb0ls5u.png')">
+                <img src="images/Zoom_ydVmb0ls5u.png" alt="Zoom_ydVmb0ls5u.png" loading="lazy">
+                <div class="timestamp">ts: 2025-02-22 22:06:59</div>
+            </div>
+        
+            <div class="image-container" onclick="showZoom('Zoom_6PF7dV6rDD.png')">
+                <img src="images/Zoom_6PF7dV6rDD.png" alt="Zoom_6PF7dV6rDD.png" loading="lazy">
+                <div class="timestamp">ts: 2025-02-22 22:08:52</div>
+            </div>
+        
+            <div class="image-container" onclick="showZoom('Zoom_tNPEBzEpBm.png')">
+                <img src="images/Zoom_tNPEBzEpBm.png" alt="Zoom_tNPEBzEpBm.png" loading="lazy">
+                <div class="timestamp">ts: 2025-02-22 22:10:03</div>
+            </div>
+        
+            <div class="image-container" onclick="showZoom('Zoom_BMtI9Ikk5K.png')">
+                <img src="images/Zoom_BMtI9Ikk5K.png" alt="Zoom_BMtI9Ikk5K.png" loading="lazy">
+                <div class="timestamp">ts: 2025-02-22 22:11:50</div>
+            </div>
+        
+            <div class="image-container" onclick="showZoom('Zoom_d8nqwRNNlz.png')">
+                <img src="images/Zoom_d8nqwRNNlz.png" alt="Zoom_d8nqwRNNlz.png" loading="lazy">
+                <div class="timestamp">ts: 2025-02-22 22:14:45</div>
+            </div>
+        
+            <div class="image-container" onclick="showZoom('Zoom_FTJDdbzDU3.png')">
+                <img src="images/Zoom_FTJDdbzDU3.png" alt="Zoom_FTJDdbzDU3.png" loading="lazy">
+                <div class="timestamp">ts: 2025-02-22 22:20:09</div>
+            </div>
+        
+            <div class="image-container" onclick="showZoom('Zoom_7rZ4Fxgt19.png')">
+                <img src="images/Zoom_7rZ4Fxgt19.png" alt="Zoom_7rZ4Fxgt19.png" loading="lazy">
+                <div class="timestamp">ts: 2025-02-22 22:21:07</div>
+            </div>
+        
+            <div class="image-container" onclick="showZoom('brave_ske2Xtocrp.png')">
+                <img src="images/brave_ske2Xtocrp.png" alt="brave_ske2Xtocrp.png" loading="lazy">
+                <div class="timestamp">ts: 2025-02-22 22:31:42</div>
+            </div>
+        
+        </div>
+        <div class="loading" id="loading">Loading...</div>
+        <div class="overlay" id="overlay" onclick="hideZoom()"></div>
+        <div id="zoom-view">
+            <img id="zoom-image" src="" alt="Zoomed image" onload="hideLoading()" onerror="hideLoading()">
+            <div class="image-info">
+                <div id="image-name"></div>
+                <div class="counter" id="counter"></div>
+            </div>
+            <div class="nav-buttons">
+                <button class="nav-button" onclick="navigateImage('first')">&lt;&lt;</button>
+                <button class="nav-button" onclick="navigateImage('prev')">&lt;</button>
+                <button class="nav-button" onclick="navigateImage('next')">&gt;</button>
+                <button class="nav-button" onclick="navigateImage('last')">&gt;&gt;</button>
+            </div>
+        </div>
+        
+        <script>
+            let currentImageIndex = 0;
+            const imageFolder = 'images';
+            const images = [
+    'Zoom_5L4PMdxqvs.png','Zoom_tnDqRUjQb0.png','Zoom_C0Tj7cOsEo.png','Zoom_G0Y8IDkOnq.png','Zoom_VHJ77cAN7y.png','Zoom_Fx6JtBoPCM.png','Zoom_kRLTEQmTxU.png','Zoom_FXHv4bwBYq.png','Zoom_VBb9d9SkM3.png','Zoom_rcmvMo1v56.png','Zoom_4VhHzrgZ3E.png','Zoom_mRwqBOEOCf.png','Zoom_B3rGqMKjhF.png','Zoom_wo6QoExSDU.png','Zoom_EheB3MLGHb.png','Zoom_LZIRh2Bxlx.png','Zoom_1VIgQt1i6y.png','Zoom_ydVmb0ls5u.png','Zoom_6PF7dV6rDD.png','Zoom_tNPEBzEpBm.png','Zoom_BMtI9Ikk5K.png','Zoom_d8nqwRNNlz.png','Zoom_FTJDdbzDU3.png','Zoom_7rZ4Fxgt19.png','brave_ske2Xtocrp.png',
+            ];
+            
+            function showLoading() {
+                document.getElementById('loading').style.display = 'block';
+            }
+            
+            function hideLoading() {
+                document.getElementById('loading').style.display = 'none';
+            }
+            
+            function updateImageInfo() {
+                const counter = document.getElementById('counter');
+                const imageName = document.getElementById('image-name');
+                counter.textContent = `Image ${currentImageIndex + 1} of ${images.length}`;
+                imageName.textContent = images[currentImageIndex];
+            }
+            
+            function showZoom(filename) {
+                currentImageIndex = images.indexOf(filename);
+                const zoomView = document.getElementById('zoom-view');
+                // Set image source first
+                document.getElementById('zoom-image').src = imageFolder + '/' + images[currentImageIndex];
+                updateImageInfo();
+                // Show elements with correct display properties
+                zoomView.style.display = 'flex';  // Use flex when showing
+                document.getElementById('overlay').style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            }
+            
+            function hideZoom() {
+                document.getElementById('zoom-view').style.display = 'none';
+                document.getElementById('overlay').style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+            
+            function updateZoomImage() {
+                showLoading();
+                const zoomImage = document.getElementById('zoom-image');
+                zoomImage.src = imageFolder + '/' + images[currentImageIndex];
+                updateImageInfo();
+            }
+            
+            function navigateImage(direction) {
+                switch(direction) {
+                    case 'first':
+                        currentImageIndex = 0;
+                        break;
+                    case 'prev':
+                        currentImageIndex = Math.max(0, currentImageIndex - 1);
+                        break;
+                    case 'next':
+                        currentImageIndex = Math.min(images.length - 1, currentImageIndex + 1);
+                        break;
+                    case 'last':
+                        currentImageIndex = images.length - 1;
+                        break;
+                }
+                updateZoomImage();
+            }
+            
+            // Close on escape key
+            document.addEventListener('keydown', function(event) {
+                switch(event.key) {
+                    case 'Escape':
+                        hideZoom();
+                        break;
+                    case 'ArrowLeft':
+                        navigateImage('prev');
+                        break;
+                    case 'ArrowRight':
+                        navigateImage('next');
+                        break;
+                    case 'Home':
+                        navigateImage('first');
+                        break;
+                    case 'End':
+                        navigateImage('last');
+                        break;
+                }
+            });
+        </script>
+    </body>
+    </html>
+    
