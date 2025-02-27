@@ -23,6 +23,29 @@ git clone git@github.com:wgong/autogen.git
 
 ## Tutorials
 
+### AI Agentic Design Patterns with AutoGen
+- https://www.youtube.com/watch?v=TBNTH-fwGPE
+- ~/projects/wgong/py4kids/lesson-18-ai/Agents/autogen/agentic-design-patterns/notebooks
+
+### DocAgent
+- [Video](https://www.youtube.com/watch?v=sNKQR4LNOK0&t=1s)
+- [Doc](https://docs.ag2.ai/docs/user-guide/reference-agents/docagent)
+
+- ~/projects/wgong/AG2/ag2/notebook/agents_docagent_u8hi.ipynb
+    - Issues
+        - https://github.com/ag2ai/ag2/issues/1167
+
+#### Setup
+```
+pip install ag2[rag]
+
+cd ~/projects/wgong/AG2/ag2
+
+# ~/projects/wgong/AG2/ag2/notebook/agents_docagent.ipynb
+```
+
+
+
 
 ## Research
 
