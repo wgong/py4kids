@@ -2,20 +2,41 @@
 # AG2 (AutoGen - community edition)
 
 - [Docs](https://docs.ag2.ai/docs/Home)
+- [Blogs](https://docs.ag2.ai/docs/blog/2025-02-13-DeepResearchAgent/index)
+
 
 ## Goal - Agentic RAG
 Build Data Copilot on Agentic RAG framework
 
 ## Local Dev
 
-```
+```bash
+conda env remove --name agent
+conda clean --all  # remove unused env space
+
 conda create -n ag2 python=3.11
 conda activate ag2
 
+# my forked
 cd ~/projects/wgong/AG2
 
 git clone git@github.com:wgong/ag2.git
 git clone git@github.com:wgong/build-with-ag2.git
+
+cd ag2
+pip install -e ".[openai,rag]"   # use DocAgent
+
+# Also delete the cache
+rm -rf notebook/.cache
+
+# notes
+# see ~/projects/wgong/AG2/ag2/notebook/u8hi_agents/readme.md
+
+
+# original
+cd ~/projects/AI/
+
+git clone git@github.com:ag2ai/ag2.git
 
 # old work
 git clone git@github.com:wgong/autogen.git
