@@ -25,6 +25,7 @@ git clone git@github.com:wgong/build-with-ag2.git
 
 cd ag2
 pip install -e ".[openai,rag]"   # use DocAgent
+pip install ag2==0.8.0b1
 
 # Also delete the cache
 rm -rf notebook/.cache
