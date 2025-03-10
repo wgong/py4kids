@@ -240,8 +240,47 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": 13,
    "id": "e35f2b64-9a98-4e2f-a896-fc6307b4a514",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "s = \"\"\"\n",
+    "                , zp.zi_left_down\n",
+    "                , zp.zi_up\n",
+    "                , zp.zi_mid\n",
+    "                , zp.zi_down\n",
+    "                , zp.zi_right_up\n",
+    "                , zp.zi_right\n",
+    "                , zp.zi_right_down\n",
+    "                , zp.zi_mid_out\n",
+    "                , zp.zi_mid_in\n",
+    "\n",
+    "\"\"\".replace(\", zp.\",\"\").split()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 15,
+   "id": "b5c4af41-da29-4769-beaa-5fe96214cd47",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "['zi_left_down', 'zi_up', 'zi_mid', 'zi_down', 'zi_right_up', 'zi_right', 'zi_right_down', 'zi_mid_out', 'zi_mid_in']\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(s)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "a434de25-3871-495a-8f61-6ed3e3509f25",
    "metadata": {},
    "outputs": [],
    "source": []
