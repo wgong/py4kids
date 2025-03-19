@@ -39,11 +39,11 @@ Installation:
 
 Example Configuration File (~/git_sync_config.yaml):
     repos:
-      - path: /home/papagame/projects/wgong/phidata
+      - path: /home/papagame/projects/agent/phidata
       - path: /home/papagame/projects/digital-duck/zinets
 
 Author:
-    Your Name <your_email@example.com>
+    Digital Duck AI <p2p2learn@outlook.com>
 """
 
 import os
@@ -85,26 +85,6 @@ def run_git_command(repo_path, command):
         click.echo(f"Error running command '{' '.join(command)}' in {repo_path}: {e.stderr}", err=True)
         return None
 
-def parse_git_status(status_output):
-    """
-    Parse the output of `git status` to extract changed files.
-    Returns a dictionary with lists of modified, added, and deleted files.
-    """
-    changes = {
-        "modified": [],
-        "added": [],
-        "deleted": []
-    }
-    lines = status_output.splitlines()
-    for line in lines:
-        if "modified:" in line:
-            changes["modified"].append(line.strip().split("modified:")[1].strip())
-        elif "new file:" in line:
-            changes["added"].append(line.strip().split("new file:")[1].strip())
-        elif "deleted:" in line:
-            changes["deleted"].append(line.strip().split("deleted:")[1].strip())
-    return changes
-
 def sync_repo(repo_path):
     """
     Sync a single repository:
@@ -113,7 +93,7 @@ def sync_repo(repo_path):
     3. Check the status to see if there are local changes to push.
     4. Add, commit, and push changes if there are any local modifications.
     """
-    click.echo(click.style(f"\nProcessing repository: {repo_path}", fg="cyan", bold=True))
+    click.echo(f"\nProcessing repository: {repo_path}")
     
     # Step 1: Fetch the latest changes from the remote
     click.echo("Fetching latest changes...")
@@ -133,43 +113,26 @@ def sync_repo(repo_path):
     if status_output is not None:
         click.echo(status_output.strip())
     
-    # Parse the status output to extract changed files
-    changes = parse_git_status(status_output)
-    
-    # Highlight changed files
-    if changes["modified"]:
-        click.echo(click.style("\nModified files:", fg="yellow", bold=True))
-        for file in changes["modified"]:
-            click.echo(click.style(f"  {file}", fg="yellow"))
-    if changes["added"]:
-        click.echo(click.style("\nNew files:", fg="green", bold=True))
-        for file in changes["added"]:
-            click.echo(click.style(f"  {file}", fg="green"))
-    if changes["deleted"]:
-        click.echo(click.style("\nDeleted files:", fg="red", bold=True))
-        for file in changes["deleted"]:
-            click.echo(click.style(f"  {file}", fg="red"))
-    
     # Step 4: If there are changes, stage, commit, and push them
     if "nothing to commit" not in status_output:
-        click.echo(click.style("\nLocal changes detected. Staging, committing, and pushing changes...", fg="cyan"))
+        click.echo("Local changes detected. Staging, committing, and pushing changes...")
         
         # Stage all changes
         add_output = run_git_command(repo_path, ['git', 'add', '.'])
         if add_output is not None:
-            click.echo(click.style("Staged all changes.", fg="green"))
+            click.echo("Staged all changes.")
         
         # Commit with a dummy message
         commit_output = run_git_command(repo_path, ['git', 'commit', '-m', 'update'])
         if commit_output is not None:
-            click.echo(click.style("Committed changes with message 'update'.", fg="green"))
+            click.echo("Committed changes with message 'update'.")
         
         # Push changes to the remote
         push_output = run_git_command(repo_path, ['git', 'push'])
         if push_output is not None:
-            click.echo(click.style("Pushed changes to the remote.", fg="green"))
+            click.echo("Pushed changes to the remote.")
     else:
-        click.echo(click.style("No local changes to push.", fg="blue"))
+        click.echo("No local changes to push.")
 
 @click.command()
 @click.option('--config', '-c', default=os.path.expanduser('~/git_sync_config.yaml'),
