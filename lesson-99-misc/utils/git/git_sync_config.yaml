@@ -1,4 +1,5 @@
 repos:
+# host = 'ducklover1'
   - path: ~/projects/wgong/py4kids
   - path: ~/projects/wgong/phidata
   - path: ~/projects/digital-duck/zinets
