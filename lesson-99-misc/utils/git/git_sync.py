@@ -27,7 +27,7 @@ Usage:
     python git_sync.py --help
 
 Options:
-    -c, --config PATH  Path to the YAML configuration file (default: ~/git_sync_config.yaml).
+    -c, --config PATH  Path to the YAML configuration file (default: ./git_sync_config.yaml).
     --help             Show this message and exit.
 
 Dependencies:
@@ -51,12 +51,26 @@ import subprocess
 import yaml
 import click
 
+def resolve_config(config_file):
+    """ Look for config file in current folder, else in "~" home folder
+    """
+    if os.path.exists(config_file):
+        return True, config_file
+    
+    tmp = config_file.split("/")
+    cfg_file = f"~/{tmp[-1]}"
+    config_file = os.path.expanduser(cfg_file)
+    if os.path.exists(config_file):
+        return True, config_file
+        
+    return False, None 
+
 def load_config(config_file):
     """
     Load the YAML configuration file containing the list of repositories.
     Expected format:
         repos:
-          - path: /path/to/repo1
+          - path: ~/path/to/repo1
           - path: /path/to/repo2
     """
     try:
@@ -172,8 +186,8 @@ def sync_repo(repo_path):
         click.echo(click.style("No local changes to push.", fg="blue"))
 
 @click.command()
-@click.option('--config', '-c', default=os.path.expanduser('~/git_sync_config.yaml'),
-              help='Path to the YAML configuration file (default: ~/git_sync_config.yaml).')
+@click.option('--config', '-c', default='git_sync_config.yaml',
+              help='Path to the YAML configuration file (default: git_sync_config.yaml).')
 def main(config):
     """
     Synchronize multiple Git repositories based on a YAML configuration file.
@@ -181,9 +195,15 @@ def main(config):
     The configuration file should contain a list of repositories with their paths.
     Example:
         repos:
-          - path: /path/to/repo1
+          - path: ~/path/to/repo1
           - path: /path/to/repo2
     """
+    b_found, config_file = resolve_config(config)
+    if not b_found:
+        click.echo(f"Failed to resolve configuration file: {config}", err=True)
+        return
+
+    config = config_file
     click.echo(f"Using configuration file: {config}")
     
     # Load the list of repositories from the config file
@@ -195,6 +215,8 @@ def main(config):
     # Iterate through each repository and sync it
     for repo in repos:
         repo_path = repo.get('path')
+        if repo_path.startswith("~"):
+            repo_path = os.path.expanduser(repo_path)
         if not repo_path or not os.path.isdir(repo_path):
             click.echo(f"Invalid or missing repository path: {repo_path}", err=True)
             continue

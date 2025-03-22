@@ -1,4 +1,4 @@
 repos:
-  - path: /home/papagame/projects/wgong/phidata
-  - path: /home/papagame/projects/digital-duck/zinets
-  - path: /home/papagame/projects/wgong/py4kids
+  - path: ~/projects/wgong/py4kids
+  - path: ~/projects/wgong/phidata
+  - path: ~/projects/digital-duck/zinets
