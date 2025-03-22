@@ -50,6 +50,15 @@ import os
 import subprocess
 import yaml
 import click
+import socket
+from datetime import datetime
+
+str_error = "[ERROR]"
+str_info = "[INFO]"
+
+def log_msg(msg, tag=str_error):
+    with open("git_sync.log", "a") as fd:
+        fd.write(f"{tag} {msg}\n")
 
 def resolve_config(config_file):
     """ Look for config file in current folder, else in "~" home folder
@@ -78,7 +87,9 @@ def load_config(config_file):
             config = yaml.safe_load(file)
         return config.get('repos', [])
     except Exception as e:
-        click.echo(f"Error loading config file: {e}", err=True)
+        err_msg = f"Failed to load config file: {config_file} \n {e}"
+        click.echo(err_msg, err=True)
+        log_msg(err_msg)
         return []
 
 def run_git_command(repo_path, command):
@@ -96,7 +107,9 @@ def run_git_command(repo_path, command):
         )
         return result.stdout
     except subprocess.CalledProcessError as e:
-        click.echo(f"Error running command '{' '.join(command)}' in {repo_path}: {e.stderr}", err=True)
+        err_msg = f"Failed to run command '{' '.join(command)}' in {repo_path}: {e.stderr}"
+        click.echo(err_msg, err=True)
+        log_msg(err_msg)
         return None
 
 def parse_git_status(status_output):
@@ -198,9 +211,18 @@ def main(config):
           - path: ~/path/to/repo1
           - path: /path/to/repo2
     """
+    # Get the local machine's hostname
+    hostname = socket.gethostname()
+    ts = str(datetime.now())
+    sep = 80*"="
+    msg = f"\n[ {ts} ] Running git_sync on host machine '{hostname}'\n{sep}\n"
+    log_msg(msg, tag=str_info)
+
     b_found, config_file = resolve_config(config)
     if not b_found:
-        click.echo(f"Failed to resolve configuration file: {config}", err=True)
+        err_msg = f"Failed to resolve configuration file: {config}"
+        click.echo(err_msg, err=True)
+        log_msg(err_msg)
         return
 
     config = config_file
@@ -209,18 +231,32 @@ def main(config):
     # Load the list of repositories from the config file
     repos = load_config(config)
     if not repos:
-        click.echo("No repositories found in the config file.", err=True)
+        err_msg = f"No repositories found in the config file: {config}."
+        click.echo(err_msg, err=True)
+        log_msg(err_msg)
         return
     
     # Iterate through each repository and sync it
     for repo in repos:
-        repo_path = repo.get('path')
+        repo_path = repo.get('path', '').strip()
+        if not repo_path:
+            continue
+
         if repo_path.startswith("~"):
             repo_path = os.path.expanduser(repo_path)
-        if not repo_path or not os.path.isdir(repo_path):
-            click.echo(f"Invalid or missing repository path: {repo_path}", err=True)
+
+        if not os.path.isdir(repo_path):
+            err_msg = f"Repository path: '{repo_path}' invalid"
+            click.echo(err_msg, err=True)
+            log_msg(err_msg + "\n")
             continue
-        
+
+        if not os.path.exists(repo_path):
+            err_msg = f"Repository path: '{repo_path}' not found"
+            click.echo(err_msg, err=True)
+            log_msg(err_msg + "\n")
+            continue
+
         sync_repo(repo_path)
 
 if __name__ == "__main__":
