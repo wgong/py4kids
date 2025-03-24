@@ -147,20 +147,20 @@ def sync_repo(repo_path):
     click.echo(click.style(f"\nProcessing repository: {repo_path}", fg="cyan", bold=True))
     
     # Step 1: Fetch the latest changes from the remote
-    fetch_output = run_git_command(repo_path, ['git', 'fetch']).strip()
-    if not fetch_output:
+    git_output = run_git_command(repo_path, ['git', 'fetch']).strip()
+    if git_output:
         click.echo("Fetching latest changes...")
-        click.echo(f"'{fetch_output}' : {len(fetch_output)}")
+        click.echo(git_output)
     
     # Step 2: Pull the latest changes
-    pull_output = run_git_command(repo_path, ['git', 'pull']).strip()
-    if not pull_output:
+    git_output = run_git_command(repo_path, ['git', 'pull']).strip()
+    if git_output:
         click.echo("Pulling latest changes...")
-        click.echo(pull_output)
+        click.echo(git_output)
     
     # Step 3: Check the status for any local changes
     status_output = run_git_command(repo_path, ['git', 'status']).strip()
-    if not status_output:
+    if status_output:
         click.echo("Checking status...")
         click.echo(status_output)
     
