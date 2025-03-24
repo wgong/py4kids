@@ -117,6 +117,7 @@ def parse_git_status(status_output):
     Parse the output of `git status` to extract changed files.
     Returns a dictionary with lists of modified, added, and deleted files.
     """
+    b_changed = False
     changes = {
         "modified": [],
         "added": [],
@@ -126,11 +127,14 @@ def parse_git_status(status_output):
     for line in lines:
         if "modified:" in line:
             changes["modified"].append(line.strip().split("modified:")[1].strip())
+            b_changed = True
         elif "new file:" in line:
             changes["added"].append(line.strip().split("new file:")[1].strip())
+            b_changed = True
         elif "deleted:" in line:
             changes["deleted"].append(line.strip().split("deleted:")[1].strip())
-    return changes
+            b_changed = True
+    return changes, b_changed
 
 def sync_repo(repo_path):
     """
@@ -143,26 +147,28 @@ def sync_repo(repo_path):
     click.echo(click.style(f"\nProcessing repository: {repo_path}", fg="cyan", bold=True))
     
     # Step 1: Fetch the latest changes from the remote
-    click.echo("Fetching latest changes...")
     fetch_output = run_git_command(repo_path, ['git', 'fetch'])
     if fetch_output is not None:
+        click.echo("Fetching latest changes...")
         click.echo(fetch_output.strip())
     
     # Step 2: Pull the latest changes
-    click.echo("Pulling latest changes...")
     pull_output = run_git_command(repo_path, ['git', 'pull'])
     if pull_output is not None:
+        click.echo("Pulling latest changes...")
         click.echo(pull_output.strip())
     
     # Step 3: Check the status for any local changes
-    click.echo("Checking status...")
     status_output = run_git_command(repo_path, ['git', 'status'])
     if status_output is not None:
+        click.echo("Checking status...")
         click.echo(status_output.strip())
     
     # Parse the status output to extract changed files
-    changes = parse_git_status(status_output)
-    
+    changes, b_changed = parse_git_status(status_output)
+    if not b_changed:
+        return
+
     # Highlight changed files
     if changes["modified"]:
         click.echo(click.style("\nModified files:", fg="yellow", bold=True))
