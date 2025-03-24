@@ -154,13 +154,13 @@ def sync_repo(repo_path):
     
     # Step 2: Pull the latest changes
     git_output = run_git_command(repo_path, ['git', 'pull']).strip()
-    if git_output:
+    if git_output and "Already up to date" not in git_output:
         click.echo("Pulling latest changes...")
         click.echo(git_output)
     
     # Step 3: Check the status for any local changes
     status_output = run_git_command(repo_path, ['git', 'status']).strip()
-    if status_output:
+    if status_output and "nothing to commit" not in status_output:
         click.echo("Checking status...")
         click.echo(status_output)
     
