@@ -150,7 +150,7 @@ def sync_repo(repo_path):
     fetch_output = run_git_command(repo_path, ['git', 'fetch']).strip()
     if not fetch_output:
         click.echo("Fetching latest changes...")
-        click.echo(fetch_output)
+        click.echo(f"'{fetch_output}' : {len(fetch_output)}")
     
     # Step 2: Pull the latest changes
     pull_output = run_git_command(repo_path, ['git', 'pull']).strip()
