@@ -1,17 +1,23 @@
 repos:
+# cd lesson-99-misc/utils/git ; 00_run_git_sync.sh
 # host = 'ducklover1'
   - path: ~/projects/wgong/py4kids
   - path: ~/projects/wgong/phidata
-  - path: ~/projects/digital-duck/zinets
-  - path: ~/projects/digital-duck/data-copilot
-  - path: ~/projects/digital-duck/ssadata
-  - path: ~/projects/digital-duck/st_ragents
-  - path: ~/projects/digital-duck/st_semantics
-  - path: ~/projects/digital-duck/st_translator
-  - path: ~/projects/digital-duck/semantics-explorer
-  - path: ~/projects/wgong/watchetf
   - path: ~/projects/wgong/zistory/zinets
+  - path: ~/projects/wgong/watchetf
   - path: ~/projects/wgong/streamlit/streamlitapp
   - path: ~/projects/wgong/gpt3codex
   - path: ~/projects/wgong/gpt3sql
+  - path: ~/projects/wgong/gpt3codex
+  - path: ~/projects/digital-duck/zinets
+  - path: ~/projects/digital-duck/zinetsapp
+  - path: ~/projects/digital-duck/data-copilot
+  - path: ~/projects/digital-duck/ssadata
+  - path: ~/projects/digital-duck/st_agent_hub
+  - path: ~/projects/digital-duck/st_ragents
+  - path: ~/projects/digital-duck/st_semantics
+  - path: ~/projects/digital-duck/st_tools
+  - path: ~/projects/digital-duck/st_translator
+  - path: ~/projects/digital-duck/semantics-explorer
   - path: ~/projects/gongwork/st_rag
+  - path: ~/projects/gongwork/data-copilot
