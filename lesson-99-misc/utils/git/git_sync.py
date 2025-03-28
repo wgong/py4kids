@@ -118,25 +118,27 @@ def parse_git_status(status_output):
     Returns a dictionary with lists of modified, added, and deleted files.
     """
     b_changed = False
-    changes = {
-        "modified": [],
-        "added": [],
-        "deleted": []
-    }
+    # changes = {
+    #     "modified": [],
+    #     "added": [],
+    #     "deleted": []
+    # }
     if "Untracked files:" in status_output:
         b_changed = True
+
     lines = status_output.splitlines()
     for line in lines:
+        line = line.lower()
         if "modified:" in line:
-            changes["modified"].append(line.strip().split("modified:")[1].strip())
+            # changes["modified"].append(line.strip().split("modified:")[1].strip())
             b_changed = True
         elif "new file:" in line:
-            changes["added"].append(line.strip().split("new file:")[1].strip())
+            # changes["added"].append(line.strip().split("new file:")[1].strip())
             b_changed = True
         elif "deleted:" in line:
-            changes["deleted"].append(line.strip().split("deleted:")[1].strip())
+            # changes["deleted"].append(line.strip().split("deleted:")[1].strip())
             b_changed = True
-    return changes, b_changed
+    return b_changed
 
 def sync_repo(repo_path):
     """
@@ -167,26 +169,26 @@ def sync_repo(repo_path):
         click.echo(status_output)
     
     # Parse the status output to extract changed files
-    changes, b_changed = parse_git_status(status_output)
+    b_changed = parse_git_status(status_output)
     if not b_changed:
         return
 
-    # Highlight changed files
-    if changes["modified"]:
-        click.echo(click.style("\nModified files:", fg="yellow", bold=True))
-        for file in changes["modified"]:
-            click.echo(click.style(f"  {file}", fg="yellow"))
-    if changes["added"]:
-        click.echo(click.style("\nNew files:", fg="green", bold=True))
-        for file in changes["added"]:
-            click.echo(click.style(f"  {file}", fg="green"))
-    if changes["deleted"]:
-        click.echo(click.style("\nDeleted files:", fg="red", bold=True))
-        for file in changes["deleted"]:
-            click.echo(click.style(f"  {file}", fg="red"))
+    # # Highlight changed files
+    # if changes["modified"]:
+    #     click.echo(click.style("\nModified files:", fg="yellow", bold=True))
+    #     for file in changes["modified"]:
+    #         click.echo(click.style(f"  {file}", fg="yellow"))
+    # if changes["added"]:
+    #     click.echo(click.style("\nNew files:", fg="green", bold=True))
+    #     for file in changes["added"]:
+    #         click.echo(click.style(f"  {file}", fg="green"))
+    # if changes["deleted"]:
+    #     click.echo(click.style("\nDeleted files:", fg="red", bold=True))
+    #     for file in changes["deleted"]:
+    #         click.echo(click.style(f"  {file}", fg="red"))
     
     # Step 4: If there are changes, stage, commit, and push them
-    if "nothing to commit" not in status_output:
+    if "nothing to commit" not in status_output.lower():
         click.echo(click.style("\nLocal changes detected. Staging, committing, and pushing changes...", fg="cyan"))
         
         # Stage all changes
