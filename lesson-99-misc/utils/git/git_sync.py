@@ -123,6 +123,8 @@ def parse_git_status(status_output):
         "added": [],
         "deleted": []
     }
+    if "Untracked files:" in status_output:
+        b_changed = True
     lines = status_output.splitlines()
     for line in lines:
         if "modified:" in line:
