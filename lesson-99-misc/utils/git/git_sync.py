@@ -123,6 +123,11 @@ def parse_git_status(status_output):
     #     "added": [],
     #     "deleted": []
     # }
+    if "Aborting" in status_output:
+        print("[ERROR] Aborting due to merge conflicts.")
+        b_changed = False
+        return b_changed
+
     if "Untracked files:" in status_output:
         b_changed = True
 
