@@ -1,4 +1,10 @@
 # Git Tips
+
+- use brave browser to view github.com/wgong and  github.com/digital-duck repos
+- use chrome browser to view github.com/gongwork
+  - use Authenticator app for 2FA
+
+
 - how to access 2 github accounts from your PC:
 https://code.tutsplus.com/quick-tip-how-to-work-with-github-and-multiple-accounts--net-22574t
   - in .ssh folder, create `config` file, name 2nd account host as `github.com-work`

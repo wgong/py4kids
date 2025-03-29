@@ -21,3 +21,9 @@ repos:
   - path: ~/projects/digital-duck/semantics-explorer
   - path: ~/projects/gongwork/st_rag
   - path: ~/projects/gongwork/data-copilot
+  - path: ~/projects/gongwork/generative-ai-for-beginners
+  - path: ~/projects/gongwork/jieba
+  - path: ~/projects/gongwork/Introduction-to-Chainlit
+  - path: ~/projects/gongwork/fully-local-pdf-chatbot
+  - path: ~/projects/gongwork/privateGPT
+  - path: ~/projects/gongwork/llama_index
