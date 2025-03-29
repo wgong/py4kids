@@ -163,6 +163,10 @@ def sync_repo(repo_path):
     
     # Step 2: Pull the latest changes
     git_output = run_git_command(repo_path, ['git', 'pull']).strip()
+    if "Failed to run command" in git_output:
+        click.echo(f"Failed to run git pull in {repo_path}", err=True) 
+        return 
+    
     if git_output and "Already up to date" not in git_output:
         click.echo("Pulling latest changes...")
         click.echo(git_output)
