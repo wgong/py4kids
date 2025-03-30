@@ -20,16 +20,16 @@ async def ask_ai(prompt: str) -> None:
     return response.content
 
 
-questions = [
+tasks = [
     "What is the capital of France?",
     "what is square root of 3",
 ]
 
 async def main() -> None:
 
-    for prompt in questions:
-        print(f"## Question\n {prompt}\n")
-        resp = await ask_ai(prompt)
+    for task in tasks:
+        print(f"## Question\n {task}\n")
+        resp = await ask_ai(task)
         print(f"### Answer\n {resp}\n")
 
 asyncio.run(main())
