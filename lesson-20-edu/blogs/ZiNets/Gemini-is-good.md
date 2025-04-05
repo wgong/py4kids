@@ -1,4 +1,4 @@
-# Gemini is good
+# Gemini is Good
 
 
 **(Subtitle: An Exploration into Chinese Characters, Semantics, and AI Collaboration)**
@@ -103,7 +103,9 @@ To my students, I encourage you all to approach your learning—whether of langu
 
 
 
-Sources:
+## Citations
+
+- A New Exploration into Chinese Characters: from Simplification to Deeper Understanding, Wen G. Gong, https://www.arxiv.org/abs/2502.19428
 
 - [Gemini 2.5 Pro Experimental](https://gemini.google.com/)
 

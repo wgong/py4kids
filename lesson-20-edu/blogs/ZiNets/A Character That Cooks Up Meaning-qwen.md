@@ -79,5 +79,6 @@ So next time you encounter 炒 in any context, take a moment to appreciate the r
 
 ### Citations
 
+- A New Exploration into Chinese Characters: from Simplification to Deeper Understanding, Wen G. Gong, https://www.arxiv.org/abs/2502.19428
 - https://chat.qwen.ai/c/140e845f-c1d5-4189-9852-41965869569c
 - https://claude.ai/chat/e977856b-c908-4aeb-9daa-a939f441d792
