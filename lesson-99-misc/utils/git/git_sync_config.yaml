@@ -9,6 +9,8 @@ repos:
   - path: ~/projects/wgong/gpt3codex
   - path: ~/projects/wgong/gpt3sql
   - path: ~/projects/wgong/gpt3codex
+  - path: ~/projects/wgong/awesome-foundation-agents
+  - path: ~/projects/digital-duck/genai_me
   - path: ~/projects/digital-duck/agent-app-chinook
   - path: ~/projects/digital-duck/zinets
   - path: ~/projects/digital-duck/zinetsapp
