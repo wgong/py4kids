@@ -12,7 +12,6 @@ repos:
   - path: ~/projects/wgong/awesome-foundation-agents
   - path: ~/projects/wgong/Pocket/PocketFlow
   - path: ~/projects/wgong/Pocket/Tutorial-Codebase-Knowledge
-  - path: ~/projects/wgong/Tutorial-Codebase-Knowledge
   - path: ~/projects/digital-duck/genai_me
   - path: ~/projects/digital-duck/agent-app-chinook
   - path: ~/projects/digital-duck/zinets
