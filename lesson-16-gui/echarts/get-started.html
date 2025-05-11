@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>ECharts</title>
+    <!-- Include the ECharts file you just downloaded -->
+    <script src="echarts.js"></script>
+  </head>
+  <body>
+    <!-- Prepare a DOM with a defined width and height for ECharts -->
+    <div id="main" style="width: 600px;height:400px;"></div>
+    <script type="text/javascript">
+      // Initialize the echarts instance based on the prepared dom
+      var myChart = echarts.init(document.getElementById('main'));
+
+      // Specify the configuration items and data for the chart
+      var option = {
+		color: [
+			'#759aa0',
+			'#dd6b66',
+			'#e69d87',
+			'#8dc1a9',
+			'#ea7e53',
+			'#eedd78'
+		],	  
+        title: {
+          text: 'ECharts Getting Started Example',
+		  subtext: 'Fake Data',
+		  left: 'center'
+        },
+        tooltip: {},
+        legend: {
+		  orient: 'vertical',
+          data: ['supports','sales'],
+		  left: 'right'
+        },
+        xAxis: {
+          data: ['Shirts', 'Cardigans', 'Chiffons', 'Pants', 'Heels', 'Socks']
+        },
+        yAxis: {},
+        series: [
+          {
+            name: 'sales',
+            type: 'bar',
+            data: [5, 20, 36, 10, 10, 20]
+
+          },
+          {
+            name: 'supports',
+            type: 'bar',
+            data: [15, 25, 35, 45, 55, 65]
+
+          }
+        ]
+      };
+
+      // Display the chart using the configuration items and data just specified.
+      myChart.setOption(option);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>ECharts</title>
+    <!-- Include the ECharts file you just downloaded -->
+    <script src="echarts.js"></script>
+  </head>
+  <body>
+    <!-- Prepare a DOM with a defined width and height for ECharts -->
+    <div id="main" style="width: 600px;height:400px;"></div>
+    <script type="text/javascript">
+      // Initialize the echarts instance based on the prepared dom
+      var myChart = echarts.init(document.getElementById('main'));
+
+
+      // Specify the configuration items and data for the chart
+		// Config
+		var option = {
+		// Add tooltip configuration
+		  tooltip: {
+			trigger: 'item',            // Trigger on data item
+			formatter: function(params) {
+			  // Format the tooltip content to show x and y values
+			  return params.name + ': ' + params.value + ' units';
+			  
+			  // For more detailed information, you can use:
+			  // return 'Product: ' + params.name + '<br/>' +
+			  //        'Sales: ' + params.value + ' units<br/>' +
+			  //        'Series: ' + params.seriesName;
+			},
+			axisPointer: {
+			  type: 'shadow'            // Use shadow for bar charts
+			}
+		  },
+		  xAxis: {
+			data: [
+			  'Shirt',
+			  'Wool sweater',
+			  'Chiffon shirt',
+			  'Pants',
+			  'High-heeled shoes',
+			  'socks'
+			]
+		  },
+		  yAxis: {},
+		  series: [
+			{
+			  name: 'Sales',
+			  type: 'bar',
+			  data: [5, 20, 36, 10, 10, 20]
+			}
+		  ]
+		};
+		// Use the option and data to display the chart
+		myChart.setOption(option);
+		// Click and jump to Baidu search website
+		myChart.on('click', function(params) {
+		  window.open(
+			'https://www.google.com/search?q=' + encodeURIComponent(params.name)
+		  );
+		});
+
+      // Display the chart using the configuration items and data just specified.
+      myChart.setOption(option);
+    </script>
+  </body>
+</html>
