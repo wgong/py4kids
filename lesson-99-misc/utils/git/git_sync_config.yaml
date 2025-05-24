@@ -16,6 +16,7 @@ repos:
   - path: ~/projects/digital-duck/genai_me
   - path: ~/projects/digital-duck/agent-app-chinook
   - path: ~/projects/digital-duck/zinets
+  - path: ~/projects/digital-duck/zinets_vis
   - path: ~/projects/digital-duck/zinetsapp
   - path: ~/projects/digital-duck/data-copilot
   - path: ~/projects/digital-duck/ssadata
