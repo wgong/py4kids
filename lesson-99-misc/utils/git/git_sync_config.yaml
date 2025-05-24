@@ -1,6 +1,7 @@
 repos:
 # cd lesson-99-misc/utils/git ; 00_run_git_sync.sh
 # host = 'ducklover1'
+## wgong
   - path: ~/projects/wgong/py4kids
   - path: ~/projects/wgong/phidata
   - path: ~/projects/wgong/zistory/zinets
@@ -13,6 +14,7 @@ repos:
   - path: ~/projects/wgong/Pocket/PocketFlow
   - path: ~/projects/wgong/Pocket/Tutorial-Codebase-Knowledge
   - path: ~/projects/wgong/Pocket/PocketFlow-Tutorial-Cursor
+## digital-duck
   - path: ~/projects/digital-duck/genai_me
   - path: ~/projects/digital-duck/agent-app-chinook
   - path: ~/projects/digital-duck/zinets
@@ -27,6 +29,7 @@ repos:
   - path: ~/projects/digital-duck/st_tools
   - path: ~/projects/digital-duck/st_translator
   - path: ~/projects/digital-duck/semantics-explorer
+## gongwork
   - path: ~/projects/gongwork/st_rag
   - path: ~/projects/gongwork/data-copilot
   - path: ~/projects/gongwork/generative-ai-for-beginners
