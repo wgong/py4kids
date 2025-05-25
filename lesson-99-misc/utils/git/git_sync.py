@@ -165,7 +165,16 @@ def sync_repo(repo_path):
     git_output = run_git_command(repo_path, ['git', 'pull']).strip()
     if "Failed to run command" in git_output:
         click.echo(f"Failed to run git pull in {repo_path}", err=True) 
-        return 
+        # Check for uncommitted changes
+        if "untracked working tree files would be overwritten by merge" in git_output:
+            run_git_command(repo_path, ['git', 'add', '.'])
+            run_git_command(repo_path, ['git', 'commit', '-m', 'update'])
+            git_output_2 = run_git_command(repo_path, ['git', 'pull']).strip()
+            if "Failed to run command" in git_output_2:
+                click.echo("Failed again after git add and git commit.")
+                return
+        else:
+            return
     
     if git_output and "Already up to date" not in git_output:
         click.echo("Pulling latest changes...")
