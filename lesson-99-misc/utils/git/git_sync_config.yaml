@@ -14,6 +14,7 @@ repos:
   - path: ~/projects/wgong/Pocket/PocketFlow
   - path: ~/projects/wgong/Pocket/Tutorial-Codebase-Knowledge
   - path: ~/projects/wgong/Pocket/PocketFlow-Tutorial-Cursor
+  - path: ~/projects/wgong/vue_learning_app
 ## digital-duck
   - path: ~/projects/digital-duck/genai_me
   - path: ~/projects/digital-duck/agent-app-chinook
