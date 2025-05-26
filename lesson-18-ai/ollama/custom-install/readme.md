@@ -9,8 +9,13 @@ see
 run the following to install/upgrade Ollama
 ```
 curl -fsSL https://ollama.com/install.sh | sh
+ollama serve  # start
 ```
-The default OLLAMA_HOME=/usr/share/ollama
+The default OLLAMA_HOME=/usr/share/ollama  
+
+**Note-2025-05-24** 
+- Cleaning up old version at /usr/local/lib/ollama
+- Installing ollama to /usr/local
 
 
 Update ollama service script
