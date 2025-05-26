@@ -1,7 +1,78 @@
+# Learning resources
+
+
+You're looking for a "master class" level, focusing on **Vue 3 (Composition API)**, and specifically a **YouTube video** for a few hours. This is a tall order for a single video to be truly "master class" as that often implies a longer, structured course, but I can definitely recommend a few resources that are highly regarded for pushing past the basics and are well-suited for someone with your technical foundation.
+
+Here are my top recommendations for a few hours of intensive learning, focusing on the concepts most relevant to experienced developers moving into Vue 3:
+
+-----
+
+### Top Recommendations for a "Master Class" Style Vue.js 3 Video
+
+1.  **The Official Vue 3 Docs - Guide & Cookbook (Text-Based, but Essential for "Mastery")**
+
+      * **Why I recommend this first, even if you asked for video:** While not a video, for a "master class," there is *no better resource* than the official Vue 3 documentation. It's incredibly well-written, comprehensive, and directly from the source. It covers the "why" behind the Composition API, reactivity deep dives, component lifecycle, advanced reactivity, testing, and best practices.
+      * **How to use it like a "master class":** Instead of just reading, actively try out the examples, especially the Composition API sections, Reactivity Fundamentals, Component Lifecycle, and provide/inject.
+      * **Link:** [Vue.js 3 Guide](https://vuejs.org/guide/introduction.html) and [Vue.js 3 Cookbook](https://www.google.com/search?q=https://vuejs.org/guide/cookbook.html)
+
+    *If you still prefer video, continue below, but seriously consider supplementing with the docs.*
+
+-----
+
+**Video Recommendations (Focusing on Composition API and Deeper Concepts):**
+
+1.  ### **Vue 3 Tutorial by Net Ninja (Shaun Pelling) - Full Course Playlist**
+
+      * **Focus:** This is not a single "master class" video, but a very well-structured *playlist* that gradually introduces the Composition API and more advanced features. Shaun Pelling is known for his clear explanations and practical examples. You can pick and choose relevant sections.
+      * **Why it's good for you:** He covers the Composition API thoroughly, which is crucial for modern Vue development and aligns well with your programming background. He moves at a good pace and builds up concepts. You can skip the absolute beginner stuff (like "what is a component").
+      * **Sections to focus on given your background:**
+          * "Composition API - Setup Function"
+          * "Reactive Refs vs Reactive Objects"
+          * "Computed Properties"
+          * "Watchers"
+          * "Lifecycle Hooks"
+          * "Provide & Inject" (similar to context in other frameworks, or even dependency injection concepts)
+          * "Routers" (if you want to understand `vue-router` deeper)
+          * "Slots" (for flexible component design)
+      * **Length:** Individual videos are 10-20 minutes, allowing you to consume them like chapters in a master class. The whole series is several hours.
+      * **Link:** [Vue 3 Tutorial - The Net Ninja](https://www.google.com/search?q=https://www.youtube.com/playlist%3Flist%3DPL4cUxeGkcC9hp0JJr4rxTs69c57WJEQou)
+
+2.  ### **Vue Mastery's Vue 3 Master Class (Often a paid course, but they might have free intro videos)**
+
+
+
+      * **Focus:** Vue Mastery is known for its high-quality, in-depth content directly aligned with the official Vue team. They often release free introductory videos from their courses on YouTube.
+      * **Why it's good for you:** Very authoritative, well-produced, and covers best practices. Even their free content often dives into conceptual depth.
+      * **Caveat:** A full "Master Class" from them is typically a paid subscription. However, search their YouTube channel for "Vue 3 Composition API" or "Vue 3 reactivity" and you might find excellent hour-long deep dives.
+      * **Example Search on YouTube:** [Vue Mastery YouTube Channel](https://www.youtube.com/@VueMastery) - Look for videos titled "Composition API Deep Dive" or "Reactivity in Vue 3".
+
+3.  ### **Fireship.io - Vue.js in 100 Seconds (and related longer videos)**
+
+      * **Focus:** While 100 seconds is too short, Fireship has a knack for distilling complex topics into highly digestible, high-energy videos. He might have a slightly longer "X in Y minutes" video on Vue 3 that quickly covers its core philosophy and advanced features.
+      * **Why it's good for you:** Great for quickly grasping the "big picture" and the unique selling points/philosophies of Vue 3, which can help contextualize everything else.
+      * **Link:** [Vue.js in 100 Seconds](https://www.google.com/search?q=https://www.youtube.com/watch%3Fv%3DnhXXU_x9o_E) (then check his channel for related, longer content if any)
+
+-----
+
+### **How to Approach Your Learning Session Today:**
+
+Given your goal of "mastering" it in a few hours:
+
+1.  **Prioritize the Composition API:** This is where the modern Vue experience lives and where its power truly shines, especially for someone with your backend/OO background.
+2.  **Focus on Reactivity:** Understand `ref`, `reactive`, `computed`, and `watch` deeply. This is the heart of Vue.
+3.  **Component Design:** How to structure components, pass data (`props`), emit events, and use `slots`.
+4.  **Pinia Integration:** You've already got a good start, but understanding how stores are truly isolated and how actions/getters work fully.
+5.  **Router (Basic):** How `vue-router` works for navigation.
+
+I'd suggest starting with **The Net Ninja's playlist**, jumping to the Composition API sections, and supplementing with the official docs for deeper understanding of specific concepts.
+
+Enjoy your deep dive into Vue.js\! It's a very rewarding framework once you grasp its core concepts.
+
+
 # Gemini tutorials on Pinia and Dexie.js
 - source: `https://gemini.google.com/app/caaa7fcdaf536da6`
 - git repo: https://github.com/wgong/vue_learning_app
-- work dir: `~/projects/wgong/vue_learning_app`
+- work dir: `~/projects/wgong/vue.js/vue_learning_app`
 
 That's a fantastic real-world use case to drive your interest in IndexedDB and offline-first! Your CRM experience perfectly illustrates the value proposition. For a learning app, where server updates truly aren't as critical (e.g., saving user progress, notes, or quiz results that don't need real-time multi-user synchronization), an offline-first approach with IndexedDB is an absolute win.
 
