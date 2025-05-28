@@ -5,8 +5,8 @@ import re
 from typing import Dict, List, Any, Optional
 from fastmcp import Client
 
-# Configure logging with DEBUG level to see what's happening
-logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+# Configure logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 # --- Simple Query Parser ---
 class QueryParser:
@@ -54,16 +54,12 @@ class QueryParser:
             # Extract ticker symbols (2-5 uppercase letters)
             tickers = re.findall(r'\b[A-Z]{2,5}\b', query.upper())
             if tickers:
-                # Filter out common words that aren't tickers
-                excluded_words = {"GET", "THE", "FOR", "AND", "BUT", "NOT", "YOU", "ALL", "CAN", "HER", "WAS", "ONE", "OUR", "OUT", "DAY", "HAD", "HAS", "HIS", "HOW", "ITS", "MAY", "NEW", "NOW", "OLD", "SEE", "TWO", "WHO", "BOY", "DID", "CAR", "EAT", "FAR", "FUN", "GOT", "HIM", "LET", "MAN", "PUT", "SAY", "SHE", "TOO", "USE"}
-                valid_tickers = [t for t in tickers if t not in excluded_words]
-                if valid_tickers:
-                    return {
-                        "tool": "stock_quote", 
-                        "params": {
-                            "ticker": valid_tickers[0]
-                        }
+                return {
+                    "tool": "stock_quote", 
+                    "params": {
+                        "ticker": tickers[0]
                     }
+                }
         
         # Also check for common ticker patterns without explicit stock keywords
         common_tickers = ["AAPL", "GOOGL", "GOOG", "MSFT", "TSLA", "AMZN", "META", "NVDA", "AMD", "INTC"]
@@ -108,57 +104,21 @@ class QueryParser:
 def extract_result_data(result):
     """Extract actual data from FastMCP result object"""
     try:
-        # Debug: Print what we're actually getting
-        print(f"DEBUG: Raw result type: {type(result)}")
-        print(f"DEBUG: Raw result: {result}")
-        
-        # FastMCP returns a list of TextContent objects directly
-        if isinstance(result, list) and len(result) > 0:
-            print(f"DEBUG: Result is a list with {len(result)} items")
-            content_item = result[0]
-            print(f"DEBUG: Content item type: {type(content_item)}")
-            print(f"DEBUG: Content item: {content_item}")
-            
-            if hasattr(content_item, 'text'):
-                print(f"DEBUG: Content text: {content_item.text}")
-                # Try to parse as JSON
-                try:
-                    parsed_data = json.loads(content_item.text)
-                    print(f"DEBUG: Parsed JSON data: {parsed_data}")
-                    return parsed_data
-                except json.JSONDecodeError as e:
-                    print(f"DEBUG: JSON decode failed: {e}")
-                    return {"text": content_item.text}
-            else:
-                print("DEBUG: Content item has no text attribute")
-                return {"content": str(content_item)}
-        
-        # Fallback: Check if it has content attribute (old path)
-        elif hasattr(result, 'content') and result.content:
-            print(f"DEBUG: Found content attribute with {len(result.content)} items")
+        # FastMCP returns CallToolResult object with content list
+        if hasattr(result, 'content') and result.content:
             content_item = result.content[0]
             if hasattr(content_item, 'text'):
+                # Try to parse as JSON
                 try:
-                    parsed_data = json.loads(content_item.text)
-                    return parsed_data
+                    return json.loads(content_item.text)
                 except json.JSONDecodeError:
                     return {"text": content_item.text}
             else:
                 return {"content": str(content_item)}
-        
         else:
-            print("DEBUG: No recognizable structure found")
-            # Maybe it's already the data we need?
-            if isinstance(result, dict):
-                print("DEBUG: Result is already a dict")
-                return result
-            else:
-                print(f"DEBUG: Converting result to string: {str(result)}")
-                return {"result": str(result)}
-                
+            return {"result": str(result)}
     except Exception as e:
-        print(f"DEBUG: Exception in extract_result_data: {e}")
-        logging.error(f"Error extracting result data: {e}", exc_info=True)
+        logging.error(f"Error extracting result data: {e}")
         return {"error": f"Could not parse result: {e}"}
 def format_result(tool_name: str, result: Dict) -> str:
     """Format tool results for display"""

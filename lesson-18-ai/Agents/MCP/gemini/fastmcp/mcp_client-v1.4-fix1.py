@@ -54,16 +54,12 @@ class QueryParser:
             # Extract ticker symbols (2-5 uppercase letters)
             tickers = re.findall(r'\b[A-Z]{2,5}\b', query.upper())
             if tickers:
-                # Filter out common words that aren't tickers
-                excluded_words = {"GET", "THE", "FOR", "AND", "BUT", "NOT", "YOU", "ALL", "CAN", "HER", "WAS", "ONE", "OUR", "OUT", "DAY", "HAD", "HAS", "HIS", "HOW", "ITS", "MAY", "NEW", "NOW", "OLD", "SEE", "TWO", "WHO", "BOY", "DID", "CAR", "EAT", "FAR", "FUN", "GOT", "HIM", "LET", "MAN", "PUT", "SAY", "SHE", "TOO", "USE"}
-                valid_tickers = [t for t in tickers if t not in excluded_words]
-                if valid_tickers:
-                    return {
-                        "tool": "stock_quote", 
-                        "params": {
-                            "ticker": valid_tickers[0]
-                        }
+                return {
+                    "tool": "stock_quote", 
+                    "params": {
+                        "ticker": tickers[0]
                     }
+                }
         
         # Also check for common ticker patterns without explicit stock keywords
         common_tickers = ["AAPL", "GOOGL", "GOOG", "MSFT", "TSLA", "AMZN", "META", "NVDA", "AMD", "INTC"]

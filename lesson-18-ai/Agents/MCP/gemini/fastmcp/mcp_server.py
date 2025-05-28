@@ -1,97 +1,158 @@
-import uvicorn
 from fastmcp import FastMCP
-
-from pydantic import BaseModel, Field
 import logging
-import yfinance as yf # New import for Yahoo Finance
+import yfinance as yf
 
 # Configure logging for better visibility
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-# --- Initialize the MCPServer ---
-
+# --- Initialize the MCP Server ---
 mcp = FastMCP("Demo 🚀")
-
-# --- Pydantic Models for Calculator Tool ---
-class CalculatorInput(BaseModel):
-    operation: str = Field(..., description="The arithmetic operation to perform.", examples=["add", "subtract"])
-    num1: float = Field(..., description="The first number.")
-    num2: float = Field(..., description="The second number.")
-
-class CalculatorOutput(BaseModel):
-    value: float = Field(..., description="The result of the arithmetic operation.")
 
 # --- Define the Calculator Tool ---
 @mcp.tool()
-async def calculator_tool(input: CalculatorInput) -> CalculatorOutput:
+def calculator(operation: str, num1: float, num2: float) -> dict:
     """
-    Performs the specified arithmetic operation on two numbers.
-    Currently supports 'add' and 'subtract'.
+    Performs arithmetic operations on two numbers.
+    Supports: add, subtract, multiply, divide
     """
-    logging.info(f"Received calculator_tool call: {input.model_dump()}")
-    if input.operation == "add":
-        result = input.num1 + input.num2
-    elif input.operation == "subtract":
-        result = input.num1 - input.num2
-    else:
-        raise ValueError(f"Unsupported operation: {input.operation}. Only 'add' and 'subtract' are supported.")
-    return CalculatorOutput(value=result)
-
-# --- Pydantic Models for Yahoo Finance Tool ---
-class YahooFinanceInput(BaseModel):
-    ticker: str = Field(..., description="The stock ticker symbol (e.g., GOOG, AAPL, TSLA).")
-
-class YahooFinanceOutput(BaseModel):
-    ticker: str = Field(..., description="The stock ticker symbol.")
-    current_price: float | None = Field(None, description="The current trading price of the stock.")
-    currency: str | None = Field(None, description="The currency of the stock price.")
-    long_name: str | None = Field(None, description="The full company name.")
-    # You can add more fields from yfinance.Ticker.info as needed (e.g., 'marketCap', 'volume', 'fiftyTwoWeekHigh')
+    logging.info(f"Calculator called: {operation} {num1} {num2}")
+    
+    try:
+        if operation == "add":
+            result = num1 + num2
+        elif operation == "subtract":
+            result = num1 - num2
+        elif operation == "multiply":
+            result = num1 * num2
+        elif operation == "divide":
+            if num2 == 0:
+                return {"error": "Cannot divide by zero"}
+            result = num1 / num2
+        else:
+            return {"error": f"Unsupported operation: {operation}. Use: add, subtract, multiply, divide"}
+        
+        return {
+            "operation": operation,
+            "num1": num1,
+            "num2": num2,
+            "result": result,
+            "expression": f"{num1} {operation} {num2} = {result}"
+        }
+    except Exception as e:
+        logging.error(f"Calculator error: {e}")
+        return {"error": str(e)}
 
 # --- Define the Yahoo Finance Tool ---
 @mcp.tool()
-async def yahoo_finance_tool(input: YahooFinanceInput) -> YahooFinanceOutput:
+def stock_quote(ticker: str) -> dict:
     """
-    Retrieves live stock data for a given ticker symbol using yfinance.
+    Retrieves live stock data for a given ticker symbol.
+    Example: AAPL, GOOGL, MSFT, TSLA
     """
-    logging.info(f"Received yahoo_finance_tool call for ticker: {input.ticker}")
+    logging.info(f"Stock quote requested for: {ticker}")
+    
     try:
-        ticker_data = yf.Ticker(input.ticker)
-        # Fetch info with a timeout to prevent hanging
+        ticker_data = yf.Ticker(ticker.upper())
         info = ticker_data.info
-        # Note: yfinance's .info can sometimes return incomplete data or raise errors
-        # if the ticker is invalid or there's a network issue.
-        # Robust error handling for specific yfinance responses might be needed in production.
-
-        current_price = info.get('currentPrice')
-        currency = info.get('currency')
-        long_name = info.get('longName')
-
+        
+        # Get current price - try multiple fields
+        current_price = info.get('currentPrice') or info.get('regularMarketPrice') or info.get('previousClose')
+        
+        # Fallback to recent historical data
         if current_price is None:
-            logging.warning(f"Could not retrieve current price for {input.ticker}. "
-                           f"Info keys available: {list(info.keys()) if info else 'None'}")
-            # Return partial data if price isn't available, or raise a more specific error
-            # depending on your application's requirements.
-            return YahooFinanceOutput(
-                ticker=input.ticker,
-                current_price=None,
-                currency=currency,
-                long_name=long_name
-            )
-
-        return YahooFinanceOutput(
-            ticker=input.ticker,
-            current_price=current_price,
-            currency=currency,
-            long_name=long_name
-        )
+            try:
+                hist = ticker_data.history(period="1d")
+                if not hist.empty:
+                    current_price = float(hist['Close'].iloc[-1])
+            except Exception:
+                pass
+        
+        if current_price is None:
+            return {
+                "ticker": ticker.upper(),
+                "error": f"Could not retrieve price data for {ticker}. Ticker may be invalid."
+            }
+        
+        return {
+            "ticker": ticker.upper(),
+            "current_price": round(float(current_price), 2),
+            "currency": info.get('currency', 'USD'),
+            "company_name": info.get('longName', info.get('shortName', 'Unknown')),
+            "market_cap": info.get('marketCap'),
+            "previous_close": info.get('previousClose'),
+            "volume": info.get('volume'),
+            "day_high": info.get('dayHigh'),
+            "day_low": info.get('dayLow')
+        }
+        
     except Exception as e:
-        logging.error(f"Error fetching data for {input.ticker} from Yahoo Finance: {e}", exc_info=True)
-        # Re-raise a ValueError that the client can catch and report
-        raise ValueError(f"Failed to get stock quote for '{input.ticker}': {e}")
+        logging.error(f"Yahoo Finance error for {ticker}: {e}")
+        return {
+            "ticker": ticker.upper(),
+            "error": f"Failed to get stock data: {str(e)}"
+        }
+
+# --- Define a Health Check Tool ---
+@mcp.tool()
+def health() -> dict:
+    """
+    Simple health check to verify server is running.
+    """
+    return {
+        "status": "healthy",
+        "message": "MCP Server is running properly",
+        "available_tools": ["calculator", "stock_quote", "health", "echo"],
+        "server_name": "Demo 🚀"
+    }
+
+# --- Add a simple echo tool for testing ---
+@mcp.tool()
+def echo(message: str) -> dict:
+    """
+    Echo back the provided message. Useful for testing.
+    """
+    return {
+        "original_message": message,
+        "echo": f"Echo: {message}",
+        "length": len(message),
+        "timestamp": "2025-05-28"
+    }
+
+# --- Add a resource for server info ---
+@mcp.resource("info://server")
+def server_info() -> str:
+    """
+    Provides basic information about this MCP server.
+    """
+    return "This is a demo MCP server built with FastMCP. It provides calculator and stock quote tools."
+
+# --- Add a dynamic resource for stock info ---
+@mcp.resource("stock://{ticker}")
+def stock_info(ticker: str) -> str:
+    """
+    Provides basic stock information as a resource.
+    """
+    try:
+        ticker_data = yf.Ticker(ticker.upper())
+        info = ticker_data.info
+        company_name = info.get('longName', ticker.upper())
+        return f"{company_name} ({ticker.upper()}) - A publicly traded company"
+    except:
+        return f"Stock ticker: {ticker.upper()}"
 
 # --- Main execution block ---
 if __name__ == "__main__":
-    logging.info("Starting MCP Server with fastmcp and Uvicorn...")
-    # The server will be accessible at http://127.0.0.1:5000/mcp
-    uvicorn.run(mcp, host="127.0.0.1", port=5000)
+    logging.info("Starting MCP Server with FastMCP...")
+    print("🚀 MCP Server Starting...")
+    print("📊 Available tools:")
+    print("   • calculator - Perform arithmetic operations") 
+    print("   • stock_quote - Get stock price data")
+    print("   • health - Server health check")
+    print("   • echo - Echo messages for testing")
+    print("📚 Available resources:")
+    print("   • info://server - Server information")
+    print("   • stock://{ticker} - Stock information")
+    print("✅ Server ready! Starting on default port...")
+    
+    # Run the server using FastMCP's built-in method
+    mcp.run()
