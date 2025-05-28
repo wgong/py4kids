@@ -1,0 +1,5 @@
+fastmcp[server]
+uvicorn
+requests
+yfinance
+google-generativeai
