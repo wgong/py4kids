@@ -1,7 +1,8 @@
 Here's a complete set of files for your `fastmcp` tutorial, including a `README.md`, `requirements.txt`, and an updated server and client with the Yahoo Finance tool.
 
 ```bash
-conda activate data-copilot
+conda create -n mcp python=3.11
+conda activate mcp
 ```
 
 ---

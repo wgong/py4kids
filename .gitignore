@@ -5,6 +5,7 @@
 **/.virtual_documents/
 **/*.drawio.bkp
 **/.env
+**/*-v[0-9]*.[0-9]*.*
 
 # temp/cache
 **/tmp*.*

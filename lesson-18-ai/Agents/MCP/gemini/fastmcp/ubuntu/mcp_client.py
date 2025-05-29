@@ -5,8 +5,9 @@ import re
 from typing import Dict, List, Any, Optional
 from fastmcp import Client
 
-# Configure logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+# Configure logging with DEBUG level to see what's happening
+# other levels include (INFO, WARNING, ERROR, CRITICAL)
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
 # --- Simple Query Parser ---
 class QueryParser:
@@ -54,12 +55,16 @@ class QueryParser:
             # Extract ticker symbols (2-5 uppercase letters)
             tickers = re.findall(r'\b[A-Z]{2,5}\b', query.upper())
             if tickers:
-                return {
-                    "tool": "stock_quote", 
-                    "params": {
-                        "ticker": tickers[0]
+                # Filter out common words that aren't tickers
+                excluded_words = {"GET", "THE", "FOR", "AND", "BUT", "NOT", "YOU", "ALL", "CAN", "HER", "WAS", "ONE", "OUR", "OUT", "DAY", "HAD", "HAS", "HIS", "HOW", "ITS", "MAY", "NEW", "NOW", "OLD", "SEE", "TWO", "WHO", "BOY", "DID", "CAR", "EAT", "FAR", "FUN", "GOT", "HIM", "LET", "MAN", "PUT", "SAY", "SHE", "TOO", "USE"}
+                valid_tickers = [t for t in tickers if t not in excluded_words]
+                if valid_tickers:
+                    return {
+                        "tool": "stock_quote", 
+                        "params": {
+                            "ticker": valid_tickers[0]
+                        }
                     }
-                }
         
         # Also check for common ticker patterns without explicit stock keywords
         common_tickers = ["AAPL", "GOOGL", "GOOG", "MSFT", "TSLA", "AMZN", "META", "NVDA", "AMD", "INTC"]
@@ -104,21 +109,57 @@ class QueryParser:
 def extract_result_data(result):
     """Extract actual data from FastMCP result object"""
     try:
-        # FastMCP returns CallToolResult object with content list
-        if hasattr(result, 'content') and result.content:
-            content_item = result.content[0]
+        # Debug: Print what we're actually getting
+        logging.debug(f" Raw result type: {type(result)}")
+        logging.debug(f" Raw result: {result}")
+        
+        # FastMCP returns a list of TextContent objects directly
+        if isinstance(result, list) and len(result) > 0:
+            logging.debug(f" Result is a list with {len(result)} items")
+            content_item = result[0]
+            logging.debug(f" Content item type: {type(content_item)}")
+            logging.debug(f" Content item: {content_item}")
+            
             if hasattr(content_item, 'text'):
+                logging.debug(f" Content text: {content_item.text}")
                 # Try to parse as JSON
                 try:
-                    return json.loads(content_item.text)
+                    parsed_data = json.loads(content_item.text)
+                    logging.debug(f" Parsed JSON data: {parsed_data}")
+                    return parsed_data
+                except json.JSONDecodeError as e:
+                    logging.debug(f" JSON decode failed: {e}")
+                    return {"text": content_item.text}
+            else:
+                logging.debug(f" Content item has no text attribute")
+                return {"content": str(content_item)}
+        
+        # Fallback: Check if it has content attribute (old path)
+        elif hasattr(result, 'content') and result.content:
+            logging.debug(f" Found content attribute with {len(result.content)} items")
+            content_item = result.content[0]
+            if hasattr(content_item, 'text'):
+                try:
+                    parsed_data = json.loads(content_item.text)
+                    return parsed_data
                 except json.JSONDecodeError:
                     return {"text": content_item.text}
             else:
                 return {"content": str(content_item)}
+        
         else:
-            return {"result": str(result)}
+            logging.debug(f" No recognizable structure found")
+            # Maybe it's already the data we need?
+            if isinstance(result, dict):
+                logging.debug(f" Result is already a dict")
+                return result
+            else:
+                logging.debug(f" Converting result to string: {str(result)}")
+                return {"result": str(result)}
+                
     except Exception as e:
-        logging.error(f"Error extracting result data: {e}")
+        logging.debug(f" Exception in extract_result_data: {e}")
+        logging.error(f"Error extracting result data: {e}", exc_info=True)
         return {"error": f"Could not parse result: {e}"}
 def format_result(tool_name: str, result: Dict) -> str:
     """Format tool results for display"""
@@ -156,53 +197,53 @@ def format_result(tool_name: str, result: Dict) -> str:
 
 # --- Main Demo ---
 async def run_demo():
-    print("🚀 MCP Client Demo Starting...")
+    logging.info("🚀 MCP Client Demo Starting...")
     
     # Connect to the FastMCP server directly
     server_path = "mcp_server.py"  # Path to your server file
     
     try:
-        print(f"📡 Connecting to MCP server: {server_path}")
+        logging.info(f"📡 Connecting to MCP server: {server_path}")
         
         async with Client(server_path) as client:
-            print("✅ Connected to MCP server!")
+            logging.info("✅ Connected to MCP server!")
             
             # Test with health check
-            print("\n🩺 Testing with health check...")
+            logging.info("\n🩺 Testing with health check...")
             try:
                 health_result = await client.call_tool("health", {})
                 result_data = extract_result_data(health_result)
-                print(format_result("health", result_data))
+                logging.info(format_result("health", result_data))
             except Exception as e:
-                print(f"⚠️  Health check failed: {e}")
+                logging.error(f"⚠️  Health check failed: {e}")
                 logging.error(f"Health check error: {e}", exc_info=True)
             
             # Discover tools
-            print("\n🔍 Discovering available tools...")
+            logging.info("\n🔍 Discovering available tools...")
             try:
                 tools = await client.list_tools()
                 if tools.tools:
-                    print(f"✅ Found {len(tools.tools)} tools:")
+                    logging.info(f"✅ Found {len(tools.tools)} tools:")
                     for tool in tools.tools:
-                        print(f"   • {tool.name}: {tool.description}")
+                        logging.info(f"   • {tool.name}: {tool.description}")
                 else:
-                    print("⚠️  No tools discovered")
+                    logging.error("⚠️  No tools discovered")
             except Exception as e:
-                print(f"⚠️  Tool discovery failed: {e}")
+                logging.error(f"⚠️  Tool discovery failed: {e}")
                 tools = None
             
             # Discover resources
-            print("\n📚 Discovering available resources...")
+            logging.info("\n📚 Discovering available resources...")
             try:
                 resources = await client.list_resources()
                 if resources.resources:
-                    print(f"✅ Found {len(resources.resources)} resources:")
+                    logging.info(f"✅ Found {len(resources.resources)} resources:")
                     for resource in resources.resources:
-                        print(f"   • {resource.uri}: {resource.description}")
+                        logging.info(f"   • {resource.uri}: {resource.description}")
                 else:
-                    print("⚠️  No resources discovered")
+                    logging.error("⚠️  No resources discovered")
             except Exception as e:
-                print(f"⚠️  Resource discovery failed: {e}")
+                logging.error(f"⚠️  Resource discovery failed: {e}")
             
             print(f"\n{'='*60}")
             print("🎯 Interactive Demo Started!")
@@ -229,67 +270,67 @@ async def run_demo():
                         continue
                     
                     if user_input.lower() == 'exit':
-                        print("👋 Goodbye!")
+                        logging.info("👋 Goodbye!")
                         break
                     
                     if user_input.lower() == 'tools':
                         if tools and tools.tools:
-                            print("\n🔧 Available tools:")
+                            logging.info("\n🔧 Available tools:")
                             for tool in tools.tools:
-                                print(f"   • {tool.name}: {tool.description}")
+                                logging.info(f"   • {tool.name}: {tool.description}")
                         else:
-                            print("\n🔧 Known tools: calculator, stock_quote, health, echo")
+                            logging.info("\n🔧 Known tools: calculator, stock_quote, health, echo")
                         continue
                     
                     if user_input.lower() == 'resources':
                         try:
                             resources = await client.list_resources()
                             if resources.resources:
-                                print("\n📚 Available resources:")
+                                logging.info("\n📚 Available resources:")
                                 for resource in resources.resources:
-                                    print(f"   • {resource.uri}: {resource.description}")
+                                    logging.info(f"   • {resource.uri}: {resource.description}")
                             else:
-                                print("\n📚 No resources available")
+                                logging.info("\n📚 No resources available")
                         except Exception as e:
-                            print(f"\n❌ Could not list resources: {e}")
+                            logging.error(f"\n❌ Could not list resources: {e}")
                         continue
                     
                     # Parse the query
                     parsed_query = parser.parse_query(user_input)
                     
                     if not parsed_query:
-                        print("❓ I couldn't understand your query. Try rephrasing or check the examples above.")
+                        logging.warning("❓ I couldn't understand your query. Try rephrasing or check the examples above.")
                         continue
                     
                     # Execute the tool call
                     tool_name = parsed_query["tool"]
                     parameters = parsed_query["params"]
                     
-                    print(f"🔧 Calling tool: {tool_name}")
+                    logging.info(f"🔧 Calling tool: {tool_name}")
                     if parameters:
-                        print(f"📝 Parameters: {json.dumps(parameters, indent=2)}")
+                        logging.info(f"📝 Parameters: {json.dumps(parameters, indent=2)}")
                     
                     try:
                         result = await client.call_tool(tool_name, parameters)
                         result_data = extract_result_data(result)
-                        print(format_result(tool_name, result_data))
+                        logging.info(format_result(tool_name, result_data))
                             
                     except Exception as e:
-                        print(f"❌ Error calling tool: {e}")
+                        logging.error(f"❌ Error calling tool: {e}")
                         logging.error(f"Tool call error: {e}", exc_info=True)
                 
                 except KeyboardInterrupt:
-                    print("\n\n👋 Goodbye!")
+                    logging.info("\n\n👋 Goodbye!")
                     break
                 except Exception as e:
                     logging.error(f"Unexpected error: {e}", exc_info=True)
-                    print(f"❌ Unexpected error: {e}")
+                    logging.error(f"❌ Unexpected error: {e}")
                     
     except Exception as e:
-        print(f"❌ Failed to connect to server: {e}")
-        print("\nMake sure the server file exists and FastMCP is installed:")
-        print("  pip install fastmcp yfinance")
-        print(f"  Ensure {server_path} exists in the current directory")
+        logging.error(f"❌ Failed to connect to server: {e}")
+        logging.error("\nMake sure the server file exists and FastMCP is installed:")
+        logging.error("  pip install fastmcp yfinance")
+        logging.error(f"  Ensure {server_path} exists in the current directory")
 
 def main():
     """Run the async demo"""
