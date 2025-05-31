@@ -1,6 +1,7 @@
 from fastmcp import FastMCP
 import logging
 import yfinance as yf
+import math
 
 # Configure logging for better visibility
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -28,6 +29,12 @@ def calculator(operation: str, num1: float, num2: float) -> dict:
             if num2 == 0:
                 return {"error": "Cannot divide by zero"}
             result = num1 / num2
+        elif operation == "power":
+            if num1 == 0:
+                return {"error": "Base cannot be 0"}
+            result = pow(num1, num2)
+        elif operation == "sine":
+            result = math.sin(math.radians(num1))
         else:
             return {"error": f"Unsupported operation: {operation}. Use: add, subtract, multiply, divide"}
         
@@ -41,6 +48,9 @@ def calculator(operation: str, num1: float, num2: float) -> dict:
     except Exception as e:
         logging.error(f"Calculator error: {e}")
         return {"error": str(e)}
+
+
+
 
 # --- Define the Yahoo Finance Tool ---
 @mcp.tool()
@@ -101,7 +111,7 @@ def health() -> dict:
     return {
         "status": "healthy",
         "message": "MCP Server is running properly",
-        "available_tools": ["calculator", "stock_quote", "health", "echo"],
+        "available_tools": ["calculator", "stock_quote", "health", "echo", ],
         "server_name": "Demo 🚀"
     }
 

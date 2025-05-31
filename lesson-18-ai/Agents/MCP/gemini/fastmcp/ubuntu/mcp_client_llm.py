@@ -15,7 +15,8 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 # Option 4: Google Gemini API
 # Option 5: AWS Bedrock Claude 3.5
 
-LLM_PROVIDER = "bedrock"  # Change to: "openai", "anthropic", "ollama", "gemini", "bedrock"
+LLM_MODELS = ["openai", "anthropic", "ollama", "gemini" ,  "bedrock"]
+LLM_PROVIDER = "gemini"
 
 # --- LLM Query Parser ---
 class LLMQueryParser:
@@ -67,7 +68,7 @@ class LLMQueryParser:
                 api_key = os.getenv("GEMINI_API_KEY")
                 if api_key:
                     genai.configure(api_key=api_key)
-                    self.client = genai.GenerativeModel('gemini-pro')
+                    self.client = genai.GenerativeModel('gemini-1.5-flash')
                     logging.info("✅ Gemini client initialized")
                 else:
                     logging.error("❌ GEMINI_API_KEY not set")
