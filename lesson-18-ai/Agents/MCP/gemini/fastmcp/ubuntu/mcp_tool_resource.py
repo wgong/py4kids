@@ -124,27 +124,36 @@ class LLMQueryParser:
                 logging.error("❌ Boto3 library not installed. Run: pip install boto3")
                 self.client = None
     
-    def get_system_prompt(self, available_tools: List[Dict]) -> str:
-        """Create system prompt with available tools"""
+    def get_system_prompt(self, available_tools: List[Dict], available_resources: List[Dict] = None) -> str:
+        """Create system prompt with available tools and resources"""
         tools_desc = "\n".join([
             f"- {tool['name']}: {tool.get('description', 'No description')}"
             for tool in available_tools
         ])
         
-        return f"""You are a tool selection assistant. Given a user query, you must decide which tool to use and extract the necessary parameters.
+        resources_desc = ""
+        if available_resources:
+            resources_desc = "\n\nAvailable resources:\n" + "\n".join([
+                f"- {resource['uri']}: {resource.get('description', 'No description')}"
+                for resource in available_resources
+            ])
+        
+        return f"""You are a tool and resource selection assistant. Given a user query, you must decide whether to use a tool, read a resource, or both.
 
 Available tools:
-{tools_desc}
+{tools_desc}{resources_desc}
 
 For each user query, respond with ONLY a JSON object in this exact format:
 {{
-    "tool": "tool_name",
+    "action": "tool|resource|both",
+    "tool": "tool_name_or_null",
+    "resource_uri": "resource_uri_or_null",
     "params": {{
         "param1": "value1",
         "param2": "value2"
     }},
     "confidence": 0.95,
-    "reasoning": "Brief explanation of why this tool was chosen"
+    "reasoning": "Brief explanation of why this action was chosen"
 }}
 
 Tool-specific parameter requirements:
@@ -154,9 +163,15 @@ Tool-specific parameter requirements:
 - health: no parameters needed
 - echo: message (text to echo back)
 
-If you cannot determine which tool to use or extract parameters, respond with:
+Resource-specific patterns:
+- info://server: Server information (no parameters)
+- stock://{{ticker}}: Stock information for specific ticker
+
+If you cannot determine which action to take, respond with:
 {{
+    "action": null,
     "tool": null,
+    "resource_uri": null,
     "params": {{}},
     "confidence": 0.0,
     "reasoning": "Could not parse the query"
@@ -164,29 +179,26 @@ If you cannot determine which tool to use or extract parameters, respond with:
 
 Examples:
 User: "What is 15 plus 27?"
-Response: {{"tool": "calculator", "params": {{"operation": "add", "num1": 15, "num2": 27}}, "confidence": 0.98, "reasoning": "Clear arithmetic addition request"}}
+Response: {{"action": "tool", "tool": "calculator", "resource_uri": null, "params": {{"operation": "add", "num1": 15, "num2": 27}}, "confidence": 0.98, "reasoning": "Clear arithmetic addition request"}}
 
-User: "What is sine 30 degrees?"
-Response: {{"tool": "trig", "params": {{"operation": "sine", "theta": 30}}, "confidence": 0.98, "reasoning": "Clear trigonometic sine function request"}}
+User: "Tell me about Apple as a company"
+Response: {{"action": "resource", "tool": null, "resource_uri": "stock://AAPL", "params": {{}}, "confidence": 0.90, "reasoning": "Request for Apple company information from stock resource"}}
 
-User: "Get Apple stock price"
-Response: {{"tool": "stock_quote", "params": {{"ticker": "AAPL"}}, "confidence": 0.95, "reasoning": "Request for Apple (AAPL) stock information"}}
+User: "Get Apple stock price and company info"
+Response: {{"action": "both", "tool": "stock_quote", "resource_uri": "stock://AAPL", "params": {{"ticker": "AAPL"}}, "confidence": 0.95, "reasoning": "Request for both current price and company information"}}
 
-User: "echo hello world"
-Response: {{"tool": "echo", "params": {{"message": "hello world"}}, "confidence": 0.99, "reasoning": "Direct echo command"}}
-
-User: "server status"
-Response: {{"tool": "health", "params": {{}}, "confidence": 0.90, "reasoning": "Request for server health information"}}
+User: "server info"
+Response: {{"action": "resource", "tool": null, "resource_uri": "info://server", "params": {{}}, "confidence": 0.95, "reasoning": "Request for server information"}}
 
 Remember: Respond with ONLY the JSON object, no additional text."""
 
-    async def parse_query_with_llm(self, query: str, available_tools: List[Dict]) -> Optional[Dict[str, Any]]:
+    async def parse_query_with_llm(self, query: str, available_tools: List[Dict], available_resources: List[Dict] = None) -> Optional[Dict[str, Any]]:
         """Use LLM to parse the query"""
         if not self.client:
             logging.error("❌ LLM client not available, falling back to rule-based parsing")
             return None
         
-        system_prompt = self.get_system_prompt(available_tools)
+        system_prompt = self.get_system_prompt(available_tools, available_resources)
         
         try:
             if self.provider == "openai":
@@ -284,7 +296,7 @@ Remember: Respond with ONLY the JSON object, no additional text."""
                 logging.error("LLM response is not a dictionary")
                 return None
             
-            if parsed_response.get("tool") is None:
+            if parsed_response.get("action") is None:
                 logging.warning(f"LLM could not parse query: {parsed_response.get('reasoning', 'Unknown reason')}")
                 return None
             
@@ -295,12 +307,7 @@ Remember: Respond with ONLY the JSON object, no additional text."""
             
             logging.info(f"🤖 LLM parsed query: {parsed_response.get('reasoning')} (confidence: {confidence})")
             
-            return {
-                "tool": parsed_response["tool"],
-                "params": parsed_response.get("params", {}),
-                "confidence": confidence,
-                "reasoning": parsed_response.get("reasoning", "")
-            }
+            return parsed_response
             
         except json.JSONDecodeError as e:
             logging.error(f"Failed to parse LLM JSON response: {e}")
@@ -310,9 +317,9 @@ Remember: Respond with ONLY the JSON object, no additional text."""
             logging.error(f"LLM query parsing error: {e}")
             return None
 
-# --- Fallback Rule-Based Parser (same as before) ---
+# --- Enhanced Rule-Based Parser with Resource Support ---
 class RuleBasedQueryParser:
-    """Fallback rule-based query parser"""
+    """Enhanced rule-based query parser with resource support"""
     
     @staticmethod
     def parse_calculator_query(query: str) -> Optional[Dict[str, Any]]:
@@ -332,7 +339,9 @@ class RuleBasedQueryParser:
                     if len(numbers) >= 2:
                         try:
                             return {
+                                "action": "tool",
                                 "tool": "calculator",
+                                "resource_uri": None,
                                 "params": {
                                     "operation": operation,
                                     "num1": float(numbers[0]),
@@ -347,46 +356,147 @@ class RuleBasedQueryParser:
     def parse_stock_query(query: str) -> Optional[Dict[str, Any]]:
         import re
         query_lower = query.lower().strip()
-        stock_keywords = ["stock", "price", "quote", "ticker", "share"]
         
-        if any(keyword in query_lower for keyword in stock_keywords):
-            tickers = re.findall(r'\b[A-Z]{2,5}\b', query.upper())
-            if tickers:
-                excluded_words = {"GET", "THE", "FOR", "AND", "BUT", "NOT", "YOU", "ALL", "CAN"}
-                valid_tickers = [t for t in tickers if t not in excluded_words]
-                if valid_tickers:
-                    return {
-                        "tool": "stock_quote", 
-                        "params": {"ticker": valid_tickers[0]}
-                    }
+        # Check for company info requests
+        info_keywords = ["about", "company", "info", "information", "describe", "tell me about"]
+        is_info_request = any(keyword in query_lower for keyword in info_keywords)
         
-        common_tickers = ["AAPL", "GOOGL", "GOOG", "MSFT", "TSLA", "AMZN", "META", "NVDA"]
-        for ticker in common_tickers:
-            if ticker in query.upper():
+        # Check for price requests
+        price_keywords = ["stock", "price", "quote", "ticker", "share", "trading", "cost"]
+        is_price_request = any(keyword in query_lower for keyword in price_keywords)
+        
+        # Extract ticker symbols
+        tickers = re.findall(r'\b[A-Z]{2,5}\b', query.upper())
+        excluded_words = {"GET", "THE", "FOR", "AND", "BUT", "NOT", "YOU", "ALL", "CAN", "STOCK", "PRICE"}
+        valid_tickers = [t for t in tickers if t not in excluded_words]
+        
+        # Check for common company names and map to tickers
+        company_mapping = {
+            "apple": "AAPL",
+            "google": "GOOGL", 
+            "alphabet": "GOOGL",
+            "microsoft": "MSFT",
+            "tesla": "TSLA",
+            "amazon": "AMZN",
+            "meta": "META",
+            "facebook": "META",
+            "nvidia": "NVDA"
+        }
+        
+        for company, ticker in company_mapping.items():
+            if company in query_lower:
+                valid_tickers.append(ticker)
+        
+        if valid_tickers:
+            ticker = valid_tickers[0]
+            
+            if is_info_request and is_price_request:
                 return {
+                    "action": "both",
                     "tool": "stock_quote",
+                    "resource_uri": f"stock://{ticker}",
                     "params": {"ticker": ticker}
                 }
+            elif is_info_request:
+                return {
+                    "action": "resource",
+                    "tool": None,
+                    "resource_uri": f"stock://{ticker}",
+                    "params": {}
+                }
+            elif is_price_request:
+                return {
+                    "action": "tool",
+                    "tool": "stock_quote",
+                    "resource_uri": None,
+                    "params": {"ticker": ticker}
+                }
+        
+        return None
+    
+    @staticmethod
+    def parse_server_info_query(query: str) -> Optional[Dict[str, Any]]:
+        query_lower = query.lower().strip()
+        server_keywords = ["server", "info", "information", "about server", "server status"]
+        
+        if any(keyword in query_lower for keyword in server_keywords):
+            return {
+                "action": "resource",
+                "tool": None,
+                "resource_uri": "info://server",
+                "params": {}
+            }
         return None
     
     @staticmethod
     def parse_query(query: str) -> Optional[Dict[str, Any]]:
+        # Health check
         if any(word in query.lower() for word in ["health", "status", "ping"]):
-            return {"tool": "health", "params": {}}
+            return {
+                "action": "tool",
+                "tool": "health", 
+                "resource_uri": None,
+                "params": {}
+            }
         
+        # Echo command
         if query.lower().startswith("echo "):
             message = query[5:].strip()
-            return {"tool": "echo", "params": {"message": message}}
+            return {
+                "action": "tool",
+                "tool": "echo",
+                "resource_uri": None, 
+                "params": {"message": message}
+            }
         
+        # Server info resource
+        server_result = RuleBasedQueryParser.parse_server_info_query(query)
+        if server_result:
+            return server_result
+        
+        # Calculator
         calc_result = RuleBasedQueryParser.parse_calculator_query(query)
         if calc_result:
             return calc_result
         
+        # Stock queries (including resources)
         stock_result = RuleBasedQueryParser.parse_stock_query(query)
         if stock_result:
             return stock_result
         
         return None
+
+# --- Resource Handling Functions ---
+def extract_resource_data(result):
+    """Extract data from resource result"""
+    try:
+        if isinstance(result, list) and len(result) > 0:
+            content_item = result[0]
+            if hasattr(content_item, 'text'):
+                return content_item.text
+            else:
+                return str(content_item)
+        elif hasattr(result, 'content') and result.content:
+            content_item = result.content[0]
+            if hasattr(content_item, 'text'):
+                return content_item.text
+            else:
+                return str(content_item)
+        else:
+            return str(result)
+    except Exception as e:
+        logging.error(f"Error extracting resource data: {e}")
+        return f"Could not parse resource: {e}"
+
+def format_resource_result(resource_uri: str, content: str) -> str:
+    """Format resource results for display"""
+    if resource_uri.startswith("info://server"):
+        return f"🖥️  Server Info: {content}"
+    elif resource_uri.startswith("stock://"):
+        ticker = resource_uri.split("://")[1]
+        return f"🏢 Company Info ({ticker}): {content}"
+    else:
+        return f"📄 Resource ({resource_uri}): {content}"
 
 # --- Same extraction and formatting functions as before ---
 def extract_result_data(result):
@@ -438,6 +548,19 @@ def format_result(tool_name: str, result: Dict) -> str:
         elif "error" in result:
             return f"❌ Calculator Error: {result['error']}"
     
+    elif tool_name == "trig":
+        if "result" in result:
+            expression = result.get('expression')
+            if expression:
+                return f"📐 {expression}"
+            else:
+                operation = result.get('operation', '?')
+                theta = result.get('theta', '?')
+                trig_result = result.get('result', '?')
+                return f"📐 {operation}({theta}°) = {trig_result}"
+        elif "error" in result:
+            return f"❌ Trig Error: {result['error']}"
+    
     elif tool_name == "stock_quote":
         if "current_price" in result:
             ticker = result.get('ticker', 'Unknown')
@@ -467,7 +590,7 @@ def format_result(tool_name: str, result: Dict) -> str:
     except (TypeError, ValueError):
         return f"✅ Result: {str(result)}"
 
-# --- Main Demo with LLM Integration ---
+# --- Main Demo with LLM Integration and Resource Support ---
 async def run_llm_demo():
     print("🚀 LLM-powered MCP client demo starting...")
     print(f"🤖 Using LLM Provider: {LLM_PROVIDER}")
@@ -484,11 +607,13 @@ async def run_llm_demo():
         async with Client(server_path) as client:
             print("✅ Connected to MCP server (local)!")
             
-            # Discover available tools for LLM context
+            # Discover available tools and resources for LLM context
             available_tools = []
+            available_resources = []
+            
             try:
+                # Get tools
                 tools = await client.list_tools()
-                # print(f"tools: {tools}")
                 if tools:
                     available_tools = [
                         {"name": tool.name, "description": tool.description} for tool in tools
@@ -503,12 +628,41 @@ async def run_llm_demo():
                         {"name": "health", "description": "Check server health"},
                         {"name": "echo", "description": "Echo back messages"}
                     ]
+                
+                # Get resources
+                try:
+                    resources = await client.list_resources()
+                    if resources:
+                        available_resources = [
+                            {"uri": resource.uri, "description": resource.description} for resource in resources
+                        ]
+                        print(f"✅ Found {len(available_resources)} resources for LLM context")
+                    else:
+                        # Fallback resource definitions including dynamic ones
+                        available_resources = [
+                            {"uri": "info://server", "description": "Server information"},
+                            {"uri": "stock://{ticker}", "description": "Stock company information for any ticker"}
+                        ]
+                except Exception as e:
+                    logging.warning(f"Resource discovery failed: {e}")
+                    available_resources = []
+                
+                # Add known dynamic resources that don't appear in discovery
+                # These are templated resources that work but don't show in list_resources()
+                dynamic_resources = [
+                    {"uri": "stock://{ticker}", "description": "Stock company information for any ticker"}
+                ]
+                available_resources.extend(dynamic_resources)
+                
+                print(f"ℹ️  Note: Dynamic resources like stock://{{ticker}} don't appear in discovery but are available")
+                    
             except Exception as e:
-                logging.error(f"Tool discovery failed: {e}")
+                logging.error(f"Tool/Resource discovery failed: {e}")
             
-            print(f"\n{'='*60}")
-            print("🎯 LLM-Powered Interactive Demo Started!")
+            print(f"\n{'='*70}")
+            print("🎯 LLM-Powered Interactive Demo with Resource Support!")
             print("\n📝 Try natural language queries:")
+            print("   Tool examples:")
             print("   • 'What's fifteen plus twenty seven?'")
             print("   • 'Can you multiply 12 by 8?'")
             print("   • 'Find sine of 30 degrees'")
@@ -516,11 +670,20 @@ async def run_llm_demo():
             print("   • 'How much is Tesla trading for?'")
             print("   • 'Please echo back: Hello AI!'")
             print("   • 'Is the server working properly?'")
+            print("\n   Resource examples:")
+            print("   • 'Tell me about Apple as a company'")
+            print("   • 'What is Microsoft?'")
+            print("   • 'Give me server information'")
+            print("   • 'Show me info about Tesla'")
+            print("\n   Combined examples:")
+            print("   • 'Get Apple stock price and company info'")
+            print("   • 'I want both Tesla's price and company details'")
             print("\n💡 Commands:")
             print("   • 'tools' - List available tools")
+            print("   • 'resources' - List available resources") 
             print("   • 'switch' - Switch parsing mode")
             print("   • 'exit' - Quit the demo")
-            print(f"{'='*60}")
+            print(f"{'='*70}")
             
             use_llm = llm_parser.client is not None
             
@@ -547,11 +710,17 @@ async def run_llm_demo():
                             print(f"   • {tool['name']}: {tool['description']}")
                         continue
                     
+                    if user_input.lower() == 'resources':
+                        print("\n📚 Available resources:")
+                        for resource in available_resources:
+                            print(f"   • {resource['uri']}: {resource['description']}")
+                        continue
+                    
                     # Parse the query
                     parsed_query = None
                     
                     if use_llm and llm_parser.client:
-                        parsed_query = await llm_parser.parse_query_with_llm(user_input, available_tools)
+                        parsed_query = await llm_parser.parse_query_with_llm(user_input, available_tools, available_resources)
                     
                     # Fallback to rule-based if LLM fails
                     if not parsed_query:
@@ -563,24 +732,45 @@ async def run_llm_demo():
                         print("❓ I couldn't understand your query. Try rephrasing or being more specific.")
                         continue
                     
-                    # Execute the tool call
-                    tool_name = parsed_query["tool"]
-                    parameters = parsed_query["params"]
+                    # Execute based on action type
+                    action = parsed_query.get("action")
+                    tool_name = parsed_query.get("tool")
+                    resource_uri = parsed_query.get("resource_uri")
+                    parameters = parsed_query.get("params", {})
                     
-                    print(f"🔧 Calling tool: {tool_name}")
+                    print(f"🎯 Action: {action}")
                     if parsed_query.get("reasoning"):
                         print(f"💭 Reasoning: {parsed_query['reasoning']}")
-                    if parameters:
-                        print(f"📝 Parameters: {json.dumps(parameters, indent=2)}")
                     
-                    try:
-                        result = await client.call_tool(tool_name, parameters)
-                        result_data = extract_result_data(result)
-                        print(format_result(tool_name, result_data))
-                            
-                    except Exception as e:
-                        print(f"❌ Error calling tool: {e}")
-                        logging.error(f"Tool call error: {e}", exc_info=True)
+                    # Execute tool call if needed
+                    if action in ["tool", "both"] and tool_name:
+                        print(f"🔧 Calling tool: {tool_name}")
+                        if parameters:
+                            print(f"📝 Parameters: {json.dumps(parameters, indent=2)}")
+                        
+                        try:
+                            tool_result = await client.call_tool(tool_name, parameters)
+                            tool_data = extract_result_data(tool_result)
+                            print(format_result(tool_name, tool_data))
+                        except Exception as e:
+                            print(f"❌ Error calling tool: {e}")
+                            logging.error(f"Tool call error: {e}", exc_info=True)
+                    
+                    # Execute resource read if needed
+                    if action in ["resource", "both"] and resource_uri:
+                        print(f"📚 Reading resource: {resource_uri}")
+                        
+                        try:
+                            resource_result = await client.read_resource(resource_uri)
+                            resource_content = extract_resource_data(resource_result)
+                            print(format_resource_result(resource_uri, resource_content))
+                        except Exception as e:
+                            print(f"❌ Error reading resource: {e}")
+                            logging.error(f"Resource read error: {e}", exc_info=True)
+                    
+                    # Handle case where no valid action was determined
+                    if not action or action not in ["tool", "resource", "both"]:
+                        print("❓ Could not determine appropriate action for your query.")
                 
                 except KeyboardInterrupt:
                     print("\n\n👋 Goodbye!")
@@ -595,10 +785,99 @@ async def run_llm_demo():
         print("  pip install fastmcp yfinance")
         print(f"  Ensure {server_path} exists in the current directory")
 
+# --- Resource Demo Function ---
+async def demo_resources():
+    """Standalone demo function to showcase resource usage"""
+    print("📚 MCP Resource Demo")
+    print("=" * 40)
+    
+    server_path = "mcp_server.py"
+    
+    try:
+        async with Client(server_path) as client:
+            print("✅ Connected to MCP server!")
+            
+            # List available resources
+            print("\n🔍 Discovering resources...")
+            try:
+                resources = await client.list_resources()
+                if resources:
+                    print(f"✅ Found {len(resources)} resources:")
+                    for resource in resources:
+                        print(f"   • {resource.uri}: {resource.description}")
+                else:
+                    print("📝 No resources discovered")
+                    return
+            except Exception as e:
+                print(f"❌ Failed to list resources: {e}")
+                return
+            
+            # Demo 1: Read server info resource
+            print("\n" + "="*50)
+            print("📖 Demo 1: Reading server info resource")
+            print("="*50)
+            
+            try:
+                print("🔍 Reading: info://server")
+                result = await client.read_resource("info://server")
+                content = extract_resource_data(result)
+                print(format_resource_result("info://server", content))
+            except Exception as e:
+                print(f"❌ Error: {e}")
+            
+            # Demo 2: Read stock info resources for different companies
+            print("\n" + "="*50)
+            print("📖 Demo 2: Reading stock company info resources")
+            print("="*50)
+            
+            test_tickers = ["AAPL", "GOOGL", "MSFT", "TSLA", "AMZN"]
+            
+            for ticker in test_tickers:
+                try:
+                    resource_uri = f"stock://{ticker}"
+                    print(f"\n🔍 Reading: {resource_uri}")
+                    result = await client.read_resource(resource_uri)
+                    content = extract_resource_data(result)
+                    print(format_resource_result(resource_uri, content))
+                except Exception as e:
+                    print(f"❌ Error reading {resource_uri}: {e}")
+            
+            # Demo 3: Combined tool + resource usage
+            print("\n" + "="*60)
+            print("📖 Demo 3: Combined tool call + resource read")
+            print("="*60)
+            
+            test_ticker = "AAPL"
+            print(f"\n🎯 Getting both price data and company info for {test_ticker}")
+            
+            try:
+                # Get current stock price using tool
+                print(f"🔧 Calling stock_quote tool for {test_ticker}")
+                tool_result = await client.call_tool("stock_quote", {"ticker": test_ticker})
+                tool_data = extract_result_data(tool_result)
+                print(format_result("stock_quote", tool_data))
+                
+                # Get company info using resource
+                resource_uri = f"stock://{test_ticker}"
+                print(f"📚 Reading resource: {resource_uri}")
+                resource_result = await client.read_resource(resource_uri)
+                resource_content = extract_resource_data(resource_result)
+                print(format_resource_result(resource_uri, resource_content))
+                
+            except Exception as e:
+                print(f"❌ Error in combined demo: {e}")
+            
+            print("\n" + "="*50)
+            print("✅ Resource demo completed!")
+            print("="*50)
+            
+    except Exception as e:
+        print(f"❌ Failed to connect to server: {e}")
+
 def main():
     """Run the LLM-powered async demo"""
-    print("🤖 LLM-Powered MCP Client")
-    print("=" * 40)
+    print("🤖 LLM-Powered MCP Client with Resource Support")
+    print("=" * 50)
     print(f"Selected LLM Provider: {LLM_PROVIDER}")
     
     if LLM_PROVIDER == "ollama":
@@ -623,9 +902,21 @@ def main():
         print("3. Ensure you have access to Claude 3.5 Sonnet in Bedrock")
         print("4. Set AWS_DEFAULT_REGION if needed (default: us-east-1)")
     
-    print("=" * 40)
+    print("=" * 50)
     
-    asyncio.run(run_llm_demo())
+    # Ask user which demo to run
+    print("\nChoose demo mode:")
+    print("1. Interactive LLM-powered client (default)")
+    print("2. Resource demonstration only")
+    
+    try:
+        choice = input("\nEnter choice (1 or 2, default=1): ").strip()
+        if choice == "2":
+            asyncio.run(demo_resources())
+        else:
+            asyncio.run(run_llm_demo())
+    except KeyboardInterrupt:
+        print("\n👋 Goodbye!")
 
 if __name__ == '__main__':
     main()

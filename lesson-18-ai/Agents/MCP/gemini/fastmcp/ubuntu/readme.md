@@ -1,8 +1,18 @@
 Here's a complete set of files for your `fastmcp` tutorial, including a `README.md`, `requirements.txt`, and an updated server and client with the Yahoo Finance tool.
 
 ```bash
-conda create -n mcp python=3.11
+conda create -n mcp python=3.13
 conda activate mcp
+git clone mcp_demo
+
+cd mcp_demo
+pip install -r requirements.txt
+
+# in 1st terminal
+python mcp_server.py
+
+# in 2nd terminal
+python mcp_client_llm.py
 ```
 
 ---
@@ -43,7 +53,7 @@ Before you begin, ensure you have:
     Create a new directory for your project and place the following files inside it:
     * `README.md` (this file)
     * `requirements.txt`
-    * `mcp_server.py`
+    * `mcp_server_llm.py`
     * `mcp_client.py`
 
 2.  **Install Dependencies:**

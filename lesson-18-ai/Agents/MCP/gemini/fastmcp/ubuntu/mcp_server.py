@@ -14,7 +14,7 @@ mcp = FastMCP("Demo 🚀")
 def calculator(operation: str, num1: float, num2: float) -> dict:
     """
     Performs arithmetic operations on two numbers.
-    Supports: add, subtract, multiply, divide
+    Supports: add, subtract, multiply, divide, power
     """
     logging.info(f"Calculator called: {operation} {num1} {num2}")
     
@@ -36,7 +36,7 @@ def calculator(operation: str, num1: float, num2: float) -> dict:
         elif operation == "sine":
             result = math.sin(math.radians(num1))
         else:
-            return {"error": f"Unsupported operation: {operation}. Use: add, subtract, multiply, divide"}
+            return {"error": f"Unsupported operation: {operation}. Use: add, subtract, multiply, divide, power"}
         
         return {
             "operation": operation,
@@ -49,7 +49,33 @@ def calculator(operation: str, num1: float, num2: float) -> dict:
         logging.error(f"Calculator error: {e}")
         return {"error": str(e)}
 
+@mcp.tool()
+def trig(operation: str, theta: float) -> dict:
+    """
+    Performs trigonometric operation on an angle in degree.
+    Supports: sine, cosine, tangent
+    """
+    logging.info(f"Trig called: {operation} {theta}")
 
+    try:
+        if operation == "sine":
+            result = math.sin(math.radians(theta))
+        elif operation == "cosine":
+            result = math.cos(math.radians(theta))
+        elif operation == "tangent":
+            result = math.tan(math.radians(theta))
+        else:
+            return {"error": f"Unsupported operation: {operation}. Use: sine, cosine, tangent"}
+        
+        return {
+            "operation": operation,
+            "theta": theta,
+            "result": result,
+            "expression": f"{operation} ( {theta} ) = {result}"
+        }
+    except Exception as e:
+        logging.error(f"Trig error: {e}")
+        return {"error": str(e)}
 
 
 # --- Define the Yahoo Finance Tool ---
@@ -156,6 +182,7 @@ if __name__ == "__main__":
     print("🚀 MCP Server Starting...")
     print("📊 Available tools:")
     print("   • calculator - Perform arithmetic operations") 
+    print("   • trig - Perform Trigonometric operations") 
     print("   • stock_quote - Get stock price data")
     print("   • health - Server health check")
     print("   • echo - Echo messages for testing")

@@ -3,3 +3,4 @@ uvicorn
 requests
 yfinance
 google-generativeai
+nest-asyncio
