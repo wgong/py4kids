@@ -1,12 +1,12 @@
 
 ## MCP
 
-see `mcp` folder
 
 - [Learn MCP with Gemini](https://gemini.google.com/app/990687bfced44c2d)
 
 - [FastMCP](https://github.com/jlowin/fastmcp/tree/main/examples)
 
+- [MCP demo using Gemini](https://github.com/digital-duck/mcp_demo)
 
 ## A2A
 
