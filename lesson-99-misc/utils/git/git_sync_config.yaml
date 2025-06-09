@@ -15,6 +15,8 @@ repos:
   - path: ~/projects/wgong/Pocket/Tutorial-Codebase-Knowledge
   - path: ~/projects/wgong/Pocket/PocketFlow-Tutorial-Cursor
   - path: ~/projects/wgong/vue_learning_app
+  - path: ~/projects/wgong/gemini-fullstack-langgraph-quickstart
+
 ## digital-duck
   - path: ~/projects/digital-duck/genai_me
   - path: ~/projects/digital-duck/agent-app-chinook
@@ -23,6 +25,7 @@ repos:
   - path: ~/projects/digital-duck/zinetsapp
   - path: ~/projects/digital-duck/data-copilot
   - path: ~/projects/digital-duck/ssadata
+  - path: ~/projects/digital-duck/st_mcp_demo
   - path: ~/projects/digital-duck/st_agent_hub
   - path: ~/projects/digital-duck/st_ragents
   - path: ~/projects/digital-duck/st_rag_demo
