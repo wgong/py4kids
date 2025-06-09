@@ -26,6 +26,8 @@ repos:
   - path: ~/projects/digital-duck/st_agent_hub
   - path: ~/projects/digital-duck/st_ragents
   - path: ~/projects/digital-duck/st_rag_demo
+  - path: ~/projects/digital-duck/st_rag_mcp
+  - path: ~/projects/digital-duck/mcp_demo
   - path: ~/projects/digital-duck/st_semantics
   - path: ~/projects/digital-duck/st_tools
   - path: ~/projects/digital-duck/st_translator

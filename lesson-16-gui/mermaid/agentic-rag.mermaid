@@ -1,0 +1,42 @@
+%% RAG Agent Framework v2 (Agent-Centric)
+graph TD
+    subgraph User
+        U[User Prompt] --> PA[Planning Agent]
+    end
+
+    subgraph Functional_Agents
+        PA -->|Decompose| T1[Subtask 1]
+        PA -->|Decompose| T2[Subtask 2]
+        PA -->|Orchestrate| WO[Workflow Engine]
+        WO -->|Execute| FA1[RAG Agent: Analyst]
+        WO -->|Execute| FA2[RAG Agent: Writer]
+    end
+
+    subgraph Resource_Agents
+        RA1[Data Retriever] -->|SQL/API| DB[(Database)]
+        RA2[Web Scraper] -->|HTTP| WEB[Website]
+        RA3[Human Proxy] -->|Approval| HA[Human Agent]
+        RA4[Ticketing Bot] -->|API| TICK[IT System]
+    end
+
+    subgraph Memory_System
+        FA1 -->|Store| MEM[Agent Memory]
+        FA2 -->|Store| MEM
+        MEM -->|Structured| SQL[(SQLite)]
+        MEM -->|Semantic| VDB[ChromaDB]
+    end
+
+    subgraph Observability
+        FA1 -->|Metrics| MON[Monitoring]
+        FA2 -->|Metrics| MON
+        MON -->|Dashboards| U
+        MON -->|Alerts| RA3
+    end
+
+    WO -->|Invoke| Resource_Agents
+    Resource_Agents -->|Results| WO
+    WO -->|Final Output| REP[Report Generator]
+    REP --> U
+
+    style Functional_Agents fill:#e6f3ff,stroke:#4a90e2
+    style Resource_Agents fill:#ffe6e6,stroke:#ff4a4a
