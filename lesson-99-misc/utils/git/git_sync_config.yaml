@@ -10,8 +10,7 @@ repos:
   - path: ~/projects/wgong/gpt3codex
   - path: ~/projects/wgong/gpt3sql
   - path: ~/projects/wgong/gpt3codex
-  - path: ~/projects/wgong/awesome-foundation-agents
-  - path: ~/projects/wgong/PocketFlow
+  # - path: ~/projects/wgong/awesome-foundation-agents
   - path: ~/projects/wgong/Tutorial-Codebase-Knowledge
   - path: ~/projects/wgong/PocketFlow-Tutorial-Cursor
   - path: ~/projects/wgong/vue_learning_app
