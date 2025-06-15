@@ -16,6 +16,8 @@ repos:
   - path: ~/projects/wgong/Pocket/PocketFlow-Tutorial-Cursor
   - path: ~/projects/wgong/vue_learning_app
   - path: ~/projects/wgong/gemini-fullstack-langgraph-quickstart
+  - path: ~/projects/wgong/vue_learning_app
+  - path: ~/projects/wgong/agent-zero
 
 ## digital-duck
   - path: ~/projects/digital-duck/genai_me
@@ -34,6 +36,7 @@ repos:
   - path: ~/projects/digital-duck/st_tools
   - path: ~/projects/digital-duck/st_translator
   - path: ~/projects/digital-duck/semantics-explorer
+
 ## gongwork
   - path: ~/projects/gongwork/st_rag
   - path: ~/projects/gongwork/data-copilot
