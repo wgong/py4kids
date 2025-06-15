@@ -112,10 +112,13 @@ WantedBy=sleep.target suspend.target hibernate.target hybrid-sleep.target
 ```bash
 sudo systemctl daemon-reload
 sudo systemctl enable fix-ollama-gpu.service
+sudo systemctl restart ollama
 ```
 
 Now, the script should run automatically whenever your system resumes from sleep, fixing the GPU access issue for Ollama.
 
+
+#### 
 
 ### Important Notes
 - Root Privileges: This script requires root privileges because it interacts with kernel modules and systemd.

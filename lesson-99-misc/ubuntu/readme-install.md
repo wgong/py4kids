@@ -93,3 +93,12 @@ sudo apt update
 sudo apt install keepass2
 ```
 
+
+## [Master PDF Editor 5](https://snapcraft.io/install/master-pdf-editor-5/ubuntu#install)
+
+```bash
+sudo apt update
+sudo apt install snapd
+sudo snap install master-pdf-editor-5
+
+```

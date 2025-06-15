@@ -42,10 +42,6 @@ Being together in the Cosmos, you live forever a New Day.
 
 
 
-
-
-
-
 A 3-part slideshow to pay a special tribute to TD Lee:
 ============================================================
 

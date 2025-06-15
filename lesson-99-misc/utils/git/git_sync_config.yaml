@@ -1,6 +1,7 @@
 repos:
 # cd lesson-99-misc/utils/git ; 00_run_git_sync.sh
 # host = 'ducklover1'
+## wgong
   - path: ~/projects/wgong/py4kids
   - path: ~/projects/wgong/phidata
   - path: ~/projects/wgong/zistory/zinets
@@ -9,18 +10,31 @@ repos:
   - path: ~/projects/wgong/gpt3codex
   - path: ~/projects/wgong/gpt3sql
   - path: ~/projects/wgong/gpt3codex
+  - path: ~/projects/wgong/awesome-foundation-agents
+  - path: ~/projects/wgong/Pocket/PocketFlow
+  - path: ~/projects/wgong/Pocket/Tutorial-Codebase-Knowledge
+  - path: ~/projects/wgong/Pocket/PocketFlow-Tutorial-Cursor
+  - path: ~/projects/wgong/vue_learning_app
+  - path: ~/projects/wgong/gemini-fullstack-langgraph-quickstart
+
+## digital-duck
+  - path: ~/projects/digital-duck/genai_me
   - path: ~/projects/digital-duck/agent-app-chinook
   - path: ~/projects/digital-duck/zinets
+  - path: ~/projects/digital-duck/zinets_vis
   - path: ~/projects/digital-duck/zinetsapp
   - path: ~/projects/digital-duck/data-copilot
   - path: ~/projects/digital-duck/ssadata
   - path: ~/projects/digital-duck/st_agent_hub
   - path: ~/projects/digital-duck/st_ragents
   - path: ~/projects/digital-duck/st_rag_demo
+  - path: ~/projects/digital-duck/st_rag_mcp
+  - path: ~/projects/digital-duck/mcp_demo
   - path: ~/projects/digital-duck/st_semantics
   - path: ~/projects/digital-duck/st_tools
   - path: ~/projects/digital-duck/st_translator
   - path: ~/projects/digital-duck/semantics-explorer
+## gongwork
   - path: ~/projects/gongwork/st_rag
   - path: ~/projects/gongwork/data-copilot
   - path: ~/projects/gongwork/generative-ai-for-beginners

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>ECharts</title>
+    <!-- Include the ECharts file you just downloaded -->
+    <script src="echarts.js"></script>
+  </head>
+  <body>
+    <!-- Prepare a DOM with a defined width and height for ECharts -->
+    <div id="main" style="width: 600px;height:400px;"></div>
+    <script type="text/javascript">
+      // Initialize the echarts instance based on the prepared dom
+      var myChart = echarts.init(document.getElementById('main'));
+
+
+      // Specify the configuration items and data for the chart
+      var option = {
+		  legend: {
+			// Try 'horizontal'
+			orient: 'vertical',
+			right: 10,
+			top: 'center'
+		  },
+		  dataset: {
+			source: [
+			  ['product', '2015', '2016', '2017'],
+			  ['Matcha Latte', 43.3, 85.8, 93.7],
+			  ['Milk Tea', 83.1, 73.4, 55.1],
+			  ['Cheese Cocoa', 86.4, 65.2, 82.5],
+			  ['Walnut Brownie', 72.4, 53.9, 39.1]
+			]
+		  },
+		  xAxis: { type: 'category' },
+		  yAxis: {},
+		  series: [{ type: 'bar' }, { type: 'bar' }, { type: 'bar' }]
+		};
+
+      // Display the chart using the configuration items and data just specified.
+      myChart.setOption(option);
+    </script>
+  </body>
+</html>
