@@ -146,7 +146,7 @@ def parse_git_status(status_output):
             b_changed = True
     return b_changed
 
-def sync_repo(repo_path):
+def sync_repo(repo_path, new_repo=False):
     """
     Sync a single repository:
     1. Fetch the latest changes from the remote.
@@ -155,7 +155,18 @@ def sync_repo(repo_path):
     4. Add, commit, and push changes if there are any local modifications.
     """
     click.echo(click.style(f"\nProcessing repository: {repo_path}", fg="cyan", bold=True))
-    
+
+    # Step 0: Clone new repo
+    if new_repo:
+        x = repo_path.split("projects")
+        git_repo_url = f"git@github.com:{x[1]}.git"
+        click.echo(f"Cloning {git_repo_url} ...")
+        git_output = run_git_command(repo_path, ['git', 'clone', git_repo_url]).strip()
+        if git_output:
+            click.echo(git_output)
+        return
+
+
     # Step 1: Fetch the latest changes from the remote
     git_output = run_git_command(repo_path, ['git', 'fetch']).strip()
     if git_output:
@@ -267,6 +278,7 @@ def main(config):
     
     # Iterate through each repository and sync it
     for repo in repos:
+        new_repo = False
         repo_path = repo.get('path', '').strip()
         if not repo_path:
             continue
@@ -279,6 +291,7 @@ def main(config):
             click.echo(err_msg, err=True)
             log_msg(err_msg + "\n")
             Path(repo_path).mkdir(parents=True, exist_ok=True)
+            new_repo = True
             # continue
 
         if not os.path.isdir(repo_path):
@@ -287,8 +300,12 @@ def main(config):
             log_msg(err_msg + "\n")
             continue
 
-
-        sync_repo(repo_path)
+        try:
+            sync_repo(repo_path, new_repo)
+        except Exception as e:
+            err_msg = f"[ERROR] {e}"
+            click.echo(err_msg, err=True)
+            log_msg(err_msg + "\n")            
 
 if __name__ == "__main__":
     main()
