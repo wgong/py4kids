@@ -11,9 +11,9 @@ repos:
   - path: ~/projects/wgong/gpt3sql
   - path: ~/projects/wgong/gpt3codex
   - path: ~/projects/wgong/awesome-foundation-agents
-  - path: ~/projects/wgong/Pocket/PocketFlow
-  - path: ~/projects/wgong/Pocket/Tutorial-Codebase-Knowledge
-  - path: ~/projects/wgong/Pocket/PocketFlow-Tutorial-Cursor
+  - path: ~/projects/wgong/PocketFlow
+  - path: ~/projects/wgong/Tutorial-Codebase-Knowledge
+  - path: ~/projects/wgong/PocketFlow-Tutorial-Cursor
   - path: ~/projects/wgong/vue_learning_app
   - path: ~/projects/wgong/gemini-fullstack-langgraph-quickstart
   - path: ~/projects/wgong/vue_learning_app
@@ -42,7 +42,7 @@ repos:
   - path: ~/projects/gongwork/data-copilot
   - path: ~/projects/gongwork/generative-ai-for-beginners
   - path: ~/projects/gongwork/jieba
-  - path: ~/projects/gongwork/Introduction-to-Chainlit
+  # - path: ~/projects/gongwork/Introduction-to-Chainlit
   - path: ~/projects/gongwork/fully-local-pdf-chatbot
   - path: ~/projects/gongwork/privateGPT
   - path: ~/projects/gongwork/llama_index

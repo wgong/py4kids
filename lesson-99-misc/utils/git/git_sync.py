@@ -287,7 +287,7 @@ def main(config):
             repo_path = os.path.expanduser(repo_path)
 
         if not Path(repo_path).exists():
-            err_msg = f"Repository path: '{repo_path}' not found: create it"
+            err_msg = f"\nRepository path: '{repo_path}' not found: create it"
             click.echo(err_msg, err=True)
             log_msg(err_msg + "\n")
             Path(repo_path).mkdir(parents=True, exist_ok=True)
@@ -295,7 +295,7 @@ def main(config):
             # continue
 
         if not os.path.isdir(repo_path):
-            err_msg = f"Repository path: '{repo_path}' invalid"
+            err_msg = f"\nRepository path: '{repo_path}' invalid"
             click.echo(err_msg, err=True)
             log_msg(err_msg + "\n")
             continue
