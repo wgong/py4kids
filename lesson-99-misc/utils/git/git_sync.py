@@ -52,6 +52,7 @@ import yaml
 import click
 import socket
 from datetime import datetime
+from pathlib import Path
 
 str_error = "[ERROR]"
 str_info = "[INFO]"
@@ -273,17 +274,19 @@ def main(config):
         if repo_path.startswith("~"):
             repo_path = os.path.expanduser(repo_path)
 
+        if not Path(repo_path).exists():
+            err_msg = f"Repository path: '{repo_path}' not found: create it"
+            click.echo(err_msg, err=True)
+            log_msg(err_msg + "\n")
+            Path(repo_path).mkdir(parents=True, exist_ok=True)
+            # continue
+
         if not os.path.isdir(repo_path):
             err_msg = f"Repository path: '{repo_path}' invalid"
             click.echo(err_msg, err=True)
             log_msg(err_msg + "\n")
             continue
 
-        if not os.path.exists(repo_path):
-            err_msg = f"Repository path: '{repo_path}' not found"
-            click.echo(err_msg, err=True)
-            log_msg(err_msg + "\n")
-            continue
 
         sync_repo(repo_path)
 
