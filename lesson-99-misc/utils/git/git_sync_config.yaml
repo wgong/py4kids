@@ -37,6 +37,7 @@ repos:
   - path: ~/projects/digital-duck/st_translator
   - path: ~/projects/digital-duck/semantics-explorer
   - path: ~/projects/digital-duck/notes
+  - path: ~/projects/digital-duck/st_fast_rag
 
 ## gongwork - Work Related
   - path: ~/projects/gongwork/st_rag
