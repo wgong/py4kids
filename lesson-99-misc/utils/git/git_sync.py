@@ -161,7 +161,7 @@ def sync_repo(repo_path, new_repo=False):
         x = repo_path.split("projects")
         git_repo_url = f"git@github.com:{x[1]}.git"
         click.echo(f"Cloning {git_repo_url} ...")
-        git_output = run_git_command(repo_path, ['git', 'clone', git_repo_url]).strip()
+        git_output = run_git_command(Path(repo_path).parent, ['git', 'clone', git_repo_url]).strip()
         if git_output:
             click.echo(git_output)
         return
@@ -287,12 +287,11 @@ def main(config):
             repo_path = os.path.expanduser(repo_path)
 
         if not Path(repo_path).exists():
-            err_msg = f"\nRepository path: '{repo_path}' not found: create it"
+            err_msg = f"\nRepository path: '{repo_path}' not found: clone it"
             click.echo(err_msg, err=True)
             log_msg(err_msg + "\n")
-            Path(repo_path).mkdir(parents=True, exist_ok=True)
+            # Path(repo_path).mkdir(parents=True, exist_ok=True)
             new_repo = True
-            # continue
 
         if not os.path.isdir(repo_path):
             err_msg = f"\nRepository path: '{repo_path}' invalid"
