@@ -40,6 +40,7 @@ repos:
   - path: ~/projects/digital-duck/st_fast_rag
   - path: ~/projects/digital-duck/flask2fastapi
   - path: ~/projects/digital-duck/weblog
+  - path: ~/projects/digital-duck/st_auto_mate
 
 ## gongwork - Work Related
   - path: ~/projects/gongwork/st_rag
