@@ -58,10 +58,10 @@ str_error = "[ERROR]"
 str_info = "[INFO]"
 
 def log_msg(msg, tag=str_error):
+    click.echo(msg, err=True if tag == str_error else False)
     if tag == str_error:
-        click.echo(msg, err=True)
-    with open("git_sync.log", "a") as fd:
-        fd.write(f"{tag} {msg}\n")
+        with open("git_sync.log", "a") as fd:
+            fd.write(f"{tag} {msg}\n")
 
 def resolve_config(config_file):
     """ Look for config file in current folder, else in "~" home folder
@@ -91,7 +91,6 @@ def load_config(config_file):
         return config.get('repos', [])
     except Exception as e:
         err_msg = f"Failed to load config file: {config_file} \n {e}"
-        # click.echo(err_msg, err=True)
         log_msg(err_msg)
         return []
 
@@ -111,7 +110,6 @@ def run_git_command(repo_path, command):
         return result.stdout
     except subprocess.CalledProcessError as e:
         err_msg = f"Failed to run command '{' '.join(command)}' in {repo_path}: {e.stderr}"
-        # click.echo(err_msg, err=True)
         log_msg(err_msg)
         return None
 
@@ -263,7 +261,6 @@ def main(config):
     b_found, config_file = resolve_config(config)
     if not b_found:
         err_msg = f"Failed to resolve configuration file: {config}"
-        # click.echo(err_msg, err=True)
         log_msg(err_msg)
         return
 
@@ -274,7 +271,6 @@ def main(config):
     repos = load_config(config)
     if not repos:
         err_msg = f"No repositories found in the config file: {config}."
-        # click.echo(err_msg, err=True)
         log_msg(err_msg)
         return
     
@@ -290,7 +286,6 @@ def main(config):
 
         if not Path(repo_path).exists():
             err_msg = f"\nRepository path: '{repo_path}' not found: clone it"
-            # click.echo(err_msg, err=True)
             log_msg(err_msg + "\n")
             # Path(repo_path).mkdir(parents=True, exist_ok=True)
             new_repo = True
@@ -299,12 +294,10 @@ def main(config):
             sync_repo(repo_path, new_repo)
         except Exception as e:
             err_msg = f"[ERROR] {e}"
-            # click.echo(err_msg, err=True)
             log_msg(err_msg + "\n")            
 
         if new_repo and not os.path.isdir(repo_path):
             err_msg = f"\nFailed to process new repository path: '{repo_path}'"
-            # click.echo(err_msg, err=True)
             log_msg(err_msg + "\n")
             continue
 
