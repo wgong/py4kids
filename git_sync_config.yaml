@@ -41,6 +41,8 @@ repos:
   - path: ~/projects/digital-duck/flask2fastapi
   - path: ~/projects/digital-duck/weblog
   - path: ~/projects/digital-duck/st_auto_mate
+  - path: ~/projects/digital-duck/uxue
+  - path: ~/projects/digital-duck/gluonscope
 
 ## gongwork - Work Related
   - path: ~/projects/gongwork/st_rag
