@@ -16,7 +16,7 @@ repos:
   - path: ~/projects/wgong/PocketFlow
   - path: ~/projects/wgong/vue_learning_app
   - path: ~/projects/wgong/gemini-fullstack-langgraph-quickstart
-  - path: ~/projects/wgong/vue_learning_app
+  - path: ~/projects/wgong/Multi-Agent-Medical-Assistant
   - path: ~/projects/wgong/agent-zero
 
 ## digital-duck - Project Demos
