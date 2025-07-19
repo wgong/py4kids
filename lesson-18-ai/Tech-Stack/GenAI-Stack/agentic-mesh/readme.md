@@ -1,6 +1,11 @@
+![AI-Human Evolution](AI-Human-Evolution-v4.png)
+
+*Figure 1: AI-Human Evolution since 2022*
+
+
 ![Agentic Mesh Architecture - Enterprise AI Architecture based on McKinsey Scalable AI principles](agentic-ai-mesh-v2.png)
 
-*Figure 1: Agentic Mesh Architecture showing layered approach from personas to infrastructure*
+*Figure 2: Agentic Mesh Architecture showing layered approach from personas to infrastructure*
 
 see [voice-over script](presentation_script.md)
 
