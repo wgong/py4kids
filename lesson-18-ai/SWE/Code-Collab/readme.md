@@ -27,7 +27,7 @@ claude  # launch claude-code
 # ~/.claude/ - User-specific configuration
 # ~/.claude.json - Global user config file
 
-# claude code router
+# Install claude code router
 npm install -g @musistudio/claude-code-router
 ```
 

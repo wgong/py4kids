@@ -1,4 +1,4 @@
-![AI-Human Evolution](AI-Human-Evolution-v4.png)
+![AI-Human Evolution](AI-Human-Evolution-v5.png)
 
 *Figure 1: AI-Human Evolution since 2022*
 
