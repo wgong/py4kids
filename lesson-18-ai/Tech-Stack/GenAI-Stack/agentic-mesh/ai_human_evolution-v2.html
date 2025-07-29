@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Human Partnership Evolution</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+        }
+        
+        .slide {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(15px);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            font-size: 3.2em;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 1.5em;
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+        
+        .matrix-container {
+            position: relative;
+            margin: 30px;
+            height: 800px;
+            border: 2px solid #34495e;
+            border-radius: 15px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            overflow: visible;
+        }
+        
+        .axis-label {
+            position: absolute;
+            font-weight: bold;
+            font-size: 1.1em;
+            color: #2c3e50;
+        }
+        
+        .y-axis-label {
+            top: 20px;
+            left: 20px;
+            writing-mode: vertical-lr;
+            text-orientation: mixed;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .timeline {
+            position: absolute;
+            bottom: 0;
+            left: 80px;
+            right: 20px;
+            height: 60px;
+            border-top: 3px solid #34495e;
+            display: flex;
+            align-items: center;
+        }
+        
+        .time-marker {
+            position: absolute;
+            bottom: -5px;
+            transform: translateX(-50%);
+            text-align: center;
+        }
+        
+        .time-tick {
+            width: 2px;
+            height: 15px;
+            background: #34495e;
+            margin: 0 auto 5px;
+        }
+        
+        .time-label {
+            font-size: 0.9em;
+            font-weight: 500;
+            color: #2c3e50;
+        }
+        
+        .capability-axis {
+            position: absolute;
+            left: 85px;
+            top: 20px;
+            bottom: 70px;
+            width: 3px;
+            background: #34495e;
+        }
+        
+        .capability-level {
+            position: absolute;
+            left: -60px;
+            transform: translateY(50%);
+            font-size: 0.9em;
+            font-weight: 500;
+            color: #2c3e50;
+            text-align: right;
+            width: 55px;
+        }
+        
+        .evolution-path {
+            position: absolute;
+            left: 80px;
+            right: 20px;
+            top: 20px;
+            bottom: 80px;
+        }
+        
+        .stage {
+            position: absolute;
+            width: 140px;
+            height: 90px;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            color: white;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            opacity: 0;
+            animation: stageAppear 0.8s ease forwards;
+            z-index: 10;
+        }
+        
+        .stage:hover {
+            transform: scale(1.15) rotate(2deg);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+        }
+        
+        .stage-title {
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+        
+        .stage-year {
+            font-size: 0.7em;
+            opacity: 0.9;
+        }
+        
+        .answer {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            left: 3%;
+            bottom: 10%;
+            animation-delay: 0.2s;
+        }
+        
+        .assist {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            left: 18%;
+            bottom: 25%;
+            animation-delay: 0.6s;
+        }
+        
+        .reason {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            left: 32%;
+            bottom: 40%;
+            animation-delay: 0.8s;
+        }
+        
+        .tooluse {
+            background: linear-gradient(135deg, #16a085, #1abc9c);
+            left: 46%;
+            bottom: 55%;
+            animation-delay: 1.0s;
+        }
+        
+        .collaborate {
+            background: linear-gradient(135deg, #27ae60, #229954);
+            left: 63%;
+            bottom: 65%;
+            animation-delay: 1.4s;
+        }
+        
+        .recommend {
+            background: linear-gradient(135deg, #9b59b6, #8e44ad);
+            left: 80%;
+            bottom: 70%;
+            animation-delay: 1.8s;
+        }
+        
+        .beyond {
+            background: transparent;
+            border: none;
+            box-shadow: none;
+            left: 95%;
+            bottom: 85%;
+            animation-delay: 0s;
+            opacity: 0;
+            cursor: default;
+            pointer-events: none;
+        }
+        
+        .co-create-zone {
+            position: absolute;
+            top: 20px;
+            left: 60%;
+            right: 20px;
+            height: 100px;
+            background: linear-gradient(135deg, rgba(231, 76, 60, 0.1), rgba(155, 89, 182, 0.1));
+            border: 3px dashed #e74c3c;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            color: #2c3e50;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: stageAppear 0.8s ease forwards;
+            animation-delay: 2.2s;
+            z-index: 10;
+        }
+        
+        .co-create-zone:hover {
+            transform: scale(1.05);
+            background: linear-gradient(135deg, rgba(231, 76, 60, 0.15), rgba(155, 89, 182, 0.15));
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .co-create-title {
+            font-size: 1.3em;
+            margin-bottom: 8px;
+            color: #e74c3c;
+        }
+        
+        .co-create-subtitle {
+            font-size: 0.9em;
+            color: #7f8c8d;
+            font-weight: normal;
+        }
+        
+        .evolution-line {
+            position: absolute;
+            stroke: #3498db;
+            stroke-width: 3;
+            fill: none;
+            stroke-dasharray: 10, 5;
+            opacity: 0;
+            animation: pathDraw 2s ease-in-out forwards;
+            animation-delay: 2.2s;
+        }
+        
+        .tooltip {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.95);
+            color: #2c3e50;
+            border: 2px solid #3498db;
+            padding: 20px;
+            border-radius: 12px;
+            font-size: 0.9em;
+            line-height: 1.5;
+            max-width: 320px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .tooltip.show {
+            opacity: 1;
+        }
+        
+        .tooltip::before {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -8px;
+            width: 0;
+            height: 0;
+            border-top: 8px solid rgba(255, 255, 255, 0.95);
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+        }
+        
+        .tooltip h4 {
+            margin: 0 0 10px 0;
+            color: #e74c3c;
+            font-size: 1.1em;
+        }
+        
+        .tooltip-section {
+            margin-bottom: 12px;
+        }
+        
+        .tooltip-section:last-child {
+            margin-bottom: 0;
+        }
+        
+        .human-strengths {
+            color: #1014d6;
+            font-weight: bold;
+        }
+        
+        .ai-strengths {
+            color: #1014d6;
+            font-weight: bold;
+        }
+        
+        .arrow {
+            width: 20px;
+            height: 20px;
+            opacity: 0.7;
+        }
+        
+        @keyframes stageAppear {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        @keyframes pathDraw {
+            from {
+                stroke-dashoffset: 1000;
+                opacity: 0;
+            }
+            to {
+                stroke-dashoffset: 0;
+                opacity: 0.6;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .slide { padding: 20px; }
+            .matrix-container { height: 600px; margin: 10px; }
+            .stage { width: 80px; height: 60px; font-size: 0.8em; }
+            .co-create-zone { font-size: 0.8em; }
+            .tooltip { max-width: 250px; font-size: 0.8em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <h1>AI-Human Evolution</h1>
+        <div class="subtitle">from Q&A bot to co-creation partner</div>
+        
+        <div class="matrix-container">
+            <div class="y-axis-label">
+                <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="transform: rotate(-90deg);">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+                Cognitive Dimension
+            </div>
+            
+            <div class="co-create-zone" data-tooltip="co-create">
+                <div class="co-create-title">CO-CREATE</div>
+                <div class="co-create-subtitle"><b><font color=blue>Human & AI Synergy</font></b></div>
+            </div>
+            
+            <div class="timeline">
+                <div class="time-marker" style="left: 5%;">
+                    <div class="time-tick"></div>
+                    <div class="time-label">Jul '22</div>
+                </div>
+                <div class="time-marker" style="left: 18%;">
+                    <div class="time-tick"></div>
+                    <div class="time-label">Dec '22</div>
+                </div>
+                <div class="time-marker" style="left: 32%;">
+                    <div class="time-tick"></div>
+                    <div class="time-label">2023</div>
+                </div>
+                <div class="time-marker" style="left: 46%;">
+                    <div class="time-tick"></div>
+                    <div class="time-label">2024</div>
+                </div>
+                <div class="time-marker" style="left: 60%;">
+                    <div class="time-tick"></div>
+                    <div class="time-label">Late '24</div>
+                </div>
+                <div class="time-marker" style="left: 74%;">
+                    <div class="time-tick"></div>
+                    <div class="time-label">Jul '25</div>
+                </div>
+                <div class="time-marker" style="left: 85%;">
+                    <div class="time-tick"></div>
+                    <div class="time-label">2026</div>
+                </div>
+                <div class="time-marker" style="left: 95%;">
+                    <div class="time-tick"></div>
+                    <div class="time-label">Beyond</div>
+                </div>
+                <div style="position: absolute; bottom: -40px; right: 0; font-weight: bold; font-size: 1.1em; color: #2c3e50; display: flex; align-items: center; gap: 10px;">
+                    Timeline 
+                    <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 20px; height: 20px; opacity: 0.7;">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </div>
+            </div>
+            
+            <div class="capability-axis">
+                <div class="capability-level" style="bottom: 2%;">Primitive</div>
+                <div class="capability-level" style="bottom: 20%;">Interactive</div>
+                <div class="capability-level" style="bottom: 35%;">Operational</div>
+                <div class="capability-level" style="bottom: 55%;">Analytical</div>
+                <div class="capability-level" style="bottom: 70%;">Strategic</div>
+                <div class="capability-level" style="bottom: 85%;">Proactive</div>
+                <div class="capability-level" style="bottom: 95%;">Creative</div>
+            </div>
+            
+            <div class="evolution-path">
+                <svg width="100%" height="100%" style="position: absolute; top: 0; left: 0;">
+                    <path class="evolution-line" d="M 60 650 Q 150 590 240 530 Q 350 470 450 400 Q 550 340 650 300 Q 750 250 850 230 Q 950 210 1100 180 Q 1200 170 1400 150" />
+                </svg>
+                
+                <div class="stage answer" data-tooltip="answer">
+                    <div class="stage-title">ANSWER</div>
+                    <div class="stage-year">GPT-3</div>
+                </div>
+                
+                <div class="stage assist" data-tooltip="assist">
+                    <div class="stage-title">ASSIST</div>
+                    <div class="stage-year">ChatGPT<br>Claude-3</div>
+                </div>
+                
+                <div class="stage reason" data-tooltip="reason">
+                    <div class="stage-title">REASON</div>
+                    <div class="stage-year">GPT-4<br>Claude-4<br>Gemini-2.5</div>
+                </div>
+                
+                <div class="stage tooluse" data-tooltip="tooluse">
+                    <div class="stage-title">TOOL-USE</div>
+                    <div class="stage-year">MCP</div>
+                </div>
+                
+                <div class="stage collaborate" data-tooltip="collaborate">
+                    <div class="stage-title">COLLABORATE</div>
+                    <div class="stage-year">Multi-Agent</div>
+                </div>
+                
+                <div class="stage recommend" data-tooltip="recommend">
+                    <div class="stage-title">RECOMMEND</div>
+                    <div class="stage-year">Emerging</div>
+                </div>
+                
+                <div class="stage beyond">
+                    <!-- Invisible future box for trajectory line -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tooltip Element -->
+        <div class="tooltip" id="tooltip"></div>
+    </div>
+
+    <script>
+        const tooltip = document.getElementById('tooltip');
+        const stages = document.querySelectorAll('[data-tooltip]');
+        
+        const tooltipContent = {
+            answer: {
+                title: "ANSWER (July 2022 - GPT-3)",
+                content: `
+                    <div class="tooltip-section">My starting point with GPT-3. Q&A with impressive text/code generation but limited reasoning. Primarily pattern matching from pre-training data.</div>
+                    <div class="tooltip-section"><strong>Key Limitation:</strong> No contextual memory, no tool use, basic logical reasoning.</div>
+                    <div class="tooltip-section"><strong>Use Cases:</strong> Content creation, simple question answering, text completion and code generation.</div>
+                `
+            },
+            assist: {
+                title: "ASSIST (Nov 30, 2022 - ChatGPT)",
+                content: `
+                    <div class="tooltip-section">ChatGPT revolution brought conversational AI to mainstream. RLHF made AI more helpful and aligned with human preferences.</div>
+                    <div class="tooltip-section"><strong>Breakthrough:</strong> Dynamic help with tasks, contextual awareness within conversations.</div>
+                    <div class="tooltip-section"><strong>Relationship:</strong> Human directs → AI executes with basic understanding.</div>
+                `
+            },
+            tooluse: {
+                title: "TOOL-USE (2024 - MCP)",
+                content: `
+                    <div class="tooltip-section">Model Context Protocol (MCP) represents the standardization of AI-tool interaction. Unlike basic function calling, MCP enables sophisticated, persistent connections between AI and external systems.</div>
+                    <div class="tooltip-section"><strong>Breakthrough:</strong> AI can now maintain context across tool interactions, orchestrate complex workflows, and integrate deeply with enterprise systems.</div>
+                    <div class="tooltip-section"><strong>Relationship:</strong> AI becomes a capable operator that can execute multi-step processes across different tools and platforms.</div>
+                `
+            },
+            reason: {
+                title: "REASON (March 14, 2023 - GPT-4)",
+                content: `
+                    <div class="tooltip-section">GPT-4 introduced vision capabilities and significantly improved reasoning. Multi-step problem-solving became possible.</div>
+                    <div class="tooltip-section"><strong>New Capabilities:</strong> Logical chains, evidence evaluation, multi-modal understanding.</div>
+                    <div class="tooltip-section"><strong>Relationship:</strong> Human presents complex problems → AI thinks through solutions step-by-step.</div>
+                `
+            },
+            collaborate: {
+                title: "COLLABORATE (2024 - Multi-Agent Systems)",
+                content: `
+                    <div class="tooltip-section">Emergence of agent frameworks and multi-agent systems. AI systems began specializing and working together.</div>
+                    <div class="tooltip-section"><strong>Game Changer:</strong> Shared ownership of outcomes, complementary strengths, iterative refinement.</div>
+                    <div class="tooltip-section"><strong>Relationship:</strong> Human & AI collaborate on solving problems together.</div>
+                `
+            },
+            recommend: {
+                title: "RECOMMEND (July 2025 - Current State)",
+                content: `
+                    <div class="tooltip-section">AI observes interaction patterns and suggests optimal next best actions based on accumulated context and long-term memory.</div>
+                    <div class="tooltip-section"><strong>Key Insight:</strong> Optimizes within known parameters while respecting human creativity for "outside the box" thinking.</div>
+                    <div class="tooltip-section"><strong>Limitation:</strong> Cannot truly anticipate - lacks imagination and broad life experience.</div>
+                `
+            },
+            "co-create": {
+                title: "CO-CREATE ZONE: Human-AI Synergy",
+                content: `
+                    <div class="tooltip-section"><span class="human-strengths">Human Strength:</span><br>• Intuition and gut feelings<br>• Imagination and creative leaps<br>• Real-world problem contextualizing<br>• Thinking outside established patterns</div>
+                    <div class="tooltip-section"><span class="ai-strengths">AI Strength:</span><br>• Rapid execution and implementation<br>• Broad knowledge synthesis<br>• Pattern recognition at scale<br>• Consistent quality and endurance</div>
+                    <div class="tooltip-section"><strong>Together:</strong> Solutions neither could achieve alone - human vision meets AI capability.</div>
+                    <div class="tooltip-section"><strong>Future:</strong> As AI capabilities advance, this collaborative zone expands, enabling increasingly novel human-AI partnerships that leverage the unique strengths of both.</div>
+                `
+            }
+        };
+        
+        stages.forEach(stage => {
+            stage.addEventListener('mouseenter', (e) => {
+                const type = e.target.getAttribute('data-tooltip') || e.target.closest('[data-tooltip]').getAttribute('data-tooltip');
+                const content = tooltipContent[type];
+                
+                if (content) {
+                    tooltip.innerHTML = `<h4>${content.title}</h4>${content.content}`;
+                    tooltip.classList.add('show');
+                    
+                    // Position tooltip
+                    const rect = e.target.getBoundingClientRect();
+                    const containerRect = document.querySelector('.matrix-container').getBoundingClientRect();
+                    
+                    let left = rect.left + rect.width / 2 - tooltip.offsetWidth / 2;
+                    let top = rect.top - tooltip.offsetHeight - 15;
+                    
+                    // Adjust if tooltip goes off screen
+                    if (left < 10) left = 10;
+                    if (left + tooltip.offsetWidth > window.innerWidth - 10) {
+                        left = window.innerWidth - tooltip.offsetWidth - 10;
+                    }
+                    if (top < 10) {
+                        top = rect.bottom + 15;
+                        // Flip arrow to point up
+                        tooltip.style.setProperty('--arrow-direction', 'up');
+                    }
+                    
+                    tooltip.style.left = left + 'px';
+                    tooltip.style.top = top + 'px';
+                }
+            });
+            
+            stage.addEventListener('mouseleave', () => {
+                tooltip.classList.remove('show');
+            });
+        });
+        
+        // Hide tooltip when clicking elsewhere
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('[data-tooltip]')) {
+                tooltip.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>

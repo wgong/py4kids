@@ -44,6 +44,7 @@ repos:
   - path: ~/projects/digital-duck/uxue
   - path: ~/projects/digital-duck/gluonscope
   - path: ~/projects/digital-duck/llm_finder
+  - path: ~/projects/digital-duck/ziflow
 
 ## gongwork - Work Related
   - path: ~/projects/gongwork/st_rag
