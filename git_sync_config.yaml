@@ -43,6 +43,7 @@ repos:
   - path: ~/projects/digital-duck/st_auto_mate
   - path: ~/projects/digital-duck/uxue
   - path: ~/projects/digital-duck/gluonscope
+  - path: ~/projects/digital-duck/llm_finder
 
 ## gongwork - Work Related
   - path: ~/projects/gongwork/st_rag
