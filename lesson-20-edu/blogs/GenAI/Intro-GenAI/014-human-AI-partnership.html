@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Human Partnership Evolution</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            background-color: #0a192f;
+            color: #ffffff;
+            overflow: hidden;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            padding: 30px 70px 15px;
+        }
+        .title {
+            font-size: 42px;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 5px;
+            letter-spacing: -0.5px;
+        }
+        .subtitle {
+            font-size: 18px;
+            color: #64ffda;
+            font-weight: 600;
+        }
+        .content {
+            flex-grow: 1;
+            padding: 0 70px 30px;
+            display: flex;
+            flex-direction: column;
+        }
+        .evolution-container {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            margin-top: 20px;
+        }
+        .evolution-chart {
+            flex-grow: 1;
+            position: relative;
+            background-color: rgba(100, 255, 218, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+            border-left: 4px solid #64ffda;
+        }
+        .chart-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #64ffda;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        .chart-title i {
+            margin-right: 10px;
+        }
+        .chart-area {
+            position: relative;
+            height: 520px;
+            width: 100%;
+        }
+        .axis {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        .x-axis {
+            bottom: 40px;
+            left: 60px;
+            right: 40px;
+            height: 2px;
+        }
+        .y-axis {
+            top: 40px;
+            bottom: 40px;
+            left: 60px;
+            width: 2px;
+        }
+        .axis-label {
+            position: absolute;
+            color: #ccd6f6;
+            font-size: 14px;
+        }
+        .x-label {
+            bottom: 45px;
+            left: 90%;
+            transform: translateX(-50%);
+            font-weight: 600;
+        }
+        .y-label {
+            top: 20%;
+            left: 10px;
+            transform: translateY(-50%) rotate(-90deg);
+            font-weight: 600;
+        }
+        .stage-block {
+            position: absolute;
+            border-radius: 8px;
+            padding: 12px;
+            font-weight: 600;
+            font-size: 16px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .stage-block:hover {
+            transform: scale(1.05);
+            z-index: 10;
+        }
+        .stage-answer {
+            background-color: rgba(255, 107, 107, 0.7);
+            color: white;
+            left: 100px;
+            bottom: 60px;
+            width: 120px;
+            height: 60px;
+        }
+        .stage-assist {
+            background-color: rgba(255, 159, 64, 0.7);
+            color: white;
+            left: 250px;
+            bottom: 120px;
+            width: 120px;
+            height: 60px;
+        }
+        .stage-reason {
+            background-color: rgba(255, 205, 86, 0.7);
+            color: #0a192f;
+            left: 400px;
+            bottom: 180px;
+            width: 120px;
+            height: 60px;
+        }
+        .stage-tool {
+            background-color: rgba(72, 219, 251, 0.7);
+            color: #0a192f;
+            left: 550px;
+            bottom: 240px;
+            width: 120px;
+            height: 60px;
+        }
+        .stage-collaborate {
+            background-color: rgba(67, 134, 215, 0.7);
+            color: white;
+            left: 700px;
+            bottom: 300px;
+            width: 120px;
+            height: 60px;
+        }
+        .stage-recommend {
+            background-color: rgba(124, 77, 255, 0.7);
+            color: white;
+            left: 850px;
+            bottom: 340px;
+            width: 120px;
+            height: 60px;
+        }
+        .stage-co-create-box {
+            background-color: rgba(255, 107, 107, 0.1);
+            left: 680px;
+            bottom: 400px;
+            width: 400px;
+            height: 120px;
+            border: 2px dashed #ff6b6b;
+            border-radius: 8px;
+            padding: 15px;
+        }
+        .co-create-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #ff6b6b;
+            margin-bottom: 8px;
+            text-align: top;
+        }
+        .co-create-subtitle {
+            font-size: 16px;
+            color: #ffd6d6;
+            text-align: top;
+        }
+        .key-points {
+            margin-top: 20px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+        .key-point {
+            background-color: rgba(100, 255, 218, 0.08);
+            border-radius: 8px;
+            padding: 15px;
+            border-left: 3px solid #64ffda;
+        }
+        .key-point-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #64ffda;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+        .key-point-title i {
+            margin-right: 8px;
+        }
+        .key-point-desc {
+            font-size: 14px;
+            color: #ccd6f6;
+            line-height: 1.4;
+        }
+        .time-marker {
+            position: absolute;
+            color: #8892b0;
+            font-size: 12px;
+        }
+        .marker-jul22 {
+            bottom: 25px;
+            left: 100px;
+        }
+        .marker-dec22 {
+            bottom: 25px;
+            left: 250px;
+        }
+        .marker-mar23 {
+            bottom: 25px;
+            left: 400px;
+        }
+        .marker-dec23 {
+            bottom: 25px;
+            left: 550px;
+        }
+        .marker-jun24 {
+            bottom: 25px;
+            left: 700px;
+        }
+        .marker-now {
+            bottom: 25px;
+            left: 850px;
+        }
+        .marker-beyond {
+            bottom: 25px;
+            right: 40px;
+        }
+        .cognitive-marker {
+            position: absolute;
+            color: #8892b0;
+            font-size: 12px;
+        }
+        .marker-primitive {
+            left: 5px;
+            bottom: 40px;
+        }
+        .marker-basic {
+            left: 5px;
+            bottom: 120px;
+        }
+        .marker-intermediate {
+            left: 5px;
+            bottom: 200px;
+        }
+        .marker-advanced {
+            left: 5px;
+            bottom: 290px;
+        }
+        .marker-creative {
+            left: 5px;
+            bottom: 380px;
+        }
+        .marker-synergy {
+            left: 5px;
+            bottom: 460px;
+        }
+        .arrow {
+            position: absolute;
+            width: 50px;
+            height: 2px;
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+        .arrow::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: -4px;
+            width: 0;
+            height: 0;
+            border-left: 8px solid rgba(255, 255, 255, 0.5);
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+        }
+        .arrow-1 {
+            transform: rotate(-35deg);
+            left: 210px;
+            bottom: 110px;
+        }
+        .arrow-2 {
+            transform: rotate(-35deg);
+            left: 360px;
+            bottom: 170px;
+        }
+        .arrow-3 {
+            transform: rotate(-35deg);
+            left: 510px;
+            bottom: 230px;
+        }
+        .arrow-4 {
+            transform: rotate(-35deg);
+            left: 660px;
+            bottom: 290px;
+        }
+        .arrow-5 {
+            transform: rotate(-35deg);
+            left: 810px;
+            bottom: 350px;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="header">
+            <h1 class="title">AI-Human Partnership Evolution</h1>
+            <div class="subtitle">From Q&A Bot to Co-Creation Partner</div>
+        </div>
+        <div class="content">
+            <div class="evolution-container">
+                <div class="evolution-chart">
+                    <!--div class="chart-title">
+                        <i class="fas fa-project-diagram"></i>
+                        Partnership Evolution Timeline
+                    </div-->
+                    <div class="chart-area">
+                        <!-- Axes -->
+                        <div class="axis x-axis"></div>
+                        <div class="axis y-axis"></div>
+                        
+                        <!-- Axis Labels -->
+                        <div class="axis-label x-label">Time</div>
+                        <div class="axis-label y-label">Cognitive Dimension</div>
+                        
+                        <!-- Time Markers -->
+                        <div class="time-marker marker-jul22">Jul '22</div>
+                        <div class="time-marker marker-dec22">Dec '22</div>
+                        <div class="time-marker marker-mar23">Mar '23</div>
+                        <div class="time-marker marker-dec23">Dec '23</div>
+                        <div class="time-marker marker-jun24">Jun '24</div>
+                        <div class="time-marker marker-now">Now</div>
+                        <div class="time-marker marker-beyond">Beyond</div>
+                        
+                        <!-- Cognitive Markers -->
+                        <div class="cognitive-marker marker-primitive">Primitive</div>
+                        <div class="cognitive-marker marker-basic">Basic</div>
+                        <div class="cognitive-marker marker-intermediate">Intermediate</div>
+                        <div class="cognitive-marker marker-advanced">Advanced</div>
+                        <div class="cognitive-marker marker-creative">Creative</div>
+                        <div class="cognitive-marker marker-synergy">Synergy</div>
+                        
+                        <!-- Arrows -->
+                        <div class="arrow arrow-1"></div>
+                        <div class="arrow arrow-2"></div>
+                        <div class="arrow arrow-3"></div>
+                        <div class="arrow arrow-4"></div>
+                        <div class="arrow arrow-5"></div>
+                        
+                        <!-- Stage Blocks -->
+                        <div class="stage-block stage-answer">
+                            ANSWER
+                            <div class="text-xs mt-1">GPT-3</div>
+                        </div>
+                        <div class="stage-block stage-assist">
+                            ASSIST
+                            <div class="text-xs mt-1">ChatGPT</div>
+                        </div>
+                        <div class="stage-block stage-reason">
+                            REASON
+                            <div class="text-xs mt-1">GPT-4</div>
+                        </div>
+                        <div class="stage-block stage-tool">
+                            TOOL-USE
+                            <div class="text-xs mt-1">MCP</div>
+                        </div>
+                        <div class="stage-block stage-collaborate">
+                            COLLABORATE
+                            <div class="text-xs mt-1">Multi-Agent</div>
+                        </div>
+                        <div class="stage-block stage-recommend">
+                            RECOMMEND
+                            <div class="text-xs mt-1">Emerging</div>
+                        </div>
+
+                        <div class="stage-block stage-co-create-box">
+                            <div class="co-create-title"> CO-CREATE 
+                                <div class="co-create-subtitle text-xs mt-1">AI-Human Synergy</div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                
+                <div class="key-points">
+                    <div class="key-point">
+                        <div class="key-point-title">
+                            <i class="fas fa-exchange-alt"></i>
+                            Evolving Relationship
+                        </div>
+                        <div class="key-point-desc">
+                            From simple Q&A to creative partnership, AI is becoming an extension of human capabilities
+                        </div>
+                    </div>
+                    <div class="key-point">
+                        <div class="key-point-title">
+                            <i class="fas fa-brain"></i>
+                            Cognitive Growth
+                        </div>
+                        <div class="key-point-desc">
+                            AI systems advancing from primitive responses to creative problem-solving and synergy
+                        </div>
+                    </div>
+                    <div class="key-point">
+                        <div class="key-point-title">
+                            <i class="fas fa-hands-helping"></i>
+                            Collaborative Future
+                        </div>
+                        <div class="key-point-desc">
+                            Co-creation represents the ultimate goal: seamless human-AI teamwork enhancing both parties
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

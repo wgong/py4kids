@@ -23,7 +23,7 @@ def collect_slides():
     
     return slides
 
-def generate_navigation_html(slides):
+def generate_navigation_html(slides, title="AI Slides"):
     # Create the main HTML content
     html_content = """
 <!DOCTYPE html>
@@ -31,7 +31,7 @@ def generate_navigation_html(slides):
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prefect: Dynamic Workflow Library - Presentation</title>
+    <title>HTML_TITLE</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -188,18 +188,19 @@ def generate_navigation_html(slides):
 </html>
 """
 
-    return html_content
-
+    return html_content.replace("HTML_TITLE", title)
+# 
 @click.command()
-@click.option('--out-html', default='000-genai-intro.html', help='Output HTML file name')
-def main(out_html):
+@click.option('--title', default="AI Slides", help='HTML page title')
+@click.option('--out-html', default='index_genai-intro.html', help='Output HTML file name')
+def main(title, out_html):
     """Generate a navigation HTML page for presentation slides."""
     slides = collect_slides()
     if not slides:
         click.echo("No slides found with the naming convention <3 digits>-<slide-name>.html", err=True)
         return
     
-    navigation_html = generate_navigation_html(slides)
+    navigation_html = generate_navigation_html(slides, title=title)
     
     # Write the navigation HTML to a file
     with open(out_html, 'w') as f:
