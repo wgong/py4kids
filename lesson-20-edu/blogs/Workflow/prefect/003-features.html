@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prefect's Capabilities</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            color: #333;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            position: relative;
+            overflow: hidden;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+        }
+        .slide-header {
+            background: linear-gradient(90deg, #0a2540 0%, #1e3a5f 100%);
+            color: white;
+            padding: 30px 70px;
+        }
+        .slide-title {
+            font-size: 40px;
+            font-weight: 600;
+        }
+        .slide-content {
+            display: flex;
+            flex-grow: 1;
+            padding: 40px 70px;
+        }
+        .content-left {
+            flex: 1.2;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .content-right {
+            flex: 0.8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-left: 40px;
+        }
+        .capabilities-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-gap: 25px;
+        }
+        .capability-item {
+            display: flex;
+            align-items: flex-start;
+        }
+        .capability-icon {
+            color: #4189e6;
+            margin-right: 15px;
+            font-size: 28px;
+        }
+        .capability-text {
+            flex: 1;
+        }
+        .capability-title {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #0a2540;
+        }
+        .capability-desc {
+            font-size: 18px;
+            color: #555;
+        }
+        .image-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .image-container img {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        .accent-shape {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: rgba(65, 137, 230, 0.1);
+            bottom: -100px;
+            right: -50px;
+            z-index: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="slide-header">
+            <h1 class="slide-title">Prefect's Capabilities</h1>
+        </div>
+        <div class="slide-content">
+            <div class="content-left">
+                <div class="capabilities-grid">
+                    <div class="capability-item">
+                        <i class="material-icons capability-icon">code</i>
+                        <div class="capability-text">
+                            <div class="capability-title">Pythonic</div>
+                            <div class="capability-desc">Native Python workflows with type hints and modern patterns</div>
+                        </div>
+                    </div>
+                    
+                    <div class="capability-item">
+                        <i class="material-icons capability-icon">restore</i>
+                        <div class="capability-text">
+                            <div class="capability-title">State & Recovery</div>
+                            <div class="capability-desc">Robust state management with resume capability</div>
+                        </div>
+                    </div>
+                    
+                    <div class="capability-item">
+                        <i class="material-icons capability-icon">cloud_upload</i>
+                        <div class="capability-text">
+                            <div class="capability-title">Flexible Execution</div>
+                            <div class="capability-desc">Deploy anywhere from local to cloud services</div>
+                        </div>
+                    </div>
+                    
+                    <div class="capability-item">
+                        <i class="material-icons capability-icon">event</i>
+                        <div class="capability-text">
+                            <div class="capability-title">Event-Driven</div>
+                            <div class="capability-desc">Trigger on schedules, events, or API calls</div>
+                        </div>
+                    </div>
+                    
+                    <div class="capability-item">
+                        <i class="material-icons capability-icon">autorenew</i>
+                        <div class="capability-text">
+                            <div class="capability-title">Dynamic Runtime</div>
+                            <div class="capability-desc">Create tasks dynamically based on data</div>
+                        </div>
+                    </div>
+                    
+                    <div class="capability-item">
+                        <i class="material-icons capability-icon">dashboard</i>
+                        <div class="capability-text">
+                            <div class="capability-title">Modern UI</div>
+                            <div class="capability-desc">Real-time monitoring and visualization</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-right">
+                <div class="image-container">
+                    <img src="https://sfile.chatglm.cn/images-ppt/5b24a13a344d.png" alt="Prefect UI Dashboard">
+                </div>
+            </div>
+        </div>
+        <div class="accent-shape"></div>
+    </div>
+</body>
+</html>

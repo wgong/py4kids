@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deployment and Scheduling</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            color: #333;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            position: relative;
+            overflow: hidden;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+        }
+        .slide-header {
+            background: linear-gradient(90deg, #0a2540 0%, #1e3a5f 100%);
+            color: white;
+            padding: 30px 70px;
+        }
+        .slide-title {
+            font-size: 40px;
+            font-weight: 600;
+        }
+        .slide-content {
+            display: flex;
+            flex-grow: 1;
+            padding: 40px 70px;
+        }
+        .content-left {
+            flex: 1.2;
+            display: flex;
+            flex-direction: column;
+        }
+        .content-right {
+            flex: 0.8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-left: 40px;
+        }
+        .deployment-section {
+            margin-bottom: 25px;
+        }
+        .section-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #0a2540;
+            display: flex;
+            align-items: center;
+        }
+        .section-title i {
+            color: #4189e6;
+            margin-right: 12px;
+            font-size: 28px;
+        }
+        .code-block {
+            background-color: #f5f7fa;
+            border-left: 4px solid #4189e6;
+            padding: 15px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 15px;
+            overflow-x: auto;
+            line-height: 1.5;
+        }
+        .key-points {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-left: 40px;
+        }
+        .key-point {
+            display: flex;
+            align-items: flex-start;
+        }
+        .key-point i {
+            color: #4189e6;
+            margin-right: 10px;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+        .key-point-text {
+            font-size: 20px;
+            color: #555;
+        }
+        .image-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .image-container img {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        .highlight {
+            color: #4189e6;
+            font-weight: 600;
+        }
+        .accent-shape {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: rgba(65, 137, 230, 0.1);
+            bottom: -100px;
+            right: -50px;
+            z-index: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="slide-header">
+            <h1 class="slide-title">Deployment and Scheduling</h1>
+        </div>
+        <div class="slide-content">
+            <div class="content-left">
+                <div class="deployment-section">
+                    <div class="section-title">
+                        <i class="material-icons">cloud_upload</i>
+                        <span>Deploying Workflows</span>
+                    </div>
+                    <div class="code-block">
+                        # Deploy a workflow<br>
+                        prefect deploy my_flow.py:main --name my_deployment
+                    </div>
+                    <div class="key-points">
+                        <div class="key-point">
+                            <i class="material-icons">check_circle</i>
+                            <div class="key-point-text">Package workflow for remote execution</div>
+                        </div>
+                        <div class="key-point">
+                            <i class="material-icons">check_circle</i>
+                            <div class="key-point-text">Define infrastructure requirements</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="deployment-section">
+                    <div class="section-title">
+                        <i class="material-icons">schedule</i>
+                        <span>Scheduling Workflows</span>
+                    </div>
+                    <div class="code-block">
+                        # Schedule a workflow<br>
+                        prefect schedule my_deployment "0 8 * * *"  # Daily at 8 AM
+                    </div>
+                    <div class="key-points">
+                        <div class="key-point">
+                            <i class="material-icons">check_circle</i>
+                            <div class="key-point-text">Use <span class="highlight">cron syntax</span> for flexible scheduling</div>
+                        </div>
+                        <div class="key-point">
+                            <i class="material-icons">check_circle</i>
+                            <div class="key-point-text">Event-based triggers also available</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="deployment-section">
+                    <div class="section-title">
+                        <i class="material-icons">play_arrow</i>
+                        <span>Running Workflows</span>
+                    </div>
+                    <div class="code-block">
+                        # Run a workflow remotely<br>
+                        prefect run my_deployment
+                    </div>
+                    <div class="key-points">
+                        <div class="key-point">
+                            <i class="material-icons">check_circle</i>
+                            <div class="key-point-text">Execute on-demand or via schedule</div>
+                        </div>
+                        <div class="key-point">
+                            <i class="material-icons">check_circle</i>
+                            <div class="key-point-text">Monitor via <span class="highlight">Prefect UI</span> or API</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-right">
+                <div class="image-container">
+                    <img src="https://sfile.chatglm.cn/images-ppt/6c2e4b1e2553.png" alt="Prefect Deployment UI">
+                </div>
+            </div>
+        </div>
+        <div class="accent-shape"></div>
+    </div>
+</body>
+</html>

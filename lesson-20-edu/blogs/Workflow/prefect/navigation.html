@@ -1,0 +1,182 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prefect: Dynamic Workflow Library - Presentation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            height: 100vh;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: #f1f1f1;
+            padding: 20px;
+            overflow-y: auto;
+            border-right: 1px solid #ddd;
+        }
+        .main-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+        .slide-content {
+            flex-grow: 1;
+            border: 1px solid #ddd;
+            padding: 20px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+        .navigation {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        .nav-button {
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .nav-button:hover {
+            background-color: #45a049;
+        }
+        .toc-item {
+            margin-bottom: 8px;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 3px;
+        }
+        .toc-item:hover {
+            background-color: #ddd;
+        }
+        .toc-item.active {
+            background-color: #4CAF50;
+            color: white;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Table of Contents</h2>
+        <div class="toc-list">
+            <div class="toc-item" data-slide="0" data-file="001-title.html">1: title</div>
+            <div class="toc-item" data-slide="1" data-file="002-what.html">2: what</div>
+            <div class="toc-item" data-slide="2" data-file="003-features.html">3: features</div>
+            <div class="toc-item" data-slide="3" data-file="004-setup.html">4: setup</div>
+            <div class="toc-item" data-slide="4" data-file="005-1st-app.html">5: 1st-app</div>
+            <div class="toc-item" data-slide="5" data-file="006-deploy.html">6: deploy</div>
+            <div class="toc-item" data-slide="6" data-file="007-use-cases.html">7: use-cases</div>
+            <div class="toc-item" data-slide="7" data-file="008-prefect-airflow.html">8: prefect-airflow</div>
+            <div class="toc-item" data-slide="8" data-file="009-prefect-dagster.html">9: prefect-dagster</div>
+            <div class="toc-item" data-slide="9" data-file="010-summary.html">10: summary</div>
+            <div class="toc-item" data-slide="10" data-file="011-advanced-features.html">11: advanced-features</div>
+            <div class="toc-item" data-slide="11" data-file="012-integration.html">12: integration</div>
+            <div class="toc-item" data-slide="12" data-file="013-best-practices.html">13: best-practices</div>
+            <div class="toc-item" data-slide="13" data-file="014-debug.html">14: debug</div>
+            <div class="toc-item" data-slide="14" data-file="015-performance.html">15: performance</div>
+            <div class="toc-item" data-slide="15" data-file="016-security.html">16: security</div>
+            <div class="toc-item" data-slide="16" data-file="017-use-cases.html">17: use-cases</div>
+            <div class="toc-item" data-slide="17" data-file="018-resources.html">18: resources</div>
+
+        </div>
+    </div>
+    <div class="main-content">
+        <div class="slide-content">
+            <iframe id="slide-frame" src=""></iframe>
+        </div>
+        <div class="navigation">
+            <button class="nav-button" id="first-slide"><<</button>
+            <button class="nav-button" id="prev-slide"><</button>
+            <button class="nav-button" id="next-slide">></button>
+            <button class="nav-button" id="last-slide">>></button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const slides = [
+                "001-title.html",
+                "002-what.html",
+                "003-features.html",
+                "004-setup.html",
+                "005-1st-app.html",
+                "006-deploy.html",
+                "007-use-cases.html",
+                "008-prefect-airflow.html",
+                "009-prefect-dagster.html",
+                "010-summary.html",
+                "011-advanced-features.html",
+                "012-integration.html",
+                "013-best-practices.html",
+                "014-debug.html",
+                "015-performance.html",
+                "016-security.html",
+                "017-use-cases.html",
+                "018-resources.html"
+            ];
+            
+            let currentSlide = 0;
+            const slideFrame = document.getElementById('slide-frame');
+            const tocItems = document.querySelectorAll('.toc-item');
+            
+            // Function to load a slide
+            function loadSlide(index) {
+                if (index >= 0 && index < slides.length) {
+                    currentSlide = index;
+                    slideFrame.src = slides[index];
+                    
+                    // Update active TOC item
+                    tocItems.forEach(item => {
+                        item.classList.remove('active');
+                        if (parseInt(item.dataset.slide) === index) {
+                            item.classList.add('active');
+                        }
+                    });
+                }
+            }
+            
+            // Load the first slide
+            loadSlide(0);
+            
+            // Add click event to TOC items
+            tocItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const slideIndex = parseInt(this.dataset.slide);
+                    loadSlide(slideIndex);
+                });
+            });
+            
+            // Navigation button event listeners
+            document.getElementById('first-slide').addEventListener('click', function() {
+                loadSlide(0);
+            });
+            
+            document.getElementById('prev-slide').addEventListener('click', function() {
+                loadSlide(currentSlide - 1);
+            });
+            
+            document.getElementById('next-slide').addEventListener('click', function() {
+                loadSlide(currentSlide + 1);
+            });
+            
+            document.getElementById('last-slide').addEventListener('click', function() {
+                loadSlide(slides.length - 1);
+            });
+        });
+    </script>
+</body>
+</html>

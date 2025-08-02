@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appendix: Prefect Integrations</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            color: #333;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            position: relative;
+            overflow: hidden;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+        }
+        .slide-header {
+            background: linear-gradient(90deg, #0a2540 0%, #1e3a5f 100%);
+            color: white;
+            padding: 30px 70px;
+        }
+        .slide-title {
+            font-size: 40px;
+            font-weight: 600;
+        }
+        .slide-content {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            padding: 30px 70px;
+        }
+        .integration-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 20px;
+            flex-grow: 1;
+        }
+        .integration-card {
+            background-color: #f8fafc;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s, box-shadow 0.2s;
+            height: 100%;
+        }
+        .integration-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+        .integration-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .integration-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background-color: #e6f0fd;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        .integration-icon i {
+            font-size: 24px;
+            color: #4189e6;
+        }
+        .integration-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: #0a2540;
+        }
+        .integration-desc {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+        .integration-examples {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .integration-example {
+            background-color: #e6f0fd;
+            color: #4189e6;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .code-snippet {
+            background-color: #f1f5f9;
+            border-left: 3px solid #4189e6;
+            padding: 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            color: #333;
+            overflow-x: auto;
+            line-height: 1.4;
+            margin-top: 10px;
+        }
+        .highlight {
+            color: #4189e6;
+            font-weight: 600;
+        }
+        .accent-shape {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: rgba(65, 137, 230, 0.1);
+            bottom: -100px;
+            right: -50px;
+            z-index: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="slide-header">
+            <h1 class="slide-title">Appendix: Prefect Integrations</h1>
+        </div>
+        <div class="slide-content">
+            <div class="integration-grid">
+                <div class="integration-card">
+                    <div class="integration-header">
+                        <div class="integration-icon">
+                            <i class="material-icons">cloud</i>
+                        </div>
+                        <div class="integration-title">Cloud Platforms</div>
+                    </div>
+                    <div class="integration-desc">
+                        Native support for major cloud providers with optimized execution environments
+                    </div>
+                    <div class="integration-examples">
+                        <span class="integration-example">AWS</span>
+                        <span class="integration-example">GCP</span>
+                        <span class="integration-example">Azure</span>
+                    </div>
+                    <div class="code-snippet">
+                        from prefect_aws import AwsCredentials<br>
+                        creds = AwsCredentials.load("my-creds")
+                    </div>
+                </div>
+                
+                <div class="integration-card">
+                    <div class="integration-header">
+                        <div class="integration-icon">
+                            <i class="material-icons">storage</i>
+                        </div>
+                        <div class="integration-title">Databases</div>
+                    </div>
+                    <div class="integration-desc">
+                        Connect to various databases for data extraction, transformation, and loading
+                    </div>
+                    <div class="integration-examples">
+                        <span class="integration-example">PostgreSQL</span>
+                        <span class="integration-example">MySQL</span>
+                        <span class="integration-example">MongoDB</span>
+                        <span class="integration-example">Snowflake</span>
+                    </div>
+                    <div class="code-snippet">
+                        from prefect_sqlalchemy import SqlAlchemyConnector<br>
+                        with SqlAlchemyConnector.load("my-db") as db:
+                    </div>
+                </div>
+                
+                <div class="integration-card">
+                    <div class="integration-header">
+                        <div class="integration-icon">
+                            <i class="material-icons">memory</i>
+                        </div>
+                        <div class="integration-title">Data Processing</div>
+                    </div>
+                    <div class="integration-desc">
+                        Integrate with popular data processing frameworks for distributed computing
+                    </div>
+                    <div class="integration-examples">
+                        <span class="integration-example">Spark</span>
+                        <span class="integration-example">Dask</span>
+                        <span class="integration-example">Pandas</span>
+                    </div>
+                    <div class="code-snippet">
+                        from prefect_dask import DaskTaskRunner<br>
+                        @flow(task_runner=DaskTaskRunner())
+                    </div>
+                </div>
+                
+                <div class="integration-card">
+                    <div class="integration-header">
+                        <div class="integration-icon">
+                            <i class="material-icons">message</i>
+                        </div>
+                        <div class="integration-title">Messaging & Queues</div>
+                    </div>
+                    <div class="integration-desc">
+                        Connect to message brokers for event-driven workflows and real-time processing
+                    </div>
+                    <div class="integration-examples">
+                        <span class="integration-example">Kafka</span>
+                        <span class="integration-example">RabbitMQ</span>
+                        <span class="integration-example">SQS</span>
+                    </div>
+                    <div class="code-snippet">
+                        from prefect_kafka import KafkaProducer<br>
+                        producer = KafkaProducer.load("my-producer")
+                    </div>
+                </div>
+                
+                <div class="integration-card">
+                    <div class="integration-header">
+                        <div class="integration-icon">
+                            <i class="material-icons">folder</i>
+                        </div>
+                        <div class="integration-title">Storage</div>
+                    </div>
+                    <div class="integration-desc">
+                        Access various storage systems for reading and writing data files and objects
+                    </div>
+                    <div class="integration-examples">
+                        <span class="integration-example">S3</span>
+                        <span class="integration-example">GCS</span>
+                        <span class="integration-example">Azure Blob</span>
+                    </div>
+                    <div class="code-snippet">
+                        from prefect_aws import S3Bucket<br>
+                        bucket = S3Bucket.load("my-bucket")<br>
+                        bucket.write_path("data/file.csv", data)
+                    </div>
+                </div>
+                
+                <div class="integration-card">
+                    <div class="integration-header">
+                        <div class="integration-icon">
+                            <i class="material-icons">settings_applications</i>
+                        </div>
+                        <div class="integration-title">Orchestration</div>
+                    </div>
+                    <div class="integration-desc">
+                        Deploy and manage workflows using containerization and orchestration platforms
+                    </div>
+                    <div class="integration-examples">
+                        <span class="integration-example">Kubernetes</span>
+                        <span class="integration-example">Docker</span>
+                    </div>
+                    <div class="code-snippet">
+                        from prefect_kubernetes import KubernetesJob<br>
+                        @flow<br>
+                        def run_k8s_job():<br>
+                        &nbsp;&nbsp;KubernetesJob().run()
+                    </div>
+                </div>
+                
+                <div class="integration-card">
+                    <div class="integration-header">
+                        <div class="integration-icon">
+                            <i class="material-icons">monitoring</i>
+                        </div>
+                        <div class="integration-title">Monitoring</div>
+                    </div>
+                    <div class="integration-desc">
+                        Export metrics and logs to monitoring systems for observability and alerting
+                    </div>
+                    <div class="integration-examples">
+                        <span class="integration-example">Prometheus</span>
+                        <span class="integration-example">Grafana</span>
+                    </div>
+                    <div class="code-snippet">
+                        from prefect.infrastructure import Process<br>
+                        Process(env={"PREFECT_API_URL": "http://localhost:4200/api"})
+                    </div>
+                </div>
+                
+                <div class="integration-card">
+                    <div class="integration-header">
+                        <div class="integration-icon">
+                            <i class="material-icons">build</i>
+                        </div>
+                        <div class="integration-title">CI/CD</div>
+                    </div>
+                    <div class="integration-desc">
+                        Integrate with continuous integration and deployment pipelines
+                    </div>
+                    <div class="integration-examples">
+                        <span class="integration-example">GitHub Actions</span>
+                        <span class="integration-example">Jenkins</span>
+                    </div>
+                    <div class="code-snippet">
+                        # GitHub Action example<br>
+                        - name: Deploy Prefect Flow<br>
+                        &nbsp;&nbsp;run: prefect deploy my_flow.py
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accent-shape"></div>
+    </div>
+</body>
+</html>

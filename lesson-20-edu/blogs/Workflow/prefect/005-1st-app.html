@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creating Your First Workflow</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            color: #333;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            position: relative;
+            overflow: hidden;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+        }
+        .slide-header {
+            background: linear-gradient(90deg, #0a2540 0%, #1e3a5f 100%);
+            color: white;
+            padding: 30px 70px;
+        }
+        .slide-title {
+            font-size: 40px;
+            font-weight: 600;
+        }
+        .slide-content {
+            display: flex;
+            flex-grow: 1;
+            padding: 40px 70px;
+        }
+        .content-left {
+            flex: 1.2;
+            display: flex;
+            flex-direction: column;
+        }
+        .content-right {
+            flex: 0.8;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-left: 40px;
+        }
+        .code-block {
+            background-color: #f5f7fa;
+            border-left: 4px solid #4189e6;
+            padding: 20px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 25px;
+            overflow-x: auto;
+            line-height: 1.5;
+        }
+        .explanation {
+            margin-bottom: 25px;
+        }
+        .explanation-title {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #0a2540;
+            display: flex;
+            align-items: center;
+        }
+        .explanation-title i {
+            color: #4189e6;
+            margin-right: 10px;
+            font-size: 24px;
+        }
+        .explanation-text {
+            font-size: 20px;
+            color: #555;
+            margin-left: 34px;
+        }
+        .flow-diagram {
+            background-color: #f5f7fa;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .diagram-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: #0a2540;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .diagram-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+        }
+        .diagram-step {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 12px 15px;
+            background-color: white;
+            border-radius: 6px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+        }
+        .diagram-step-icon {
+            color: #4189e6;
+            margin-right: 15px;
+            font-size: 24px;
+        }
+        .diagram-step-text {
+            font-size: 18px;
+            font-weight: 500;
+        }
+        .diagram-arrow {
+            display: flex;
+            justify-content: center;
+            margin: 5px 0;
+            color: #4189e6;
+        }
+        .accent-shape {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: rgba(65, 137, 230, 0.1);
+            bottom: -100px;
+            right: -50px;
+            z-index: 0;
+        }
+        .highlight {
+            color: #4189e6;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="slide-header">
+            <h1 class="slide-title">Creating Your First Workflow</h1>
+        </div>
+        <div class="slide-content">
+            <div class="content-left">
+                <div class="code-block">
+from prefect import flow, task<br><br>
+@task<br>
+def get_customer_ids():<br>
+&nbsp;&nbsp;return ["customer1", "customer2", "customer3"]<br><br>
+@task<br>
+def process_customer(customer_id):<br>
+&nbsp;&nbsp;return f"Processed {customer_id}"<br><br>
+@flow<br>
+def main():<br>
+&nbsp;&nbsp;customer_ids = get_customer_ids()<br>
+&nbsp;&nbsp;results = process_customer.map(customer_ids)<br>
+&nbsp;&nbsp;return results<br><br>
+if __name__ == "__main__":<br>
+&nbsp;&nbsp;main()
+                </div>
+                
+                <div class="explanation">
+                    <div class="explanation-title">
+                        <i class="material-icons">code</i>
+                        <span>Key Components</span>
+                    </div>
+                    <div class="explanation-text">
+                        <span class="highlight">@task</span> decorator - Defines individual units of work
+                    </div>
+                    <div class="explanation-text">
+                        <span class="highlight">@flow</span> decorator - Orchestrates tasks into a workflow
+                    </div>
+                    <div class="explanation-text">
+                        <span class="highlight">.map()</span> - Runs task in parallel for each input
+                    </div>
+                </div>
+                
+                <div class="explanation">
+                    <div class="explanation-title">
+                        <i class="material-icons">play_arrow</i>
+                        <span>Running the Workflow</span>
+                    </div>
+                    <div class="explanation-text">
+                        Execute locally: <span class="highlight">python script.py</span>
+                    </div>
+                    <div class="explanation-text">
+                        View execution in Prefect UI after running
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-right">
+                <div class="flow-diagram">
+                    <div class="diagram-title">Workflow Execution</div>
+                    
+                    <div class="diagram-content">
+                        <div class="diagram-step">
+                            <i class="material-icons diagram-step-icon">start</i>
+                            <div class="diagram-step-text">main() flow starts execution</div>
+                        </div>
+                        
+                        <div class="diagram-arrow">
+                            <i class="material-icons">arrow_downward</i>
+                        </div>
+                        
+                        <div class="diagram-step">
+                            <i class="material-icons diagram-step-icon">list</i>
+                            <div class="diagram-step-text">get_customer_ids() returns list</div>
+                        </div>
+                        
+                        <div class="diagram-arrow">
+                            <i class="material-icons">arrow_downward</i>
+                        </div>
+                        
+                        <div class="diagram-step">
+                            <i class="material-icons diagram-step-icon">call_split</i>
+                            <div class="diagram-step-text">process_customer.map() runs in parallel</div>
+                        </div>
+                        
+                        <div class="diagram-arrow">
+                            <i class="material-icons">arrow_downward</i>
+                        </div>
+                        
+                        <div class="diagram-step">
+                            <i class="material-icons diagram-step-icon">done_all</i>
+                            <div class="diagram-step-text">Results collected and returned</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accent-shape"></div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appendix: Resources for Further Learning</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            color: #333;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            position: relative;
+            overflow: hidden;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+        }
+        .slide-header {
+            background: linear-gradient(90deg, #0a2540 0%, #1e3a5f 100%);
+            color: white;
+            padding: 30px 70px;
+        }
+        .slide-title {
+            font-size: 40px;
+            font-weight: 600;
+        }
+        .slide-content {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            padding: 30px 70px;
+        }
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 20px;
+            flex-grow: 1;
+        }
+        .resource-card {
+            background-color: #f8fafc;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        .resource-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        .resource-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, #4189e6, #0a2540);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .resource-card:hover::before {
+            opacity: 1;
+        }
+        .resource-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .resource-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background-color: #e6f0fd;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+        .resource-card:hover .resource-icon {
+            background-color: #4189e6;
+            color: white;
+            transform: scale(1.1);
+        }
+        .resource-icon i {
+            font-size: 24px;
+            color: #4189e6;
+            transition: color 0.3s ease;
+        }
+        .resource-card:hover .resource-icon i {
+            color: white;
+        }
+        .resource-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: #0a2540;
+        }
+        .resource-desc {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+        .resource-link {
+            background-color: #e6f0fd;
+            color: #4189e6;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        .resource-link:hover {
+            background-color: #4189e6;
+            color: white;
+            transform: translateX(5px);
+        }
+        .resource-link i {
+            font-size: 16px;
+            margin-right: 6px;
+            transition: transform 0.3s ease;
+        }
+        .resource-link:hover i {
+            transform: translateX(3px);
+        }
+        .highlight {
+            color: #4189e6;
+            font-weight: 600;
+        }
+        .accent-shape {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: rgba(65, 137, 230, 0.1);
+            bottom: -100px;
+            right: -50px;
+            z-index: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="slide-header">
+            <h1 class="slide-title">Appendix: Resources for Further Learning</h1>
+        </div>
+        <div class="slide-content">
+            <div class="resources-grid">
+                <div class="resource-card">
+                    <div class="resource-header">
+                        <div class="resource-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <div class="resource-title">Official Documentation</div>
+                    </div>
+                    <div class="resource-desc">
+                        Comprehensive guides, API references, and tutorials for all Prefect features
+                    </div>
+                    <a href="https://docs.prefect.io" target="_blank" class="resource-link">
+                        <i class="fas fa-external-link-alt"></i>
+                        docs.prefect.io
+                    </a>
+                </div>
+                
+                <div class="resource-card">
+                    <div class="resource-header">
+                        <div class="resource-icon">
+                            <i class="fab fa-github"></i>
+                        </div>
+                        <div class="resource-title">GitHub Repository</div>
+                    </div>
+                    <div class="resource-desc">
+                        Source code, issue tracking, and contribution guidelines for Prefect
+                    </div>
+                    <a href="https://github.com/PrefectHQ/prefect" target="_blank" class="resource-link">
+                        <i class="fas fa-external-link-alt"></i>
+                        github.com/PrefectHQ/prefect
+                    </a>
+                </div>
+                
+                <div class="resource-card">
+                    <div class="resource-header">
+                        <div class="resource-icon">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <div class="resource-title">Community Forums</div>
+                    </div>
+                    <div class="resource-desc">
+                        Active community discussions, Q&A, and support from Prefect users and team
+                    </div>
+                    <a href="https://community.prefect.io" target="_blank" class="resource-link">
+                        <i class="fas fa-external-link-alt"></i>
+                        community.prefect.io
+                    </a>
+                </div>
+                
+                <div class="resource-card">
+                    <div class="resource-header">
+                        <div class="resource-icon">
+                            <i class="fas fa-blog"></i>
+                        </div>
+                        <div class="resource-title">Blog & Tutorials</div>
+                    </div>
+                    <div class="resource-desc">
+                        In-depth articles, tutorials, and best practices from the Prefect team
+                    </div>
+                    <a href="https://www.prefect.io/blog" target="_blank" class="resource-link">
+                        <i class="fas fa-external-link-alt"></i>
+                        www.prefect.io/blog
+                    </a>
+                </div>
+                
+                <div class="resource-card">
+                    <div class="resource-header">
+                        <div class="resource-icon">
+                            <i class="fab fa-youtube"></i>
+                        </div>
+                        <div class="resource-title">Video Resources</div>
+                    </div>
+                    <div class="resource-desc">
+                        YouTube channel, conference talks, and video tutorials for visual learners
+                    </div>
+                    <a href="https://youtube.com/c/PrefectHQ" target="_blank" class="resource-link">
+                        <i class="fas fa-external-link-alt"></i>
+                        youtube.com/c/PrefectHQ
+                    </a>
+                </div>
+                
+                <div class="resource-card">
+                    <div class="resource-header">
+                        <div class="resource-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div class="resource-title">Books & Courses</div>
+                    </div>
+                    <div class="resource-desc">
+                        Recommended reading materials and online courses for structured learning
+                    </div>
+                    <a href="https://academy.prefect.io" target="_blank" class="resource-link">
+                        <i class="fas fa-external-link-alt"></i>
+                        academy.prefect.io
+                    </a>
+                </div>
+                
+                <div class="resource-card">
+                    <div class="resource-header">
+                        <div class="resource-icon">
+                            <i class="fas fa-code-branch"></i>
+                        </div>
+                        <div class="resource-title">Sample Projects</div>
+                    </div>
+                    <div class="resource-desc">
+                        GitHub repositories with example workflows and integration patterns
+                    </div>
+                    <a href="https://github.com/PrefectHQ/examples" target="_blank" class="resource-link">
+                        <i class="fas fa-external-link-alt"></i>
+                        github.com/PrefectHQ/examples
+                    </a>
+                </div>
+                
+                <div class="resource-card">
+                    <div class="resource-header">
+                        <div class="resource-icon">
+                            <i class="fas fa-certificate"></i>
+                        </div>
+                        <div class="resource-title">Certification</div>
+                    </div>
+                    <div class="resource-desc">
+                        Official training programs and certifications for Prefect professionals
+                    </div>
+                    <a href="https://training.prefect.io" target="_blank" class="resource-link">
+                        <i class="fas fa-external-link-alt"></i>
+                        training.prefect.io
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="accent-shape"></div>
+    </div>
+</body>
+</html>

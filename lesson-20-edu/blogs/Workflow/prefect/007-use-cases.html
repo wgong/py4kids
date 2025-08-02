@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-World Applications</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            color: #333;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            position: relative;
+            overflow: hidden;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+        }
+        .slide-header {
+            background: linear-gradient(90deg, #0a2540 0%, #1e3a5f 100%);
+            color: white;
+            padding: 30px 70px;
+        }
+        .slide-title {
+            font-size: 40px;
+            font-weight: 600;
+        }
+        .slide-content {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            padding: 40px 70px;
+        }
+        .use-cases-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-gap: 30px;
+            flex-grow: 1;
+        }
+        .use-case {
+            background-color: #f8fafc;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .use-case:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+        .use-case-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .use-case-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #e6f0fd;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        .use-case-icon i {
+            font-size: 32px;
+            color: #4189e6;
+        }
+        .use-case-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #0a2540;
+        }
+        .use-case-industry {
+            font-size: 16px;
+            color: #64748b;
+            margin-top: 3px;
+        }
+        .use-case-content {
+            flex-grow: 1;
+        }
+        .use-case-desc {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+        .use-case-benefits {
+            margin-top: auto;
+        }
+        .benefit-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 8px;
+        }
+        .benefit-item i {
+            color: #4189e6;
+            margin-right: 10px;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+        .benefit-text {
+            font-size: 16px;
+            color: #555;
+        }
+        .highlight {
+            color: #4189e6;
+            font-weight: 600;
+        }
+        .accent-shape {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: rgba(65, 137, 230, 0.1);
+            bottom: -100px;
+            right: -50px;
+            z-index: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="slide-header">
+            <h1 class="slide-title">Real-World Applications</h1>
+        </div>
+        <div class="slide-content">
+            <div class="use-cases-grid">
+                <div class="use-case">
+                    <div class="use-case-header">
+                        <div class="use-case-icon">
+                            <i class="material-icons">analytics</i>
+                        </div>
+                        <div>
+                            <div class="use-case-title">Real-time Customer Analytics</div>
+                            <div class="use-case-industry">E-commerce</div>
+                        </div>
+                    </div>
+                    <div class="use-case-content">
+                        <div class="use-case-desc">
+                            Track and analyze customer behavior on websites to personalize user experiences and optimize conversion rates.
+                        </div>
+                        <div class="use-case-benefits">
+                            <div class="benefit-item">
+                                <i class="material-icons">check_circle</i>
+                                <div class="benefit-text">Integrates with <span class="highlight">Kafka, S3, Snowflake</span></div>
+                            </div>
+                            <div class="benefit-item">
+                                <i class="material-icons">check_circle</i>
+                                <div class="benefit-text">Real-time processing of clickstream data</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="use-case">
+                    <div class="use-case-header">
+                        <div class="use-case-icon">
+                            <i class="material-icons">swap_horiz</i>
+                        </div>
+                        <div>
+                            <div class="use-case-title">ETL Process Orchestration</div>
+                            <div class="use-case-industry">Financial Services</div>
+                        </div>
+                    </div>
+                    <div class="use-case-content">
+                        <div class="use-case-desc">
+                            Manage complex ETL processes for handling large volumes of transactional data from various sources.
+                        </div>
+                        <div class="use-case-benefits">
+                            <div class="benefit-item">
+                                <i class="material-icons">check_circle</i>
+                                <div class="benefit-text"><span class="highlight">Dynamic workflows</span> adapt to changing requirements</div>
+                            </div>
+                            <div class="benefit-item">
+                                <i class="material-icons">check_circle</i>
+                                <div class="benefit-text">Improved data reliability and accuracy</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="use-case">
+                    <div class="use-case-header">
+                        <div class="use-case-icon">
+                            <i class="material-icons">model_training</i>
+                        </div>
+                        <div>
+                            <div class="use-case-title">ML Model Training & Deployment</div>
+                            <div class="use-case-industry">Retail</div>
+                        </div>
+                    </div>
+                    <div class="use-case-content">
+                        <div class="use-case-desc">
+                            Automate machine learning workflows for customer recommendations, inventory prediction, and pricing strategies.
+                        </div>
+                        <div class="use-case-benefits">
+                            <div class="benefit-item">
+                                <i class="material-icons">check_circle</i>
+                                <div class="benefit-text"><span class="highlight">Hybrid execution</span> across on-prem and cloud</div>
+                            </div>
+                            <div class="benefit-item">
+                                <i class="material-icons">check_circle</i>
+                                <div class="benefit-text">Faster model iteration and deployment cycles</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="use-case">
+                    <div class="use-case-header">
+                        <div class="use-case-icon">
+                            <i class="material-icons">speed</i>
+                        </div>
+                        <div>
+                            <div class="use-case-title">Real-time Data Processing</div>
+                            <div class="use-case-industry">Telecommunications</div>
+                        </div>
+                    </div>
+                    <div class="use-case-content">
+                        <div class="use-case-desc">
+                            Process and analyze real-time data from network operations to detect anomalies and optimize performance.
+                        </div>
+                        <div class="use-case-benefits">
+                            <div class="benefit-item">
+                                <i class="material-icons">check_circle</i>
+                                <div class="benefit-text"><span class="highlight">Event-driven workflows</span> for reactive processing</div>
+                            </div>
+                            <div class="benefit-item">
+                                <i class="material-icons">check_circle</i>
+                                <div class="benefit-text">Seamless integration with analytics tools</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accent-shape"></div>
+    </div>
+</body>
+</html>

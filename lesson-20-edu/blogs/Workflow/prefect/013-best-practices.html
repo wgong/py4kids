@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appendix: Best Practices and Patterns</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            color: #333;
+            background-color: #f8fafc;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
+            display: flex;
+            flex-direction: column;
+        }
+        .slide-header {
+            background: linear-gradient(90deg, #0a2540 0%, #1e3a5f 100%);
+            color: white;
+            padding: 30px 70px;
+            position: relative;
+            overflow: hidden;
+        }
+        .slide-header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(30, 58, 95, 0) 0%, rgba(65, 137, 230, 0.2) 100%);
+        }
+        .slide-title {
+            font-size: 42px;
+            font-weight: 700;
+            position: relative;
+            z-index: 2;
+            letter-spacing: -0.5px;
+        }
+        .slide-content {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            padding: 30px 70px;
+            position: relative;
+        }
+        .practices-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: 20px;
+            flex-grow: 1;
+        }
+        .practice-card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(65, 137, 230, 0.1);
+        }
+        .practice-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(65, 137, 230, 0.15);
+        }
+        .practice-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, #4189e6, #0a2540);
+        }
+        .practice-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .practice-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #e6f0fd 0%, #d0e4fa 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+        .practice-card:hover .practice-icon {
+            background: linear-gradient(135deg, #4189e6 0%, #0a2540 100%);
+            transform: scale(1.05);
+        }
+        .practice-icon i {
+            font-size: 24px;
+            background: linear-gradient(135deg, #4189e6 0%, #0a2540 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transition: all 0.3s ease;
+        }
+        .practice-card:hover .practice-icon i {
+            color: white;
+            -webkit-text-fill-color: white;
+        }
+        .practice-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #0a2540;
+            letter-spacing: -0.3px;
+        }
+        .practice-desc {
+            font-size: 16px;
+            color: #64748b;
+            margin-bottom: 15px;
+            flex-grow: 1;
+            line-height: 1.4;
+        }
+        .practice-tip {
+            background-color: #f1f5f9;
+            color: #4189e6;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+        }
+        .practice-tip i {
+            margin-right: 8px;
+        }
+        .code-snippet {
+            background-color: #f8fafc;
+            border-left: 3px solid #4189e6;
+            padding: 10px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            color: #334155;
+            overflow-x: auto;
+            line-height: 1.4;
+            margin-top: auto;
+        }
+        .highlight {
+            color: #4189e6;
+            font-weight: 600;
+        }
+        .accent-shape {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(65, 137, 230, 0.05) 0%, rgba(255, 255, 255, 0) 70%);
+            bottom: -150px;
+            right: -100px;
+            z-index: 0;
+        }
+        .center-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(135deg, #f0f7ff 0%, #e6f0fd 100%);
+            border: 2px dashed #4189e6;
+        }
+        .center-icon {
+            font-size: 48px;
+            color: #4189e6;
+            margin-bottom: 15px;
+        }
+        .center-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #0a2540;
+            margin-bottom: 10px;
+        }
+        .center-text {
+            font-size: 16px;
+            color: #64748b;
+            max-width: 80%;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="slide-header">
+            <h1 class="slide-title">Best Practices and Patterns</h1>
+        </div>
+        <div class="slide-content">
+            <div class="practices-grid">
+                <div class="practice-card">
+                    <div class="practice-header">
+                        <div class="practice-icon">
+                            <i class="fas fa-project-diagram"></i>
+                        </div>
+                        <div class="practice-title">Flow Design</div>
+                    </div>
+                    <div class="practice-desc">
+                        Keep flows focused on <span class="highlight">orchestration logic</span> rather than business logic
+                    </div>
+                    <div class="practice-tip">
+                        <i class="fas fa-lightbulb"></i>
+                        Separate data processing from workflow orchestration
+                    </div>
+                    <div class="code-snippet">
+                        <span class="highlight">@flow</span><br>
+                        def orchestrate_data_pipeline():<br>
+                          # Orchestration only<br>
+                          extract_data()<br>
+                          transform_data()<br>
+                          load_data()
+                    </div>
+                </div>
+                
+                <div class="practice-card">
+                    <div class="practice-header">
+                        <div class="practice-icon">
+                            <i class="fas fa-th-large"></i>
+                        </div>
+                        <div class="practice-title">Task Granularity</div>
+                    </div>
+                    <div class="practice-desc">
+                        Balance between too many small tasks and too few large ones
+                    </div>
+                    <div class="practice-tip">
+                        <i class="fas fa-lightbulb"></i>
+                        Group related operations into single tasks
+                    </div>
+                    <div class="code-snippet">
+                        <span class="highlight">@task</span><br>
+                        def process_customer_data():<br>
+                          # Multiple related operations<br>
+                          clean_data()<br>
+                          enrich_data()<br>
+                          validate_data()
+                    </div>
+                </div>
+                
+                <div class="practice-card">
+                    <div class="practice-header">
+                        <div class="practice-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="practice-title">Error Handling</div>
+                    </div>
+                    <div class="practice-desc">
+                        Implement proper error handling and <span class="highlight">notifications</span> for failures
+                    </div>
+                    <div class="practice-tip">
+                        <i class="fas fa-lightbulb"></i>
+                        Use retries with appropriate backoff strategies
+                    </div>
+                    <div class="code-snippet">
+                        <span class="highlight">@task(retries=3, retry_delay_seconds=30)</span><br>
+                        def unreliable_task():<br>
+                          try:<br>
+                            # Operation that may fail<br>
+                          except Exception as e:<br>
+                            logger.error(f"Task failed: {e}")<br>
+                            raise
+                    </div>
+                </div>
+                
+                <div class="practice-card">
+                    <div class="practice-header">
+                        <div class="practice-icon">
+                            <i class="fas fa-flask"></i>
+                        </div>
+                        <div class="practice-title">Testing</div>
+                    </div>
+                    <div class="practice-desc">
+                        Test flows and tasks in <span class="highlight">isolation</span> and as integrated components
+                    </div>
+                    <div class="practice-tip">
+                        <i class="fas fa-lightbulb"></i>
+                        Use Prefect's testing utilities for flow simulation
+                    </div>
+                    <div class="code-snippet">
+                        <span class="highlight">from prefect.testing.utilities import prefect_test_fixture</span><br><br>
+                        @prefect_test_fixture<br>
+                        async def test_flow():<br>
+                          result = await my_flow()<br>
+                          assert result == expected_value
+                    </div>
+                </div>
+                
+                <div class="center-card">
+                    <i class="fas fa-star center-icon"></i>
+                    <div class="center-title">Excellence in Practice</div>
+                    <div class="center-text">
+                        Following these best practices ensures your Prefect workflows are maintainable, efficient, and resilient
+                    </div>
+                </div>
+                
+                <div class="practice-card">
+                    <div class="practice-header">
+                        <div class="practice-icon">
+                            <i class="fas fa-tag"></i>
+                        </div>
+                        <div class="practice-title">Naming Conventions</div>
+                    </div>
+                    <div class="practice-desc">
+                        Use <span class="highlight">consistent naming</span> for flows, tasks, and deployments
+                    </div>
+                    <div class="practice-tip">
+                        <i class="fas fa-lightbulb"></i>
+                        Follow Python naming conventions with descriptive names
+                    </div>
+                    <div class="code-snippet">
+                        <span class="highlight">@task(name="extract_customer_data")</span><br>
+                        def extract_customer_data():<br>
+                          pass<br><br>
+                        @flow(name="customer_data_pipeline")<br>
+                        def customer_data_pipeline():<br>
+                          pass
+                    </div>
+                </div>
+                
+                <div class="practice-card">
+                    <div class="practice-header">
+                        <div class="practice-icon">
+                            <i class="fas fa-history"></i>
+                        </div>
+                        <div class="practice-title">Versioning</div>
+                    </div>
+                    <div class="practice-desc">
+                        Manage workflow versions and updates <span class="highlight">systematically</span>
+                    </div>
+                    <div class="practice-tip">
+                        <i class="fas fa-lightbulb"></i>
+                        Use version tags and deployment parameters
+                    </div>
+                    <div class="code-snippet">
+                        <span class="highlight">@flow(version="1.0.0")</span><br>
+                        def my_flow():<br>
+                          pass<br><br>
+                        # Deploy with version<br>
+                        prefect deploy --tag v1.0.0
+                    </div>
+                </div>
+                
+                <div class="practice-card">
+                    <div class="practice-header">
+                        <div class="practice-icon">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <div class="practice-title">Documentation</div>
+                    </div>
+                    <div class="practice-desc">
+                        Document workflows with proper <span class="highlight">comments and descriptions</span>
+                    </div>
+                    <div class="practice-tip">
+                        <i class="fas fa-lightbulb"></i>
+                        Use docstrings and task descriptions
+                    </div>
+                    <div class="code-snippet">
+                        <span class="highlight">@task(description="Extracts customer data from database")</span><br>
+                        def extract_customer_data():<br>
+                          """Extract customer data from source database"""<br>
+                          # Implementation details<br>
+                          pass
+                    </div>
+                </div>
+                
+                <div class="practice-card">
+                    <div class="practice-header">
+                        <div class="practice-icon">
+                            <i class="fas fa-memory"></i>
+                        </div>
+                        <div class="practice-title">Resource Management</div>
+                    </div>
+                    <div class="practice-desc">
+                        Efficient use of <span class="highlight">compute resources</span> for optimal performance
+                    </div>
+                    <div class="practice-tip">
+                        <i class="fas fa-lightbulb"></i>
+                        Configure appropriate concurrency limits and timeouts
+                    </div>
+                    <div class="code-snippet">
+                        <span class="highlight">@task(timeout_seconds=300)</span><br>
+                        def resource_intensive_task():<br>
+                          pass<br><br>
+                        # Set concurrency limits<br>
+                        prefect deployment set-concurrency-limit 5
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accent-shape"></div>
+    </div>
+</body>
+</html>

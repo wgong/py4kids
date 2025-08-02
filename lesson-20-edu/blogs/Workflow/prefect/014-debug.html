@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appendix: Troubleshooting Common Issues</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            color: #333;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            position: relative;
+            overflow: hidden;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+        }
+        .slide-header {
+            background: linear-gradient(90deg, #0a2540 0%, #1e3a5f 100%);
+            color: white;
+            padding: 30px 70px;
+        }
+        .slide-title {
+            font-size: 40px;
+            font-weight: 600;
+        }
+        .slide-content {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            padding: 30px 70px;
+        }
+        .issues-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: 20px;
+            flex-grow: 1;
+        }
+        .issue-card {
+            background-color: #f8fafc;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s, box-shadow 0.2s;
+            height: 100%;
+        }
+        .issue-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+        .issue-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .issue-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background-color: #e6f0fd;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        .issue-icon i {
+            font-size: 24px;
+            color: #4189e6;
+        }
+        .issue-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: #0a2540;
+        }
+        .issue-desc {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+        .solution {
+            background-color: #e6f0fd;
+            color: #4189e6;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            margin-top: auto;
+        }
+        .code-snippet {
+            background-color: #f1f5f9;
+            border-left: 3px solid #4189e6;
+            padding: 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            color: #333;
+            overflow-x: auto;
+            line-height: 1.4;
+            margin-top: 10px;
+        }
+        .highlight {
+            color: #4189e6;
+            font-weight: 600;
+        }
+        .accent-shape {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: rgba(65, 137, 230, 0.1);
+            bottom: -100px;
+            right: -50px;
+            z-index: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="slide-header">
+            <h1 class="slide-title">Appendix: Troubleshooting Common Issues</h1>
+        </div>
+        <div class="slide-content">
+            <div class="issues-grid">
+                <div class="issue-card">
+                    <div class="issue-header">
+                        <div class="issue-icon">
+                            <i class="material-icons">error</i>
+                        </div>
+                        <div class="issue-title">Flow Failures</div>
+                    </div>
+                    <div class="issue-desc">
+                        Flows failing without clear error messages or unexpected behavior
+                    </div>
+                    <div class="solution">
+                        Check logs in Prefect UI and use local testing
+                    </div>
+                    <div class="code-snippet">
+                        # Enable detailed logging<br>
+                        import logging<br>
+                        logging.basicConfig(level=logging.INFO)
+                    </div>
+                </div>
+                
+                <div class="issue-card">
+                    <div class="issue-header">
+                        <div class="issue-icon">
+                            <i class="material-icons">speed</i>
+                        </div>
+                        <div class="issue-title">Performance Issues</div>
+                    </div>
+                    <div class="issue-desc">
+                        Workflows running slowly or consuming excessive resources
+                    </div>
+                    <div class="solution">
+                        Optimize task granularity and use caching
+                    </div>
+                    <div class="code-snippet">
+                        # Add caching to expensive tasks<br>
+                        @task(cache_key_fn=task_input_hash)<br>
+                        def expensive_task(data):<br>
+                        &nbsp;&nbsp;# Process data
+                    </div>
+                </div>
+                
+                <div class="issue-card">
+                    <div class="issue-header">
+                        <div class="issue-icon">
+                            <i class="material-icons">memory</i>
+                        </div>
+                        <div class="issue-title">Memory Problems</div>
+                    </div>
+                    <div class="issue-desc">
+                        Memory errors when processing large datasets or many tasks
+                    </div>
+                    <div class="solution">
+                        Process data in chunks and release resources
+                    </div>
+                    <div class="code-snippet">
+                        # Process data in batches<br>
+                        @task<br>
+                        def process_in_batches(data, batch_size):<br>
+                        &nbsp;&nbsp;for i in range(0, len(data), batch_size):<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;yield process_batch(data[i:i+batch_size])
+                    </div>
+                </div>
+                
+                <div class="issue-card">
+                    <div class="issue-header">
+                        <div class="issue-icon">
+                            <i class="material-icons">sync_problem</i>
+                        </div>
+                        <div class="issue-title">Concurrency Conflicts</div>
+                    </div>
+                    <div class="issue-desc">
+                        Issues when multiple tasks run simultaneously with shared resources
+                    </div>
+                    <div class="solution">
+                        Use proper concurrency limits and resource locking
+                    </div>
+                    <div class="code-snippet">
+                        # Set concurrency limits<br>
+                        from prefect.concurrency.asyncio import concurrency<br>
+                        async with concurrency("database", max_slots=5):<br>
+                        &nbsp;&nbsp;# Access shared resource
+                    </div>
+                </div>
+                
+                <div class="issue-card">
+                    <div class="issue-header">
+                        <div class="issue-icon">
+                            <i class="material-icons">link_off</i>
+                        </div>
+                        <div class="issue-title">Connection Errors</div>
+                    </div>
+                    <div class="issue-desc">
+                        Database or API connection failures during workflow execution
+                    </div>
+                    <div class="solution">
+                        Implement proper connection handling and retries
+                    </div>
+                    <div class="code-snippet">
+                        # Add connection retries<br>
+                        @task(retries=3, retry_delay_seconds=10)<br>
+                        def connect_to_database():<br>
+                        &nbsp;&nbsp;# Connection logic with error handling
+                    </div>
+                </div>
+                
+                <div class="issue-card">
+                    <div class="issue-header">
+                        <div class="issue-icon">
+                            <i class="material-icons">sync_alt</i>
+                        </div>
+                        <div class="issue-title">State Management</div>
+                    </div>
+                    <div class="issue-desc">
+                        Unexpected state transitions or state-related issues
+                    </div>
+                    <div class="solution">
+                        Understand state transitions and use state handlers
+                    </div>
+                    <div class="code-snippet">
+                        # Add state handlers<br>
+                        @task(on_completion=handle_completion)<br>
+                        def my_task():<br>
+                        &nbsp;&nbsp;# Task implementation<br><br>
+                        def handle_completion(task, run, state):<br>
+                        &nbsp;&nbsp;# Handle completion state
+                    </div>
+                </div>
+                
+                <div class="issue-card">
+                    <div class="issue-header">
+                        <div class="issue-icon">
+                            <i class="material-icons">publish</i>
+                        </div>
+                        <div class="issue-title">Deployment Problems</div>
+                    </div>
+                    <div class="issue-desc">
+                        Issues when deploying flows to different environments
+                    </div>
+                    <div class="solution">
+                        Verify infrastructure and environment configurations
+                    </div>
+                    <div class="code-snippet">
+                        # Check deployment configuration<br>
+                        prefect deployment inspect my-deployment<br>
+                        # Verify work pool status<br>
+                        prefect work-pool preview my-work-pool
+                    </div>
+                </div>
+                
+                <div class="issue-card">
+                    <div class="issue-header">
+                        <div class="issue-icon">
+                            <i class="material-icons">desktop_windows</i>
+                        </div>
+                        <div class="issue-title">UI Access</div>
+                    </div>
+                    <div class="issue-desc">
+                        Difficulty connecting to or viewing the Prefect UI
+                    </div>
+                    <div class="solution">
+                        Check API connection and browser compatibility
+                    </div>
+                    <div class="code-snippet">
+                        # Verify API connection<br>
+                        prefect config view<br>
+                        # Restart UI server<br>
+                        prefect server start
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accent-shape"></div>
+    </div>
+</body>
+</html>

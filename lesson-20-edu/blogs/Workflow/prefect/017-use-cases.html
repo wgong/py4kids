@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appendix: Case Studies</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            color: #333;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            position: relative;
+            overflow: hidden;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+        }
+        .slide-header {
+            background: linear-gradient(90deg, #0a2540 0%, #1e3a5f 100%);
+            color: white;
+            padding: 30px 70px;
+        }
+        .slide-title {
+            font-size: 40px;
+            font-weight: 600;
+        }
+        .slide-content {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            padding: 30px 70px;
+        }
+        .case-studies-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 25px;
+            flex-grow: 1;
+        }
+        .case-study-card {
+            background-color: #f8fafc;
+            border-radius: 12px;
+            padding: 22px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s, box-shadow 0.2s;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        .case-study-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+        .case-study-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+            position: relative;
+            z-index: 2;
+        }
+        .case-study-icon {
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            background-color: #e6f0fd;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 16px;
+            flex-shrink: 0;
+        }
+        .case-study-icon i {
+            font-size: 28px;
+            color: #4189e6;
+        }
+        .case-study-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #0a2540;
+        }
+        .case-study-content {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            flex-grow: 1;
+            position: relative;
+            z-index: 2;
+        }
+        .case-study-section {
+            display: flex;
+            align-items: flex-start;
+        }
+        .section-icon {
+            color: #4189e6;
+            margin-right: 12px;
+            font-size: 20px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .section-content {
+            flex: 1;
+        }
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #0a2540;
+            margin-bottom: 4px;
+        }
+        .section-text {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.4;
+        }
+        .metrics {
+            display: flex;
+            gap: 12px;
+            margin-top: auto;
+        }
+        .metric {
+            background-color: #e6f0fd;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #4189e6;
+            display: flex;
+            align-items: center;
+        }
+        .metric i {
+            font-size: 16px;
+            margin-right: 6px;
+        }
+        .case-study-bg {
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background-color: rgba(65, 137, 230, 0.05);
+            z-index: 1;
+        }
+        .highlight {
+            color: #4189e6;
+            font-weight: 600;
+        }
+        .accent-shape {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: rgba(65, 137, 230, 0.1);
+            bottom: -100px;
+            right: -50px;
+            z-index: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="slide-header">
+            <h1 class="slide-title">Appendix: Case Studies</h1>
+        </div>
+        <div class="slide-content">
+            <div class="case-studies-grid">
+                <div class="case-study-card">
+                    <div class="case-study-bg"></div>
+                    <div class="case-study-header">
+                        <div class="case-study-icon">
+                            <i class="material-icons">shopping_cart</i>
+                        </div>
+                        <div class="case-study-title">E-commerce Platform</div>
+                    </div>
+                    <div class="case-study-content">
+                        <div class="case-study-section">
+                            <i class="material-icons section-icon">priority_high</i>
+                            <div class="section-content">
+                                <div class="section-title">Challenge</div>
+                                <div class="section-text">Real-time inventory management across multiple warehouses with high order volume</div>
+                            </div>
+                        </div>
+                        <div class="case-study-section">
+                            <i class="material-icons section-icon">build</i>
+                            <div class="section-content">
+                                <div class="section-title">Solution</div>
+                                <div class="section-text">Implemented <span class="highlight">event-driven workflows</span> for inventory updates and order processing with automatic retries</div>
+                            </div>
+                        </div>
+                        <div class="case-study-section">
+                            <i class="material-icons section-icon">trending_up</i>
+                            <div class="section-content">
+                                <div class="section-title">Results</div>
+                                <div class="section-text">Reduced processing time by 65% and eliminated inventory discrepancies</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="metrics">
+                        <div class="metric">
+                            <i class="material-icons">schedule</i>
+                            65% faster
+                        </div>
+                        <div class="metric">
+                            <i class="material-icons">error_outline</i>
+                            99.9% accuracy
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="case-study-card">
+                    <div class="case-study-bg"></div>
+                    <div class="case-study-header">
+                        <div class="case-study-icon">
+                            <i class="material-icons">account_balance</i>
+                        </div>
+                        <div class="case-study-title">Financial Services</div>
+                    </div>
+                    <div class="case-study-content">
+                        <div class="case-study-section">
+                            <i class="material-icons section-icon">priority_high</i>
+                            <div class="section-content">
+                                <div class="section-title">Challenge</div>
+                                <div class="section-text">Complex risk analysis and compliance reporting with strict regulatory requirements</div>
+                            </div>
+                        </div>
+                        <div class="case-study-section">
+                            <i class="material-icons section-icon">build</i>
+                            <div class="section-content">
+                                <div class="section-title">Solution</div>
+                                <div class="section-text">Built <span class="highlight">parameterized workflows</span> with comprehensive audit trails and version control</div>
+                            </div>
+                        </div>
+                        <div class="case-study-section">
+                            <i class="material-icons section-icon">trending_up</i>
+                            <div class="section-content">
+                                <div class="section-title">Results</div>
+                                <div class="section-text">Streamlined compliance reporting and improved risk model accuracy</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="metrics">
+                        <div class="metric">
+                            <i class="material-icons">speed</i>
+                            3x faster
+                        </div>
+                        <div class="metric">
+                            <i class="material-icons">verified</i>
+                            Full compliance
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="case-study-card">
+                    <div class="case-study-bg"></div>
+                    <div class="case-study-header">
+                        <div class="case-study-icon">
+                            <i class="material-icons">local_hospital</i>
+                        </div>
+                        <div class="case-study-title">Healthcare Organization</div>
+                    </div>
+                    <div class="case-study-content">
+                        <div class="case-study-section">
+                            <i class="material-icons section-icon">priority_high</i>
+                            <div class="section-content">
+                                <div class="section-title">Challenge</div>
+                                <div class="section-text">Processing sensitive patient data across multiple systems with HIPAA compliance</div>
+                            </div>
+                        </div>
+                        <div class="case-study-section">
+                            <i class="material-icons section-icon">build</i>
+                            <div class="section-content">
+                                <div class="section-title">Solution</div>
+                                <div class="section-text">Implemented <span class="highlight">secure data pipelines</span> with encrypted storage and access controls</div>
+                            </div>
+                        </div>
+                        <div class="case-study-section">
+                            <i class="material-icons section-icon">trending_up</i>
+                            <div class="section-content">
+                                <div class="section-title">Results</div>
+                                <div class="section-text">Improved patient analytics while maintaining strict data privacy standards</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="metrics">
+                        <div class="metric">
+                            <i class="material-icons">security</i>
+                            HIPAA compliant
+                        </div>
+                        <div class="metric">
+                            <i class="material-icons">insights</i>
+                            40% more insights
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="case-study-card">
+                    <div class="case-study-bg"></div>
+                    <div class="case-study-header">
+                        <div class="case-study-icon">
+                            <i class="material-icons">movie</i>
+                        </div>
+                        <div class="case-study-title">Media Streaming Platform</div>
+                    </div>
+                    <div class="case-study-content">
+                        <div class="case-study-section">
+                            <i class="material-icons section-icon">priority_high</i>
+                            <div class="section-content">
+                                <div class="section-title">Challenge</div>
+                                <div class="section-text">Processing massive content libraries for personalized recommendations at scale</div>
+                            </div>
+                        </div>
+                        <div class="case-study-section">
+                            <i class="material-icons section-icon">build</i>
+                            <div class="section-content">
+                                <div class="section-title">Solution</div>
+                                <div class="section-text">Created <span class="highlight">distributed ML workflows</span> with dynamic task mapping for content analysis</div>
+                            </div>
+                        </div>
+                        <div class="case-study-section">
+                            <i class="material-icons section-icon">trending_up</i>
+                            <div class="section-content">
+                                <div class="section-title">Results</div>
+                                <div class="section-text">Enhanced recommendation accuracy and reduced processing time significantly</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="metrics">
+                        <div class="metric">
+                            <i class="material-icons">thumb_up</i>
+                            35% engagement
+                        </div>
+                        <div class="metric">
+                            <i class="material-icons">memory</i>
+                            70% less resources
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accent-shape"></div>
+    </div>
+</body>
+</html>

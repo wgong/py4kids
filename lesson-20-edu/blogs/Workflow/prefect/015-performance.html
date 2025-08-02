@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appendix: Performance Optimization</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            color: #333;
+            background-color: #f8fafc;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
+            display: flex;
+            flex-direction: column;
+        }
+        .slide-header {
+            background: linear-gradient(90deg, #0a2540 0%, #1e3a5f 100%);
+            color: white;
+            padding: 30px 70px;
+            position: relative;
+            overflow: hidden;
+        }
+        .slide-header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(30, 58, 95, 0) 0%, rgba(65, 137, 230, 0.2) 100%);
+        }
+        .slide-title {
+            font-size: 42px;
+            font-weight: 700;
+            position: relative;
+            z-index: 2;
+            letter-spacing: -0.5px;
+        }
+        .slide-content {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            padding: 30px 70px;
+            position: relative;
+        }
+        .optimization-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: 20px;
+            flex-grow: 1;
+        }
+        .optimization-card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(65, 137, 230, 0.1);
+        }
+        .optimization-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(65, 137, 230, 0.15);
+        }
+        .optimization-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, #4189e6, #0a2540);
+        }
+        .optimization-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .optimization-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #e6f0fd 0%, #d0e4fa 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+        .optimization-card:hover .optimization-icon {
+            background: linear-gradient(135deg, #4189e6 0%, #0a2540 100%);
+            transform: scale(1.05);
+        }
+        .optimization-icon i {
+            font-size: 24px;
+            background: linear-gradient(135deg, #4189e6 0%, #0a2540 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transition: all 0.3s ease;
+        }
+        .optimization-card:hover .optimization-icon i {
+            color: white;
+            -webkit-text-fill-color: white;
+        }
+        .optimization-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #0a2540;
+            letter-spacing: -0.3px;
+        }
+        .optimization-desc {
+            font-size: 16px;
+            color: #64748b;
+            margin-bottom: 15px;
+            flex-grow: 1;
+            line-height: 1.4;
+        }
+        .optimization-tip {
+            background-color: #f1f5f9;
+            color: #4189e6;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+        }
+        .optimization-tip i {
+            margin-right: 8px;
+        }
+        .code-snippet {
+            background-color: #f8fafc;
+            border-left: 3px solid #4189e6;
+            padding: 10px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            color: #334155;
+            overflow-x: auto;
+            line-height: 1.4;
+            margin-top: auto;
+        }
+        .highlight {
+            color: #4189e6;
+            font-weight: 600;
+        }
+        .accent-shape {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(65, 137, 230, 0.05) 0%, rgba(255, 255, 255, 0) 70%);
+            bottom: -150px;
+            right: -100px;
+            z-index: 0;
+        }
+        .center-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(135deg, #f0f7ff 0%, #e6f0fd 100%);
+            border: 2px dashed #4189e6;
+        }
+        .center-icon {
+            font-size: 48px;
+            color: #4189e6;
+            margin-bottom: 15px;
+        }
+        .center-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #0a2540;
+            margin-bottom: 10px;
+        }
+        .center-text {
+            font-size: 16px;
+            color: #64748b;
+            max-width: 80%;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="slide-header">
+            <h1 class="slide-title">Performance Optimization</h1>
+        </div>
+        <div class="slide-content">
+            <div class="optimization-grid">
+                <div class="optimization-card">
+                    <div class="optimization-header">
+                        <div class="optimization-icon">
+                            <i class="fas fa-memory"></i>
+                        </div>
+                        <div class="optimization-title">Caching</div>
+                    </div>
+                    <div class="optimization-desc">
+                        Store results of <span class="highlight">expensive operations</span> to avoid redundant computation
+                    </div>
+                    <div class="optimization-tip">
+                        <i class="fas fa-lightbulb"></i>
+                        Use input-based cache keys for consistent results
+                    </div>
+                    <div class="code-snippet">
+                        <span class="highlight">@task(cache_key_fn=task_input_hash)</span><br>
+                        def expensive_operation(data):<br>
+                          # Complex computation
+                    </div>
+                </div>
+                
+                <div class="optimization-card">
+                    <div class="optimization-header">
+                        <div class="optimization-icon">
+                            <i class="fas fa-project-diagram"></i>
+                        </div>
+                        <div class="optimization-title">Parallel Execution</div>
+                    </div>
+                    <div class="optimization-desc">
+                        Maximize throughput by running <span class="highlight">independent tasks</span> concurrently
+                    </div>
+                    <div class="optimization-tip">
+                        <i class="fas fa-lightbulb"></i>
+                        Use .map() for data parallelism across collections
+                    </div>
+                    <div class="code-snippet">
+                        <span class="highlight">@task</span><br>
+                        def process_item(item):<br>
+                          return transform(item)<br><br>
+                        @flow<br>
+                        def process_all(items):<br>
+                          return process_item.map(items)
+                    </div>
+                </div>
+                
+                <div class="optimization-card">
+                    <div class="optimization-header">
+                        <div class="optimization-icon">
+                            <i class="fas fa-server"></i>
+                        </div>
+                        <div class="optimization-title">Resource Allocation</div>
+                    </div>
+                    <div class="optimization-desc">
+                        Optimize <span class="highlight">CPU, memory, and I/O</span> usage for efficient processing
+                    </div>
+                    <div class="optimization-tip">
+                        <i class="fas fa-lightbulb"></i>
+                        Set appropriate task resource requirements
+                    </div>
+                    <div class="code-snippet">
+                        <span class="highlight">@flow(task_runner=DaskTaskRunner(</span><br>
+                          cluster_kwargs={"n_workers": 4,<br>
+                          "threads_per_worker": 2}))<br>
+                        def resource_intensive_flow():
+                    </div>
+                </div>
+                
+                <div class="optimization-card">
+                    <div class="optimization-header">
+                        <div class="optimization-icon">
+                            <i class="fas fa-layer-group"></i>
+                        </div>
+                        <div class="optimization-title">Batch Processing</div>
+                    </div>
+                    <div class="optimization-desc">
+                        Process data in chunks to <span class="highlight">reduce memory overhead</span>
+                    </div>
+                    <div class="optimization-tip">
+                        <i class="fas fa-lightbulb"></i>
+                        Find optimal batch size for your data and resources
+                    </div>
+                    <div class="code-snippet">
+                        <span class="highlight">@task</span><br>
+                        def process_batch(data, batch_size=1000):<br>
+                          for i in range(0, len(data), batch_size):<br>
+                            yield process(data[i:i+batch_size])
+                    </div>
+                </div>
+                
+                <div class="center-card">
+                    <i class="fas fa-rocket center-icon"></i>
+                    <div class="center-title">Maximize Performance</div>
+                    <div class="center-text">
+                        These optimization techniques help you build efficient, scalable Prefect workflows that make the most of your available resources
+                    </div>
+                </div>
+                
+                <div class="optimization-card">
+                    <div class="optimization-header">
+                        <div class="optimization-icon">
+                            <i class="fas fa-hourglass-half"></i>
+                        </div>
+                        <div class="optimization-title">Lazy Loading</div>
+                    </div>
+                    <div class="optimization-desc">
+                        Load data <span class="highlight">only when needed</span> to reduce memory footprint
+                    </div>
+                    <div class="optimization-tip">
+                        <i class="fas fa-lightbulb"></i>
+                        Use generators and iterators for large datasets
+                    </div>
+                    <div class="code-snippet">
+                        <span class="highlight">@task</span><br>
+                        def lazy_data_loader():<br>
+                          for item in large_dataset:<br>
+                            # Process one item at a time<br>
+                            yield transform(item)
+                    </div>
+                </div>
+                
+                <div class="optimization-card">
+                    <div class="optimization-header">
+                        <div class="optimization-icon">
+                            <i class="fas fa-save"></i>
+                        </div>
+                        <div class="optimization-title">Selective Persistence</div>
+                    </div>
+                    <div class="optimization-desc">
+                        Choose what data to <span class="highlight">persist between tasks</span> to minimize I/O
+                    </div>
+                    <div class="optimization-tip">
+                        <i class="fas fa-lightbulb"></i>
+                        Persist only essential results, not intermediate data
+                    </div>
+                    <div class="code-snippet">
+                        <span class="highlight">@task(persist_result=False)</span><br>
+                        def intermediate_task(data):<br>
+                          # Process data but don't persist<br>
+                          return processed_data<br><br>
+                        @task(persist_result=True)<br>
+                        def final_task(data):<br>
+                          # Persist final result
+                    </div>
+                </div>
+                
+                <div class="optimization-card">
+                    <div class="optimization-header">
+                        <div class="optimization-icon">
+                            <i class="fas fa-expand-arrows-alt"></i>
+                        </div>
+                        <div class="optimization-title">Infrastructure Scaling</div>
+                    </div>
+                    <div class="optimization-desc">
+                        Scale infrastructure <span class="highlight">dynamically</span> based on workload demands
+                    </div>
+                    <div class="optimization-tip">
+                        <i class="fas fa-lightbulb"></i>
+                        Use cloud-based workers for elastic scaling
+                    </div>
+                    <div class="code-snippet">
+                        <span class="highlight">from prefect.infrastructure.kubernetes import KubernetesWorker</span><br><br>
+                        @flow(infrastructure=KubernetesWorker(<br>
+                          image="my-prefect-image:latest"))<br>
+                        def scalable_flow():
+                    </div>
+                </div>
+                
+                <div class="optimization-card">
+                    <div class="optimization-header">
+                        <div class="optimization-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="optimization-title">Monitoring & Profiling</div>
+                    </div>
+                    <div class="optimization-desc">
+                        Identify <span class="highlight">performance bottlenecks</span> with proper monitoring
+                    </div>
+                    <div class="optimization-tip">
+                        <i class="fas fa-lightbulb"></i>
+                        Use logging and metrics to track execution times
+                    </div>
+                    <div class="code-snippet">
+                        <span class="highlight">@task</span><br>
+                        def monitored_task(data):<br>
+                          start_time = time.time()<br>
+                          result = process(data)<br>
+                          logger.info(f"Task took {time.time()-start_time}s")<br>
+                          return result
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accent-shape"></div>
+    </div>
+</body>
+</html>

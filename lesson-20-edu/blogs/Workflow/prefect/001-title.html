@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prefect: Python Dynamic Workflow Library</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            color: #ffffff;
+        }
+        .slide {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #0a2540 0%, #1e3a5f 100%);
+        }
+        .slide-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            width: 100%;
+            padding: 40px;
+            position: relative;
+            z-index: 2;
+        }
+        .logo {
+            margin-bottom: 40px;
+        }
+        .logo img {
+            width: 180px;
+            height: auto;
+        }
+        .title {
+            font-size: 64px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #ffffff;
+        }
+        .subtitle {
+            font-size: 24px;
+            font-weight: 400;
+            text-align: center;
+            color: #a3c2e3;
+            max-width: 800px;
+        }
+        .background-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0) 20%),
+                             radial-gradient(circle at 90% 80%, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0) 20%),
+                             radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 70%);
+            z-index: 1;
+        }
+        .accent-shape {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: rgba(65, 137, 230, 0.15);
+            bottom: -150px;
+            right: -100px;
+            z-index: 1;
+        }
+        .accent-shape-2 {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: rgba(65, 137, 230, 0.1);
+            top: -100px;
+            left: -50px;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="background-pattern"></div>
+        <div class="accent-shape"></div>
+        <div class="accent-shape-2"></div>
+        <div class="slide-content">
+            <div class="logo">
+                <img src="https://sfile.chatglm.cn/images-ppt/198092ef564d.jpg" alt="Prefect Logo">
+            </div>
+            <h1 class="title">Prefect: Dynamic Workflow Library</h1>
+            <p class="subtitle">Orchestrate, Monitor, and Scale Your Pipelines in Python</p>
+        </div>
+    </div>
+
+</body></html>

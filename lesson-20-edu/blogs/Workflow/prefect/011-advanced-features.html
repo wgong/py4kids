@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appendix: Advanced Prefect Features</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            color: #333;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            position: relative;
+            overflow: hidden;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+        }
+        .slide-header {
+            background: linear-gradient(90deg, #0a2540 0%, #1e3a5f 100%);
+            color: white;
+            padding: 30px 70px;
+        }
+        .slide-title {
+            font-size: 40px;
+            font-weight: 600;
+        }
+        .slide-content {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            padding: 30px 70px;
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            flex-grow: 1;
+        }
+        .feature-card {
+            background-color: #f8fafc;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s, box-shadow 0.2s;
+            height: 100%;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+        .feature-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background-color: #e6f0fd;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        .feature-icon i {
+            font-size: 24px;
+            color: #4189e6;
+        }
+        .feature-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: #0a2540;
+        }
+        .feature-desc {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+        .code-block {
+            background-color: #f1f5f9;
+            border-left: 3px solid #4189e6;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            color: #333;
+            overflow-x: auto;
+            line-height: 1.4;
+        }
+        .highlight {
+            color: #4189e6;
+            font-weight: 600;
+        }
+        .accent-shape {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: rgba(65, 137, 230, 0.1);
+            bottom: -100px;
+            right: -50px;
+            z-index: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="slide-header">
+            <h1 class="slide-title">Appendix: Advanced Prefect Features</h1>
+        </div>
+        <div class="slide-content">
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <div class="feature-icon">
+                            <i class="material-icons">cached</i>
+                        </div>
+                        <div class="feature-title">Caching</div>
+                    </div>
+                    <div class="feature-desc">
+                        Cache task results to avoid redundant computation and speed up workflows
+                    </div>
+                    <div class="code-block">
+                        @task(cache_key_fn=task_input_hash)<br>
+                        def expensive_task(data):<br>
+                        &nbsp;&nbsp;# Process data<br>
+                        &nbsp;&nbsp;return result
+                    </div>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <div class="feature-icon">
+                            <i class="material-icons">replay</i>
+                        </div>
+                        <div class="feature-title">Retries & Timeouts</div>
+                    </div>
+                    <div class="feature-desc">
+                        Configure automatic retries and timeouts for resilient task execution
+                    </div>
+                    <div class="code-block">
+                        @task(retries=3, retry_delay_seconds=30,<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;timeout_seconds=60)<br>
+                        def unreliable_task():<br>
+                        &nbsp;&nbsp;# May fail occasionally
+                    </div>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <div class="feature-icon">
+                            <i class="material-icons">speed</i>
+                        </div>
+                        <div class="feature-title">Concurrency Limits</div>
+                    </div>
+                    <div class="feature-desc">
+                        Control how many tasks run simultaneously to manage resource usage
+                    </div>
+                    <div class="code-block">
+                        @flow<br>
+                        def my_flow():<br>
+                        &nbsp;&nbsp;with tags("concurrency-limited"):<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;# Tasks with this tag<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;# respect concurrency limits
+                    </div>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <div class="feature-icon">
+                            <i class="material-icons">account_tree</i>
+                        </div>
+                        <div class="feature-title">Task Dependencies</div>
+                    </div>
+                    <div class="feature-desc">
+                        Manage complex dependencies between tasks with explicit or implicit control
+                    </div>
+                    <div class="code-block">
+                        @task<br>
+                        def task_a():<br>
+                        &nbsp;&nbsp;return "a"<br><br>
+                        @task(wait_for=[task_a])<br>
+                        def task_b():<br>
+                        &nbsp;&nbsp;# Depends on task_a
+                    </div>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <div class="feature-icon">
+                            <i class="material-icons">call_split</i>
+                        </div>
+                        <div class="feature-title">Conditional Logic</div>
+                    </div>
+                    <div class="feature-desc">
+                        Implement if/else logic within flows to control execution paths
+                    </div>
+                    <div class="code-block">
+                        @task<br>
+                        def condition():<br>
+                        &nbsp;&nbsp;return True<br><br>
+                        if condition():<br>
+                        &nbsp;&nbsp;result_a = task_a()<br>
+                        else:<br>
+                        &nbsp;&nbsp;result_b = task_b()
+                    </div>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <div class="feature-icon">
+                            <i class="material-icons">layers</i>
+                        </div>
+                        <div class="feature-title">Subflows</div>
+                    </div>
+                    <div class="feature-desc">
+                        Create nested flows for better organization and modularity
+                    </div>
+                    <div class="code-block">
+                        @flow<br>
+                        def subflow(x):<br>
+                        &nbsp;&nbsp;return x * 2<br><br>
+                        @flow<br>
+                        def main_flow():<br>
+                        &nbsp;&nbsp;result = subflow(5)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accent-shape"></div>
+    </div>
+</body>
+</html>

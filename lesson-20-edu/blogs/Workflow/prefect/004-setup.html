@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Setup Guide</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            color: #333;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            position: relative;
+            overflow: hidden;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+        }
+        .slide-header {
+            background: linear-gradient(90deg, #0a2540 0%, #1e3a5f 100%);
+            color: white;
+            padding: 30px 70px;
+        }
+        .slide-title {
+            font-size: 40px;
+            font-weight: 600;
+        }
+        .slide-content {
+            display: flex;
+            flex-grow: 1;
+            padding: 40px 70px;
+        }
+        .content-left {
+            flex: 1.2;
+            display: flex;
+            flex-direction: column;
+        }
+        .content-right {
+            flex: 0.8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-left: 40px;
+        }
+        .setup-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        .step {
+            display: flex;
+            align-items: flex-start;
+        }
+        .step-number {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: #4189e6;
+            color: white;
+            font-weight: 600;
+            font-size: 20px;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        .step-content {
+            flex: 1;
+        }
+        .step-title {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #0a2540;
+        }
+        .code-block {
+            background-color: #f5f7fa;
+            border-left: 4px solid #4189e6;
+            padding: 12px 15px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 18px;
+            color: #333;
+            margin-top: 8px;
+            overflow-x: auto;
+        }
+        .step-description {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 8px;
+        }
+        .diagram-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .diagram {
+            background-color: #f5f7fa;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .diagram-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #0a2540;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .diagram-step {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: white;
+            border-radius: 6px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+        }
+        .diagram-step-icon {
+            color: #4189e6;
+            margin-right: 10px;
+            font-size: 24px;
+        }
+        .diagram-step-text {
+            font-size: 16px;
+            font-weight: 500;
+        }
+        .diagram-arrow {
+            display: flex;
+            justify-content: center;
+            margin: 5px 0;
+            color: #4189e6;
+        }
+        .accent-shape {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: rgba(65, 137, 230, 0.1);
+            bottom: -100px;
+            right: -50px;
+            z-index: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="slide-header">
+            <h1 class="slide-title">Quick Setup Guide</h1>
+        </div>
+        <div class="slide-content">
+            <div class="content-left">
+                <div class="setup-steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <div class="step-title">Installation</div>
+                            <div class="step-description">Install Prefect using pip or Prefect Cloud</div>
+                            <div class="code-block">pip install prefect</div>
+                            <div class="code-block">uvx prefect-cloud login</div>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <div class="step-title">Create a Project</div>
+                            <div class="step-description">Initialize a new Prefect project</div>
+                            <div class="code-block">prefect create project my-project</div>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <div class="step-title">Write Your First Flow</div>
+                            <div class="step-description">Define tasks and flows with decorators</div>
+                            <div class="code-block">from prefect import flow, task<br><br>@task<br>def my_task():<br>&nbsp;&nbsp;return "Hello"<br><br>@flow<br>def my_flow():<br>&nbsp;&nbsp;result = my_task()<br>&nbsp;&nbsp;print(result)</div>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <div class="step-title">Run Your Workflow</div>
+                            <div class="step-description">Execute locally or deploy to the cloud</div>
+                            <div class="code-block"># Local execution<br>python my_flow.py<br><br># Cloud deployment<br>uvx prefect-cloud deploy my_flow.py:my_flow</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-right">
+                <div class="diagram-container">
+                    <div class="diagram">
+                        <div class="diagram-title">Setup Process</div>
+                        
+                        <div class="diagram-step">
+                            <i class="material-icons diagram-step-icon">download</i>
+                            <div class="diagram-step-text">Install Prefect</div>
+                        </div>
+                        
+                        <div class="diagram-arrow">
+                            <i class="material-icons">arrow_downward</i>
+                        </div>
+                        
+                        <div class="diagram-step">
+                            <i class="material-icons diagram-step-icon">create_new_folder</i>
+                            <div class="diagram-step-text">Create Project</div>
+                        </div>
+                        
+                        <div class="diagram-arrow">
+                            <i class="material-icons">arrow_downward</i>
+                        </div>
+                        
+                        <div class="diagram-step">
+                            <i class="material-icons diagram-step-icon">code</i>
+                            <div class="diagram-step-text">Define Tasks & Flows</div>
+                        </div>
+                        
+                        <div class="diagram-arrow">
+                            <i class="material-icons">arrow_downward</i>
+                        </div>
+                        
+                        <div class="diagram-step">
+                            <i class="material-icons diagram-step-icon">play_arrow</i>
+                            <div class="diagram-step-text">Run Locally or Deploy</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accent-shape"></div>
+    </div>
+</body>
+</html>

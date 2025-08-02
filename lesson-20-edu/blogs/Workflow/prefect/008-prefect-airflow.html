@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comparison with Airflow</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            color: #333;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            position: relative;
+            overflow: hidden;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+        }
+        .slide-header {
+            background: linear-gradient(90deg, #0a2540 0%, #1e3a5f 100%);
+            color: white;
+            padding: 30px 70px;
+        }
+        .slide-title {
+            font-size: 40px;
+            font-weight: 600;
+        }
+        .slide-content {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            padding: 40px 70px;
+        }
+        .comparison-intro {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .intro-text {
+            font-size: 22px;
+            color: #555;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .comparison-table {
+            display: flex;
+            flex-grow: 1;
+            margin-bottom: 30px;
+        }
+        .tool-column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 0 15px;
+        }
+        .tool-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            border-radius: 8px 8px 0 0;
+            margin-bottom: 10px;
+        }
+        .prefect-header {
+            background-color: #e6f0fd;
+        }
+        .airflow-header {
+            background-color: #f0e6fd;
+        }
+        .tool-logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 15px;
+        }
+        .prefect-logo {
+            background-color: #4189e6;
+            color: white;
+        }
+        .airflow-logo {
+            background-color: #007a87;
+            color: white;
+        }
+        .tool-name {
+            font-size: 28px;
+            font-weight: 600;
+        }
+        .comparison-row {
+            display: flex;
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+        .aspect-label {
+            width: 200px;
+            padding: 15px;
+            background-color: #f8fafc;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        .aspect-icon {
+            color: #4189e6;
+            margin-right: 10px;
+            font-size: 24px;
+        }
+        .aspect-text {
+            font-size: 18px;
+            font-weight: 600;
+            color: #0a2540;
+        }
+        .tool-aspect {
+            flex: 1;
+            padding: 15px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            margin-right: 15px;
+        }
+        .prefect-aspect {
+            background-color: #e6f0fd;
+            border-left: 4px solid #4189e6;
+        }
+        .airflow-aspect {
+            background-color: #f0e6fd;
+            border-left: 4px solid #007a87;
+        }
+        .aspect-content {
+            font-size: 18px;
+            color: #555;
+        }
+        .highlight {
+            font-weight: 600;
+        }
+        .prefect-highlight {
+            color: #4189e6;
+        }
+        .airflow-highlight {
+            color: #007a87;
+        }
+        .when-to-choose {
+            background-color: #f8fafc;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: auto;
+        }
+        .when-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: #0a2540;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .when-options {
+            display: flex;
+            justify-content: space-between;
+        }
+        .when-option {
+            flex: 1;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 0 10px;
+        }
+        .prefect-option {
+            background-color: #e6f0fd;
+            border-left: 4px solid #4189e6;
+        }
+        .airflow-option {
+            background-color: #f0e6fd;
+            border-left: 4px solid #007a87;
+        }
+        .option-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .option-title i {
+            margin-right: 10px;
+        }
+        .prefect-option .option-title {
+            color: #4189e6;
+        }
+        .airflow-option .option-title {
+            color: #007a87;
+        }
+        .option-text {
+            font-size: 18px;
+            color: #555;
+        }
+        .accent-shape {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: rgba(65, 137, 230, 0.1);
+            bottom: -100px;
+            right: -50px;
+            z-index: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="slide-header">
+            <h1 class="slide-title">Comparison with Airflow</h1>
+        </div>
+        <div class="slide-content">
+            <div class="comparison-intro">
+                <p class="intro-text">Two popular workflow orchestration tools with different approaches to data pipeline management</p>
+            </div>
+            
+            <div class="comparison-table">
+                <div class="tool-column">
+                    <div class="tool-header prefect-header">
+                        <div class="tool-logo prefect-logo">
+                            <i class="material-icons">bolt</i>
+                        </div>
+                        <div class="tool-name">Prefect</div>
+                    </div>
+                </div>
+                
+                <div class="tool-column">
+                    <div class="tool-header airflow-header">
+                        <div class="tool-logo airflow-logo">
+                            <i class="material-icons">air</i>
+                        </div>
+                        <div class="tool-name">Airflow</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="comparison-row">
+                <div class="aspect-label">
+                    <i class="material-icons aspect-icon">touch_app</i>
+                    <div class="aspect-text">Ease of Use</div>
+                </div>
+                <div class="tool-aspect prefect-aspect">
+                    <div class="aspect-content">
+                        <span class="highlight prefect-highlight">Straightforward UI</span> with API-based objects
+                    </div>
+                </div>
+                <div class="tool-aspect airflow-aspect">
+                    <div class="aspect-content">
+                        <span class="highlight airflow-highlight">Minimalistic UI</span> with operators and DAGs
+                    </div>
+                </div>
+            </div>
+            
+            <div class="comparison-row">
+                <div class="aspect-label">
+                    <i class="material-icons aspect-icon">trending_up</i>
+                    <div class="aspect-text">Scalability</div>
+                </div>
+                <div class="tool-aspect prefect-aspect">
+                    <div class="aspect-content">
+                        <span class="highlight prefect-highlight">Highly scalable</span> with Prefect Cloud option
+                    </div>
+                </div>
+                <div class="tool-aspect airflow-aspect">
+                    <div class="aspect-content">
+                        Requires <span class="highlight airflow-highlight">hardware scaling</span> as workflows grow
+                    </div>
+                </div>
+            </div>
+            
+            <div class="comparison-row">
+                <div class="aspect-label">
+                    <i class="material-icons aspect-icon">settings</i>
+                    <div class="aspect-text">Flexibility</div>
+                </div>
+                <div class="tool-aspect prefect-aspect">
+                    <div class="aspect-content">
+                        <span class="highlight prefect-highlight">Blocks, tasks, and flows</span> for data integration
+                    </div>
+                </div>
+                <div class="tool-aspect airflow-aspect">
+                    <div class="aspect-content">
+                        Uses <span class="highlight airflow-highlight">operators</span> to connect with data sources
+                    </div>
+                </div>
+            </div>
+            
+            <div class="comparison-row">
+                <div class="aspect-label">
+                    <i class="material-icons aspect-icon">monitor_heart</i>
+                    <div class="aspect-text">Monitoring</div>
+                </div>
+                <div class="tool-aspect prefect-aspect">
+                    <div class="aspect-content">
+                        <span class="highlight prefect-highlight">Modern, dynamic</span> event-management
+                    </div>
+                </div>
+                <div class="tool-aspect airflow-aspect">
+                    <div class="aspect-content">
+                        Logging <span class="highlight airflow-highlight">manually constructed</span> by developers
+                    </div>
+                </div>
+            </div>
+            
+            <div class="comparison-row">
+                <div class="aspect-label">
+                    <i class="material-icons aspect-icon">people</i>
+                    <div class="aspect-text">Community</div>
+                </div>
+                <div class="tool-aspect prefect-aspect">
+                    <div class="aspect-content">
+                        <span class="highlight prefect-highlight">Newer</span> with less community support
+                    </div>
+                </div>
+                <div class="tool-aspect airflow-aspect">
+                    <div class="aspect-content">
+                        <span class="highlight airflow-highlight">Older</span> with extensive community support
+                    </div>
+                </div>
+            </div>
+            
+            <div class="when-to-choose">
+                <div class="when-title">When to Choose</div>
+                <div class="when-options">
+                    <div class="when-option prefect-option">
+                        <div class="option-title">
+                            <i class="material-icons">bolt</i>
+                            Choose Prefect
+                        </div>
+                        <div class="option-text">
+                            For flexibility and teams comfortable with Python-based API
+                        </div>
+                    </div>
+                    <div class="when-option airflow-option">
+                        <div class="option-title">
+                            <i class="material-icons">air</i>
+                            Choose Airflow
+                        </div>
+                        <div class="option-text">
+                            For simpler, minimalistic approach to data movement
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accent-shape"></div>
+    </div>
+</body>
+</html>
