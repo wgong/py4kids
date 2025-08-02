@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multimodal AI Applications: Business Use Cases and Impact</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            background-color: #0a192f;
+            color: #ffffff;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            padding: 40px 70px 20px;
+        }
+        .title {
+            font-size: 40px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+        .content {
+            flex-grow: 1;
+            padding: 0 70px 40px;
+            display: flex;
+            flex-direction: column;
+        }
+        .applications-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 20px;
+            flex-grow: 1;
+        }
+        .application-card {
+            background-color: rgba(100, 255, 218, 0.08);
+            border-radius: 10px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            border-top: 3px solid #64ffda;
+            height: 100%;
+        }
+        .application-icon {
+            font-size: 36px;
+            color: #64ffda;
+            margin-bottom: 15px;
+            align-self: center;
+        }
+        .application-title {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #ffffff;
+            text-align: center;
+        }
+        .application-desc {
+            font-size: 18px;
+            line-height: 1.4;
+            color: #ccd6f6;
+            flex-grow: 1;
+        }
+        .application-benefits {
+            margin-top: 15px;
+        }
+        .benefit-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .benefit-item i {
+            color: #64ffda;
+            margin-right: 8px;
+            font-size: 18px;
+        }
+        .benefit-text {
+            font-size: 16px;
+            color: #ccd6f6;
+        }
+        .impact-section {
+            margin-top: 25px;
+            background-color: rgba(100, 255, 218, 0.15);
+            border-radius: 10px;
+            padding: 20px;
+        }
+        .impact-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .impact-grid {
+            display: flex;
+            justify-content: space-between;
+        }
+        .impact-item {
+            width: 32%;
+            text-align: center;
+        }
+        .impact-icon {
+            font-size: 32px;
+            color: #64ffda;
+            margin-bottom: 10px;
+        }
+        .impact-label {
+            font-size: 20px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 5px;
+        }
+        .impact-desc {
+            font-size: 16px;
+            color: #ccd6f6;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="header">
+            <h1 class="title">Multimodal AI Applications: Business Use Cases and Impact</h1>
+        </div>
+        <div class="content">
+            <div class="applications-grid">
+                <div class="application-card">
+                    <i class="material-icons application-icon">shopping_cart</i>
+                    <div class="application-title">Retail</div>
+                    <div class="application-desc">
+                        Smart shopping assistants that can see and respond to products customers are interested in
+                    </div>
+                    <div class="application-benefits">
+                        <div class="benefit-item">
+                            <i class="material-icons">check_circle</i>
+                            <div class="benefit-text">Personalized recommendations</div>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="material-icons">check_circle</i>
+                            <div class="benefit-text">Visual search capabilities</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="application-card">
+                    <i class="material-icons application-icon">support_agent</i>
+                    <div class="application-title">Customer Service</div>
+                    <div class="application-desc">
+                        Understanding both words and emotions of customers through text, voice, and visual cues
+                    </div>
+                    <div class="application-benefits">
+                        <div class="benefit-item">
+                            <i class="material-icons">check_circle</i>
+                            <div class="benefit-text">Enhanced customer satisfaction</div>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="material-icons">check_circle</i>
+                            <div class="benefit-text">Reduced resolution time</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="application-card">
+                    <i class="material-icons application-icon">medical_services</i>
+                    <div class="application-title">Healthcare</div>
+                    <div class="application-desc">
+                        Analyzing medical images alongside patient records and research data for comprehensive diagnosis
+                    </div>
+                    <div class="application-benefits">
+                        <div class="benefit-item">
+                            <i class="material-icons">check_circle</i>
+                            <div class="benefit-text">Improved diagnostic accuracy</div>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="material-icons">check_circle</i>
+                            <div class="benefit-text">Faster treatment planning</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="application-card">
+                    <i class="material-icons application-icon">brush</i>
+                    <div class="application-title">Content Creation</div>
+                    <div class="application-desc">
+                        Generating multimedia content from text descriptions, including images, videos, and audio
+                    </div>
+                    <div class="application-benefits">
+                        <div class="benefit-item">
+                            <i class="material-icons">check_circle</i>
+                            <div class="benefit-text">Reduced production costs</div>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="material-icons">check_circle</i>
+                            <div class="benefit-text">Rapid content generation</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="application-card">
+                    <i class="material-icons application-icon">school</i>
+                    <div class="application-title">Education</div>
+                    <div class="application-desc">
+                        Interactive learning materials that adapt to different learning styles through multiple formats
+                    </div>
+                    <div class="application-benefits">
+                        <div class="benefit-item">
+                            <i class="material-icons">check_circle</i>
+                            <div class="benefit-text">Personalized learning paths</div>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="material-icons">check_circle</i>
+                            <div class="benefit-text">Improved engagement</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="application-card">
+                    <i class="material-icons application-icon">precision_manufacturing</i>
+                    <div class="application-title">Manufacturing</div>
+                    <div class="application-desc">
+                        Quality control using visual inspection combined with sensor data for comprehensive analysis
+                    </div>
+                    <div class="application-benefits">
+                        <div class="benefit-item">
+                            <i class="material-icons">check_circle</i>
+                            <div class="benefit-text">Enhanced defect detection</div>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="material-icons">check_circle</i>
+                            <div class="benefit-text">Reduced waste and downtime</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="impact-section">
+                <div class="impact-title">Business Impact</div>
+                <div class="impact-grid">
+                    <div class="impact-item">
+                        <i class="material-icons impact-icon">speed</i>
+                        <div class="impact-label">Efficiency</div>
+                        <div class="impact-desc">Automating complex tasks that previously required multiple specialized systems</div>
+                    </div>
+                    <div class="impact-item">
+                        <i class="material-icons impact-icon">sentiment_satisfied_alt</i>
+                        <div class="impact-label">User Experience</div>
+                        <div class="impact-desc">More natural, intuitive interactions across multiple communication channels</div>
+                    </div>
+                    <div class="impact-item">
+                        <i class="material-icons impact-icon">trending_up</i>
+                        <div class="impact-label">New Opportunities</div>
+                        <div class="impact-desc">Creating innovative products and services that weren't previously possible</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

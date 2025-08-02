@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GLM-4.5: The Open-Source Powerhouse</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            background-color: #0a192f;
+            color: #ffffff;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            padding: 40px 70px 20px;
+        }
+        .title {
+            font-size: 40px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+        .content {
+            flex-grow: 1;
+            padding: 0 70px 40px;
+            display: flex;
+            gap: 30px;
+        }
+        .left-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .right-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .feature-box {
+            background-color: rgba(100, 255, 218, 0.08);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid #64ffda;
+        }
+        .feature-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: #64ffda;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .feature-title i {
+            margin-right: 10px;
+            font-size: 24px;
+        }
+        .feature-desc {
+            font-size: 18px;
+            color: #ccd6f6;
+            line-height: 1.4;
+        }
+        .model-comparison {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .model-card {
+            width: 48%;
+            background-color: rgba(100, 255, 218, 0.05);
+            border-radius: 10px;
+            padding: 15px;
+            border: 1px solid rgba(100, 255, 218, 0.2);
+        }
+        .model-name {
+            font-size: 20px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .model-specs {
+            font-size: 18px;
+            color: #ccd6f6;
+        }
+        .model-spec {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        .model-spec-label {
+            color: #8892b0;
+        }
+        .model-spec-value {
+            font-weight: 600;
+        }
+        .image-container {
+            width: 100%;
+            height: 250px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .image-container img {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        .availability {
+            background-color: rgba(100, 255, 218, 0.15);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+        .availability-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .availability-options {
+            display: flex;
+            justify-content: space-around;
+        }
+        .availability-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .availability-option i {
+            font-size: 24px;
+            color: #64ffda;
+            margin-bottom: 5px;
+        }
+        .availability-option-text {
+            font-size: 16px;
+            color: #ccd6f6;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="header">
+            <h1 class="title">GLM-4.5: The Open-Source Powerhouse</h1>
+        </div>
+        <div class="content">
+            <div class="left-content">
+                <div class="image-container">
+                    <img src="https://sfile.chatglm.cn/images-ppt/006a723ad859.jpg" alt="GLM-4.5 Model">
+                </div>
+                
+                <div class="feature-box">
+                    <div class="feature-title">
+                        <i class="material-icons">school</i>
+                        Developer
+                    </div>
+                    <div class="feature-desc">
+                        THUDM (Tsinghua University's NLP group)
+                    </div>
+                </div>
+                
+                <div class="feature-box">
+                    <div class="feature-title">
+                        <i class="material-icons">public</i>
+                        Open Source Challenger
+                    </div>
+                    <div class="feature-desc">
+                        Challenges proprietary models like OpenAI's GPT-4
+                    </div>
+                </div>
+                
+                <div class="availability">
+                    <div class="availability-title">Available At</div>
+                    <div class="availability-options">
+                        <div class="availability-option">
+                            <i class="material-icons">chat</i>
+                            <div class="availability-option-text">chat.z.ai</div>
+                        </div>
+                        <div class="availability-option">
+                            <i class="material-icons">code</i>
+                            <div class="availability-option-text">Open-Sourced Weights</div>
+                        </div>
+                        <div class="availability-option">
+                            <i class="material-icons">storage</i>
+                            <div class="availability-option-text">Hugging Face Spaces</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="right-content">
+                <div class="feature-box">
+                    <div class="feature-title">
+                        <i class="material-icons">psychology</i>
+                        Dual Operation Modes
+                    </div>
+                    <div class="feature-desc">
+                        <strong>Thinking Mode:</strong> For complex problems requiring reasoning and tool use<br><br>
+                        <strong>Non-Thinking Mode:</strong> For direct answers without extra processing
+                    </div>
+                </div>
+                
+                <div class="model-comparison">
+                    <div class="model-card">
+                        <div class="model-name">GLM-4.5</div>
+                        <div class="model-specs">
+                            <div class="model-spec">
+                                <span class="model-spec-label">Total Params:</span>
+                                <span class="model-spec-value">355B</span>
+                            </div>
+                            <div class="model-spec">
+                                <span class="model-spec-label">Active Params:</span>
+                                <span class="model-spec-value">32B</span>
+                            </div>
+                            <div class="model-spec">
+                                <span class="model-spec-label">Use Case:</span>
+                                <span class="model-spec-value">High Performance</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="model-card">
+                        <div class="model-name">GLM-4.5-Air</div>
+                        <div class="model-specs">
+                            <div class="model-spec">
+                                <span class="model-spec-label">Total Params:</span>
+                                <span class="model-spec-value">106B</span>
+                            </div>
+                            <div class="model-spec">
+                                <span class="model-spec-label">Active Params:</span>
+                                <span class="model-spec-value">12B</span>
+                            </div>
+                            <div class="model-spec">
+                                <span class="model-spec-label">Use Case:</span>
+                                <span class="model-spec-value">Resource Efficient</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="feature-box">
+                    <div class="feature-title">
+                        <i class="material-icons">architecture</i>
+                        Technical Highlights
+                    </div>
+                    <div class="feature-desc">
+                        • Mixture of Experts (MoE) architecture<br>
+                        • 96 attention heads (vs 40-60 in most models)<br>
+                        • Sigmoid MoE gating with loss-free routing<br>
+                        • Multi-Token Prediction for faster inference
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

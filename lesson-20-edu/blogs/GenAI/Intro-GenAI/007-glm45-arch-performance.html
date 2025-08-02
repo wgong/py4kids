@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GLM-4.5: Architecture & Performance</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            background-color: #0a192f;
+            color: #ffffff;
+            overflow: hidden;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            padding: 30px 70px 15px;
+        }
+        .title {
+            font-size: 42px;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 5px;
+            letter-spacing: -0.5px;
+        }
+        .subtitle {
+            font-size: 18px;
+            color: #64ffda;
+            font-weight: 600;
+        }
+        .content {
+            flex-grow: 1;
+            padding: 0 70px 30px;
+            display: flex;
+            gap: 25px;
+        }
+        .left-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .right-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .card {
+            background-color: rgba(100, 255, 218, 0.08);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            border-left: 4px solid #64ffda;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        .card-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #64ffda;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        .card-title i {
+            margin-right: 10px;
+            font-size: 22px;
+        }
+        .model-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .model-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: rgba(100, 255, 218, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: #64ffda;
+            font-size: 30px;
+        }
+        .model-details {
+            flex: 1;
+        }
+        .model-name {
+            font-size: 24px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+        .model-subtitle {
+            font-size: 16px;
+            color: #8892b0;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        .feature-item {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 12px;
+            display: flex;
+            align-items: flex-start;
+        }
+        .feature-icon {
+            color: #64ffda;
+            margin-right: 10px;
+            font-size: 18px;
+            margin-top: 2px;
+        }
+        .feature-text {
+            font-size: 16px;
+            color: #ccd6f6;
+        }
+        .chart-container {
+            height: 200px;
+            margin-top: 10px;
+        }
+        .benchmark-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .benchmark-item {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+        }
+        .benchmark-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: #64ffda;
+            margin-bottom: 5px;
+        }
+        .benchmark-label {
+            font-size: 14px;
+            color: #ccd6f6;
+        }
+        .capability-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .capability-item {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 8px 15px;
+            font-size: 14px;
+            color: #ccd6f6;
+            display: flex;
+            align-items: center;
+        }
+        .capability-item i {
+            color: #64ffda;
+            margin-right: 6px;
+            font-size: 12px;
+        }
+        .comparison-bar {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .comparison-label {
+            width: 120px;
+            font-size: 16px;
+            color: #ccd6f6;
+        }
+        .bar-container {
+            flex: 1;
+            height: 8px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-right: 10px;
+        }
+        .bar-fill {
+            height: 100%;
+            border-radius: 4px;
+        }
+        .bar-value {
+            font-size: 16px;
+            font-weight: 600;
+            color: #ffffff;
+            width: 50px;
+            text-align: right;
+        }
+        .glm { background-color: #64ffda; }
+        .openai { background-color: #10a37f; }
+        .anthropic { background-color: #ff6b6b; }
+        .google { background-color: #4285f4; }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="header">
+            <h1 class="title">GLM-4.5: Architecture & Performance</h1>
+            <div class="subtitle">Open-Source Powerhouse with Advanced Capabilities</div>
+        </div>
+        <div class="content">
+            <div class="left-content">
+                <div class="card">
+                    <div class="card-title">
+                        <i class="fas fa-microchip"></i>
+                        Model Overview
+                    </div>
+                    <div class="model-info">
+                        <div class="model-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <div class="model-details">
+                            <div class="model-name">GLM-4.5</div>
+                            <div class="model-subtitle">THUDM (Tsinghua University)</div>
+                        </div>
+                    </div>
+                    <div class="feature-grid">
+                        <div class="feature-item">
+                            <i class="fas fa-cogs feature-icon"></i>
+                            <div class="feature-text">Mixture of Experts (MoE)</div>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-code-branch feature-icon"></i>
+                            <div class="feature-text">96 Attention Heads</div>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-random feature-icon"></i>
+                            <div class="feature-text">Thinking/Non-Thinking Modes</div>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-database feature-icon"></i>
+                            <div class="feature-text">22T Tokens Pretrained</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title">
+                        <i class="fas fa-chart-line"></i>
+                        Performance Comparison
+                    </div>
+                    <div class="comparison-bar">
+                        <div class="comparison-label">Reasoning</div>
+                        <div class="bar-container">
+                            <div class="bar-fill glm" style="width: 89%;"></div>
+                        </div>
+                        <div class="bar-value">89%</div>
+                    </div>
+                    <div class="comparison-bar">
+                        <div class="comparison-label">Coding</div>
+                        <div class="bar-container">
+                            <div class="bar-fill glm" style="width: 85%;"></div>
+                        </div>
+                        <div class="bar-value">85%</div>
+                    </div>
+                    <div class="comparison-bar">
+                        <div class="comparison-label">Tool Use</div>
+                        <div class="bar-container">
+                            <div class="bar-fill glm" style="width: 91%;"></div>
+                        </div>
+                        <div class="bar-value">91%</div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="comparisonChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="right-content">
+                <div class="card">
+                    <div class="card-title">
+                        <i class="fas fa-trophy"></i>
+                        Benchmark Results
+                    </div>
+                    <div class="benchmark-grid">
+                        <div class="benchmark-item">
+                            <div class="benchmark-value">98.2%</div>
+                            <div class="benchmark-label">MATH 500</div>
+                        </div>
+                        <div class="benchmark-item">
+                            <div class="benchmark-value">91.0%</div>
+                            <div class="benchmark-label">AIME24</div>
+                        </div>
+                        <div class="benchmark-item">
+                            <div class="benchmark-value">79.1%</div>
+                            <div class="benchmark-label">GPQA</div>
+                        </div>
+                    </div>
+                    <div class="benchmark-grid">
+                        <div class="benchmark-item">
+                            <div class="benchmark-value">64.2</div>
+                            <div class="benchmark-label">SWE-Bench</div>
+                        </div>
+                        <div class="benchmark-item">
+                            <div class="benchmark-value">37.5</div>
+                            <div class="benchmark-label">Terminal-Bench</div>
+                        </div>
+                        <div class="benchmark-item">
+                            <div class="benchmark-value">90.6%</div>
+                            <div class="benchmark-label">Tool Success</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title">
+                        <i class="fas fa-tools"></i>
+                        Key Capabilities
+                    </div>
+                    <div class="capability-list">
+                        <div class="capability-item">
+                            <i class="fas fa-check"></i>
+                            Full-Stack Development
+                        </div>
+                        <div class="capability-item">
+                            <i class="fas fa-check"></i>
+                            Game Creation
+                        </div>
+                        <div class="capability-item">
+                            <i class="fas fa-check"></i>
+                            Web Scraping
+                        </div>
+                        <div class="capability-item">
+                            <i class="fas fa-check"></i>
+                            Presentations
+                        </div>
+                        <div class="capability-item">
+                            <i class="fas fa-check"></i>
+                            Stable Tool Use
+                        </div>
+                        <div class="capability-item">
+                            <i class="fas fa-check"></i>
+                            Long Context
+                        </div>
+                        <div class="capability-item">
+                            <i class="fas fa-check"></i>
+                            Multilingual
+                        </div>
+                        <div class="capability-item">
+                            <i class="fas fa-check"></i>
+                            Open Source
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title">
+                        <i class="fas fa-balance-scale"></i>
+                        Competitive Standing
+                    </div>
+                    <div class="feature-grid">
+                        <div class="feature-item">
+                            <i class="fas fa-trophy feature-icon"></i>
+                            <div class="feature-text">3rd Overall Ranking</div>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-arrow-up feature-icon"></i>
+                            <div class="feature-text">Beats Kimi-K2 54%</div>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-arrow-up feature-icon"></i>
+                            <div class="feature-text">80.8% vs Qwen3-Coder</div>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-globe feature-icon"></i>
+                            <div class="feature-text">Available at chat.z.ai</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Comparison Chart
+        const ctx = document.getElementById('comparisonChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'radar',
+            data: {
+                labels: ['Reasoning', 'Coding', 'Tool Use', 'Speed', 'Efficiency', 'Openness'],
+                datasets: [
+                    {
+                        label: 'GLM-4.5',
+                        data: [89, 85, 91, 82, 88, 95],
+                        backgroundColor: 'rgba(100, 255, 218, 0.2)',
+                        borderColor: 'rgba(100, 255, 218, 0.8)',
+                        pointBackgroundColor: 'rgba(100, 255, 218, 1)',
+                        pointBorderColor: '#fff',
+                        borderWidth: 2
+                    },
+                    {
+                        label: 'OpenAI',
+                        data: [95, 90, 88, 85, 75, 60],
+                        backgroundColor: 'rgba(16, 163, 127, 0.2)',
+                        borderColor: 'rgba(16, 163, 127, 0.8)',
+                        pointBackgroundColor: 'rgba(16, 163, 127, 1)',
+                        pointBorderColor: '#fff',
+                        borderWidth: 2
+                    },
+                    {
+                        label: 'Anthropic',
+                        data: [92, 85, 90, 82, 80, 70],
+                        backgroundColor: 'rgba(255, 107, 107, 0.2)',
+                        borderColor: 'rgba(255, 107, 107, 0.8)',
+                        pointBackgroundColor: 'rgba(255, 107, 107, 1)',
+                        pointBorderColor: '#fff',
+                        borderWidth: 2
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        angleLines: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        pointLabels: {
+                            color: '#ccd6f6',
+                            font: {
+                                size: 12
+                            }
+                        },
+                        ticks: {
+                            color: '#8892b0',
+                            backdropColor: 'transparent',
+                            showLabelBackdrop: false
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            color: '#ccd6f6',
+                            font: {
+                                size: 12
+                            },
+                            padding: 10,
+                            boxWidth: 12
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

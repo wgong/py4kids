@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Key Developments Since November 2024</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            background-color: #0a192f;
+            color: #ffffff;
+            overflow: hidden;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            padding: 40px 70px 20px;
+        }
+        .title {
+            font-size: 46px;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+        .subtitle {
+            font-size: 22px;
+            font-weight: 400;
+            color: #64ffda;
+            margin-bottom: 20px;
+        }
+        .content {
+            flex-grow: 1;
+            padding: 0 70px 40px;
+            display: flex;
+            flex-direction: column;
+        }
+        .milestone-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 25px;
+        }
+        .milestone {
+            background-color: rgba(100, 255, 218, 0.08);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            border-left: 4px solid #64ffda;
+            transition: all 0.3s ease;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        .milestone:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            background-color: rgba(100, 255, 218, 0.12);
+        }
+        .milestone-date {
+            font-size: 16px;
+            font-weight: 700;
+            color: #64ffda;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+        .milestone-date i {
+            margin-right: 8px;
+        }
+        .milestone-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #ffffff;
+        }
+        .milestone-points {
+            font-size: 15px;
+            line-height: 1.4;
+            color: #ccd6f6;
+        }
+        .milestone-points li {
+            margin-bottom: 6px;
+            list-style-type: none;
+            display: flex;
+            align-items: flex-start;
+        }
+        .milestone-points li i {
+            color: #64ffda;
+            margin-right: 6px;
+            font-size: 14px;
+            margin-top: 3px;
+        }
+        .region-tag {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        .us {
+            background-color: rgba(66, 133, 244, 0.2);
+            color: #4285f4;
+        }
+        .china {
+            background-color: rgba(234, 67, 53, 0.2);
+            color: #ea4335;
+        }
+        .global {
+            background-color: rgba(52, 168, 83, 0.2);
+            color: #34a853;
+        }
+        .chart-container {
+            height: 200px;
+            margin-top: 10px;
+        }
+        .milestone.openai {
+            border-left-color: #10a37f;
+        }
+        .milestone.openai .milestone-date {
+            color: #10a37f;
+        }
+        .milestone.openai .milestone-points li i {
+            color: #10a37f;
+        }
+        .milestone.anthropic {
+            border-left-color: #ff6b6b;
+        }
+        .milestone.anthropic .milestone-date {
+            color: #ff6b6b;
+        }
+        .milestone.anthropic .milestone-points li i {
+            color: #ff6b6b;
+        }
+        .milestone.google {
+            border-left-color: #4285f4;
+        }
+        .milestone.google .milestone-date {
+            color: #4285f4;
+        }
+        .milestone.google .milestone-points li i {
+            color: #4285f4;
+        }
+        .milestone.deepseek {
+            border-left-color: #fbbc05;
+        }
+        .milestone.deepseek .milestone-date {
+            color: #fbbc05;
+        }
+        .milestone.deepseek .milestone-points li i {
+            color: #fbbc05;
+        }
+        .milestone.qwen {
+            border-left-color: #ea4335;
+        }
+        .milestone.qwen .milestone-date {
+            color: #ea4335;
+        }
+        .milestone.qwen .milestone-points li i {
+            color: #ea4335;
+        }
+        .milestone.glm {
+            border-left-color: #34a853;
+        }
+        .milestone.glm .milestone-date {
+            color: #34a853;
+        }
+        .milestone.glm .milestone-points li i {
+            color: #34a853;
+        }
+        .milestone.agents {
+            border-left-color: #9c27b0;
+        }
+        .milestone.agents .milestone-date {
+            color: #9c27b0;
+        }
+        .milestone.agents .milestone-points li i {
+            color: #9c27b0;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="header">
+            <h1 class="title">Key Developments Since November 2024</h1>
+            <div class="subtitle">A Global Perspective on AI Innovation</div>
+        </div>
+        <div class="content">
+            <div class="milestone-grid">
+                <div class="milestone openai">
+                    <span class="region-tag us">US</span>
+                    <div class="milestone-date">
+                        <i class="fas fa-calendar-alt"></i>
+                        December 2024
+                    </div>
+                    <div class="milestone-title">OpenAI GPT-4.5</div>
+                    <ul class="milestone-points">
+                        <li><i class="fas fa-chevron-right"></i>Enhanced reasoning</li>
+                        <li><i class="fas fa-chevron-right"></i>Advanced multimodal</li>
+                        <li><i class="fas fa-chevron-right"></i>Code interpreter</li>
+                    </ul>
+                </div>
+                
+                <div class="milestone deepseek">
+                    <span class="region-tag china">China</span>
+                    <div class="milestone-date">
+                        <i class="fas fa-calendar-alt"></i>
+                        December 2024
+                    </div>
+                    <div class="milestone-title">DeepSeek Moment</div>
+                    <ul class="milestone-points">
+                        <li><i class="fas fa-chevron-right"></i>Cost reduction</li>
+                        <li><i class="fas fa-chevron-right"></i>$5.6M training</li>
+                        <li><i class="fas fa-chevron-right"></i>Open-source</li>
+                    </ul>
+                </div>
+                
+                <div class="milestone anthropic">
+                    <span class="region-tag us">US</span>
+                    <div class="milestone-date">
+                        <i class="fas fa-calendar-alt"></i>
+                        January 2025
+                    </div>
+                    <div class="milestone-title">Anthropic MCP</div>
+                    <ul class="milestone-points">
+                        <li><i class="fas fa-chevron-right"></i>Model Context Protocol</li>
+                        <li><i class="fas fa-chevron-right"></i>Agent interoperability</li>
+                        <li><i class="fas fa-chevron-right"></i>Open standard</li>
+                    </ul>
+                </div>
+                
+                <div class="milestone qwen">
+                    <span class="region-tag china">China</span>
+                    <div class="milestone-date">
+                        <i class="fas fa-calendar-alt"></i>
+                        February 2025
+                    </div>
+                    <div class="milestone-title">Alibaba Qwen 3</div>
+                    <ul class="milestone-points">
+                        <li><i class="fas fa-chevron-right"></i>Multimodal</li>
+                        <li><i class="fas fa-chevron-right"></i>Strong coding</li>
+                        <li><i class="fas fa-chevron-right"></i>Competitive</li>
+                    </ul>
+                </div>
+                
+                <div class="milestone google">
+                    <span class="region-tag us">US</span>
+                    <div class="milestone-date">
+                        <i class="fas fa-calendar-alt"></i>
+                        March 2025
+                    </div>
+                    <div class="milestone-title">Google Gemini 2.5</div>
+                    <ul class="milestone-points">
+                        <li><i class="fas fa-chevron-right"></i>Multimodal excellence</li>
+                        <li><i class="fas fa-chevron-right"></i>Native tool integration</li>
+                        <li><i class="fas fa-chevron-right"></i>Enterprise-focused</li>
+                    </ul>
+                </div>
+                
+                <div class="milestone anthropic">
+                    <span class="region-tag us">US</span>
+                    <div class="milestone-date">
+                        <i class="fas fa-calendar-alt"></i>
+                        April 2025
+                    </div>
+                    <div class="milestone-title">Claude 4 Launch</div>
+                    <ul class="milestone-points">
+                        <li><i class="fas fa-chevron-right"></i>Enhanced reasoning</li>
+                        <li><i class="fas fa-chevron-right"></i>Improved tool use</li>
+                        <li><i class="fas fa-chevron-right"></i>Advanced capabilities</li>
+                    </ul>
+                </div>
+                
+                <div class="milestone glm">
+                    <span class="region-tag china">China</span>
+                    <div class="milestone-date">
+                        <i class="fas fa-calendar-alt"></i>
+                        May 2025
+                    </div>
+                    <div class="milestone-title">GLM-4.5 Release</div>
+                    <ul class="milestone-points">
+                        <li><i class="fas fa-chevron-right"></i>Open-source</li>
+                        <li><i class="fas fa-chevron-right"></i>Dual thinking modes</li>
+                        <li><i class="fas fa-chevron-right"></i>Top benchmarks</li>
+                    </ul>
+                </div>
+                
+                <div class="milestone agents">
+                    <span class="region-tag global">Global</span>
+                    <div class="milestone-date">
+                        <i class="fas fa-calendar-alt"></i>
+                        2025
+                    </div>
+                    <div class="milestone-title">AI Agents Rise</div>
+                    <ul class="milestone-points">
+                        <li><i class="fas fa-chevron-right"></i>Autonomous systems</li>
+                        <li><i class="fas fa-chevron-right"></i>$47.1B market by 2030</li>
+                        <li><i class="fas fa-chevron-right"></i>Multi-vendor frameworks</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="innovationChart"></canvas>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Innovation timeline chart
+        const ctx = document.getElementById('innovationChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Nov 2024', 'Dec 2024', 'Jan 2025', 'Feb 2025', 'Mar 2025', 'Apr 2025', 'May 2025', 'Jun 2025', 'Jul 2025', 'Aug 2025'],
+                datasets: [
+                    {
+                        label: 'Model Capabilities',
+                        data: [75, 78, 82, 85, 88, 91, 93, 94, 96, 98],
+                        borderColor: '#64ffda',
+                        backgroundColor: 'rgba(100, 255, 218, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    },
+                    {
+                        label: 'Cost Efficiency',
+                        data: [60, 70, 75, 80, 85, 88, 92, 94, 96, 98],
+                        borderColor: '#4285f4',
+                        backgroundColor: 'rgba(66, 133, 244, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    },
+                    {
+                        label: 'Accessibility',
+                        data: [65, 72, 78, 83, 87, 90, 93, 95, 97, 99],
+                        borderColor: '#ff6b6b',
+                        backgroundColor: 'rgba(255, 107, 107, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        min: 50,
+                        max: 100,
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        ticks: {
+                            color: '#ccd6f6',
+                            font: {
+                                size: 12
+                            }
+                        }
+                    },
+                    x: {
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        ticks: {
+                            color: '#ccd6f6',
+                            font: {
+                                size: 12
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            color: '#ccd6f6',
+                            font: {
+                                size: 12
+                            },
+                            padding: 15,
+                            boxWidth: 12
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(10, 25, 47, 0.8)',
+                        titleColor: '#ffffff',
+                        bodyColor: '#ccd6f6',
+                        borderColor: '#64ffda',
+                        borderWidth: 1
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

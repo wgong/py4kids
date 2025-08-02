@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resources: Top-Tier LLM Vendors</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            background-color: #0a192f;
+            color: #ffffff;
+            overflow: hidden;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            padding: 30px 70px 15px;
+        }
+        .title {
+            font-size: 42px;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 5px;
+            letter-spacing: -0.5px;
+        }
+        .subtitle {
+            font-size: 18px;
+            color: #64ffda;
+            font-weight: 600;
+        }
+        .content {
+            flex-grow: 1;
+            padding: 0 70px 30px;
+            display: flex;
+            flex-direction: column;
+        }
+        .vendor-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            flex-grow: 1;
+        }
+        .vendor-card {
+            background-color: rgba(100, 255, 218, 0.08);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+        }
+        .vendor-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        .vendor-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .vendor-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+        .vendor-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+        .vendor-subtitle {
+            font-size: 14px;
+            color: #8892b0;
+        }
+        .vendor-desc {
+            font-size: 15px;
+            color: #ccd6f6;
+            line-height: 1.3;
+            margin-bottom: 12px;
+            flex-grow: 1;
+        }
+        .vendor-link {
+            display: inline-flex;
+            align-items: center;
+            color: #64ffda;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .vendor-link:hover {
+            color: #ffffff;
+        }
+        .vendor-link i {
+            margin-left: 6px;
+        }
+        .region-tag {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        .us {
+            background-color: rgba(66, 133, 244, 0.2);
+            color: #4285f4;
+        }
+        .china {
+            background-color: rgba(234, 67, 53, 0.2);
+            color: #ea4335;
+        }
+        .europe {
+            background-color: rgba(52, 168, 83, 0.2);
+            color: #34a853;
+        }
+        .chart-container {
+            height: 200px;
+            margin-top: 20px;
+        }
+        .openai {
+            border-left: 4px solid #10a37f;
+        }
+        .openai .vendor-icon {
+            background-color: rgba(16, 163, 127, 0.2);
+            color: #10a37f;
+        }
+        .anthropic {
+            border-left: 4px solid #ff6b6b;
+        }
+        .anthropic .vendor-icon {
+            background-color: rgba(255, 107, 107, 0.2);
+            color: #ff6b6b;
+        }
+        .google {
+            border-left: 4px solid #4285f4;
+        }
+        .google .vendor-icon {
+            background-color: rgba(66, 133, 244, 0.2);
+            color: #4285f4;
+        }
+        .deepseek {
+            border-left: 4px solid #fbbc05;
+        }
+        .deepseek .vendor-icon {
+            background-color: rgba(251, 188, 5, 0.2);
+            color: #fbbc05;
+        }
+        .thudm {
+            border-left: 4px solid #34a853;
+        }
+        .thudm .vendor-icon {
+            background-color: rgba(52, 168, 83, 0.2);
+            color: #34a853;
+        }
+        .alibaba {
+            border-left: 4px solid #ea4335;
+        }
+        .alibaba .vendor-icon {
+            background-color: rgba(234, 67, 53, 0.2);
+            color: #ea4335;
+        }
+        .microsoft {
+            border-left: 4px solid #00a4ef;
+        }
+        .microsoft .vendor-icon {
+            background-color: rgba(0, 164, 239, 0.2);
+            color: #00a4ef;
+        }
+        .meta {
+            border-left: 4px solid #1877f2;
+        }
+        .meta .vendor-icon {
+            background-color: rgba(24, 119, 242, 0.2);
+            color: #1877f2;
+        }
+        .mistral {
+            border-left: 4px solid #ff6d01;
+        }
+        .mistral .vendor-icon {
+            background-color: rgba(255, 109, 1, 0.2);
+            color: #ff6d01;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="header">
+            <h1 class="title">Resources: Top-Tier LLM Vendors</h1>
+            <div class="subtitle">Global Leaders in Generative AI</div>
+        </div>
+        <div class="content">
+            <div class="vendor-grid">
+                <div class="vendor-card openai">
+                    <span class="region-tag us">US</span>
+                    <div class="vendor-header">
+                        <div class="vendor-icon">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div>
+                            <div class="vendor-title">OpenAI</div>
+                            <div class="vendor-subtitle">GPT-4</div>
+                        </div>
+                    </div>
+                    <div class="vendor-desc">
+                        Pioneer in large language models and generative AI
+                    </div>
+                    <a href="https://openai.com" class="vendor-link" target="_blank">
+                        Visit Website <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+                
+                <div class="vendor-card anthropic">
+                    <span class="region-tag us">US</span>
+                    <div class="vendor-header">
+                        <div class="vendor-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <div>
+                            <div class="vendor-title">Anthropic</div>
+                            <div class="vendor-subtitle">Claude 4</div>
+                        </div>
+                    </div>
+                    <div class="vendor-desc">
+                        Leading AI safety research with Model Context Protocol
+                    </div>
+                    <a href="https://www.anthropic.com" class="vendor-link" target="_blank">
+                        Visit Website <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+                
+                <div class="vendor-card google">
+                    <span class="region-tag us">US</span>
+                    <div class="vendor-header">
+                        <div class="vendor-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <div>
+                            <div class="vendor-title">Google</div>
+                            <div class="vendor-subtitle">Gemini 2.5</div>
+                        </div>
+                    </div>
+                    <div class="vendor-desc">
+                        Multimodal AI with native tool integration
+                    </div>
+                    <a href="https://ai.google/" class="vendor-link" target="_blank">
+                        Visit Website <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+                
+                <div class="vendor-card deepseek">
+                    <span class="region-tag china">China</span>
+                    <div class="vendor-header">
+                        <div class="vendor-icon">
+                            <i class="fas fa-microchip"></i>
+                        </div>
+                        <div>
+                            <div class="vendor-title">DeepSeek</div>
+                            <div class="vendor-subtitle">R1 Model</div>
+                        </div>
+                    </div>
+                    <div class="vendor-desc">
+                        Cost-efficient AI with memory compression innovations
+                    </div>
+                    <a href="https://www.deepseek.ai" class="vendor-link" target="_blank">
+                        Visit Website <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+                
+                <div class="vendor-card thudm">
+                    <span class="region-tag china">China</span>
+                    <div class="vendor-header">
+                        <div class="vendor-icon">
+                            <i class="fas fa-university"></i>
+                        </div>
+                        <div>
+                            <div class="vendor-title">THUDM</div>
+                            <div class="vendor-subtitle">GLM-4.5</div>
+                        </div>
+                    </div>
+                    <div class="vendor-desc">
+                        Open-source MoE architecture with thinking modes
+                    </div>
+                    <a href="https://github.com/THUDM" class="vendor-link" target="_blank">
+                        Visit GitHub <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+                
+                <div class="vendor-card alibaba">
+                    <span class="region-tag china">China</span>
+                    <div class="vendor-header">
+                        <div class="vendor-icon">
+                            <i class="fas fa-cube"></i>
+                        </div>
+                        <div>
+                            <div class="vendor-title">Alibaba</div>
+                            <div class="vendor-subtitle">Qwen 3</div>
+                        </div>
+                    </div>
+                    <div class="vendor-desc">
+                        Strong coding performance and multimodal capabilities
+                    </div>
+                    <a href="https://qwenlm.alibaba.cloud/" class="vendor-link" target="_blank">
+                        Visit Website <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+                
+                <div class="vendor-card microsoft">
+                    <span class="region-tag us">US</span>
+                    <div class="vendor-header">
+                        <div class="vendor-icon">
+                            <i class="fab fa-microsoft"></i>
+                        </div>
+                        <div>
+                            <div class="vendor-title">Microsoft</div>
+                            <div class="vendor-subtitle">AutoGen</div>
+                        </div>
+                    </div>
+                    <div class="vendor-desc">
+                        Multi-agent framework with advanced collaboration
+                    </div>
+                    <a href="https://microsoft.github.io/autogen/" class="vendor-link" target="_blank">
+                        Visit Website <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+                
+                <div class="vendor-card meta">
+                    <span class="region-tag us">US</span>
+                    <div class="vendor-header">
+                        <div class="vendor-icon">
+                            <i class="fab fa-meta"></i>
+                        </div>
+                        <div>
+                            <div class="vendor-title">Meta</div>
+                            <div class="vendor-subtitle">LLaMA & Agents</div>
+                        </div>
+                    </div>
+                    <div class="vendor-desc">
+                        Open-source models and agent architecture research
+                    </div>
+                    <a href="https://ai.meta.com/" class="vendor-link" target="_blank">
+                        Visit Website <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+                
+                <div class="vendor-card mistral">
+                    <span class="region-tag europe">EUROPE</span>
+                    <div class="vendor-header">
+                        <div class="vendor-icon">
+                            <i class="fas fa-wind"></i>
+                        </div>
+                        <div>
+                            <div class="vendor-title">Mistral</div>
+                            <div class="vendor-subtitle">Open Models</div>
+                        </div>
+                    </div>
+                    <div class="vendor-desc">
+                        Leading European AI with multiple open-source models
+                    </div>
+                    <a href="https://mistral.ai" class="vendor-link" target="_blank">
+                        Visit Website <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="vendorComparisonChart"></canvas>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Vendor comparison chart
+        const ctx = document.getElementById('vendorComparisonChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'radar',
+            data: {
+                labels: ['Reasoning', 'Coding', 'Multimodal', 'Tool Use', 'Open Source', 'Enterprise'],
+                datasets: [
+                    {
+                        label: 'OpenAI',
+                        data: [95, 90, 85, 88, 60, 95],
+                        backgroundColor: 'rgba(16, 163, 127, 0.2)',
+                        borderColor: 'rgba(16, 163, 127, 0.8)',
+                        pointBackgroundColor: 'rgba(16, 163, 127, 1)',
+                    },
+                    {
+                        label: 'Anthropic',
+                        data: [92, 85, 80, 90, 70, 85],
+                        backgroundColor: 'rgba(255, 107, 107, 0.2)',
+                        borderColor: 'rgba(255, 107, 107, 0.8)',
+                        pointBackgroundColor: 'rgba(255, 107, 107, 1)',
+                    },
+                    {
+                        label: 'Google',
+                        data: [88, 80, 95, 85, 65, 90],
+                        backgroundColor: 'rgba(66, 133, 244, 0.2)',
+                        borderColor: 'rgba(66, 133, 244, 0.8)',
+                        pointBackgroundColor: 'rgba(66, 133, 244, 1)',
+                    },
+                    {
+                        label: 'Mistral',
+                        data: [82, 78, 75, 70, 90, 75],
+                        backgroundColor: 'rgba(255, 109, 1, 0.2)',
+                        borderColor: 'rgba(255, 109, 1, 0.8)',
+                        pointBackgroundColor: 'rgba(255, 109, 1, 1)',
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        angleLines: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        pointLabels: {
+                            color: '#ccd6f6',
+                            font: {
+                                size: 12
+                            }
+                        },
+                        ticks: {
+                            color: '#8892b0',
+                            backdropColor: 'transparent',
+                            showLabelBackdrop: false
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            color: '#ccd6f6',
+                            font: {
+                                size: 12
+                            },
+                            padding: 15,
+                            boxWidth: 12
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

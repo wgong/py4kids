@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Future Outlook: What's Next for GenAI?</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            background-color: #0a192f;
+            color: #ffffff;
+            overflow: hidden;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            padding: 30px 70px 15px;
+        }
+        .title {
+            font-size: 42px;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 5px;
+            letter-spacing: -0.5px;
+        }
+        .subtitle {
+            font-size: 18px;
+            color: #64ffda;
+            font-weight: 600;
+        }
+        .content {
+            flex-grow: 1;
+            padding: 0 70px 30px;
+            display: flex;
+            gap: 25px;
+        }
+        .left-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .right-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .trend-card {
+            background-color: rgba(100, 255, 218, 0.08);
+            border-radius: 12px;
+            padding: 20px;
+            border-left: 4px solid #64ffda;
+            transition: all 0.3s ease;
+        }
+        .trend-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        .trend-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #64ffda;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        .trend-title i {
+            margin-right: 10px;
+            font-size: 22px;
+        }
+        .trend-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+        .trend-item {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .trend-item:hover {
+            transform: translateY(-5px);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        .trend-icon {
+            font-size: 28px;
+            color: #64ffda;
+            margin-bottom: 10px;
+        }
+        .trend-label {
+            font-size: 16px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 5px;
+        }
+        .trend-desc {
+            font-size: 14px;
+            color: #ccd6f6;
+        }
+        .region-tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+        .us {
+            background-color: rgba(66, 133, 244, 0.2);
+            color: #4285f4;
+        }
+        .china {
+            background-color: rgba(234, 67, 53, 0.2);
+            color: #ea4335;
+        }
+        .eu {
+            background-color: rgba(52, 168, 83, 0.2);
+            color: #34a853;
+        }
+        .global {
+            background-color: rgba(251, 188, 5, 0.2);
+            color: #fbbc05;
+        }
+        .chart-container {
+            height: 220px;
+            margin-top: 10px;
+        }
+        .conclusion-box {
+            background-color: rgba(100, 255, 218, 0.15);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+        .conclusion-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        .conclusion-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .conclusion-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+        .conclusion-item {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .conclusion-item:hover {
+            transform: translateY(-5px);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        .conclusion-icon {
+            font-size: 28px;
+            color: #64ffda;
+            margin-bottom: 10px;
+        }
+        .conclusion-label {
+            font-size: 16px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 5px;
+        }
+        .conclusion-desc {
+            font-size: 14px;
+            color: #ccd6f6;
+        }
+        .image-container {
+            width: 100%;
+            height: 220px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+        }
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+        .image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(10, 25, 47, 0.3), rgba(10, 25, 47, 0.7));
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .overlay-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #ffffff;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+        .overlay-subtitle {
+            font-size: 18px;
+            color: #64ffda;
+            margin-top: 5px;
+        }
+        .openai {
+            border-left-color: #10a37f;
+        }
+        .openai .trend-title {
+            color: #10a37f;
+        }
+        .openai .trend-icon {
+            color: #10a37f;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="header">
+            <h1 class="title">Future Outlook: What's Next for GenAI?</h1>
+            <div class="subtitle">Global Perspectives on AI Evolution</div>
+        </div>
+        <div class="content">
+            <div class="left-content">
+                <div class="image-container">
+                    <img src="https://sfile.chatglm.cn/images-ppt/ff8929b20b59.png" alt="Future of AI">
+                    <div class="image-overlay">
+                        <div class="overlay-title">Global AI Evolution</div>
+                        <div class="overlay-subtitle">Collaborative Innovation Worldwide</div>
+                    </div>
+                </div>
+                
+                <div class="trend-card openai">
+                    <div class="trend-title">
+                        <i class="fas fa-globe-asia"></i>
+                        Global AI Development
+                    </div>
+                    <div class="trend-grid">
+                        <div class="trend-item">
+                            <i class="fas fa-microchip trend-icon"></i>
+                            <div class="trend-label">Efficiency</div>
+                            <div class="trend-desc">Smaller, faster, cheaper models <span class="region-tag global">Global</span></div>
+                        </div>
+                        <div class="trend-item">
+                            <i class="fas fa-layer-group trend-icon"></i>
+                            <div class="trend-label">Specialization</div>
+                            <div class="trend-desc">Domain-specific optimization <span class="region-tag us">US</span></div>
+                        </div>
+                        <div class="trend-item">
+                            <i class="fas fa-brain trend-icon"></i>
+                            <div class="trend-label">Reasoning</div>
+                            <div class="trend-desc">True understanding <span class="region-tag china">China</span></div>
+                        </div>
+                        <div class="trend-item">
+                            <i class="fas fa-robot trend-icon"></i>
+                            <div class="trend-label">Robotics</div>
+                            <div class="trend-desc">Physical systems control <span class="region-tag eu">EU</span></div>
+                        </div>
+                        <div class="trend-item">
+                            <i class="fas fa-project-diagram trend-icon"></i>
+                            <div class="trend-label">Multimodal</div>
+                            <div class="trend-desc">Seamless data processing <span class="region-tag global">Global</span></div>
+                        </div>
+                        <div class="trend-item">
+                            <i class="fas fa-infinity trend-icon"></i>
+                            <div class="trend-label">AGI Progress</div>
+                            <div class="trend-desc">General intelligence <span class="region-tag global">Global</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="right-content">
+                <div class="trend-card">
+                    <div class="trend-title">
+                        <i class="fas fa-chart-line"></i>
+                        Technical Evolution
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="techEvolutionChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="trend-card">
+                    <div class="trend-title">
+                        <i class="fas fa-users"></i>
+                        Societal Impact
+                    </div>
+                    <div class="trend-grid">
+                        <div class="trend-item">
+                            <i class="fas fa-briefcase trend-icon"></i>
+                            <div class="trend-label">Work</div>
+                            <div class="trend-desc">New job categories <span class="region-tag global">Global</span></div>
+                        </div>
+                        <div class="trend-item">
+                            <i class="fas fa-graduation-cap trend-icon"></i>
+                            <div class="trend-label">Education</div>
+                            <div class="trend-desc">Personalized learning <span class="region-tag us">US</span></div>
+                        </div>
+                        <div class="trend-item">
+                            <i class="fas fa-heartbeat trend-icon"></i>
+                            <div class="trend-label">Healthcare</div>
+                            <div class="trend-desc">Accelerated discovery <span class="region-tag eu">EU</span></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="conclusion-box">
+                    <div class="conclusion-title">Global AI Governance</div>
+                    <div class="conclusion-grid">
+                        <div class="conclusion-item">
+                            <i class="fas fa-balance-scale conclusion-icon"></i>
+                            <div class="conclusion-label">Ethics</div>
+                            <div class="conclusion-desc">International standards for fairness and transparency</div>
+                        </div>
+                        <div class="conclusion-item">
+                            <i class="fas fa-shield-alt conclusion-icon"></i>
+                            <div class="conclusion-label">Safety</div>
+                            <div class="conclusion-desc">Global cooperation on AI alignment and control</div>
+                        </div>
+                        <div class="conclusion-item">
+                            <i class="fas fa-handshake conclusion-icon"></i>
+                            <div class="conclusion-label">Inclusion</div>
+                            <div class="conclusion-desc">Ensuring benefits reach all of humanity</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Technical Evolution Chart
+        const ctx = document.getElementById('techEvolutionChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['2023', '2024', '2025', '2026', '2027'],
+                datasets: [
+                    {
+                        label: 'Model Efficiency',
+                        data: [30, 45, 65, 80, 95],
+                        borderColor: 'rgba(100, 255, 218, 1)',
+                        backgroundColor: 'rgba(100, 255, 218, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    },
+                    {
+                        label: 'Reasoning Capability',
+                        data: [20, 35, 55, 75, 90],
+                        borderColor: 'rgba(66, 133, 244, 1)',
+                        backgroundColor: 'rgba(66, 133, 244, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    },
+                    {
+                        label: 'Multimodal Integration',
+                        data: [25, 40, 70, 85, 98],
+                        borderColor: 'rgba(234, 67, 53, 1)',
+                        backgroundColor: 'rgba(234, 67, 53, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        ticks: {
+                            color: '#ccd6f6',
+                            font: {
+                                size: 12
+                            }
+                        }
+                    },
+                    x: {
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        ticks: {
+                            color: '#ccd6f6',
+                            font: {
+                                size: 12
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            color: '#ccd6f6',
+                            font: {
+                                size: 12
+                            },
+                            padding: 15,
+                            boxWidth: 12
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

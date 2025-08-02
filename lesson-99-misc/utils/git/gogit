@@ -1,0 +1,41 @@
+#!/bin/bash
+# place this script in ~/.local/bin 
+
+# Enhanced version with error handling and feedback
+set -e  # Exit on any error
+
+# Get commit message (default to "refine" if not provided)
+commit_message="${1:-refine}"
+
+echo "🔄 Starting git workflow..."
+echo "📝 Commit message: '$commit_message'"
+
+# Check if we're in a git repository
+if ! git rev-parse --git-dir > /dev/null 2>&1; then
+    echo "❌ Error: Not in a git repository"
+    exit 1
+fi
+
+# Add all changes
+echo "📦 Adding all changes..."
+git add .
+
+# Check if there are changes to commit
+if git diff --cached --quiet; then
+    echo "ℹ️  No changes to commit"
+    exit 0
+fi
+
+# Commit changes
+echo "💾 Committing changes..."
+git commit -m "$commit_message"
+
+# Push to remote
+echo "🚀 Pushing to remote..."
+git push
+
+echo "✅ Git workflow completed successfully!"
+echo "📋 Summary:"
+echo "   - Added all changes"
+echo "   - Committed with message: '$commit_message'"
+echo "   - Pushed to remote repository"

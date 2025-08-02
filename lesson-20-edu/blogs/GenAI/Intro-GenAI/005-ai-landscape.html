@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global AI Landscape: Major Model Releases</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            background-color: #0a192f;
+            color: #ffffff;
+            overflow: hidden;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            padding: 40px 70px 20px;
+        }
+        .title {
+            font-size: 42px;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 5px;
+            letter-spacing: -0.5px;
+        }
+        .subtitle {
+            font-size: 18px;
+            color: #64ffda;
+            font-weight: 600;
+        }
+        .content {
+            flex-grow: 1;
+            padding: 0 70px 40px;
+            display: flex;
+            flex-direction: column;
+        }
+        .model-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        .model-card {
+            background-color: rgba(100, 255, 218, 0.08);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+        }
+        .model-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        .model-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+        }
+        .openai::before {
+            background-color: #10a37f;
+        }
+        .anthropic::before {
+            background-color: #ff6b6b;
+        }
+        .google::before {
+            background-color: #4285f4;
+        }
+        .alibaba::before {
+            background-color: #fbbc05;
+        }
+        .model-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .model-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+        .openai .model-icon {
+            background-color: rgba(16, 163, 127, 0.2);
+            color: #10a37f;
+        }
+        .anthropic .model-icon {
+            background-color: rgba(255, 107, 107, 0.2);
+            color: #ff6b6b;
+        }
+        .google .model-icon {
+            background-color: rgba(66, 133, 244, 0.2);
+            color: #4285f4;
+        }
+        .alibaba .model-icon {
+            background-color: rgba(251, 188, 5, 0.2);
+            color: #fbbc05;
+        }
+        .model-title {
+            font-size: 24px;
+            font-weight: 700;
+        }
+        .model-subtitle {
+            font-size: 14px;
+            color: #8892b0;
+        }
+        .feature-list {
+            margin-top: 10px;
+        }
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 8px;
+        }
+        .feature-item i {
+            color: #64ffda;
+            margin-right: 8px;
+            font-size: 16px;
+            margin-top: 3px;
+        }
+        .feature-text {
+            font-size: 16px;
+            color: #ccd6f6;
+        }
+        .region-tag {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .us {
+            background-color: rgba(66, 133, 244, 0.2);
+            color: #4285f4;
+        }
+        .china {
+            background-color: rgba(234, 67, 53, 0.2);
+            color: #ea4335;
+        }
+        .chart-container {
+            height: 240px;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="header">
+            <h1 class="title">Global AI Landscape: Major Model Releases</h1>
+            <div class="subtitle">Leading Innovations in Generative AI (2024-2025)</div>
+        </div>
+        <div class="content">
+            <div class="model-grid">
+                <div class="model-card openai">
+                    <span class="region-tag us">US</span>
+                    <div class="model-header">
+                        <div class="model-icon">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div>
+                            <div class="model-title">OpenAI</div>
+                            <div class="model-subtitle">GPT-4.5 / GPT-5</div>
+                        </div>
+                    </div>
+                    <div class="feature-list">
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <div class="feature-text">Advanced reasoning & multimodal</div>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <div class="feature-text">Code interpreter v2</div>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <div class="feature-text">Enterprise API enhancements</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="model-card anthropic">
+                    <span class="region-tag us">US</span>
+                    <div class="model-header">
+                        <div class="model-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <div>
+                            <div class="model-title">Anthropic</div>
+                            <div class="model-subtitle">Claude 4</div>
+                        </div>
+                    </div>
+                    <div class="feature-list">
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <div class="feature-text">Enhanced reasoning capabilities</div>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <div class="feature-text">Model Context Protocol (MCP)</div>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <div class="feature-text">Improved tool use & integration</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="model-card google">
+                    <span class="region-tag us">US</span>
+                    <div class="model-header">
+                        <div class="model-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <div>
+                            <div class="model-title">Google</div>
+                            <div class="model-subtitle">Gemini 2.5</div>
+                        </div>
+                    </div>
+                    <div class="feature-list">
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <div class="feature-text">Superior multimodal processing</div>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <div class="feature-text">Native tool integration</div>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <div class="feature-text">Enterprise-focused features</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="model-card alibaba">
+                    <span class="region-tag china">China</span>
+                    <div class="model-header">
+                        <div class="model-icon">
+                            <i class="fas fa-cube"></i>
+                        </div>
+                        <div>
+                            <div class="model-title">Alibaba</div>
+                            <div class="model-subtitle">Qwen 3</div>
+                        </div>
+                    </div>
+                    <div class="feature-list">
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <div class="feature-text">Strong coding performance</div>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <div class="feature-text">Multimodal capabilities</div>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <div class="feature-text">Competitive benchmarks</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="benchmarkChart"></canvas>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Benchmark comparison chart
+        const ctx = document.getElementById('benchmarkChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'radar',
+            data: {
+                labels: ['Reasoning', 'Coding', 'Multimodal', 'Tool Use', 'Speed', 'Cost Efficiency'],
+                datasets: [
+                    {
+                        label: 'OpenAI GPT-4.5',
+                        data: [95, 90, 92, 88, 85, 75],
+                        backgroundColor: 'rgba(16, 163, 127, 0.2)',
+                        borderColor: 'rgba(16, 163, 127, 0.8)',
+                        pointBackgroundColor: 'rgba(16, 163, 127, 1)',
+                        pointBorderColor: '#fff',
+                        borderWidth: 2
+                    },
+                    {
+                        label: 'Anthropic Claude 4',
+                        data: [92, 85, 88, 92, 82, 80],
+                        backgroundColor: 'rgba(255, 107, 107, 0.2)',
+                        borderColor: 'rgba(255, 107, 107, 0.8)',
+                        pointBackgroundColor: 'rgba(255, 107, 107, 1)',
+                        pointBorderColor: '#fff',
+                        borderWidth: 2
+                    },
+                    {
+                        label: 'Google Gemini 2.5',
+                        data: [88, 82, 95, 85, 90, 85],
+                        backgroundColor: 'rgba(66, 133, 244, 0.2)',
+                        borderColor: 'rgba(66, 133, 244, 0.8)',
+                        pointBackgroundColor: 'rgba(66, 133, 244, 1)',
+                        pointBorderColor: '#fff',
+                        borderWidth: 2
+                    },
+                    {
+                        label: 'Alibaba Qwen 3',
+                        data: [85, 88, 82, 80, 87, 92],
+                        backgroundColor: 'rgba(251, 188, 5, 0.2)',
+                        borderColor: 'rgba(251, 188, 5, 0.8)',
+                        pointBackgroundColor: 'rgba(251, 188, 5, 1)',
+                        pointBorderColor: '#fff',
+                        borderWidth: 2
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        angleLines: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        pointLabels: {
+                            color: '#ccd6f6',
+                            font: {
+                                size: 14,
+                                weight: '600'
+                            }
+                        },
+                        ticks: {
+                            color: '#8892b0',
+                            backdropColor: 'transparent',
+                            showLabelBackdrop: false,
+                            font: {
+                                size: 10
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            color: '#ccd6f6',
+                            font: {
+                                size: 12
+                            },
+                            padding: 15,
+                            boxWidth: 15,
+                            usePointStyle: true,
+                            pointStyle: 'circle'
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(10, 25, 47, 0.8)',
+                        titleColor: '#ffffff',
+                        bodyColor: '#ccd6f6',
+                        borderColor: '#64ffda',
+                        borderWidth: 1,
+                        titleFont: {
+                            size: 14,
+                            weight: 'bold'
+                        },
+                        bodyFont: {
+                            size: 13
+                        },
+                        padding: 10,
+                        displayColors: true,
+                        callbacks: {
+                            label: function(context) {
+                                return context.dataset.label + ': ' + context.raw + '%';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

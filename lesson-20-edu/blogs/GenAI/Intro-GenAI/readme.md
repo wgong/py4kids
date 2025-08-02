@@ -3,9 +3,9 @@
 # AI Slide: **Intro to GenAI**
 use GLM 4.5 by ZhiPu to create slide deck via its "AI Slides" feature
 
-see [chat history](https://chat.z.ai/c/c8c38c23-5d3b-48fe-a018-22e5861ecefa)
+see [GLM 4.5 chat history](https://chat.z.ai/c/c8c38c23-5d3b-48fe-a018-22e5861ecefa)
 
-see [another example](`py4kids/lesson-20-edu/blogs/Workflow/prefect`)
+see [Prefect Workflow](https://github.com/wgong/py4kids/tree/master/lesson-20-edu/blogs/Workflow/prefect)
 
 ## Prompt
 

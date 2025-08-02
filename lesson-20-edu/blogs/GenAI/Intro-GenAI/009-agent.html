@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Agent Architecture: Components and Workflows</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            background-color: #0a192f;
+            color: #ffffff;
+            overflow: hidden;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            padding: 30px 70px 15px;
+        }
+        .title {
+            font-size: 40px;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 5px;
+            letter-spacing: -0.5px;
+        }
+        .content {
+            flex-grow: 1;
+            padding: 0 70px 30px;
+            display: flex;
+            gap: 25px;
+        }
+        .left-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .right-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .architecture-diagram {
+            background-color: rgba(100, 255, 218, 0.08);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex-grow: 1;
+            transition: all 0.3s ease;
+        }
+        .architecture-diagram:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        .diagram-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #64ffda;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        .diagram-title i {
+            margin-right: 10px;
+        }
+        .diagram-image {
+            width: 100%;
+            height: 260px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        .diagram-image img {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 8px;
+        }
+        .component-card {
+            background-color: rgba(100, 255, 218, 0.08);
+            border-radius: 12px;
+            padding: 15px;
+            border-left: 4px solid #64ffda;
+            transition: all 0.3s ease;
+        }
+        .component-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        .component-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #64ffda;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+        .component-title i {
+            margin-right: 10px;
+            font-size: 20px;
+        }
+        .component-desc {
+            font-size: 16px;
+            color: #ccd6f6;
+            line-height: 1.3;
+        }
+        .frameworks-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 5px;
+        }
+        .framework-item {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        .framework-item:hover {
+            transform: translateY(-3px);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        .framework-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(100, 255, 218, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            color: #64ffda;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+        .framework-info {
+            flex: 1;
+        }
+        .framework-name {
+            font-size: 16px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+        .framework-company {
+            font-size: 13px;
+            color: #8892b0;
+        }
+        .workflow-box {
+            background-color: rgba(100, 255, 218, 0.15);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+        .workflow-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        .workflow-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .workflow-examples {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+        }
+        .workflow-example {
+            flex: 1;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .workflow-example:hover {
+            transform: translateY(-5px);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        .example-icon {
+            font-size: 28px;
+            color: #64ffda;
+            margin-bottom: 10px;
+        }
+        .example-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 5px;
+        }
+        .example-desc {
+            font-size: 14px;
+            color: #ccd6f6;
+        }
+        .chart-container {
+            height: 180px;
+            margin-top: 10px;
+        }
+        .openai {
+            border-left-color: #10a37f;
+        }
+        .openai .component-title {
+            color: #10a37f;
+        }
+        .openai .framework-icon {
+            background-color: rgba(16, 163, 127, 0.1);
+            color: #10a37f;
+        }
+        .anthropic {
+            border-left-color: #ff6b6b;
+        }
+        .anthropic .component-title {
+            color: #ff6b6b;
+        }
+        .anthropic .framework-icon {
+            background-color: rgba(255, 107, 107, 0.1);
+            color: #ff6b6b;
+        }
+        .google {
+            border-left-color: #4285f4;
+        }
+        .google .component-title {
+            color: #4285f4;
+        }
+        .google .framework-icon {
+            background-color: rgba(66, 133, 244, 0.1);
+            color: #4285f4;
+        }
+        .microsoft {
+            border-left-color: #00a4ef;
+        }
+        .microsoft .component-title {
+            color: #00a4ef;
+        }
+        .microsoft .framework-icon {
+            background-color: rgba(0, 164, 239, 0.1);
+            color: #00a4ef;
+        }
+        .meta {
+            border-left-color: #1877f2;
+        }
+        .meta .component-title {
+            color: #1877f2;
+        }
+        .meta .framework-icon {
+            background-color: rgba(24, 119, 242, 0.1);
+            color: #1877f2;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="header">
+            <h1 class="title">AI Agent Architecture: Components & Frameworks</h1>
+        </div>
+        <div class="content">
+            <div class="left-content">
+                <div class="architecture-diagram">
+                    <div class="diagram-title">
+                        <i class="fas fa-project-diagram"></i>
+                        Core Components
+                    </div>
+                    <div class="diagram-image">
+                        <img src="https://sfile.chatglm.cn/images-ppt/8d428ccb9d56.png" alt="AI Agent Architecture">
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="componentChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="workflow-box">
+                    <div class="workflow-title">Key Capabilities</div>
+                    <div class="workflow-examples">
+                        <div class="workflow-example">
+                            <i class="fas fa-tools example-icon"></i>
+                            <div class="example-title">Tool Use</div>
+                            <div class="example-desc">External system access</div>
+                        </div>
+                        <div class="workflow-example">
+                            <i class="fas fa-sync-alt example-icon"></i>
+                            <div class="example-title">Feedback Loops</div>
+                            <div class="example-desc">Continuous improvement</div>
+                        </div>
+                        <div class="workflow-example">
+                            <i class="fas fa-shield-alt example-icon"></i>
+                            <div class="example-title">Safety</div>
+                            <div class="example-desc">Ethical constraints</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="right-content">
+                <div class="component-card openai">
+                    <div class="component-title">
+                        <i class="fas fa-eye"></i>
+                        Perception
+                    </div>
+                    <div class="component-desc">
+                        Multi-channel input processing (text, images, audio, video)
+                    </div>
+                </div>
+                
+                <div class="component-card">
+                    <div class="component-title">
+                        <i class="fas fa-database"></i>
+                        Memory
+                    </div>
+                    <div class="component-desc">
+                        Short-term working memory + long-term knowledge base
+                    </div>
+                </div>
+                
+                <div class="component-card">
+                    <div class="component-title">
+                        <i class="fas fa-brain"></i>
+                        Reasoning
+                    </div>
+                    <div class="component-desc">
+                        Logical inference + complex problem solving
+                    </div>
+                </div>
+                
+                <div class="component-card">
+                    <div class="component-title">
+                        <i class="fas fa-route"></i>
+                        Planning
+                    </div>
+                    <div class="component-desc">
+                        Task breakdown + sequential step generation
+                    </div>
+                </div>
+                
+                <div class="component-card">
+                    <div class="component-title">
+                        <i class="fas fa-play"></i>
+                        Action
+                    </div>
+                    <div class="component-desc">
+                        API execution + tool interaction + system control
+                    </div>
+                </div>
+                
+                <div class="component-card">
+                    <div class="component-title">
+                        <i class="fas fa-globe"></i>
+                        Major Agent Frameworks
+                    </div>
+                    <div class="frameworks-grid">
+                        <div class="framework-item openai">
+                            <div class="framework-icon">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="framework-info">
+                                <div class="framework-name">GPT Agents</div>
+                                <div class="framework-company">OpenAI</div>
+                            </div>
+                        </div>
+                        <div class="framework-item anthropic">
+                            <div class="framework-icon">
+                                <i class="fas fa-plug"></i>
+                            </div>
+                            <div class="framework-info">
+                                <div class="framework-name">MCP</div>
+                                <div class="framework-company">Anthropic</div>
+                            </div>
+                        </div>
+                        <div class="framework-item microsoft">
+                            <div class="framework-icon">
+                                <i class="fab fa-microsoft"></i>
+                            </div>
+                            <div class="framework-info">
+                                <div class="framework-name">AutoGen</div>
+                                <div class="framework-company">Microsoft</div>
+                            </div>
+                        </div>
+                        <div class="framework-item google">
+                            <div class="framework-icon">
+                                <i class="fab fa-google"></i>
+                            </div>
+                            <div class="framework-info">
+                                <div class="framework-name">Agent Ecosystem</div>
+                                <div class="framework-company">Google</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Component importance chart
+        const ctx = document.getElementById('componentChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'radar',
+            data: {
+                labels: ['Perception', 'Memory', 'Reasoning', 'Planning', 'Action'],
+                datasets: [{
+                    label: 'Current Capability',
+                    data: [85, 75, 70, 65, 80],
+                    backgroundColor: 'rgba(100, 255, 218, 0.2)',
+                    borderColor: 'rgba(100, 255, 218, 0.8)',
+                    pointBackgroundColor: 'rgba(100, 255, 218, 1)',
+                    pointBorderColor: '#fff',
+                    borderWidth: 2
+                }, {
+                    label: '2025 Target',
+                    data: [95, 90, 85, 80, 90],
+                    backgroundColor: 'rgba(66, 133, 244, 0.2)',
+                    borderColor: 'rgba(66, 133, 244, 0.8)',
+                    pointBackgroundColor: 'rgba(66, 133, 244, 1)',
+                    pointBorderColor: '#fff',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        angleLines: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        pointLabels: {
+                            color: '#ccd6f6',
+                            font: {
+                                size: 12,
+                                weight: '600'
+                            }
+                        },
+                        ticks: {
+                            color: '#8892b0',
+                            backdropColor: 'transparent',
+                            showLabelBackdrop: false,
+                            font: {
+                                size: 10
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            color: '#ccd6f6',
+                            font: {
+                                size: 11
+                            },
+                            padding: 10,
+                            boxWidth: 12
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

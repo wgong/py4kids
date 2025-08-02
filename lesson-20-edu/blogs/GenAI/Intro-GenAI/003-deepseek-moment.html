@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The DeepSeek Moment: Breakthrough in AI Efficiency and Accessibility</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            background-color: #0a192f;
+            color: #ffffff;
+            overflow: hidden;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            padding: 40px 70px 20px;
+        }
+        .title {
+            font-size: 42px;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+        .content {
+            flex-grow: 1;
+            padding: 0 70px 40px;
+            display: flex;
+            gap: 30px;
+        }
+        .left-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .right-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .key-point {
+            background-color: rgba(100, 255, 218, 0.08);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid #64ffda;
+            transition: all 0.3s ease;
+        }
+        .key-point:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        .key-point-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #64ffda;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+        .key-point-title i {
+            margin-right: 12px;
+            font-size: 24px;
+        }
+        .key-point-content {
+            font-size: 18px;
+            color: #ccd6f6;
+            line-height: 1.4;
+        }
+        .highlight-box {
+            background-color: rgba(100, 255, 218, 0.15);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: auto;
+            transition: all 0.3s ease;
+        }
+        .highlight-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        .highlight-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+        .highlight-content {
+            font-size: 18px;
+            color: #ccd6f6;
+            line-height: 1.4;
+            text-align: center;
+        }
+        .image-container {
+            width: 100%;
+            height: 280px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+        }
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+        .image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(10, 25, 47, 0.2), rgba(10, 25, 47, 0.7));
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .quote {
+            font-style: italic;
+            color: #8892b0;
+            font-size: 18px;
+            text-align: center;
+            margin-top: 20px;
+            padding: 0 20px;
+        }
+        .chart-container {
+            height: 220px;
+            margin-top: 20px;
+        }
+        .comparison-label {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(10, 25, 47, 0.8);
+            color: #64ffda;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="header">
+            <h1 class="title">The DeepSeek Moment: Breakthrough in AI Efficiency</h1>
+        </div>
+        <div class="content">
+            <div class="left-content">
+                <div class="image-container">
+                    <img src="https://sfile.chatglm.cn/images-ppt/bd71e0edf210.jpg" alt="DeepSeek AI Model">
+                    <div class="image-overlay"></div>
+                    <div class="comparison-label">Dec 2024</div>
+                </div>
+                
+                <div class="key-point">
+                    <div class="key-point-title">
+                        <i class="fas fa-chart-line"></i>
+                        Cost Revolution
+                    </div>
+                    <div class="key-point-content">
+                        <div class="flex justify-between mb-2">
+                            <span>DeepSeek:</span>
+                            <span class="text-green-400 font-bold">$5.6M</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Industry Standard:</span>
+                            <span class="text-red-400 font-bold">$500M+</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="key-point">
+                    <div class="key-point-title">
+                        <i class="fas fa-bolt"></i>
+                        Accessibility Breakthrough
+                    </div>
+                    <div class="key-point-content">
+                        <div class="flex justify-between mb-2">
+                            <span>API Cost:</span>
+                            <span class="text-green-400 font-bold">200K calls / $50</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Open Source:</span>
+                            <span class="text-green-400 font-bold">✓</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="highlight-box">
+                    <div class="highlight-title">Global Impact</div>
+                    <div class="highlight-content">
+                        Disrupted AI economics • Democratized access • Challenged Western dominance
+                    </div>
+                </div>
+            </div>
+            
+            <div class="right-content">
+                <div class="key-point">
+                    <div class="key-point-title">
+                        <i class="fas fa-cogs"></i>
+                        Technical Innovations
+                    </div>
+                    <div class="key-point-content">
+                        <div class="mb-3"><i class="fas fa-microchip text-green-400 mr-2"></i> <strong>8-bit Floating-Point</strong> - 75% memory reduction</div>
+                        <div class="mb-3"><i class="fas fa-compress text-green-400 mr-2"></i> <strong>93% Memory Compression</strong> - Efficient storage</div>
+                        <div><i class="fas fa-tachometer-alt text-green-400 mr-2"></i> <strong>Multi-Word Prediction</strong> - Faster responses</div>
+                    </div>
+                </div>
+                
+                <div class="key-point">
+                    <div class="key-point-title">
+                        <i class="fas fa-balance-scale"></i>
+                        Comparison with OpenAI
+                    </div>
+                    <div class="key-point-content">
+                        <div class="mb-2"><i class="fas fa-check-circle text-green-400 mr-2"></i> Comparable capabilities at fraction of cost</div>
+                        <div class="mb-2"><i class="fas fa-check-circle text-green-400 mr-2"></i> Open source vs proprietary approach</div>
+                        <div><i class="fas fa-check-circle text-green-400 mr-2"></i> Different innovation focus (efficiency vs scale)</div>
+                    </div>
+                </div>
+                
+                <div class="chart-container">
+                    <canvas id="costComparisonChart"></canvas>
+                </div>
+                
+                <div class="quote">
+                    "DeepSeek redefined what was possible in open-source AI, challenging the notion that cutting-edge models require massive resources."
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Cost comparison chart
+        const ctx = document.getElementById('costComparisonChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Training Cost', 'API Cost (1M calls)', 'Model Size', 'Inference Speed'],
+                datasets: [
+                    {
+                        label: 'DeepSeek',
+                        data: [5.6, 250, 7, 95],
+                        backgroundColor: 'rgba(100, 255, 218, 0.6)',
+                        borderColor: 'rgba(100, 255, 218, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Industry Average',
+                        data: [500, 2000, 30, 70],
+                        backgroundColor: 'rgba(66, 133, 244, 0.6)',
+                        borderColor: 'rgba(66, 133, 244, 1)',
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        ticks: {
+                            color: '#ccd6f6',
+                            font: {
+                                size: 12
+                            }
+                        }
+                    },
+                    x: {
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        ticks: {
+                            color: '#ccd6f6',
+                            font: {
+                                size: 12
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            color: '#ccd6f6',
+                            font: {
+                                size: 12
+                            },
+                            padding: 15,
+                            boxWidth: 12
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(10, 25, 47, 0.8)',
+                        titleColor: '#ffffff',
+                        bodyColor: '#ccd6f6',
+                        borderColor: '#64ffda',
+                        borderWidth: 1
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

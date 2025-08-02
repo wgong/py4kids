@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multimodal AI Revolution: Processing Text, Images, Audio, and Video</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            background-color: #0a192f;
+            color: #ffffff;
+            overflow: hidden;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            padding: 30px 70px 15px;
+        }
+        .title {
+            font-size: 42px;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 5px;
+            letter-spacing: -0.5px;
+        }
+        .subtitle {
+            font-size: 18px;
+            color: #64ffda;
+            font-weight: 600;
+        }
+        .content {
+            flex-grow: 1;
+            padding: 0 70px 30px;
+            display: flex;
+            gap: 25px;
+        }
+        .left-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .right-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .market-card {
+            background-color: rgba(100, 255, 218, 0.08);
+            border-radius: 12px;
+            padding: 20px;
+            border-left: 4px solid #64ffda;
+            transition: all 0.3s ease;
+        }
+        .market-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        .market-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #64ffda;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        .market-title i {
+            margin-right: 10px;
+            font-size: 22px;
+        }
+        .stats-container {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 15px;
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #64ffda;
+        }
+        .stat-label {
+            font-size: 14px;
+            color: #ccd6f6;
+        }
+        .growth-rate {
+            font-size: 18px;
+            color: #64ffda;
+            font-weight: 600;
+            text-align: center;
+            margin-top: 10px;
+        }
+        .chart-container {
+            height: 180px;
+            margin-top: 10px;
+        }
+        .evolution-card {
+            background-color: rgba(100, 255, 218, 0.08);
+            border-radius: 12px;
+            padding: 20px;
+            border-left: 4px solid #64ffda;
+            transition: all 0.3s ease;
+        }
+        .evolution-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        .evolution-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #64ffda;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        .evolution-title i {
+            margin-right: 10px;
+            font-size: 22px;
+        }
+        .evolution-timeline {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+        }
+        .evolution-item {
+            flex: 1;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .evolution-item:hover {
+            transform: translateY(-5px);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        .evolution-year {
+            font-size: 18px;
+            font-weight: 700;
+            color: #64ffda;
+            margin-bottom: 8px;
+        }
+        .evolution-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+        .evolution-desc {
+            font-size: 14px;
+            color: #ccd6f6;
+        }
+        .component-card {
+            background-color: rgba(100, 255, 218, 0.08);
+            border-radius: 12px;
+            padding: 20px;
+            border-left: 4px solid #64ffda;
+            transition: all 0.3s ease;
+        }
+        .component-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        .component-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #64ffda;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        .component-title i {
+            margin-right: 10px;
+            font-size: 22px;
+        }
+        .component-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+        .component-item {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .component-item:hover {
+            transform: translateY(-5px);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        .component-icon {
+            font-size: 28px;
+            color: #64ffda;
+            margin-bottom: 10px;
+        }
+        .component-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 5px;
+        }
+        .component-desc {
+            font-size: 14px;
+            color: #ccd6f6;
+        }
+        .application-card {
+            background-color: rgba(100, 255, 218, 0.08);
+            border-radius: 12px;
+            padding: 20px;
+            border-left: 4px solid #64ffda;
+            transition: all 0.3s ease;
+        }
+        .application-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        .application-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #64ffda;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        .application-title i {
+            margin-right: 10px;
+            font-size: 22px;
+        }
+        .application-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        .application-item {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        .application-item:hover {
+            transform: translateY(-5px);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        .application-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(100, 255, 218, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: #64ffda;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+        .application-info {
+            flex: 1;
+        }
+        .application-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 3px;
+        }
+        .application-desc {
+            font-size: 14px;
+            color: #ccd6f6;
+        }
+        .openai {
+            border-left-color: #10a37f;
+        }
+        .openai .component-title,
+        .openai .application-title,
+        .openai .evolution-title,
+        .openai .market-title {
+            color: #10a37f;
+        }
+        .openai .component-icon,
+        .openai .application-icon {
+            background-color: rgba(16, 163, 127, 0.1);
+            color: #10a37f;
+        }
+        .google {
+            border-left-color: #4285f4;
+        }
+        .google .component-title,
+        .google .application-title,
+        .google .evolution-title,
+        .google .market-title {
+            color: #4285f4;
+        }
+        .google .component-icon,
+        .google .application-icon {
+            background-color: rgba(66, 133, 244, 0.1);
+            color: #4285f4;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="header">
+            <h1 class="title">Multimodal AI Revolution</h1>
+            <div class="subtitle">Processing Text, Images, Audio, and Video</div>
+        </div>
+        <div class="content">
+            <div class="left-content">
+                <div class="market-card">
+                    <div class="market-title">
+                        <i class="fas fa-chart-line"></i>
+                        Market Growth
+                    </div>
+                    <div class="stats-container">
+                        <div class="stat-item">
+                            <div class="stat-value">$1.2B</div>
+                            <div class="stat-label">2023 Market Value</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">30%+</div>
+                            <div class="stat-label">CAGR (2024-2032)</div>
+                        </div>
+                    </div>
+                    <div class="growth-rate">Rapidly expanding market with strong business adoption</div>
+                    <div class="chart-container">
+                        <canvas id="marketChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="evolution-card openai">
+                    <div class="evolution-title">
+                        <i class="fas fa-history"></i>
+                        Evolution of Multimodal AI
+                    </div>
+                    <div class="evolution-timeline">
+                        <div class="evolution-item">
+                            <div class="evolution-year">2023</div>
+                            <div class="evolution-name">GPT-4V</div>
+                            <div class="evolution-desc">First major model with vision capabilities</div>
+                        </div>
+                        <div class="evolution-item">
+                            <div class="evolution-year">2025</div>
+                            <div class="evolution-name">GPT-4o</div>
+                            <div class="evolution-desc">Advanced multimodal with lifelike interactions</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="right-content">
+                <div class="component-card">
+                    <div class="component-title">
+                        <i class="fas fa-cogs"></i>
+                        How Multimodal AI Works
+                    </div>
+                    <div class="component-grid">
+                        <div class="component-item">
+                            <i class="fas fa-sign-in-alt component-icon"></i>
+                            <div class="component-name">Input Module</div>
+                            <div class="component-desc">Multiple unimodal networks</div>
+                        </div>
+                        <div class="component-item">
+                            <i class="fas fa-code-branch component-icon"></i>
+                            <div class="component-name">Fusion Module</div>
+                            <div class="component-desc">Integrates data types</div>
+                        </div>
+                        <div class="component-item">
+                            <i class="fas fa-sign-out-alt component-icon"></i>
+                            <div class="component-name">Output Module</div>
+                            <div class="component-desc">Delivers results</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="application-card google">
+                    <div class="application-title">
+                        <i class="fas fa-briefcase"></i>
+                        Business Applications
+                    </div>
+                    <div class="application-grid">
+                        <div class="application-item">
+                            <div class="application-icon">
+                                <i class="fas fa-shopping-cart"></i>
+                            </div>
+                            <div class="application-info">
+                                <div class="application-name">Retail</div>
+                                <div class="application-desc">Visual product assistants</div>
+                            </div>
+                        </div>
+                        <div class="application-item">
+                            <div class="application-icon">
+                                <i class="fas fa-headset"></i>
+                            </div>
+                            <div class="application-info">
+                                <div class="application-name">Customer Service</div>
+                                <div class="application-desc">Emotion + text analysis</div>
+                            </div>
+                        </div>
+                        <div class="application-item">
+                            <div class="application-icon">
+                                <i class="fas fa-heartbeat"></i>
+                            </div>
+                            <div class="application-info">
+                                <div class="application-name">Healthcare</div>
+                                <div class="application-desc">Medical image analysis</div>
+                            </div>
+                        </div>
+                        <div class="application-item">
+                            <div class="application-icon">
+                                <i class="fas fa-paint-brush"></i>
+                            </div>
+                            <div class="application-info">
+                                <div class="application-name">Content Creation</div>
+                                <div class="application-desc">Multimedia generation</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Market growth chart
+        const ctx = document.getElementById('marketChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['2023', '2024', '2025', '2026', '2027', '2028', '2029', '2030', '2031', '2032'],
+                datasets: [{
+                    label: 'Market Size ($ Billions)',
+                    data: [1.2, 1.6, 2.1, 2.7, 3.5, 4.6, 6.0, 7.8, 10.1, 13.2],
+                    backgroundColor: 'rgba(100, 255, 218, 0.1)',
+                    borderColor: 'rgba(100, 255, 218, 1)',
+                    borderWidth: 2,
+                    tension: 0.4,
+                    fill: true,
+                    pointBackgroundColor: 'rgba(100, 255, 218, 1)',
+                    pointBorderColor: '#fff',
+                    pointRadius: 4,
+                    pointHoverRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        ticks: {
+                            color: '#ccd6f6',
+                            font: {
+                                size: 10
+                            }
+                        }
+                    },
+                    x: {
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        ticks: {
+                            color: '#ccd6f6',
+                            font: {
+                                size: 10
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(10, 25, 47, 0.8)',
+                        titleColor: '#ffffff',
+                        bodyColor: '#ccd6f6',
+                        borderColor: '#64ffda',
+                        borderWidth: 1,
+                        titleFont: {
+                            size: 14,
+                            weight: 'bold'
+                        },
+                        bodyFont: {
+                            size: 12
+                        },
+                        padding: 10
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
