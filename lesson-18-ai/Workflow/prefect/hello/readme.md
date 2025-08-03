@@ -50,3 +50,14 @@ $ prefect worker start --pool 'test_flow'
 $ prefect deployment run 'main/my_deployment'
 
 ```
+
+## Upgrade to v3
+
+```bash
+pip install -U prefect   # 3.4.11
+prefect server database upgrade
+
+# optional
+pip install -U 'prefect[aws]'
+# Prefect database at sqlite+aiosqlite:////home/papagame/.prefect/prefect.db upgraded!
+```
