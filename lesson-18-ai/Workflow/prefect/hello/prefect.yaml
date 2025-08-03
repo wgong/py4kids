@@ -1,0 +1,36 @@
+# Welcome to your prefect.yaml file! You can use this file for storing and managing
+# configuration for deploying your flows. We recommend committing this file to source
+# control along with your flow code.
+
+# Generic metadata about this project
+name: hello
+prefect-version: 2.14.9
+
+# build section allows you to manage and build docker images
+build:
+
+# push section allows you to manage if and how this project is uploaded to remote locations
+push:
+
+# pull section allows you to provide instructions for cloning this project in remote locations
+pull:
+- prefect.deployments.steps.set_working_directory:
+    directory: 
+      /home/papagame/projects/wgong/py4kids/lesson-18-ai/Workflow/Prefect
+
+# the deployments section allows you to provide configuration for deploying flows
+deployments:
+- name: my_deployment
+  version:
+  tags: []
+  description:
+  entrypoint: my_flow.py:main
+  parameters: {}
+  work_pool:
+    name: test_flow
+    work_queue_name:
+    job_variables: {}
+  schedule:
+    cron: 0 0 * * *
+    timezone: UTC
+    day_or: true
