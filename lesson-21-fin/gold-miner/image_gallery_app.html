@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .header h1 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 2.2rem;
+            font-weight: 600;
+        }
+
+        .controls {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+        }
+
+        .file-input-wrapper input[type=file] {
+            position: absolute;
+            left: -9999px;
+        }
+
+        .file-input-label {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            border: none;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .file-input-label:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .sort-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .sort-btn {
+            background: white;
+            border: 2px solid #667eea;
+            color: #667eea;
+            padding: 10px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .sort-btn:hover, .sort-btn.active {
+            background: #667eea;
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        .layout-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .layout-controls label {
+            color: #2c3e50;
+            font-weight: 500;
+        }
+
+        .grid-select {
+            background: white;
+            border: 2px solid #667eea;
+            color: #2c3e50;
+            padding: 10px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .grid-select:hover, .grid-select:focus {
+            outline: none;
+            border-color: #764ba2;
+            transform: translateY(-1px);
+        }
+
+        .metadata-toggle {
+            display: flex;
+            align-items: center;
+        }
+
+        .metadata-toggle label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            color: #2c3e50;
+            font-weight: 500;
+            gap: 8px;
+        }
+
+        .metadata-toggle input[type="checkbox"] {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #667eea;
+            border-radius: 4px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .metadata-toggle input[type="checkbox"]:checked {
+            background: #667eea;
+            border-color: #667eea;
+        }
+
+        .metadata-toggle input[type="checkbox"]:checked::after {
+            content: '✓';
+            position: absolute;
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .metadata-toggle input[type="checkbox"]:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+        }
+
+        .image-count {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            padding: 20px 0;
+        }
+
+        .image-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .image-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .image-container {
+            position: relative;
+            height: 250px;
+            overflow: hidden;
+            background: #f8f9fa;
+            cursor: pointer;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+            background: #f8f9fa;
+        }
+
+        /* Special handling for 1 per row layout */
+        .gallery.grid-1 .image-container {
+            height: auto;
+            min-height: 400px;
+            max-height: 80vh;
+        }
+
+        .gallery.grid-1 .image-container img {
+            width: 100%;
+            height: auto;
+            max-height: 80vh;
+            object-fit: contain;
+        }
+
+        .image-card:hover .image-container img {
+            transform: scale(1.02);
+        }
+
+        .image-info {
+            padding: 20px;
+        }
+
+        .image-caption {
+            font-size: 1rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            line-height: 1.4;
+            word-wrap: break-word;
+        }
+
+        .editable-caption {
+            background: transparent;
+            border: none;
+            font-size: 1rem;
+            color: #2c3e50;
+            width: 100%;
+            padding: 5px;
+            border-radius: 4px;
+            font-family: inherit;
+            line-height: 1.4;
+        }
+
+        .editable-caption:focus {
+            outline: 2px solid #667eea;
+            background: rgba(102, 126, 234, 0.05);
+        }
+
+        .image-meta {
+            font-size: 0.85rem;
+            color: #666;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .no-images {
+            text-align: center;
+            padding: 80px 20px;
+            color: white;
+            font-size: 1.2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: white;
+            font-size: 1.1rem;
+        }
+
+        /* Popup Modal Styles */
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            cursor: pointer;
+        }
+
+        .popup-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 90vw;
+            max-height: 90vh;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .popup-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            max-height: 80vh;
+            object-fit: contain;
+        }
+
+        .popup-info {
+            padding: 20px;
+            background: white;
+            text-align: center;
+        }
+
+        .popup-close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            color: white;
+            font-size: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1001;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s ease;
+        }
+
+        .popup-close:hover {
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 15px;
+            }
+
+            .sort-controls {
+                justify-content: center;
+            }
+
+            .gallery {
+                grid-template-columns: 1fr !important;
+                gap: 20px;
+            }
+
+            .gallery.grid-1 { grid-template-columns: 1fr !important; }
+            .gallery.grid-2 { grid-template-columns: repeat(2, 1fr) !important; }
+            .gallery.grid-3 { grid-template-columns: repeat(2, 1fr) !important; }
+            .gallery.grid-4 { grid-template-columns: repeat(2, 1fr) !important; }
+            .gallery.grid-5 { grid-template-columns: repeat(2, 1fr) !important; }
+            .gallery.grid-6 { grid-template-columns: repeat(2, 1fr) !important; }
+
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .layout-controls, .metadata-toggle {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🖼️ Image Gallery</h1>
+            <div class="controls">
+                <div class="file-input-wrapper">
+                    <input type="file" id="folderInput" webkitdirectory multiple accept="image/*">
+                    <label for="folderInput" class="file-input-label">📁 Select Image Folder</label>
+                </div>
+                
+                <div class="sort-controls">
+                    <button class="sort-btn active" id="sortByName">Sort by Name</button>
+                    <button class="sort-btn" id="sortByDate">Sort by Date</button>
+                </div>
+
+                <div class="layout-controls">
+                    <label for="gridSelect">Grid Layout:</label>
+                    <select id="gridSelect" class="grid-select">
+                        <option value="auto">Auto Fit</option>
+                        <option value="1">1 per row</option>
+                        <option value="2">2 per row</option>
+                        <option value="3">3 per row</option>
+                        <option value="4">4 per row</option>
+                        <option value="5">5 per row</option>
+                        <option value="6">6 per row</option>
+                    </select>
+                </div>
+
+                <div class="metadata-toggle">
+                    <label>
+                        <input type="checkbox" id="showMetadata" checked>
+                        <span class="checkmark"></span>
+                        Show file details
+                    </label>
+                </div>
+                
+                <div class="image-count" id="imageCount">No images loaded</div>
+            </div>
+        </div>
+
+        <div id="gallery" class="gallery"></div>
+
+        <!-- Popup Modal -->
+        <div id="imagePopup" class="popup-overlay">
+            <div class="popup-close" onclick="closePopup()">&times;</div>
+            <div class="popup-content">
+                <img id="popupImage" class="popup-image" src="" alt="">
+                <div class="popup-info">
+                    <h3 id="popupCaption"></h3>
+                    <p id="popupDetails"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let images = [];
+        let currentSort = 'name';
+
+        const folderInput = document.getElementById('folderInput');
+        const gallery = document.getElementById('gallery');
+        const imageCount = document.getElementById('imageCount');
+        const sortByNameBtn = document.getElementById('sortByName');
+        const sortByDateBtn = document.getElementById('sortByDate');
+        const gridSelect = document.getElementById('gridSelect');
+        const showMetadata = document.getElementById('showMetadata');
+
+        folderInput.addEventListener('change', handleFolderSelect);
+        sortByNameBtn.addEventListener('click', () => setSortMode('name'));
+        sortByDateBtn.addEventListener('click', () => setSortMode('date'));
+        gridSelect.addEventListener('change', updateGridLayout);
+        showMetadata.addEventListener('change', toggleMetadataVisibility);
+
+        // Auto-load images on page load
+        window.addEventListener('load', autoLoadImages);
+
+        function handleFolderSelect(event) {
+            const files = Array.from(event.target.files);
+            processSelectedFiles(files);
+        }
+
+        function processSelectedFiles(files) {
+            const imageFiles = files.filter(file => file.type.startsWith('image/'));
+            
+            if (imageFiles.length === 0) {
+                gallery.innerHTML = '<div class="no-images">No image files found in the selected folder.</div>';
+                imageCount.textContent = 'No images loaded';
+                return;
+            }
+
+            gallery.innerHTML = '<div class="loading">Loading images...</div>';
+            images = [];
+            
+            let loadedCount = 0;
+            imageFiles.forEach((file, index) => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    images.push({
+                        id: index,
+                        name: file.name,
+                        src: e.target.result,
+                        lastModified: file.lastModified,
+                        size: file.size,
+                        caption: file.name.replace(/\.[^/.]+$/, '') // Remove extension for default caption
+                    });
+                    
+                    loadedCount++;
+                    if (loadedCount === imageFiles.length) {
+                        sortAndDisplayImages();
+                        updateImageCount();
+                    }
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        function setSortMode(mode) {
+            currentSort = mode;
+            
+            // Update button states
+            sortByNameBtn.classList.toggle('active', mode === 'name');
+            sortByDateBtn.classList.toggle('active', mode === 'date');
+            
+            sortAndDisplayImages();
+        }
+
+        function sortAndDisplayImages() {
+            if (images.length === 0) return;
+
+            const sortedImages = [...images];
+            
+            if (currentSort === 'name') {
+                sortedImages.sort((a, b) => a.name.localeCompare(b.name));
+            } else if (currentSort === 'date') {
+                sortedImages.sort((a, b) => b.lastModified - a.lastModified);
+            }
+
+            displayImages(sortedImages);
+        }
+
+        function displayImages(imagesToDisplay) {
+            gallery.innerHTML = '';
+            
+            imagesToDisplay.forEach(image => {
+                const imageCard = createImageCard(image);
+                gallery.appendChild(imageCard);
+            });
+            
+            // Apply current grid layout and metadata visibility after creating cards
+            updateGridLayout();
+            toggleMetadataVisibility();
+        }
+
+        function createImageCard(image) {
+            const card = document.createElement('div');
+            card.className = 'image-card';
+            
+            const formatFileSize = (bytes) => {
+                const sizes = ['B', 'KB', 'MB', 'GB'];
+                if (bytes === 0) return '0 B';
+                const i = Math.floor(Math.log(bytes) / Math.log(1024));
+                return Math.round(bytes / Math.pow(1024, i) * 100) / 100 + ' ' + sizes[i];
+            };
+
+            const formatDate = (timestamp) => {
+                return new Date(timestamp).toLocaleDateString() + ' ' + 
+                       new Date(timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            };
+
+            card.innerHTML = `
+                <div class="image-container" ondblclick="openPopup(${image.id})">
+                    <img src="${image.src}" alt="${image.caption}" loading="lazy">
+                </div>
+                <div class="image-info">
+                    <input type="text" class="editable-caption" value="${image.caption}" 
+                           data-id="${image.id}" placeholder="Enter caption...">
+                    <div class="image-meta">
+                        <span>📄 ${image.name}</span>
+                        <span>📅 ${formatDate(image.lastModified)}</span>
+                        <span>💾 ${formatFileSize(image.size)}</span>
+                    </div>
+                </div>
+            `;
+
+            // Add event listener for caption editing
+            const captionInput = card.querySelector('.editable-caption');
+            captionInput.addEventListener('input', (e) => {
+                const imageId = parseInt(e.target.dataset.id);
+                const imageIndex = images.findIndex(img => img.id === imageId);
+                if (imageIndex !== -1) {
+                    images[imageIndex].caption = e.target.value;
+                }
+            });
+
+            // Add enter key handling for caption input
+            captionInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.target.blur();
+                }
+            });
+
+            return card;
+        }
+
+        function updateImageCount() {
+            const count = images.length;
+            imageCount.textContent = count === 0 ? 'No images loaded' : 
+                                   count === 1 ? '1 image loaded' : 
+                                   `${count} images loaded`;
+        }
+
+        function updateGridLayout() {
+            const selectedLayout = gridSelect.value;
+            console.log('Updating grid layout to:', selectedLayout);
+            
+            // Remove all existing grid classes
+            gallery.classList.remove('grid-1', 'grid-2', 'grid-3', 'grid-4', 'grid-5', 'grid-6');
+            
+            // Add new grid class if not auto
+            if (selectedLayout !== 'auto') {
+                gallery.classList.add(`grid-${selectedLayout}`);
+                console.log('Added class:', `grid-${selectedLayout}`);
+                
+                // Force immediate style recalculation
+                gallery.style.gridTemplateColumns = '';
+                void gallery.offsetWidth; // Force reflow
+                
+                // Set the grid template directly as backup
+                const columnCount = parseInt(selectedLayout);
+                gallery.style.gridTemplateColumns = `repeat(${columnCount}, 1fr)`;
+                console.log('Direct style applied:', `repeat(${columnCount}, 1fr)`);
+            } else {
+                // Reset to auto-fill for auto mode
+                gallery.style.gridTemplateColumns = 'repeat(auto-fill, minmax(300px, 1fr))';
+                console.log('Reset to auto-fill mode');
+            }
+        }
+
+        function toggleMetadataVisibility() {
+            const metaElements = document.querySelectorAll('.image-meta');
+            const isVisible = showMetadata.checked;
+            
+            metaElements.forEach(meta => {
+                if (isVisible) {
+                    meta.style.display = 'flex';
+                } else {
+                    meta.style.display = 'none';
+                }
+            });
+        }
+
+        function autoLoadImages() {
+            // Try to use File System Access API if available (for supported browsers)
+            if ('showDirectoryPicker' in window) {
+                gallery.innerHTML = '<div class="no-images">Click "Select Image Folder" to browse your images. <br><br><button onclick="tryAutoLoad()" style="margin-top: 10px; padding: 10px 20px; background: #667eea; color: white; border: none; border-radius: 5px; cursor: pointer;">📁 Try Auto-Load Current Directory</button></div>';
+            } else {
+                gallery.innerHTML = '<div class="no-images">Welcome! Click "Select Image Folder" to browse and load your images.</div>';
+            }
+            console.log('Gallery initialized.');
+        }
+
+        async function tryAutoLoad() {
+            try {
+                if ('showDirectoryPicker' in window) {
+                    const directoryHandle = await window.showDirectoryPicker();
+                    const files = [];
+                    
+                    for await (const [name, handle] of directoryHandle) {
+                        if (handle.kind === 'file') {
+                            const file = await handle.getFile();
+                            if (file.type.startsWith('image/')) {
+                                files.push(file);
+                            }
+                        }
+                    }
+                    
+                    if (files.length > 0) {
+                        processSelectedFiles(files);
+                    } else {
+                        gallery.innerHTML = '<div class="no-images">No image files found in the selected directory.</div>';
+                    }
+                }
+            } catch (error) {
+                console.log('Auto-load cancelled or failed:', error);
+                gallery.innerHTML = '<div class="no-images">Auto-load cancelled. Use "Select Image Folder" to manually browse your images.</div>';
+            }
+        }
+
+        // Initialize with welcome message instead of no images message
+        gallery.innerHTML = '<div class="no-images">Welcome! Click "Select Image Folder" to browse and load your images.</div>';
+
+        // Popup functions
+        function openPopup(imageId) {
+            const image = images.find(img => img.id === imageId);
+            if (!image) return;
+
+            const popup = document.getElementById('imagePopup');
+            const popupImage = document.getElementById('popupImage');
+            const popupCaption = document.getElementById('popupCaption');
+            const popupDetails = document.getElementById('popupDetails');
+
+            popupImage.src = image.src;
+            popupImage.alt = image.caption;
+            popupCaption.textContent = image.caption;
+            
+            const formatFileSize = (bytes) => {
+                const sizes = ['B', 'KB', 'MB', 'GB'];
+                if (bytes === 0) return '0 B';
+                const i = Math.floor(Math.log(bytes) / Math.log(1024));
+                return Math.round(bytes / Math.pow(1024, i) * 100) / 100 + ' ' + sizes[i];
+            };
+
+            const formatDate = (timestamp) => {
+                return new Date(timestamp).toLocaleDateString() + ' ' + 
+                       new Date(timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            };
+
+            popupDetails.innerHTML = `
+                <strong>File:</strong> ${image.name}<br>
+                <strong>Date:</strong> ${formatDate(image.lastModified)}<br>
+                <strong>Size:</strong> ${formatFileSize(image.size)}
+            `;
+
+            popup.style.display = 'block';
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+
+        function closePopup() {
+            const popup = document.getElementById('imagePopup');
+            popup.style.display = 'none';
+            document.body.style.overflow = 'auto'; // Restore scrolling
+        }
+
+        // Close popup when clicking on overlay (but not on the image/content)
+        document.getElementById('imagePopup').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closePopup();
+            }
+        });
+
+        // Close popup with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closePopup();
+            }
+        });
+    </script>
+</body>
+</html>
