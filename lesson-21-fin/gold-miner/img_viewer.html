@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Viewer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .header-title h1 {
+            font-size: 28px;
+            color: #333;
+        }
+
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+        }
+
+        button, select {
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            background: white;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        button:hover, select:hover {
+            background: #f0f0f0;
+            transform: translateY(-1px);
+        }
+
+        .primary-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+        }
+
+        .primary-btn:hover {
+            background: #5a67d8;
+        }
+
+        .sort-btn {
+            background: #4299e1;
+            color: white;
+            border: none;
+        }
+
+        .sort-btn:hover {
+            background: #3182ce;
+        }
+
+        select {
+            padding: 8px 12px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .status {
+            margin-left: auto;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .gallery {
+            display: grid;
+            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        }
+
+        .image-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .image-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .image-container {
+            position: relative;
+            width: 100%;
+            padding-top: 66.67%;
+            background: #f7f7f7;
+            overflow: hidden;
+        }
+
+        .image-container img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            cursor: pointer;
+        }
+
+        .image-info {
+            padding: 15px;
+        }
+
+        .image-caption {
+            font-size: 14px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 8px;
+            padding: 4px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .image-caption:hover {
+            background: #f0f0f0;
+            border-color: #ddd;
+        }
+
+        .image-caption[contenteditable="true"]:focus {
+            outline: none;
+            background: #fff;
+            border-color: #667eea;
+        }
+
+        .image-details {
+            font-size: 12px;
+            color: #666;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .detail-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .detail-row span:first-child {
+            display: inline-block;
+            min-width: 20px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            cursor: pointer;
+        }
+
+        .modal.active {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            color: white;
+            font-size: 40px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .close-modal:hover {
+            color: #ccc;
+        }
+
+        .drop-zone {
+            position: relative;
+            min-height: 200px;
+            border: 2px dashed #ccc;
+            border-radius: 12px;
+            background: #fafafa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .drop-zone.dragover {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+
+        .drop-zone-text {
+            color: #666;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .gallery {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+            
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .status {
+                margin-left: 0;
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-title">
+                <span style="font-size: 32px;">🖼️</span>
+                <h1>Image Viewer</h1>
+            </div>
+            <div class="controls">
+                <button class="primary-btn" id="selectFolder">📁 Select Image Folder</button>
+                <input type="file" id="folderInput" webkitdirectory directory multiple style="display: none;" accept="image/*">
+                
+                <label for="gridLayout">Grid Layout:</label>
+                <select id="gridLayout">
+                    <option value="1">1 per row</option>
+                    <option value="2">2 per row</option>
+                    <option value="3" selected>3 per row</option>
+                    <option value="4">4 per row</option>
+                    <option value="5">5 per row</option>
+                    <option value="6">6 per row</option>
+                </select>
+                
+                <div class="checkbox-group">
+                    <input type="checkbox" id="showDetails" checked>
+                    <label for="showDetails">Show file details</label>
+                </div>
+                
+                <label for="sortBy">Sort By:</label>
+                <select id="sortBy">
+                    <option value="name">Name</option>
+                    <option value="date">Date</option>
+                </select>
+                
+                <span class="status" id="imageCount">0 images loaded</span>
+            </div>
+        </div>
+
+        <div class="drop-zone" id="dropZone">
+            <div class="drop-zone-text">
+                Drop images here or use the folder selector above
+            </div>
+        </div>
+
+        <div class="gallery" id="gallery"></div>
+    </div>
+
+    <div class="modal" id="modal">
+        <span class="close-modal" id="closeModal">&times;</span>
+        <img id="modalImage" src="" alt="">
+    </div>
+
+    <script>
+        let images = [];
+        let currentSort = 'name';
+
+        const gallery = document.getElementById('gallery');
+        const folderInput = document.getElementById('folderInput');
+        const selectFolderBtn = document.getElementById('selectFolder');
+        const sortBySelect = document.getElementById('sortBy');
+        const gridLayoutSelect = document.getElementById('gridLayout');
+        const showDetailsCheckbox = document.getElementById('showDetails');
+        const imageCountSpan = document.getElementById('imageCount');
+        const dropZone = document.getElementById('dropZone');
+        const modal = document.getElementById('modal');
+        const modalImage = document.getElementById('modalImage');
+        const closeModal = document.getElementById('closeModal');
+
+        // Event Listeners
+        selectFolderBtn.addEventListener('click', () => folderInput.click());
+        folderInput.addEventListener('change', handleFolderSelect);
+        sortBySelect.addEventListener('change', () => sortImages(sortBySelect.value));
+        gridLayoutSelect.addEventListener('change', updateGridLayout);
+        showDetailsCheckbox.addEventListener('change', toggleDetails);
+        closeModal.addEventListener('click', () => modal.classList.remove('active'));
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) modal.classList.remove('active');
+        });
+
+        // Drag and Drop
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('dragover');
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('dragover');
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('dragover');
+            handleDroppedFiles(e.dataTransfer.files);
+        });
+
+        function handleFolderSelect(event) {
+            const files = Array.from(event.target.files);
+            loadImages(files);
+        }
+
+        function handleDroppedFiles(fileList) {
+            const files = Array.from(fileList);
+            loadImages(files);
+        }
+
+        function loadImages(files) {
+            const imageFiles = files.filter(file => 
+                /\.(jpg|jpeg|png|gif|webp|bmp)$/i.test(file.name)
+            );
+
+            images = imageFiles.map(file => ({
+                file: file,
+                name: file.name,
+                size: file.size,
+                date: file.lastModified || Date.now(),
+                url: URL.createObjectURL(file),
+                caption: file.name.replace(/\.[^/.]+$/, "") // Remove extension for caption
+            }));
+
+            sortImages(currentSort);
+            renderGallery();
+            updateImageCount();
+            
+            if (images.length > 0) {
+                dropZone.style.display = 'none';
+            }
+        }
+
+        function sortImages(type) {
+            currentSort = type;
+            if (type === 'name') {
+                images.sort((a, b) => a.name.localeCompare(b.name));
+            } else if (type === 'date') {
+                images.sort((a, b) => b.date - a.date);
+            }
+            renderGallery();
+        }
+
+        function renderGallery() {
+            gallery.innerHTML = '';
+            
+            images.forEach((image, index) => {
+                const card = document.createElement('div');
+                card.className = 'image-card';
+                
+                const imageContainer = document.createElement('div');
+                imageContainer.className = 'image-container';
+                
+                const img = document.createElement('img');
+                img.src = image.url;
+                img.alt = image.name;
+                img.loading = 'lazy';
+                img.addEventListener('click', () => openModal(image.url));
+                
+                imageContainer.appendChild(img);
+                card.appendChild(imageContainer);
+                
+                const info = document.createElement('div');
+                info.className = 'image-info';
+                
+                const caption = document.createElement('div');
+                caption.className = 'image-caption';
+                caption.contentEditable = true;
+                caption.textContent = image.caption;
+                caption.addEventListener('blur', () => {
+                    images[index].caption = caption.textContent;
+                });
+                caption.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        caption.blur();
+                    }
+                });
+                
+                info.appendChild(caption);
+                
+                const details = document.createElement('div');
+                details.className = 'image-details';
+                if (!showDetailsCheckbox.checked) {
+                    details.classList.add('hidden');
+                }
+                
+                // Filename
+                const filenameRow = document.createElement('div');
+                filenameRow.className = 'detail-row';
+                filenameRow.innerHTML = `<span>📄</span><span>${image.name}</span>`;
+                details.appendChild(filenameRow);
+                
+                // Date
+                const dateRow = document.createElement('div');
+                dateRow.className = 'detail-row';
+                const dateStr = new Date(image.date).toLocaleString();
+                dateRow.innerHTML = `<span>📅</span><span>${dateStr}</span>`;
+                details.appendChild(dateRow);
+                
+                // Size
+                const sizeRow = document.createElement('div');
+                sizeRow.className = 'detail-row';
+                const sizeStr = formatFileSize(image.size);
+                sizeRow.innerHTML = `<span>💾</span><span>${sizeStr}</span>`;
+                details.appendChild(sizeRow);
+                
+                info.appendChild(details);
+                card.appendChild(info);
+                gallery.appendChild(card);
+            });
+        }
+
+        function openModal(imageUrl) {
+            modalImage.src = imageUrl;
+            modal.classList.add('active');
+        }
+
+        function updateGridLayout() {
+            const columns = gridLayoutSelect.value;
+            gallery.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
+        }
+
+        function toggleDetails() {
+            const details = document.querySelectorAll('.image-details');
+            details.forEach(detail => {
+                if (showDetailsCheckbox.checked) {
+                    detail.classList.remove('hidden');
+                } else {
+                    detail.classList.add('hidden');
+                }
+            });
+        }
+
+        function updateImageCount() {
+            imageCountSpan.textContent = `${images.length} images loaded`;
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
+        }
+
+        // Initialize grid layout
+        updateGridLayout();
+    </script>
+</body>
+</html>

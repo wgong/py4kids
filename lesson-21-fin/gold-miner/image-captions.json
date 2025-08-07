@@ -1,0 +1,80 @@
+{
+  "version": "1.0",
+  "timestamp": "2025-08-07T03:48:22.411Z",
+  "captions": {
+    "chrome_sq3l8yILNU.png": "Mao met Nixon",
+    "chrome_UzIvUEOYSc.png": "love ❤ ",
+    "difference.png": "difference in red color",
+    "difference2.png": "difference in black",
+    "good-luck.png": "good-luck",
+    "mao.jpg": "chairman Mao Ze Dong",
+    "nice-people.png": "good man, nice people",
+    "people.jpeg": "people - character",
+    "Screenshot 2025-08-06 225930.png": "image viewer HTML app",
+    "semantic-search.png": "semantic-search",
+    "shy.png": "shy",
+    "zi.jpeg": "zi - Chinese character"
+  },
+  "embeddings": {
+    "chrome_sq3l8yILNU.png": {
+      "caption": "mao met nixon",
+      "filename": "chrome_sq3l8yilnu.png",
+      "index": 0
+    },
+    "chrome_UzIvUEOYSc.png": {
+      "caption": "love ❤ ",
+      "filename": "chrome_uzivueoysc.png",
+      "index": 1
+    },
+    "difference.png": {
+      "caption": "difference in red color",
+      "filename": "difference.png",
+      "index": 2
+    },
+    "difference2.png": {
+      "caption": "difference in black",
+      "filename": "difference2.png",
+      "index": 3
+    },
+    "good-luck.png": {
+      "caption": "good-luck",
+      "filename": "good-luck.png",
+      "index": 4
+    },
+    "mao.jpg": {
+      "caption": "chairman mao ze dong",
+      "filename": "mao.jpg",
+      "index": 5
+    },
+    "nice-people.png": {
+      "caption": "good man, nice people",
+      "filename": "nice-people.png",
+      "index": 6
+    },
+    "people.jpeg": {
+      "caption": "people - character",
+      "filename": "people.jpeg",
+      "index": 7
+    },
+    "Screenshot 2025-08-06 225930.png": {
+      "caption": "image viewer html app",
+      "filename": "screenshot 2025-08-06 225930.png",
+      "index": 8
+    },
+    "semantic-search.png": {
+      "caption": "semantic-search",
+      "filename": "semantic-search.png",
+      "index": 9
+    },
+    "shy.png": {
+      "caption": "shy",
+      "filename": "shy.png",
+      "index": 10
+    },
+    "zi.jpeg": {
+      "caption": "zi - chinese character",
+      "filename": "zi.jpeg",
+      "index": 11
+    }
+  }
+}

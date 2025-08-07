@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Viewer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .header-title h1 {
+            font-size: 28px;
+            color: #333;
+        }
+
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+        }
+
+        button, select {
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            background: white;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        button:hover, select:hover {
+            background: #f0f0f0;
+            transform: translateY(-1px);
+        }
+
+        .primary-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+        }
+
+        .primary-btn:hover {
+            background: #5a67d8;
+        }
+
+        .sort-btn {
+            background: #4299e1;
+            color: white;
+            border: none;
+        }
+
+        .sort-btn:hover {
+            background: #3182ce;
+        }
+
+        select {
+            padding: 8px 12px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .status {
+            margin-left: auto;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .gallery {
+            display: grid;
+            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        }
+
+        .image-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .image-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .image-container {
+            position: relative;
+            width: 100%;
+            padding-top: 66.67%;
+            background: #f7f7f7;
+            overflow: hidden;
+        }
+
+        .image-container img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            cursor: pointer;
+        }
+
+        .image-info {
+            padding: 15px;
+        }
+
+        .image-caption {
+            font-size: 14px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 8px;
+            padding: 4px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .image-caption:hover {
+            background: #f0f0f0;
+            border-color: #ddd;
+        }
+
+        .image-caption[contenteditable="true"]:focus {
+            outline: none;
+            background: #fff;
+            border-color: #667eea;
+        }
+
+        .image-details {
+            font-size: 12px;
+            color: #666;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .detail-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .detail-row span:first-child {
+            display: inline-block;
+            min-width: 20px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            cursor: pointer;
+        }
+
+        .modal.active {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            color: white;
+            font-size: 40px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .close-modal:hover {
+            color: #ccc;
+        }
+
+        /* Slideshow styles */
+        .slideshow-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slideshow-container.active {
+            display: flex;
+        }
+
+        .slideshow-image {
+            max-width: 80%;
+            max-height: 70%;
+            object-fit: contain;
+        }
+
+        .slideshow-controls {
+            display: flex;
+            gap: 20px;
+            margin-top: 30px;
+            align-items: center;
+        }
+
+        .slideshow-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+
+        .slideshow-btn:hover:not(:disabled) {
+            background: #5a67d8;
+            transform: scale(1.1);
+        }
+
+        .slideshow-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .slideshow-close {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            color: white;
+            font-size: 40px;
+            cursor: pointer;
+        }
+
+        .slideshow-info {
+            color: white;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        /* Search modal styles */
+        .search-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 3000;
+            justify-content: center;
+            align-items: flex-start;
+            padding-top: 100px;
+        }
+
+        .search-modal.active {
+            display: flex;
+        }
+
+        .search-box {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 600px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .search-results {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .search-result-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .search-result-item:hover {
+            background: #f0f0f0;
+        }
+
+        .search-result-thumb {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-right: 15px;
+        }
+
+        .embedding-status {
+            padding: 10px;
+            background: #e6f3ff;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            display: none;
+        }
+
+        .embedding-status.active {
+            display: block;
+        }
+
+        .drop-zone {
+            position: relative;
+            min-height: 200px;
+            border: 2px dashed #ccc;
+            border-radius: 12px;
+            background: #fafafa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .drop-zone.dragover {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+
+        .drop-zone-text {
+            color: #666;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .gallery {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+            
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .status {
+                margin-left: 0;
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-title">
+                <span style="font-size: 32px;">🖼️</span>
+                <h1>Image Viewer</h1>
+            </div>
+            <div class="controls">
+                <button class="primary-btn" id="selectFolder">📁 Select Image Folder</button>
+                <input type="file" id="folderInput" webkitdirectory directory multiple style="display: none;" accept="image/*">
+                
+                <button class="primary-btn" id="slideshowBtn">▶️ Slideshow</button>
+                <button class="primary-btn" id="embeddingBtn">🧠 Embedding</button>
+                <button class="primary-btn" id="searchBtn">🔍 Search</button>
+                <button class="primary-btn" id="saveBtn">💾 Save Captions</button>
+                <button class="primary-btn" id="loadBtn">📂 Load Captions</button>
+                <input type="file" id="loadFileInput" style="display: none;" accept=".json">
+                
+                <label for="gridLayout">Grid Layout:</label>
+                <select id="gridLayout">
+                    <option value="1">1 per row</option>
+                    <option value="2">2 per row</option>
+                    <option value="3" selected>3 per row</option>
+                    <option value="4">4 per row</option>
+                    <option value="5">5 per row</option>
+                    <option value="6">6 per row</option>
+                </select>
+                
+                <div class="checkbox-group">
+                    <input type="checkbox" id="showDetails" checked>
+                    <label for="showDetails">Show file details</label>
+                </div>
+                
+                <label for="sortBy">Sort By:</label>
+                <select id="sortBy">
+                    <option value="name">Name</option>
+                    <option value="date">Date</option>
+                </select>
+                
+                <span class="status" id="imageCount">0 images loaded</span>
+            </div>
+        </div>
+
+        <div class="drop-zone" id="dropZone">
+            <div class="drop-zone-text">
+                Drop images here or use the folder selector above
+            </div>
+        </div>
+
+        <div class="gallery" id="gallery"></div>
+    </div>
+
+    <div class="modal" id="modal">
+        <span class="close-modal" id="closeModal">&times;</span>
+        <img id="modalImage" src="" alt="">
+    </div>
+
+    <!-- Slideshow Container -->
+    <div class="slideshow-container" id="slideshowContainer">
+        <span class="slideshow-close" id="slideshowClose">&times;</span>
+        <img class="slideshow-image" id="slideshowImage" src="" alt="">
+        <div class="slideshow-controls">
+            <button class="slideshow-btn" id="firstBtn">⏮️</button>
+            <button class="slideshow-btn" id="prevBtn">⏪</button>
+            <button class="slideshow-btn" id="nextBtn">⏩</button>
+            <button class="slideshow-btn" id="lastBtn">⏭️</button>
+        </div>
+        <div class="slideshow-info" id="slideshowInfo"></div>
+    </div>
+
+    <!-- Search Modal -->
+    <div class="search-modal" id="searchModal">
+        <div class="search-box">
+            <h2>Semantic Image Search</h2>
+            <div class="embedding-status" id="embeddingStatus"></div>
+            <input type="text" class="search-input" id="searchInput" placeholder="Describe what you're looking for...">
+            <div class="search-results" id="searchResults"></div>
+            <button class="primary-btn" onclick="document.getElementById('searchModal').classList.remove('active')" style="margin-top: 20px;">Close</button>
+        </div>
+    </div>
+
+    <script>
+        let images = [];
+        let currentSort = 'name';
+        let currentSlideshowIndex = 0;
+        let imageEmbeddings = new Map();
+        let embeddingModel = null;
+        let savedCaptions = {}; // Store captions by filename
+
+        const gallery = document.getElementById('gallery');
+        const folderInput = document.getElementById('folderInput');
+        const selectFolderBtn = document.getElementById('selectFolder');
+        const sortBySelect = document.getElementById('sortBy');
+        const gridLayoutSelect = document.getElementById('gridLayout');
+        const showDetailsCheckbox = document.getElementById('showDetails');
+        const imageCountSpan = document.getElementById('imageCount');
+        const dropZone = document.getElementById('dropZone');
+        const modal = document.getElementById('modal');
+        const modalImage = document.getElementById('modalImage');
+        const closeModal = document.getElementById('closeModal');
+        
+        // Slideshow elements
+        const slideshowBtn = document.getElementById('slideshowBtn');
+        const slideshowContainer = document.getElementById('slideshowContainer');
+        const slideshowImage = document.getElementById('slideshowImage');
+        const slideshowClose = document.getElementById('slideshowClose');
+        const slideshowInfo = document.getElementById('slideshowInfo');
+        const firstBtn = document.getElementById('firstBtn');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const lastBtn = document.getElementById('lastBtn');
+        
+        // AI Search elements
+        const embeddingBtn = document.getElementById('embeddingBtn');
+        const searchBtn = document.getElementById('searchBtn');
+        const searchModal = document.getElementById('searchModal');
+        const searchInput = document.getElementById('searchInput');
+        const searchResults = document.getElementById('searchResults');
+        const embeddingStatus = document.getElementById('embeddingStatus');
+        
+        // Save/Load elements
+        const saveBtn = document.getElementById('saveBtn');
+        const loadBtn = document.getElementById('loadBtn');
+        const loadFileInput = document.getElementById('loadFileInput');
+
+        // Event Listeners
+        selectFolderBtn.addEventListener('click', () => folderInput.click());
+        folderInput.addEventListener('change', handleFolderSelect);
+        sortBySelect.addEventListener('change', () => sortImages(sortBySelect.value));
+        gridLayoutSelect.addEventListener('change', updateGridLayout);
+        showDetailsCheckbox.addEventListener('change', toggleDetails);
+        closeModal.addEventListener('click', () => modal.classList.remove('active'));
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) modal.classList.remove('active');
+        });
+        
+        // Slideshow Event Listeners
+        slideshowBtn.addEventListener('click', startSlideshow);
+        slideshowClose.addEventListener('click', closeSlideshow);
+        firstBtn.addEventListener('click', () => navigateSlideshow(0));
+        prevBtn.addEventListener('click', () => navigateSlideshow(currentSlideshowIndex - 1));
+        nextBtn.addEventListener('click', () => navigateSlideshow(currentSlideshowIndex + 1));
+        lastBtn.addEventListener('click', () => navigateSlideshow(images.length - 1));
+        
+        // AI Search Event Listeners
+        embeddingBtn.addEventListener('click', generateEmbeddings);
+        searchBtn.addEventListener('click', openSearch);
+        searchInput.addEventListener('input', performSemanticSearch);
+        
+        // Save/Load Event Listeners
+        saveBtn.addEventListener('click', saveCaptions);
+        loadBtn.addEventListener('click', () => loadFileInput.click());
+        loadFileInput.addEventListener('change', loadCaptions);
+
+        // Keyboard navigation for slideshow
+        document.addEventListener('keydown', (e) => {
+            if (slideshowContainer.classList.contains('active')) {
+                if (e.key === 'ArrowLeft') navigateSlideshow(currentSlideshowIndex - 1);
+                if (e.key === 'ArrowRight') navigateSlideshow(currentSlideshowIndex + 1);
+                if (e.key === 'Escape') closeSlideshow();
+            }
+        });
+
+        // Auto-save to localStorage periodically
+        setInterval(() => {
+            if (images.length > 0) {
+                autoSaveToLocalStorage();
+            }
+        }, 5000); // Auto-save every 5 seconds
+
+        // Drag and Drop
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('dragover');
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('dragover');
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('dragover');
+            handleDroppedFiles(e.dataTransfer.files);
+        });
+
+        function handleFolderSelect(event) {
+            const files = Array.from(event.target.files);
+            loadImages(files);
+        }
+
+        function handleDroppedFiles(fileList) {
+            const files = Array.from(fileList);
+            loadImages(files);
+        }
+
+        function loadImages(files) {
+            const imageFiles = files.filter(file => 
+                /\.(jpg|jpeg|png|gif|webp|bmp)$/i.test(file.name)
+            );
+
+            images = imageFiles.map(file => {
+                // Check if we have a saved caption for this file
+                const savedCaption = savedCaptions[file.name];
+                return {
+                    file: file,
+                    name: file.name,
+                    size: file.size,
+                    date: file.lastModified || Date.now(),
+                    url: URL.createObjectURL(file),
+                    caption: savedCaption || file.name.replace(/\.[^/.]+$/, "") // Use saved caption or default
+                };
+            });
+
+            // Try to load from localStorage
+            loadFromLocalStorage();
+
+            sortImages(currentSort);
+            renderGallery();
+            updateImageCount();
+            
+            if (images.length > 0) {
+                dropZone.style.display = 'none';
+                // Reset embeddings when new images are loaded
+                imageEmbeddings.clear();
+            }
+        }
+
+        function saveCaptions() {
+            if (images.length === 0) {
+                alert('No images to save captions for');
+                return;
+            }
+
+            // Create metadata object with captions and embeddings
+            const metadata = {
+                version: '1.0',
+                timestamp: new Date().toISOString(),
+                captions: {},
+                embeddings: {}
+            };
+
+            // Save captions
+            images.forEach((image, index) => {
+                metadata.captions[image.name] = image.caption;
+                
+                // Save embeddings if they exist
+                if (imageEmbeddings.has(index)) {
+                    metadata.embeddings[image.name] = imageEmbeddings.get(index);
+                }
+            });
+
+            // Create and download JSON file
+            const json = JSON.stringify(metadata, null, 2);
+            const blob = new Blob([json], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'image-captions.json';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            // Also save to localStorage for auto-recovery
+            autoSaveToLocalStorage();
+            
+            alert('Captions and embeddings saved! Download started.');
+        }
+
+        function loadCaptions(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const metadata = JSON.parse(e.target.result);
+                    
+                    // Load captions
+                    if (metadata.captions) {
+                        savedCaptions = metadata.captions;
+                        
+                        // Update current images if they match
+                        images.forEach((image, index) => {
+                            if (savedCaptions[image.name]) {
+                                image.caption = savedCaptions[image.name];
+                            }
+                        });
+                    }
+                    
+                    // Load embeddings
+                    if (metadata.embeddings) {
+                        images.forEach((image, index) => {
+                            if (metadata.embeddings[image.name]) {
+                                imageEmbeddings.set(index, metadata.embeddings[image.name]);
+                            }
+                        });
+                    }
+                    
+                    renderGallery();
+                    alert(`Loaded captions for ${Object.keys(savedCaptions).length} images`);
+                    
+                } catch (error) {
+                    alert('Error loading captions file: ' + error.message);
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        function autoSaveToLocalStorage() {
+            const metadata = {
+                version: '1.0',
+                timestamp: new Date().toISOString(),
+                captions: {},
+                embeddings: {}
+            };
+
+            images.forEach((image, index) => {
+                metadata.captions[image.name] = image.caption;
+                if (imageEmbeddings.has(index)) {
+                    metadata.embeddings[image.name] = imageEmbeddings.get(index);
+                }
+            });
+
+            try {
+                localStorage.setItem('imageViewerMetadata', JSON.stringify(metadata));
+                console.log('Auto-saved to localStorage');
+            } catch (e) {
+                console.warn('Could not save to localStorage:', e);
+            }
+        }
+
+        function loadFromLocalStorage() {
+            try {
+                const stored = localStorage.getItem('imageViewerMetadata');
+                if (stored) {
+                    const metadata = JSON.parse(stored);
+                    
+                    // Apply saved captions to matching images
+                    images.forEach((image, index) => {
+                        if (metadata.captions && metadata.captions[image.name]) {
+                            image.caption = metadata.captions[image.name];
+                        }
+                        if (metadata.embeddings && metadata.embeddings[image.name]) {
+                            imageEmbeddings.set(index, metadata.embeddings[image.name]);
+                        }
+                    });
+                    
+                    console.log('Loaded from localStorage');
+                }
+            } catch (e) {
+                console.warn('Could not load from localStorage:', e);
+            }
+        }
+
+        function sortImages(type) {
+            currentSort = type;
+            if (type === 'name') {
+                images.sort((a, b) => a.name.localeCompare(b.name));
+            } else if (type === 'date') {
+                images.sort((a, b) => b.date - a.date);
+            }
+            renderGallery();
+        }
+
+        function renderGallery() {
+            gallery.innerHTML = '';
+            
+            images.forEach((image, index) => {
+                const card = document.createElement('div');
+                card.className = 'image-card';
+                
+                const imageContainer = document.createElement('div');
+                imageContainer.className = 'image-container';
+                
+                const img = document.createElement('img');
+                img.src = image.url;
+                img.alt = image.name;
+                img.loading = 'lazy';
+                img.addEventListener('click', () => openModal(image.url));
+                
+                imageContainer.appendChild(img);
+                card.appendChild(imageContainer);
+                
+                const info = document.createElement('div');
+                info.className = 'image-info';
+                
+                const caption = document.createElement('div');
+                caption.className = 'image-caption';
+                caption.contentEditable = true;
+                caption.textContent = image.caption;
+                caption.addEventListener('blur', () => {
+                    images[index].caption = caption.textContent;
+                });
+                caption.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        caption.blur();
+                    }
+                });
+                
+                info.appendChild(caption);
+                
+                const details = document.createElement('div');
+                details.className = 'image-details';
+                if (!showDetailsCheckbox.checked) {
+                    details.classList.add('hidden');
+                }
+                
+                // Filename
+                const filenameRow = document.createElement('div');
+                filenameRow.className = 'detail-row';
+                filenameRow.innerHTML = `<span>📄</span><span>${image.name}</span>`;
+                details.appendChild(filenameRow);
+                
+                // Date
+                const dateRow = document.createElement('div');
+                dateRow.className = 'detail-row';
+                const dateStr = new Date(image.date).toLocaleString();
+                dateRow.innerHTML = `<span>📅</span><span>${dateStr}</span>`;
+                details.appendChild(dateRow);
+                
+                // Size
+                const sizeRow = document.createElement('div');
+                sizeRow.className = 'detail-row';
+                const sizeStr = formatFileSize(image.size);
+                sizeRow.innerHTML = `<span>💾</span><span>${sizeStr}</span>`;
+                details.appendChild(sizeRow);
+                
+                info.appendChild(details);
+                card.appendChild(info);
+                gallery.appendChild(card);
+            });
+        }
+
+        function openModal(imageUrl) {
+            modalImage.src = imageUrl;
+            modal.classList.add('active');
+        }
+
+        // Slideshow Functions
+        function startSlideshow() {
+            if (images.length === 0) {
+                alert('Please load images first');
+                return;
+            }
+            currentSlideshowIndex = 0;
+            slideshowContainer.classList.add('active');
+            showSlideshowImage();
+        }
+
+        function closeSlideshow() {
+            slideshowContainer.classList.remove('active');
+        }
+
+        function navigateSlideshow(index) {
+            if (index < 0 || index >= images.length) return;
+            currentSlideshowIndex = index;
+            showSlideshowImage();
+        }
+
+        function showSlideshowImage() {
+            if (images.length === 0) return;
+            
+            const image = images[currentSlideshowIndex];
+            slideshowImage.src = image.url;
+            slideshowInfo.textContent = `${currentSlideshowIndex + 1} / ${images.length} - ${image.caption}`;
+            
+            // Update button states
+            firstBtn.disabled = currentSlideshowIndex === 0;
+            prevBtn.disabled = currentSlideshowIndex === 0;
+            nextBtn.disabled = currentSlideshowIndex === images.length - 1;
+            lastBtn.disabled = currentSlideshowIndex === images.length - 1;
+        }
+
+        // AI Embedding Functions
+        async function generateEmbeddings() {
+            if (images.length === 0) {
+                alert('Please load images first');
+                return;
+            }
+
+            embeddingStatus.textContent = 'Generating embeddings... This may take a moment.';
+            embeddingStatus.classList.add('active');
+            searchModal.classList.add('active');
+
+            try {
+                // Simple approach: Use image data as pseudo-embeddings
+                // In a real implementation, you would use a proper vision model
+                for (let i = 0; i < images.length; i++) {
+                    const image = images[i];
+                    // Create a simple text-based embedding from image metadata and caption
+                    const embedding = {
+                        caption: image.caption.toLowerCase(),
+                        filename: image.name.toLowerCase(),
+                        index: i
+                    };
+                    imageEmbeddings.set(i, embedding);
+                }
+
+                embeddingStatus.textContent = `✅ Embeddings generated for ${images.length} images. You can now search!`;
+                setTimeout(() => {
+                    embeddingStatus.classList.remove('active');
+                }, 3000);
+
+            } catch (error) {
+                embeddingStatus.textContent = '❌ Error generating embeddings: ' + error.message;
+                console.error('Embedding error:', error);
+            }
+        }
+
+        function openSearch() {
+            if (imageEmbeddings.size === 0) {
+                alert('Please generate embeddings first by clicking the Embedding button');
+                return;
+            }
+            searchModal.classList.add('active');
+            searchInput.focus();
+        }
+
+        function performSemanticSearch() {
+            const query = searchInput.value.toLowerCase().trim();
+            if (!query) {
+                searchResults.innerHTML = '';
+                return;
+            }
+
+            // Simple text-based search (in a real implementation, you'd use cosine similarity)
+            const results = [];
+            imageEmbeddings.forEach((embedding, index) => {
+                let score = 0;
+                const words = query.split(' ');
+                words.forEach(word => {
+                    if (embedding.caption.includes(word)) score += 2;
+                    if (embedding.filename.includes(word)) score += 1;
+                });
+                if (score > 0) {
+                    results.push({ index, score, image: images[index] });
+                }
+            });
+
+            // Sort by relevance
+            results.sort((a, b) => b.score - a.score);
+
+            // Display results
+            searchResults.innerHTML = '';
+            if (results.length === 0) {
+                searchResults.innerHTML = '<p>No matching images found</p>';
+            } else {
+                results.slice(0, 10).forEach(result => {
+                    const item = document.createElement('div');
+                    item.className = 'search-result-item';
+                    item.innerHTML = `
+                        <img src="${result.image.url}" class="search-result-thumb">
+                        <div>
+                            <strong>${result.image.caption}</strong><br>
+                            <small>Relevance: ${result.score}</small>
+                        </div>
+                    `;
+                    item.addEventListener('click', () => {
+                        searchModal.classList.remove('active');
+                        // Scroll to image in gallery
+                        const cards = document.querySelectorAll('.image-card');
+                        cards[result.index].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        cards[result.index].style.animation = 'pulse 1s';
+                    });
+                    searchResults.appendChild(item);
+                });
+            }
+        }
+
+        function updateGridLayout() {
+            const columns = gridLayoutSelect.value;
+            gallery.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
+        }
+
+        function toggleDetails() {
+            const details = document.querySelectorAll('.image-details');
+            details.forEach(detail => {
+                if (showDetailsCheckbox.checked) {
+                    detail.classList.remove('hidden');
+                } else {
+                    detail.classList.add('hidden');
+                }
+            });
+        }
+
+        function updateImageCount() {
+            imageCountSpan.textContent = `${images.length} images loaded`;
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
+        }
+
+        // Add pulse animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes pulse {
+                0% { box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.7); }
+                70% { box-shadow: 0 0 0 20px rgba(102, 126, 234, 0); }
+                100% { box-shadow: 0 0 0 0 rgba(102, 126, 234, 0); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Initialize grid layout
+        updateGridLayout();
+    </script>
+</body>
+</html>
