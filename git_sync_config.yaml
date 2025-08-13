@@ -19,7 +19,7 @@ repos:
   - path: ~/projects/wgong/Multi-Agent-Medical-Assistant
   - path: ~/projects/wgong/agent-zero
   - path: ~/projects/wgong/claude-flow
-  - path: ~/projects/wgong/claude-flow
+
 
 ## digital-duck - Project Demos
   - path: ~/projects/digital-duck/genai_me
