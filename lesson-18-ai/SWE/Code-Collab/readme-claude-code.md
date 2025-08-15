@@ -2,16 +2,18 @@
 
 ```bash
 
-### 1. Create a directory for global packages
-# this works around permission error on Ubuntu
-mkdir -p ~/.npm-global
+# ### 1. Create a directory for global packages
+# # this works around permission error on Ubuntu
+# mkdir -p ~/.npm-global
 
-### 2. Configure npm to use it
-npm config set prefix ~/.npm-global
+# ### 2. Configure npm to use it
+# npm config set prefix ~/.npm-global
 
-### 3. Add to your PATH
-echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.bashrc
-source ~/.bashrc
+# ### 3. Add to your PATH
+# echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.bashrc
+# source ~/.bashrc
+
+# ensure to use nvm (see https://claude.ai/chat/97d14170-9d9d-40b9-a912-f5c4a4502f8f)
 
 ### 4. Install Claude Code
 # claude code - https://docs.anthropic.com/en/docs/claude-code/quickstart

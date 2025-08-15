@@ -16,6 +16,15 @@ graph TD;
 generates this diagram
 ![Diagram](./mermaid-diagram-1.png)
 
+## Tutorials
+
+```bash
+pip install playwright
+python playwright_render_mermaid.py -i flowchart.mmd 
+
+```
+
+
 ## Examples
 
 - [GitHub demos](https://github.com/mermaid-js/mermaid/tree/develop/demos)
@@ -23,6 +32,8 @@ generates this diagram
 - see mermaind-test.html
 
 - add link to sequence-diagram: https://github.com/mermaid-js/mermaid/issues/1279
+
+
 
 ## NiceGUI
 

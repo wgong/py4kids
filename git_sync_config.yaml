@@ -20,6 +20,9 @@ repos:
   - path: ~/projects/wgong/vue_learning_app
   - path: ~/projects/wgong/gemini-fullstack-langgraph-quickstart
   - path: ~/projects/wgong/Multi-Agent-Medical-Assistant
+  - path: ~/projects/wgong/agent-zero
+  - path: ~/projects/wgong/claude-flow
+
 
 ## digital-duck - Project Demos
   - path: ~/projects/digital-duck/genai_me
@@ -48,6 +51,7 @@ repos:
   - path: ~/projects/digital-duck/llm_finder
   - path: ~/projects/digital-duck/ziflow
   - path: ~/projects/digital-duck/ai_slide_deck
+  - path: ~/projects/digital-duck/claude-code-demo
 
 ## gongwork - Work Related
   - path: ~/projects/gongwork/st_rag
