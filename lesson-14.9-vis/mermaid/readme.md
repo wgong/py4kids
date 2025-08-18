@@ -21,7 +21,7 @@ generates this diagram
 ```bash
 pip install playwright
 python playwright_render_mermaid.py -i flowchart.mmd 
-
+python playwright_render_mermaid.py -i math1.mmd
 ```
 
 
