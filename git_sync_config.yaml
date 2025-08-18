@@ -3,26 +3,6 @@ repos:
 # host = 'ducklover1'
 ## wgong - Learning Labs
   - path: ~/projects/wgong/py4kids
-  - path: ~/projects/wgong/phidata
-  - path: ~/projects/wgong/zistory/zinets
-  - path: ~/projects/wgong/watchetf
-  - path: ~/projects/wgong/streamlitapp
-  - path: ~/projects/wgong/gpt3codex
-  - path: ~/projects/wgong/gpt3sql
-  - path: ~/projects/wgong/gpt3codex
-  # - path: ~/projects/wgong/awesome-foundation-agents
-  - path: ~/projects/wgong/Tutorial-Codebase-Knowledge
-  - path: ~/projects/wgong/PocketFlow-Tutorial-Cursor
-  - path: ~/projects/wgong/PocketFlow
-  - path: ~/projects/wgong/agent-zero
-  - path: ~/projects/wgong/claude-flow
-  - path: ~/projects/wgong/flowx
-  - path: ~/projects/wgong/vue_learning_app
-  - path: ~/projects/wgong/gemini-fullstack-langgraph-quickstart
-  - path: ~/projects/wgong/Multi-Agent-Medical-Assistant
-  - path: ~/projects/wgong/agent-zero
-  - path: ~/projects/wgong/claude-flow
-
 
 ## digital-duck - Project Demos
   - path: ~/projects/digital-duck/genai_me
@@ -63,3 +43,24 @@ repos:
   - path: ~/projects/gongwork/fully-local-pdf-chatbot
   - path: ~/projects/gongwork/privateGPT
   - path: ~/projects/gongwork/llama_index
+
+## wgong - Personal repos
+  - path: ~/projects/wgong/phidata
+  - path: ~/projects/wgong/zistory/zinets
+  - path: ~/projects/wgong/watchetf
+  - path: ~/projects/wgong/streamlitapp
+  - path: ~/projects/wgong/gpt3codex
+  - path: ~/projects/wgong/gpt3sql
+  - path: ~/projects/wgong/gpt3codex
+  # - path: ~/projects/wgong/awesome-foundation-agents
+  - path: ~/projects/wgong/Tutorial-Codebase-Knowledge
+  - path: ~/projects/wgong/PocketFlow-Tutorial-Cursor
+  - path: ~/projects/wgong/PocketFlow
+  - path: ~/projects/wgong/agent-zero
+  - path: ~/projects/wgong/claude-flow
+  - path: ~/projects/wgong/flowx
+  - path: ~/projects/wgong/vue_learning_app
+  - path: ~/projects/wgong/gemini-fullstack-langgraph-quickstart
+  - path: ~/projects/wgong/Multi-Agent-Medical-Assistant
+  - path: ~/projects/wgong/agent-zero
+  - path: ~/projects/wgong/claude-flow
