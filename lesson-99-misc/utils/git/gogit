@@ -1,5 +1,6 @@
 #!/bin/bash
 # place this script in ~/.local/bin 
+# chmod a+x gogit
 
 # Enhanced version with error handling and feedback
 set -e  # Exit on any error
