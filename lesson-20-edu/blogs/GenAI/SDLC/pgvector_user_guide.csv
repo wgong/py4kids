@@ -1,59 +1,55 @@
-# PostgreSQL Vector Search User Guide
-
-```csv
 Category,Topic,Key Information,Recommendation,Use Case Relevance,Source Quality,Notes
-Setup,Extension Installation,"CREATE EXTENSION vector; (PostgreSQL 13+)",Start here for any pgvector project,High - Essential,Official Docs,Single command setup
-Setup,Version Requirements,PostgreSQL 13+ with pgvector 0.8.0+,Use latest stable versions,High,Official/Cloud Providers,Current version supports 2000 dimensions
-Setup,Cloud Provider Support,"AWS Aurora, Azure Database, Google Cloud AlloyDB, Supabase, Neon",Consider managed services for production,Medium,All Major Clouds,Reduces operational overhead
+Setup,Extension Installation,"CREATE EXTENSION vector; (PostgreSQL 13+)",Start here for any pgvector project,High - Essential,Official Docs,https://github.com/pgvector/pgvector,Single command setup
+Setup,Version Requirements,PostgreSQL 13+ with pgvector 0.8.0+,Use latest stable versions,High,Official/Cloud Providers,https://github.com/pgvector/pgvector,Current version supports 2000 dimensions
+Setup,Cloud Provider Support,"AWS Aurora, Azure Database, Google Cloud AlloyDB, Supabase, Neon",Consider managed services for production,Medium,All Major Clouds,https://aws.amazon.com/blogs/database/supercharging-vector-search-performance-and-relevance-with-pgvector-0-8-0-on-amazon-aurora-postgresql/,Reduces operational overhead
 
-Data Types,Vector Types,"vector (float32), halfvec (float16), sparsevec, bit",Use vector for most cases; halfvec for memory savings,High,Official Docs,halfvec saves 50% memory with minimal accuracy loss
-Data Types,Dimension Limits,Up to 2000 dimensions in current version,Plan embedding dimensions accordingly,Medium,Official Docs,Most models use 768-1536 dimensions
-Data Types,Distance Functions,"L2 (<->), Cosine (1 - <=>), Inner Product (<#>)",Use cosine for semantic similarity,High,Official Docs,Cosine most common for text embeddings
+Data Types,Vector Types,"vector (float32), halfvec (float16), sparsevec, bit",Use vector for most cases; halfvec for memory savings,High,Official Docs,https://github.com/pgvector/pgvector,halfvec saves 50% memory with minimal accuracy loss
+Data Types,Dimension Limits,Up to 2000 dimensions in current version,Plan embedding dimensions accordingly,Medium,Official Docs,https://github.com/pgvector/pgvector,Most models use 768-1536 dimensions
+Data Types,Distance Functions,"L2 (<->), Cosine (1 - <=>), Inner Product (<#>)",Use cosine for semantic similarity,High,Official Docs,https://github.com/pgvector/pgvector,Cosine most common for text embeddings
 
-Indexing,Sequential Scan,"Default behavior, 100% recall, exact search",Acceptable for <10k rows,High - Knowledge Mgmt,Neon Blog,"~36ms for 10k rows, becomes costly at 50k+"
-Indexing,IVFFlat Index,"CREATE INDEX ... USING ivfflat (embedding vector_cosine_ops) WITH (lists = 1000)",Use for >10k rows,High - Both Use Cases,Neon Blog,Approximate search with tunable recall
-Indexing,HNSW Index,"CREATE INDEX ... USING hnsw (embedding vector_cosine_ops)",Preferred for most production cases,High - Both Use Cases,Multiple Sources,Better query performance than IVFFlat
-Indexing,Index Choice,HNSW for dynamic data; IVFFlat for static datasets,Choose based on update frequency,Medium,Performance Studies,HNSW handles updates better
+Indexing,Sequential Scan,"Default behavior, 100% recall, exact search",Acceptable for <10k rows,High - Knowledge Mgmt,Neon Blog,https://neon.com/blog/optimizing-vector-search-performance-with-pgvector,"~36ms for 10k rows, becomes costly at 50k+"
+Indexing,IVFFlat Index,"CREATE INDEX ... USING ivfflat (embedding vector_cosine_ops) WITH (lists = 1000)",Use for >10k rows,High - Both Use Cases,Neon Blog,https://neon.com/blog/optimizing-vector-search-performance-with-pgvector,Approximate search with tunable recall
+Indexing,HNSW Index,"CREATE INDEX ... USING hnsw (embedding vector_cosine_ops)",Preferred for most production cases,High - Both Use Cases,Multiple Sources,https://supabase.com/blog/increase-performance-pgvector-hnsw,Better query performance than IVFFlat
+Indexing,Index Choice,HNSW for dynamic data; IVFFlat for static datasets,Choose based on update frequency,Medium,Performance Studies,https://medium.com/@bavalpreetsinghh/pgvector-hnsw-vs-ivfflat-a-comprehensive-study-21ce0aaab931,HNSW handles updates better
 
-Performance,Lists Parameter,"rows/1000 for <1M rows, sqrt(rows) for larger",Start with dataset_size/1000,High,Neon Blog,Controls clustering granularity
-Performance,Probes Parameter,"lists/10 for <1M rows, sqrt(lists) for larger",Balance recall vs speed,High,Neon Blog,Higher probes = better recall but slower
-Performance,Query Optimization,"SET ivfflat.probes = X; SET enable_seqscan = off",Use in same connection as query,High,Neon Blog,Forces index usage
-Performance,Memory Planning,"Base vectors + index overhead + PostgreSQL buffers",Plan 2-3x base vector size for HNSW,Medium - Stock Analysis,Production Studies,Important for capacity planning
+Performance,Lists Parameter,"rows/1000 for <1M rows, sqrt(rows) for larger",Start with dataset_size/1000,High,Neon Blog,https://neon.com/blog/optimizing-vector-search-performance-with-pgvector,Controls clustering granularity
+Performance,Probes Parameter,"lists/10 for <1M rows, sqrt(lists) for larger",Balance recall vs speed,High,Neon Blog,https://neon.com/blog/optimizing-vector-search-performance-with-pgvector,Higher probes = better recall but slower
+Performance,Query Optimization,"SET ivfflat.probes = X; SET enable_seqscan = off",Use in same connection as query,High,Neon Blog,https://neon.com/blog/optimizing-vector-search-performance-with-pgvector,Forces index usage
+Performance,Memory Planning,"Base vectors + index overhead + PostgreSQL buffers",Plan 2-3x base vector size for HNSW,Medium - Stock Analysis,Production Studies,https://medium.com/@dikhyantkrishnadalai/optimizing-vector-search-at-scale-lessons-from-pgvector-supabase-performance-tuning-ce4ada4ba2ed,Important for capacity planning
 
-Hybrid Search,Relational + Vector,"WHERE category = 'X' ORDER BY embedding <=> $1",Combine filters with vector search,Very High - Both Use Cases,AWS/Supabase,Key advantage over specialized vector DBs
-Hybrid Search,Metadata Storage,Store structured data alongside embeddings,Design tables for both relational and vector queries,Very High,Multiple Sources,Enables complex business logic
-Hybrid Search,Query Patterns,Filter first with WHERE then vector similarity,Reduce vector search space,High,Production Examples,More efficient than post-filtering
+Hybrid Search,Relational + Vector,"WHERE category = 'X' ORDER BY embedding <=> $1",Combine filters with vector search,Very High - Both Use Cases,AWS/Supabase,https://aws.amazon.com/blogs/database/supercharging-vector-search-performance-and-relevance-with-pgvector-0-8-0-on-amazon-aurora-postgresql/,Key advantage over specialized vector DBs
+Hybrid Search,Metadata Storage,Store structured data alongside embeddings,Design tables for both relational and vector queries,Very High,Multiple Sources,https://supabase.com/blog/openai-embeddings-postgres-vector,Enables complex business logic
+Hybrid Search,Query Patterns,Filter first with WHERE then vector similarity,Reduce vector search space,High,Production Examples,https://github.com/aws-samples/aurora-postgresql-pgvector,More efficient than post-filtering
 
-Knowledge Management,Document Chunking,Store document metadata + chunk embeddings,Design for retrieval granularity,Very High,RAG Examples,Balance chunk size vs context
-Knowledge Management,Semantic Search,"Full-text search + vector similarity hybrid",Implement both keyword and semantic search,Very High,Production Guides,Covers different query types
-Knowledge Management,Version Control,Track document versions with embeddings,Plan for content updates,Medium,Enterprise Examples,Important for knowledge bases
+Knowledge Management,Document Chunking,Store document metadata + chunk embeddings,Design for retrieval granularity,Very High,RAG Examples,https://pgdash.io/blog/rag-with-postgresql.html,Balance chunk size vs context
+Knowledge Management,Semantic Search,"Full-text search + vector similarity hybrid",Implement both keyword and semantic search,Very High,Production Guides,https://christophergs.com/blog/production-rag-with-postgres-vector-store-open-source-models,Covers different query types
+Knowledge Management,Version Control,Track document versions with embeddings,Plan for content updates,Medium,Enterprise Examples,https://github.com/aws-samples/aurora-postgresql-pgvector,Important for knowledge bases
 
-Stock Analysis,Time Series + Vectors,Store temporal data with market embeddings,Combine time-based and similarity queries,Very High,Financial Use Cases,Unique to PostgreSQL approach
-Stock Analysis,Feature Engineering,Create embeddings from financial indicators,Experiment with different feature combinations,High,Domain-Specific,Requires financial expertise
-Stock Analysis,Pattern Recognition,Use vector similarity for market pattern matching,Focus on similar market conditions,High,Analytical Applications,Leverage historical patterns
+Stock Analysis,Time Series + Vectors,Store temporal data with market embeddings,Combine time-based and similarity queries,Very High,Financial Use Cases,https://www.tigerdata.com/blog/postgresql-as-a-vector-database-using-pgvector,Unique to PostgreSQL approach
+Stock Analysis,Feature Engineering,Create embeddings from financial indicators,Experiment with different feature combinations,High,Domain-Specific,https://www.tigerdata.com/blog/postgresql-as-a-vector-database-using-pgvector,Requires financial expertise
+Stock Analysis,Pattern Recognition,Use vector similarity for market pattern matching,Focus on similar market conditions,High,Analytical Applications,https://www.tigerdata.com/blog/postgresql-as-a-vector-database-using-pgvector,Leverage historical patterns
 
-Code Examples,Python Integration,"psycopg2, SQLAlchemy, Django ORM support",Use established ORM patterns,High,Official Examples,Mature ecosystem
-Code Examples,Node.js Integration,"pg, Sequelize, Prisma support",Leverage existing PostgreSQL tools,Medium,Official Examples,Good TypeScript support
-Code Examples,Application Frameworks,"LangChain, LlamaIndex integration",Use for RAG applications,High - Knowledge Mgmt,AI Framework Docs,Pre-built patterns
+Code Examples,Python Integration,"psycopg2, SQLAlchemy, Django ORM support",Use established ORM patterns,High,Official Examples,https://github.com/pgvector/pgvector,Mature ecosystem
+Code Examples,Node.js Integration,"pg, Sequelize, Prisma support",Leverage existing PostgreSQL tools,Medium,Official Examples,https://github.com/pgvector/pgvector,Good TypeScript support
+Code Examples,Application Frameworks,"LangChain, LlamaIndex integration",Use for RAG applications,High - Knowledge Mgmt,AI Framework Docs,https://python.langchain.com/docs/integrations/vectorstores/pgvector/,Pre-built patterns
 
-Production,Monitoring,"Track query performance, index usage, recall",Set up comprehensive monitoring,Medium,Limited Coverage,Area needing more resources
-Production,Scaling,Plan hardware for vector + relational workloads,Size for combined workload,Medium - Stock Analysis,Cloud Provider Guides,Different from pure vector DBs
-Production,Backup/Recovery,Standard PostgreSQL backup includes vectors,Use existing PostgreSQL practices,Low,Standard Practice,No special vector considerations
+Production,Monitoring,"Track query performance, index usage, recall",Set up comprehensive monitoring,Medium,Limited Coverage,https://medium.com/@dikhyantkrishnadalai/optimizing-vector-search-at-scale-lessons-from-pgvector-supabase-performance-tuning-ce4ada4ba2ed,Area needing more resources
+Production,Scaling,Plan hardware for vector + relational workloads,Size for combined workload,Medium - Stock Analysis,Cloud Provider Guides,https://aws.amazon.com/blogs/database/supercharging-vector-search-performance-and-relevance-with-pgvector-0-8-0-on-amazon-aurora-postgresql/,Different from pure vector DBs
+Production,Backup/Recovery,Standard PostgreSQL backup includes vectors,Use existing PostgreSQL practices,Low,Standard Practice,https://github.com/pgvector/pgvector,No special vector considerations
 
-Cost Optimization,Hardware Sizing,"4-8 vCPUs, 16-32GB RAM for moderate workloads",Start conservatively and scale,High,Neon/Cloud Examples,Your use cases likely fit here
-Cost Optimization,Storage,"Vector storage ~4-8 bytes per dimension",Calculate storage requirements,Medium,Technical Specs,Predictable storage costs
-Cost Optimization,Cloud Costs,"40-60% lower than specialized vector DBs",Factor in operational simplicity,Medium,Comparison Studies,Include management overhead
+Cost Optimization,Hardware Sizing,"4-8 vCPUs, 16-32GB RAM for moderate workloads",Start conservatively and scale,High,Neon/Cloud Examples,https://neon.com/blog/optimizing-vector-search-performance-with-pgvector,Your use cases likely fit here
+Cost Optimization,Storage,"Vector storage ~4-8 bytes per dimension",Calculate storage requirements,Medium,Technical Specs,https://github.com/pgvector/pgvector,Predictable storage costs
+Cost Optimization,Cloud Costs,"40-60% lower than specialized vector DBs",Factor in operational simplicity,Medium,Comparison Studies,https://www.tigerdata.com/blog/pgvector-vs-pinecone,Include management overhead
 
-Troubleshooting,Query Performance,Use EXPLAIN ANALYZE for query optimization,Debug slow queries systematically,Medium,Neon Blog,Standard PostgreSQL techniques apply
-Troubleshooting,Recall Issues,Increase probes parameter for better recall,Balance accuracy vs performance,Medium,Performance Studies,Monitor recall metrics
-Troubleshooting,Memory Issues,Adjust index parameters or use halfvec,Plan memory usage carefully,Low,Technical Docs,Usually preventable with planning
+Troubleshooting,Query Performance,Use EXPLAIN ANALYZE for query optimization,Debug slow queries systematically,Medium,Neon Blog,https://neon.com/blog/optimizing-vector-search-performance-with-pgvector,Standard PostgreSQL techniques apply
+Troubleshooting,Recall Issues,Increase probes parameter for better recall,Balance accuracy vs performance,Medium,Performance Studies,https://medium.com/@bavalpreetsinghh/pgvector-hnsw-vs-ivfflat-a-comprehensive-study-21ce0aaab931,Monitor recall metrics
+Troubleshooting,Memory Issues,Adjust index parameters or use halfvec,Plan memory usage carefully,Low,Technical Docs,https://github.com/pgvector/pgvector,Usually preventable with planning
 
-Learning Resources,Official Documentation,github.com/pgvector/pgvector,Start here for authoritative information,Very High,★★★★★,Most comprehensive and up-to-date
-Learning Resources,Cloud Provider Guides,"AWS Aurora, Azure, Google Cloud blogs",Production-ready guidance,Very High,★★★★★,Real-world examples and benchmarks
-Learning Resources,Supabase Tutorials,Supabase docs and blog posts,Developer-friendly examples,High,★★★★☆,Good for getting started quickly
-Learning Resources,Neon Optimization Guide,neon.com/blog/optimizing-vector-search-performance-with-pgvector,Practical performance tuning,Very High,★★★★☆,Focused optimization guidance
+Learning Resources,Official Documentation,github.com/pgvector/pgvector,Start here for authoritative information,Very High,★★★★★,https://github.com/pgvector/pgvector,Most comprehensive and up-to-date
+Learning Resources,Cloud Provider Guides,"AWS Aurora, Azure, Google Cloud blogs",Production-ready guidance,Very High,★★★★★,https://aws.amazon.com/blogs/database/supercharging-vector-search-performance-and-relevance-with-pgvector-0-8-0-on-amazon-aurora-postgresql/,Real-world examples and benchmarks
+Learning Resources,Supabase Tutorials,Supabase docs and blog posts,Developer-friendly examples,High,★★★★☆,https://supabase.com/docs/guides/database/extensions/pgvector,Good for getting started quickly
+Learning Resources,Neon Optimization Guide,neon.com/blog/optimizing-vector-search-performance-with-pgvector,Practical performance tuning,Very High,★★★★☆,https://neon.com/blog/optimizing-vector-search-performance-with-pgvector,Focused optimization guidance
 
-Ecosystem,Language Support,32+ language bindings available,Use your preferred language,High,Official Repos,Mature ecosystem
-Ecosystem,Framework Integration,"Compatible with existing PostgreSQL tools",Leverage existing skills and tools,Very High,Multiple Sources,Major advantage for adoption
-Ecosystem,Extension Compatibility,Works with other PostgreSQL extensions,Build comprehensive solutions,Medium,Community,Rich extension ecosystem
-```
+Ecosystem,Language Support,32+ language bindings available,Use your preferred language,High,Official Repos,https://github.com/pgvector,Mature ecosystem
+Ecosystem,Framework Integration,"Compatible with existing PostgreSQL tools",Leverage existing skills and tools,Very High,Multiple Sources,https://github.com/pgvector/pgvector,Major advantage for adoption
+Ecosystem,Extension Compatibility,Works with other PostgreSQL extensions,Build comprehensive solutions,Medium,Community,https://github.com/pgvector/pgvector,Rich extension ecosystem
