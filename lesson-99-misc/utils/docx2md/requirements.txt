@@ -1,0 +1,4 @@
+md2docx-python
+click
+pypandoc
+markitdown[all]
