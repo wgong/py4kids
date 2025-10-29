@@ -5,22 +5,23 @@ repos:
   - path: ~/projects/wgong/py4kids
 
 ## digital-duck - Project Demos
-  - path: ~/projects/digital-duck/genai_me
-  - path: ~/projects/digital-duck/agent-app-chinook
+  - path: ~/projects/digital-duck/upgrade-agent
+  - path: ~/projects/digital-duck/st_semantics
+  - path: ~/projects/digital-duck/semantics-explorer
   - path: ~/projects/digital-duck/zinets
   - path: ~/projects/digital-duck/zinets_vis
   - path: ~/projects/digital-duck/zinetsapp
   - path: ~/projects/digital-duck/data-copilot
   - path: ~/projects/digital-duck/ssadata
+  - path: ~/projects/digital-duck/genai_me
+  - path: ~/projects/digital-duck/agent-app-chinook
   - path: ~/projects/digital-duck/st_agent_hub
   - path: ~/projects/digital-duck/st_ragents
   - path: ~/projects/digital-duck/st_rag_demo
   - path: ~/projects/digital-duck/st_rag_mcp
   - path: ~/projects/digital-duck/mcp_demo
-  - path: ~/projects/digital-duck/st_semantics
   - path: ~/projects/digital-duck/st_tools
   - path: ~/projects/digital-duck/st_translator
-  - path: ~/projects/digital-duck/semantics-explorer
   - path: ~/projects/digital-duck/notes
   - path: ~/projects/digital-duck/st_note
   - path: ~/projects/digital-duck/st_fast_rag
