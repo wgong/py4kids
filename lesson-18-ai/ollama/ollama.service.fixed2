@@ -1,0 +1,15 @@
+[Unit]
+Description=Ollama Service
+After=network-online.target
+
+[Service]
+ExecStart=/usr/local/bin/ollama serve
+User=papagame
+Group=papagame
+Restart=always
+RestartSec=3
+Environment="PATH=/home/papagame/.npm-global/bin:/home/papagame/anaconda3/bin:/home/papagame/anaconda3/condabin:/home/papagame/bin:/usr/local/cuda-12.4/bin:/home/papagame/.deno/bin:/home/papagame/.local/bin:/home/papagame/bin:/usr/local/cuda-12.4/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin"
+Environment="OLLAMA_MODELS=/home/papagame/.ollama/models"
+
+[Install]
+WantedBy=default.target
