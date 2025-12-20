@@ -46,6 +46,7 @@ repos:
   - path: ~/projects/gongwork/llama_index
 
 ## wgong - Personal repos
+  - path: ~/projects/wgong/DeepCode
   - path: ~/projects/wgong/phidata
   - path: ~/projects/wgong/zistory/zinets
   - path: ~/projects/wgong/watchetf
