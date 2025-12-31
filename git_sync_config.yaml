@@ -1,38 +1,65 @@
 repos:
 # cd lesson-99-misc/utils/git ; 00_run_git_sync.sh
 # host = 'ducklover1'
+
 ## wgong - Learning Labs
   - path: ~/projects/wgong/py4kids
 
+## Proj-ZiNets - ZiNets studies
+  - path: ~/projects/Proj-ZiNets/acl-style-files
+  - path: ~/projects/Proj-ZiNets/llm_model_finder
+  - path: ~/projects/Proj-ZiNets/oauth
+  - path: ~/projects/Proj-ZiNets/uxue
+  - path: ~/projects/Proj-ZiNets/zinets
+  - path: ~/projects/Proj-ZiNets/zinets_vis
+  - path: ~/projects/Proj-ZiNets/zinetsapp
+
+## Proj-Geometry-of-Meaning - Semanscope Related Projects
+  - path: ~/projects/Proj-Geometry-of-Meaning/geosemantry
+  - path: ~/projects/Proj-Geometry-of-Meaning/semantics-explorer
+  - path: ~/projects/Proj-Geometry-of-Meaning/st_semantics
+  - path: ~/projects/Proj-Geometry-of-Meaning/st_translator
+
+## Proj-MarkovFlow - MarkovFlow Related Projects
+  - path: ~/projects/Proj-MarkovFlow/competitive-frameworks
+  - path: ~/projects/Proj-MarkovFlow/markoflow
+  - path: ~/projects/Proj-MarkovFlow/markovflow
+
+## Proj-RAG - RAG Related Projects
+  - path: ~/projects/Proj-RAG/data-copilot
+  - path: ~/projects/Proj-RAG/raglight
+  - path: ~/projects/Proj-RAG/ssadata
+  - path: ~/projects/Proj-RAG/st_fast_rag
+  - path: ~/projects/Proj-RAG/st_rag_demo
+  - path: ~/projects/Proj-RAG/st_rag_mcp
+
+## Proj-Ziflow - Ziflow Related Projects
+  - path: ~/projects/Proj-Ziflow/ai_image_app
+  - path: ~/projects/Proj-Ziflow/ai_slide_deck
+  - path: ~/projects/Proj-Ziflow/mermaid2prefect
+  - path: ~/projects/Proj-Ziflow/st_auto_mate
+  - path: ~/projects/Proj-Ziflow/st_mermaid2prefect
+  - path: ~/projects/Proj-Ziflow/text2mermaid
+  - path: ~/projects/Proj-Ziflow/ziflow
+
+## Content-Context-Agent Related Projects
+  - path: ~/projects/digital-duck/claude-code-demo
+
+
 ## digital-duck - Project Demos
+  - path: ~/projects/digital-duck/upgrade-agent
   - path: ~/projects/digital-duck/genai_me
   - path: ~/projects/digital-duck/agent-app-chinook
-  - path: ~/projects/digital-duck/zinets
-  - path: ~/projects/digital-duck/zinets_vis
-  - path: ~/projects/digital-duck/zinetsapp
-  - path: ~/projects/digital-duck/data-copilot
-  - path: ~/projects/digital-duck/ssadata
   - path: ~/projects/digital-duck/st_agent_hub
   - path: ~/projects/digital-duck/st_ragents
-  - path: ~/projects/digital-duck/st_rag_demo
-  - path: ~/projects/digital-duck/st_rag_mcp
   - path: ~/projects/digital-duck/mcp_demo
-  - path: ~/projects/digital-duck/st_semantics
   - path: ~/projects/digital-duck/st_tools
-  - path: ~/projects/digital-duck/st_translator
-  - path: ~/projects/digital-duck/semantics-explorer
   - path: ~/projects/digital-duck/notes
   - path: ~/projects/digital-duck/st_note
-  - path: ~/projects/digital-duck/st_fast_rag
   - path: ~/projects/digital-duck/flask2fastapi
   - path: ~/projects/digital-duck/weblog
-  - path: ~/projects/digital-duck/st_auto_mate
-  - path: ~/projects/digital-duck/uxue
   - path: ~/projects/digital-duck/gluonscope
   - path: ~/projects/digital-duck/llm_finder
-  - path: ~/projects/digital-duck/ziflow
-  - path: ~/projects/digital-duck/ai_slide_deck
-  - path: ~/projects/digital-duck/claude-code-demo
 
 ## gongwork - Work Related
   - path: ~/projects/gongwork/st_rag
