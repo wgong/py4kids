@@ -1,0 +1,6 @@
+phate 
+umap-learn 
+pacmap 
+trimap
+matplotlib 
+scikit-learn
