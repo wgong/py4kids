@@ -1,0 +1,13 @@
+pandas	polars	unit	use-case	datafile	dataset
+2.043042	0.692484	sec	case_001a: read gzipped csv and df.shape	../data/uber-ride/train.csv.gz	uber-ride
+0.766605	0.095877	sec	case_001p: read parquet and df.shape	../data/uber-ride/polars/train.parquet	uber-ride
+2.098341	1.131900	sec	case_002: write parquet	../data/uber-ride/train.csv.gz	uber-ride
+1.338278	1.701849	sec	case_002a: read parquet, concat by n_factor, write parquet	../data/uber-ride/polars/train.parquet	uber-ride
+2.089899	0.665393	sec	case_003: read csv and df['id'].str.len()	../data/uber-ride/train.csv.gz	uber-ride
+1.783214	0.260929	sec	case_003a: read parquet and df['id'].str.len()	../data/uber-ride/polars/train-3.parquet	uber-ride
+2.028631	0.651826	sec	case_004: read csv and divide trip_duration by 60	../data/uber-ride/train.csv.gz	uber-ride
+0.880423	0.087977	sec	case_004b: read parquet and divide trip_duration by 60	../data/uber-ride/polars/train.parquet	uber-ride
+2.011520	0.690168	sec	case_005: read csv and filter trip_duration >= 500 sec	../data/uber-ride/train.csv.gz	uber-ride
+2.102727	0.701503	sec	case_006: read csv and group by and mean	../data/uber-ride/train.csv.gz	uber-ride
+		sec	case_007: read sqlite and write excel	../data/spy/spy.sqlite	spy
+0.060273	0.028381	sec	case_008: calculate RSI	../data/spy/spy.sqlite	spy

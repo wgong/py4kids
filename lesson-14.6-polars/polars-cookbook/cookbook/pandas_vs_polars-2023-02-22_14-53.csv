@@ -1,0 +1,2 @@
+pandas	polars	unit	use-case	datafile	dataset
+2.205371	2.070696	sec	case_007: read sqlite and write excel	../data/spy/spy.sqlite	spy

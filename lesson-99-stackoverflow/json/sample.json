@@ -1,0 +1,29 @@
+{
+    "plotOptions": {
+        "series": {
+            "dataLabels": {
+                "enabled": true
+            }
+        },
+        "column": {
+            "stacking": "percent",
+            "dataLabels": {
+                "format": "{point.percentage:.1f}%"
+            },
+            "tooltip": {
+                "pointFormat": "<span style='&quot;color: { point.color } &quot;'>●</span> {series.name}: <b>{point.y} ({point.percentage:.1f}%)</b><br>"
+            }
+        },
+        "bar": {}
+    },
+    "yAxis": {
+        "stackLabels": {
+            "enabled": true
+        },
+        "title": {}
+    },
+    "xAxis": {
+        "title": {}
+    },
+    "categorySort": "asc"
+}

@@ -1,0 +1,199 @@
+{
+    "Strauss I": {
+        "fullname": "Johann Strauss I",
+        "url": "https://www.wikiwand.com/en/Johann_Strauss_I"
+    },
+    "Mozart": {
+        "fullname": "Wolfgang Amadeus Mozart",
+        "url": "https://www.wikiwand.com/en/Wolfgang_Amadeus_Mozart"
+    },
+    "Vivaldi": {
+        "fullname": "Antonio Vivaldi",
+        "url": "https://www.wikiwand.com/en/Antonio_Vivaldi"
+    },
+    "Mendelssohn": {
+        "fullname": "Felix Mendelssohn",
+        "url": "https://www.wikiwand.com/en/Felix_Mendelssohn"
+    },
+    "Tchaikovsky": {
+        "fullname": "Piotr Ilyich Tchaikovsky",
+        "url": "https://www.wikiwand.com/en/Piotr_Ilyich_Tchaikovsky"
+    },
+    "Tchaikovsy": {
+        "fullname": "Piotr Ilyich Tchaikovsky",
+        "url": "https://www.wikiwand.com/en/Piotr_Ilyich_Tchaikovsky"
+    },
+    "Tchaikowsky": {
+        "fullname": "Piotr Ilyich Tchaikovsky",
+        "url": "https://www.wikiwand.com/en/Piotr_Ilyich_Tchaikovsky"
+    },
+    "Strauss II": {
+        "fullname": "Johann Strauss II",
+        "url": "https://www.wikiwand.com/en/Johann_Strauss_II"
+    },
+    "Bach": {
+        "fullname": "Johann Sebastian Bach",
+        "url": "https://www.wikiwand.com/en/Johann_Sebastian_Bach"
+    },
+    "Bizet": {
+        "fullname": "George Bizet",
+        "url": "https://www.wikiwand.com/en/George_Bizet"
+    },
+    "Beethoven": {
+        "fullname": "Ludwig van Beethoven",
+        "url": "https://www.wikiwand.com/en/Ludwig_van_Beethoven"
+    },
+    "Grieg": {
+        "fullname": "Edvard Grieg",
+        "url": "https://www.wikiwand.com/en/Edvard_Grieg"
+    },
+    "Barber": {
+        "fullname": "Samuel Barber",
+        "url": "https://www.wikiwand.com/en/Samuel_Barber"
+    },
+    "Haydn": {
+        "fullname": "Joseph Haydn",
+        "url": "https://www.wikiwand.com/en/Joseph_Haydn"
+    },
+    "Sibelius": {
+        "fullname": "Jean Sibelius",
+        "url": "https://www.wikiwand.com/en/Jean_Sibelius"
+    },
+    "Dvorak": {
+        "fullname": "Anton\u00edn Dvo\u0159\u00e1k",
+        "url": "https://www.wikiwand.com/en/Anton\u00edn_Dvo\u0159\u00e1k"
+    },
+    "Brahms": {
+        "fullname": "Johannes Brahms",
+        "url": "https://www.wikiwand.com/en/Johannes_Brahms"
+    },
+    "Prokofiev": {
+        "fullname": "Sergei Prokofiev",
+        "url": "https://www.wikiwand.com/en/Sergei_Prokofiev"
+    },
+    "Schubert": {
+        "fullname": "Franz Schubert",
+        "url": "https://www.wikiwand.com/en/Franz_Schubert"
+    },
+    "Puccini": {
+        "fullname": "Giacomo Puccini",
+        "url": "https://www.wikiwand.com/en/Giacomo_Puccini"
+    },
+    "Rossini": {
+        "fullname": "Gioachino Rossini",
+        "url": "https://www.wikiwand.com/en/Gioachino_Rossini"
+    },
+    "Verdi": {
+        "fullname": "Giuseppe Verdi",
+        "url": "https://www.wikiwand.com/en/Giuseppe_Verdi"
+    },
+    "Telemann": {
+        "fullname": "Georg Philipp Telemann",
+        "url": "https://www.wikiwand.com/en/Georg_Philipp_Telemann"
+    },
+    "Corelli": {
+        "fullname": "Arcangelo Corelli",
+        "url": "https://www.wikiwand.com/en/Arcangelo_Corelli"
+    },
+    "Afternova": {
+        "fullname": "Fred Buscaglione",
+        "url": "https://www.wikiwand.com/en/Fred_Buscaglione"
+    },
+    "Chopin": {
+        "fullname": "Fr\u00e9d\u00e9ric Chopin",
+        "url": "https://www.wikiwand.com/en/Fr\u00e9d\u00e9ric_Chopin"
+    },
+    "Debussy": {
+        "fullname": "Claude Debussy",
+        "url": "https://www.wikiwand.com/en/Claude_Debussy"
+    },
+    "Liszt": {
+        "fullname": "Franz Liszt",
+        "url": "https://www.wikiwand.com/en/Franz_Liszt"
+    },
+    "Schubert-Liszt": {
+        "fullname": "Franz Liszt",
+        "url": "https://www.wikiwand.com/en/Franz_Liszt"
+    },
+    "Litvinovsky": {
+        "fullname": "Alexander Litvinovsky",
+        "url": "https://en.everybodywiki.com/Alexander_Litvinovsky"
+    },
+    "Morricone": {
+        "fullname": "Ennio Morricone",
+        "url": "https://www.wikiwand.com/en/Ennio_Morricone"
+    },
+    "Piazzolla": {
+        "fullname": "Astor Piazzolla",
+        "url": "https://www.wikiwand.com/en/Astor_Piazzolla"
+    },
+    "Rachmaninoff": {
+        "fullname": "Sergei Rachmaninoff",
+        "url": "https://www.wikiwand.com/en/Sergei_Rachmaninoff"
+    },
+    "Rosetti": {
+        "fullname": "Antonio Rosetti",
+        "url": "https://www.wikiwand.com/en/Antonio_Rosetti"
+    },
+    "Saint-Sa\u00ebns": {
+        "fullname": "Camille Saint-Sa\u00ebns",
+        "url": "https://www.wikiwand.com/en/Camille_Saint-Sa\u00ebns"
+    },
+    "Satie": {
+        "fullname": "Erik Satie",
+        "url": "https://www.wikiwand.com/en/Erik_Satie"
+    },
+    "Schumann": {
+        "fullname": "Robert Schumann",
+        "url": "https://www.wikiwand.com/en/Robert_Schumann"
+    },
+    "Smetana": {
+        "fullname": "Bedřich Smetana",
+        "url": "https://www.wikiwand.com/en/Bed%C5%99ich_Smetana"
+    },
+    "Paganini": {
+        "fullname": "Niccolò Paganini",
+        "url": "https://www.wikiwand.com/en/Niccol%C3%B2_Paganini"
+    },
+    "Albinoni": {
+        "fullname": "Tomaso Albinoni",
+        "url": "https://www.wikiwand.com/en/Tomaso_Albinoni"
+    },
+    "Ravel": {
+        "fullname": "Maurice Ravel",
+        "url": "https://www.wikiwand.com/en/Maurice_Ravel"
+    },
+    "Borodin": {
+        "fullname": "Alexander Borodin",
+        "url": "https://www.wikiwand.com/en/Alexander_Borodin"
+    },
+    "Offenbach": {
+        "fullname": "Jacques Offenbach",
+        "url": "https://www.wikiwand.com/en/Jacques_Offenbach"
+    },
+    "Anderson": {
+        "fullname": "Leroy Anderson",
+        "url": "https://www.wikiwand.com/en/Leroy_Anderson"
+    },
+    "Rimsky-Korsakov": {
+        "fullname": "Nikolai Rimsky-Korsakov",
+        "url": "https://www.wikiwand.com/en/Nikolai_Rimsky-Korsakov"
+    },
+    "Einaudi": {
+        "fullname": "Ludovico Einaudi",
+        "url": "https://www.wikiwand.com/en/Ludovico_Einaudi"
+    },
+    "Rota": {
+        "fullname": "Nino Rota",
+        "url": "https://www.wikiwand.com/en/Nino_Rota"
+    },
+    "Lanzetta": {
+        "fullname": "Giuseppe Lanzetta",
+        "url": "https://www.wikiwand.com/it/Giuseppe_Lanzetta"
+    },
+    "Scriabin": {
+        "fullname": "Alexander Scriabin",
+        "url": "https://www.wikiwand.com/en/Alexander_Scriabin"
+    }
+}
+
