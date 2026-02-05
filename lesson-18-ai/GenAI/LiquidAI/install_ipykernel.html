@@ -1,0 +1,39 @@
+<pre><font color="#FFFFFF">●</font> Here are the steps to install a conda environment as a new Jupyter kernel:                                            
+                                                                                                                        
+  <b>Method 1: From within the conda environment</b>                                                                           
+                                                                                                                        
+  <font color="#26A269"># 1. Activate your conda environment</font>                                                                                  
+  conda activate your_env_name                                                                                          
+                                                                                                                        
+  <font color="#26A269"># 2. Install ipykernel in that environment</font>                                                                            
+  conda install ipykernel                                                                                               
+                                                                                                                        
+  <font color="#26A269"># 3. Install the environment as a Jupyter kernel</font>                                                                      
+  python -m ipykernel install --user --name your_env_name --display-name <font color="#C01C28">&quot;Display Name&quot;</font>                                 
+                                                                                                                        
+  <b>Method 2: From outside the environment</b>                                                                                
+                                                                                                                        
+  <font color="#26A269"># Install ipykernel in the target environment</font>                                                                         
+  conda install -n your_env_name ipykernel                                                                              
+                                                                                                                        
+  <font color="#26A269"># Install as kernel (replace /path/to/env with actual path)</font>                                                           
+  /path/to/env/bin/python -m ipykernel install --user --name your_env_name --display-name <font color="#C01C28">&quot;Display Name&quot;</font>                
+                                                                                                                        
+  <b>Example:</b>                                                                                                              
+                                                                                                                        
+  <font color="#26A269"># If you have an environment called &quot;zinet&quot;</font>                                                                           
+  conda activate zinet                                                                                                  
+  conda install ipykernel                                                                                               
+  python -m ipykernel install --user --name zinet --display-name <font color="#C01C28">&quot;ZiNet Research&quot;</font>                                       
+                                                                                                                        
+  <b>Verify and manage kernels:</b>                                                                                            
+                                                                                                                        
+  <font color="#26A269"># List all available kernels</font>                                                                                          
+  jupyter kernelspec list                                                                                               
+                                                                                                                        
+  <font color="#26A269"># Remove a kernel if needed</font>                                                                                           
+  jupyter kernelspec uninstall kernel_name                                                                              
+                                                                                                                        
+  After installation, restart Jupyter and you&apos;ll see your new kernel in the &quot;New&quot; dropdown or kernel selection menu.    
+                                                                                                                        
+  <b>Note:</b> The <font color="#B1B9F9">--display-name</font> is what appears in Jupyter&apos;s interface, while <font color="#B1B9F9">--name</font> is the internal identifier.  </pre>

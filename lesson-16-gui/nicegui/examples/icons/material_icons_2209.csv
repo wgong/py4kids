@@ -1,0 +1,2210 @@
+icon_name,icon_caption,category
+business_center,Business Center,places
+elevator,Elevator,places
+tty,Tty,places
+rv_hookup,Rv Hookup,places
+balcony,Balcony,places
+microwave,Microwave,places
+bento,Bento,places
+checkroom,Checkroom,places
+no_cell,No Cell,places
+wash,Wash,places
+cottage,Cottage,places
+grass,Grass,places
+stairs,Stairs,places
+pool,Pool,places
+fence,Fence,places
+fitness_center,Fitness Center,places
+all_inclusive,All Inclusive,places
+dry,Dry,places
+roofing,Roofing,places
+fire_extinguisher,Fire Extinguisher,places
+smoking_rooms,Smoking Rooms,places
+meeting_room,Meeting Room,places
+no_drinks,No Drinks,places
+tapas,Tapas,places
+desk,Desk,places
+house_siding,House Siding,places
+corporate_fare,Corporate Fare,places
+water_damage,Water Damage,places
+other_houses,Other Houses,places
+rice_bowl,Rice Bowl,places
+stroller,Stroller,places
+baby_changing_station,Baby Changing Station,places
+iron,Iron,places
+no_backpack,No Backpack,places
+backpack,Backpack,places
+no_food,No Food,places
+countertops,Countertops,places
+sports_bar,Sports Bar,places
+no_photography,No Photography,places
+storefront,Storefront,places
+crib,Crib,places
+hot_tub,Hot Tub,places
+ac_unit,Ac Unit,places
+do_not_touch,Do Not Touch,places
+night_shelter,Night Shelter,places
+chalet,Chalet,places
+do_not_step,Do Not Step,places
+house,House,places
+apartment,Apartment,places
+child_care,Child Care,places
+spa,Spa,places
+bathtub,Bathtub,places
+gite,Gite,places
+soap,Soap,places
+carpenter,Carpenter,places
+golf_course,Golf Course,places
+free_breakfast,Free Breakfast,places
+family_restroom,Family Restroom,places
+airport_shuttle,Airport Shuttle,places
+foundation,Foundation,places
+no_stroller,No Stroller,places
+smoke_free,Smoke Free,places
+room_service,Room Service,places
+room_preferences,Room Preferences,places
+escalator_warning,Escalator Warning,places
+umbrella,Umbrella,places
+vape_free,Vape Free,places
+bungalow,Bungalow,places
+beach_access,Beach Access,places
+no_meeting_room,No Meeting Room,places
+casino,Casino,places
+cabin,Cabin,places
+kitchen,Kitchen,places
+child_friendly,Child Friendly,places
+houseboat,Houseboat,places
+vaping_rooms,Vaping Rooms,places
+holiday_village,Holiday Village,places
+charging_station,Charging Station,places
+wheelchair_pickup,Wheelchair Pickup,places
+food_bank,Food Bank,places
+escalator,Escalator,places
+villa,Villa,places
+no_flash,No Flash,places
+event_busy,Event Busy,notification
+no_encryption,No Encryption,notification
+phone_paused,Phone Paused,notification
+do_disturb_alt,Do Disturb Alt,notification
+phone_bluetooth_speaker,Phone Bluetooth Speaker,notification
+power_off,Power Off,notification
+sync_lock,Sync Lock,notification
+folder_special,Folder Special,notification
+airline_seat_individual_suite,Airline Seat Individual Suite,notification
+wc,Wc,notification
+sync,Sync,notification
+system_update,System Update,notification
+add_call,Add Call,notification
+airline_seat_flat,Airline Seat Flat,notification
+wifi,Wifi,notification
+ondemand_video,Ondemand Video,notification
+airline_seat_legroom_reduced,Airline Seat Legroom Reduced,notification
+vibration,Vibration,notification
+do_not_disturb,Do Not Disturb,notification
+drive_eta,Drive Eta,notification
+sim_card_alert,Sim Card Alert,notification
+directions_off,Directions Off,notification
+sync_disabled,Sync Disabled,notification
+sms_failed,Sms Failed,notification
+airline_seat_recline_extra,Airline Seat Recline Extra,notification
+do_not_disturb_off,Do Not Disturb Off,notification
+adb,Adb,notification
+sd_card,Sd Card,notification
+network_locked,Network Locked,notification
+phone_missed,Phone Missed,notification
+airline_seat_legroom_normal,Airline Seat Legroom Normal,notification
+tv_off,Tv Off,notification
+priority_high,Priority High,notification
+time_to_leave,Time To Leave,notification
+sync_problem,Sync Problem,notification
+do_disturb_off,Do Disturb Off,notification
+disc_full,Disc Full,notification
+imagesearch_roller,Imagesearch Roller,notification
+do_not_disturb_alt,Do Not Disturb Alt,notification
+do_not_disturb_on,Do Not Disturb On,notification
+support_agent,Support Agent,notification
+more,More,notification
+phone_in_talk,Phone In Talk,notification
+airline_seat_flat_angled,Airline Seat Flat Angled,notification
+wifi_off,Wifi Off,notification
+account_tree,Account Tree,notification
+do_disturb,Do Disturb,notification
+do_disturb_on,Do Disturb On,notification
+no_encryption_gmailerrorred,No Encryption Gmailerrorred,notification
+event_note,Event Note,notification
+phone_forwarded,Phone Forwarded,notification
+enhanced_encryption,Enhanced Encryption,notification
+power,Power,notification
+phone_callback,Phone Callback,notification
+sd_card_alert,Sd Card Alert,notification
+sms,Sms,notification
+network_check,Network Check,notification
+airline_seat_recline_normal,Airline Seat Recline Normal,notification
+mms,Mms,notification
+voice_chat,Voice Chat,notification
+bluetooth_audio,Bluetooth Audio,notification
+confirmation_number,Confirmation Number,notification
+running_with_errors,Running With Errors,notification
+airline_seat_legroom_extra,Airline Seat Legroom Extra,notification
+video_chat,Video Chat,notification
+phone_locked,Phone Locked,notification
+personal_video,Personal Video,notification
+live_tv,Live Tv,notification
+tap_and_play,Tap And Play,notification
+event_available,Event Available,notification
+vpn_lock,Vpn Lock,notification
+star_purple500,Star Purple500,toggle
+star_outline,Star Outline,toggle
+radio_button_unchecked,Radio Button Unchecked,toggle
+toggle_off,Toggle Off,toggle
+radio_button_checked,Radio Button Checked,toggle
+check_box_outline_blank,Check Box Outline Blank,toggle
+star_half,Star Half,toggle
+indeterminate_check_box,Indeterminate Check Box,toggle
+star_border_purple500,Star Border Purple500,toggle
+star_border,Star Border,toggle
+star,Star,toggle
+toggle_on,Toggle On,toggle
+check_box,Check Box,toggle
+archive,Archive,content
+amp_stories,Amp Stories,content
+reply_all,Reply All,content
+flag_circle,Flag Circle,content
+content_copy,Content Copy,content
+remove,Remove,content
+create,Create,content
+save,Save,content
+font_download,Font Download,content
+policy,Policy,content
+add_link,Add Link,content
+waves,Waves,content
+forward,Forward,content
+web_stories,Web Stories,content
+delete_sweep,Delete Sweep,content
+ballot,Ballot,content
+low_priority,Low Priority,content
+sort,Sort,content
+next_week,Next Week,content
+square_foot,Square Foot,content
+inbox,Inbox,content
+where_to_vote,Where To Vote,content
+report_gmailerrorred,Report Gmailerrorred,content
+file_copy,File Copy,content
+inventory_2,Inventory 2,content
+attribution,Attribution,content
+add,Add,content
+redo,Redo,content
+link_off,Link Off,content
+add_box,Add Box,content
+unarchive,Unarchive,content
+content_paste,Content Paste,content
+move_to_inbox,Move To Inbox,content
+undo,Undo,content
+add_circle,Add Circle,content
+select_all,Select All,content
+weekend,Weekend,content
+content_paste_off,Content Paste Off,content
+save_alt,Save Alt,content
+reply,Reply,content
+calculate,Calculate,content
+save_as,Save As,content
+upcoming,Upcoming,content
+biotech,Biotech,content
+change_circle,Change Circle,content
+mail,Mail,content
+stacked_bar_chart,Stacked Bar Chart,content
+text_format,Text Format,content
+report_off,Report Off,content
+bolt,Bolt,content
+remove_circle,Remove Circle,content
+add_circle_outline,Add Circle Outline,content
+block,Block,content
+block_flipped,Block Flipped,content
+gesture,Gesture,content
+report,Report,content
+content_paste_search,Content Paste Search,content
+stream,Stream,content
+drafts,Drafts,content
+remove_circle_outline,Remove Circle Outline,content
+copy_all,Copy All,content
+dynamic_feed,Dynamic Feed,content
+filter_list,Filter List,content
+flag,Flag,content
+inventory,Inventory,content
+outlined_flag,Outlined Flag,content
+font_download_off,Font Download Off,content
+markunread,Markunread,content
+push_pin,Push Pin,content
+content_cut,Content Cut,content
+link,Link,content
+deselect,Deselect,content
+content_paste_go,Content Paste Go,content
+send,Send,content
+how_to_vote,How To Vote,content
+clear,Clear,content
+backspace,Backspace,content
+insights,Insights,content
+filter_list_off,Filter List Off,content
+tag,Tag,content
+how_to_reg,How To Reg,content
+shield,Shield,content
+access_alarms,Access Alarms,device
+data_saver_off,Data Saver Off,device
+battery_6_bar,Battery 6 Bar,device
+media_bluetooth_on,Media Bluetooth On,device
+system_security_update_warning,System Security Update Warning,device
+signal_cellular_alt_2_bar,Signal Cellular Alt 2 Bar,device
+signal_cellular_no_sim,Signal Cellular No Sim,device
+signal_wifi_2_bar_lock,Signal Wifi 2 Bar Lock,device
+mobile_off,Mobile Off,device
+battery_charging_20,Battery Charging 20,device
+hdr_on_select,Hdr On Select,device
+ad_units,Ad Units,device
+signal_cellular_connected_no_internet_1_bar,Signal Cellular Connected No Internet 1 Bar,device
+wifi_calling_2,Wifi Calling 2,device
+security_update,Security Update,device
+splitscreen,Splitscreen,device
+grid_4x4,Grid 4x4,device
+monitor_weight,Monitor Weight,device
+wifi_calling_1,Wifi Calling 1,device
+wifi_tethering_error,Wifi Tethering Error,device
+wifi_2_bar,Wifi 2 Bar,device
+signal_wifi_statusbar_connected_no_internet_3,Signal Wifi Statusbar Connected No Internet 3,device
+flashlight_on,Flashlight On,device
+pattern,Pattern,device
+punch_clock,Punch Clock,device
+devices_fold,Devices Fold,device
+signal_cellular_alt_1_bar,Signal Cellular Alt 1 Bar,device
+sim_card_download,Sim Card Download,device
+gps_off,Gps Off,device
+signal_wifi_connected_no_internet_3,Signal Wifi Connected No Internet 3,device
+signal_cellular_connected_no_internet_0_bar,Signal Cellular Connected No Internet 0 Bar,device
+access_alarm,Access Alarm,device
+timer_10_select,Timer 10 Select,device
+bluetooth_connected,Bluetooth Connected,device
+signal_cellular_nodata,Signal Cellular Nodata,device
+reset_tv,Reset Tv,device
+signal_cellular_null,Signal Cellular Null,device
+g_mobiledata,G Mobiledata,device
+storm,Storm,device
+sports_score,Sports Score,device
+discount,Discount,device
+battery_unknown,Battery Unknown,device
+battery_20,Battery 20,device
+airplane_ticket,Airplane Ticket,device
+cameraswitch,Cameraswitch,device
+medication_liquid,Medication Liquid,device
+pin,Pin,device
+battery_80,Battery 80,device
+send_to_mobile,Send To Mobile,device
+sell,Sell,device
+battery_charging_80,Battery Charging 80,device
+bluetooth_disabled,Bluetooth Disabled,device
+widgets,Widgets,device
+signal_wifi_1_bar,Signal Wifi 1 Bar,device
+nightlight,Nightlight,device
+brightness_medium,Brightness Medium,device
+battery_charging_60,Battery Charging 60,device
+shortcut,Shortcut,device
+task,Task,device
+wifi_tethering_off,Wifi Tethering Off,device
+30fps,30fps,device
+signal_wifi_statusbar_connected_no_internet_4,Signal Wifi Statusbar Connected No Internet 4,device
+mode_night,Mode Night,device
+nearby_error,Nearby Error,device
+battery_charging_30,Battery Charging 30,device
+signal_wifi_3_bar,Signal Wifi 3 Bar,device
+hdr_auto,Hdr Auto,device
+signal_wifi_4_bar,Signal Wifi 4 Bar,device
+airplanemode_inactive,Airplanemode Inactive,device
+network_wifi,Network Wifi,device
+4g_plus_mobiledata,4g Plus Mobiledata,device
+lan,Lan,device
+signal_cellular_off,Signal Cellular Off,device
+wifi_find,Wifi Find,device
+signal_cellular_connected_no_internet_2_bar,Signal Cellular Connected No Internet 2 Bar,device
+usb,Usb,device
+device_thermostat,Device Thermostat,device
+password,Password,device
+quiz,Quiz,device
+bluetooth_drive,Bluetooth Drive,device
+signal_wifi_2_bar,Signal Wifi 2 Bar,device
+ssid_chart,Ssid Chart,device
+security_update_good,Security Update Good,device
+add_alarm,Add Alarm,device
+gpp_bad,Gpp Bad,device
+grid_goldenratio,Grid Goldenratio,device
+battery_saver,Battery Saver,device
+bluetooth,Bluetooth,device
+60fps,60fps,device
+rsvp,Rsvp,device
+signal_wifi_statusbar_1_bar,Signal Wifi Statusbar 1 Bar,device
+wifi_password,Wifi Password,device
+signal_wifi_connected_no_internet_4,Signal Wifi Connected No Internet 4,device
+4g_mobiledata,4g Mobiledata,device
+reviews,Reviews,device
+screenshot,Screenshot,device
+signal_wifi_statusbar_connected_no_internet_2,Signal Wifi Statusbar Connected No Internet 2,device
+edgesensor_low,Edgesensor Low,device
+wifi_tethering_error_rounded,Wifi Tethering Error Rounded,device
+battery_3_bar,Battery 3 Bar,device
+wifi_tethering,Wifi Tethering,device
+lte_plus_mobiledata,Lte Plus Mobiledata,device
+network_wifi_2_bar,Network Wifi 2 Bar,device
+signal_wifi_statusbar_connected_no_internet,Signal Wifi Statusbar Connected No Internet,device
+signal_wifi_1_bar_lock,Signal Wifi 1 Bar Lock,device
+signal_cellular_2_bar,Signal Cellular 2 Bar,device
+signal_wifi_0_bar,Signal Wifi 0 Bar,device
+data_usage,Data Usage,device
+lte_mobiledata,Lte Mobiledata,device
+screen_lock_portrait,Screen Lock Portrait,device
+share_location,Share Location,device
+edgesensor_high,Edgesensor High,device
+hdr_auto_select,Hdr Auto Select,device
+flourescent,Flourescent,device
+signal_wifi_statusbar_4_bar,Signal Wifi Statusbar 4 Bar,device
+tungsten,Tungsten,device
+restart_alt,Restart Alt,device
+play_lesson,Play Lesson,device
+1x_mobiledata,1x Mobiledata,device
+brightness_low,Brightness Low,device
+flashlight_off,Flashlight Off,device
+nfc,Nfc,device
+location_disabled,Location Disabled,device
+signal_wifi_statusbar_not_connected,Signal Wifi Statusbar Not Connected,device
+battery_full,Battery Full,device
+system_security_update_good,System Security Update Good,device
+signal_wifi_4_bar_lock,Signal Wifi 4 Bar Lock,device
+airplanemode_active,Airplanemode Active,device
+battery_charging_90,Battery Charging 90,device
+lens_blur,Lens Blur,device
+battery_0_bar,Battery 0 Bar,device
+sd_storage,Sd Storage,device
+h_mobiledata,H Mobiledata,device
+screen_lock_landscape,Screen Lock Landscape,device
+battery_charging_full,Battery Charging Full,device
+signal_wifi_connected_no_internet_1,Signal Wifi Connected No Internet 1,device
+system_security_update,System Security Update,device
+dataset,Dataset,device
+add_to_home_screen,Add To Home Screen,device
+battery_alert,Battery Alert,device
+battery_60,Battery 60,device
+screenshot_monitor,Screenshot Monitor,device
+h_plus_mobiledata,H Plus Mobiledata,device
+light_mode,Light Mode,device
+screen_search_desktop,Screen Search Desktop,device
+gpp_maybe,Gpp Maybe,device
+signal_wifi_statusbar_connected_no_internet_1,Signal Wifi Statusbar Connected No Internet 1,device
+timer_3_select,Timer 3 Select,device
+signal_wifi_bad,Signal Wifi Bad,device
+settings_suggest,Settings Suggest,device
+signal_wifi_3_bar_lock,Signal Wifi 3 Bar Lock,device
+mode_standby,Mode Standby,device
+dvr,Dvr,device
+hdr_off_select,Hdr Off Select,device
+media_bluetooth_off,Media Bluetooth Off,device
+wifi_lock,Wifi Lock,device
+developer_mode,Developer Mode,device
+phishing,Phishing,device
+grid_3x3,Grid 3x3,device
+screen_lock_rotation,Screen Lock Rotation,device
+dataset_linked,Dataset Linked,device
+signal_wifi_off,Signal Wifi Off,device
+brightness_high,Brightness High,device
+signal_cellular_connected_no_internet_4_bar,Signal Cellular Connected No Internet 4 Bar,device
+price_change,Price Change,device
+r_mobiledata,R Mobiledata,device
+battery_1_bar,Battery 1 Bar,device
+3g_mobiledata,3g Mobiledata,device
+access_time,Access Time,device
+wallpaper,Wallpaper,device
+aod,Aod,device
+battery_90,Battery 90,device
+macro_off,Macro Off,device
+usb_off,Usb Off,device
+screen_rotation,Screen Rotation,device
+e_mobiledata,E Mobiledata,device
+security_update_warning,Security Update Warning,device
+devices,Devices,device
+monitor_heart,Monitor Heart,device
+fmd_good,Fmd Good,device
+wifi_1_bar,Wifi 1 Bar,device
+battery_30,Battery 30,device
+gps_fixed,Gps Fixed,device
+network_cell,Network Cell,device
+do_not_disturb_on_total_silence,Do Not Disturb On Total Silence,device
+thermostat,Thermostat,device
+data_saver_on,Data Saver On,device
+battery_std,Battery Std,device
+signal_cellular_4_bar,Signal Cellular 4 Bar,device
+bluetooth_searching,Bluetooth Searching,device
+network_wifi_3_bar,Network Wifi 3 Bar,device
+settings_system_daydream,Settings System Daydream,device
+signal_cellular_alt,Signal Cellular Alt,device
+water,Water,device
+access_time_filled,Access Time Filled,device
+radar,Radar,device
+network_wifi_1_bar,Network Wifi 1 Bar,device
+signal_cellular_0_bar,Signal Cellular 0 Bar,device
+remember_me,Remember Me,device
+signal_cellular_3_bar,Signal Cellular 3 Bar,device
+battery_5_bar,Battery 5 Bar,device
+storage,Storage,device
+battery_2_bar,Battery 2 Bar,device
+fmd_bad,Fmd Bad,device
+note_alt,Note Alt,device
+price_check,Price Check,device
+summarize,Summarize,device
+nearby_off,Nearby Off,device
+dark_mode,Dark Mode,device
+graphic_eq,Graphic Eq,device
+signal_wifi_statusbar_3_bar,Signal Wifi Statusbar 3 Bar,device
+mobile_friendly,Mobile Friendly,device
+battery_50,Battery 50,device
+credit_score,Credit Score,device
+signal_wifi_connected_no_internet_2,Signal Wifi Connected No Internet 2,device
+battery_charging_50,Battery Charging 50,device
+signal_wifi_statusbar_2_bar,Signal Wifi Statusbar 2 Bar,device
+location_searching,Location Searching,device
+fluorescent,Fluorescent,device
+signal_cellular_connected_no_internet_3_bar,Signal Cellular Connected No Internet 3 Bar,device
+mobiledata_off,Mobiledata Off,device
+signal_wifi_connected_no_internet_0,Signal Wifi Connected No Internet 0,device
+gps_not_fixed,Gps Not Fixed,device
+brightness_auto,Brightness Auto,device
+gpp_good,Gpp Good,device
+signal_cellular_1_bar,Signal Cellular 1 Bar,device
+medication,Medication,device
+air,Air,device
+wifi_calling_3,Wifi Calling 3,device
+cable,Cable,device
+wifi_channel,Wifi Channel,device
+battery_4_bar,Battery 4 Bar,device
+bloodtype,Bloodtype,device
+signal_wifi_statusbar_null,Signal Wifi Statusbar Null,device
+playlist_add_check,Playlist Add Check,av
+volume_mute,Volume Mute,av
+mic_none,Mic None,av
+new_releases,New Releases,av
+volume_up,Volume Up,av
+album,Album,av
+3k,3k,av
+shuffle,Shuffle,av
+web_asset,Web Asset,av
+music_video,Music Video,av
+movie,Movie,av
+video_file,Video File,av
+mic_off,Mic Off,av
+play_disabled,Play Disabled,av
+7k_plus,7k Plus,av
+playlist_add,Playlist Add,av
+hd,Hd,av
+video_call,Video Call,av
+repeat_on,Repeat On,av
+featured_play_list,Featured Play List,av
+replay_5,Replay 5,av
+pause,Pause,av
+playlist_add_circle,Playlist Add Circle,av
+queue,Queue,av
+fiber_manual_record,Fiber Manual Record,av
+radio,Radio,av
+equalizer,Equalizer,av
+playlist_remove,Playlist Remove,av
+library_books,Library Books,av
+9k,9k,av
+sd,Sd,av
+2k,2k,av
+videocam,Videocam,av
+video_settings,Video Settings,av
+add_to_queue,Add To Queue,av
+audio_file,Audio File,av
+10k,10k,av
+lyrics,Lyrics,av
+web,Web,av
+call_to_action,Call To Action,av
+not_interested,Not Interested,av
+6k_plus,6k Plus,av
+replay,Replay,av
+skip_next,Skip Next,av
+control_camera,Control Camera,av
+library_music,Library Music,av
+4k_plus,4k Plus,av
+art_track,Art Track,av
+explicit,Explicit,av
+forward_10,Forward 10,av
+snooze,Snooze,av
+replay_10,Replay 10,av
+loop,Loop,av
+movie_edit,Movie Edit,av
+fiber_pin,Fiber Pin,av
+featured_video,Featured Video,av
+playlist_play,Playlist Play,av
+subscriptions,Subscriptions,av
+hearing,Hearing,av
+speed,Speed,av
+play_arrow,Play Arrow,av
+surround_sound,Surround Sound,av
+stop,Stop,av
+sort_by_alpha,Sort By Alpha,av
+web_asset_off,Web Asset Off,av
+fast_rewind,Fast Rewind,av
+closed_caption_disabled,Closed Caption Disabled,av
+play_circle,Play Circle,av
+play_circle_filled,Play Circle Filled,av
+fast_forward,Fast Forward,av
+library_add_check,Library Add Check,av
+1k_plus,1k Plus,av
+stop_circle,Stop Circle,av
+library_add,Library Add,av
+closed_caption_off,Closed Caption Off,av
+2k_plus,2k Plus,av
+video_label,Video Label,av
+volume_off,Volume Off,av
+fiber_smart_record,Fiber Smart Record,av
+videocam_off,Videocam Off,av
+fiber_dvr,Fiber Dvr,av
+subtitles,Subtitles,av
+airplay,Airplay,av
+playlist_add_check_circle,Playlist Add Check Circle,av
+fiber_new,Fiber New,av
+repeat_one_on,Repeat One On,av
+5k,5k,av
+play_circle_outline,Play Circle Outline,av
+queue_play_next,Queue Play Next,av
+forward_30,Forward 30,av
+9k_plus,9k Plus,av
+games,Games,av
+shuffle_on,Shuffle On,av
+3k_plus,3k Plus,av
+hearing_disabled,Hearing Disabled,av
+video_library,Video Library,av
+queue_music,Queue Music,av
+5g,5g,av
+replay_30,Replay 30,av
+1k,1k,av
+pause_circle_filled,Pause Circle Filled,av
+note,Note,av
+6k,6k,av
+high_quality,High Quality,av
+av_timer,Av Timer,av
+forward_5,Forward 5,av
+repeat_one,Repeat One,av
+8k,8k,av
+8k_plus,8k Plus,av
+4k,4k,av
+remove_from_queue,Remove From Queue,av
+replay_circle_filled,Replay Circle Filled,av
+skip_previous,Skip Previous,av
+missed_video_call,Missed Video Call,av
+7k,7k,av
+volume_down_alt,Volume Down Alt,av
+5k_plus,5k Plus,av
+pause_circle_outline,Pause Circle Outline,av
+slow_motion_video,Slow Motion Video,av
+recent_actors,Recent Actors,av
+branding_watermark,Branding Watermark,av
+volume_down,Volume Down,av
+mic,Mic,av
+repeat,Repeat,av
+closed_caption,Closed Caption,av
+pause_circle,Pause Circle,av
+interpreter_mode,Interpreter Mode,av
+notifications_active,Notifications Active,social
+sports_motorsports,Sports Motorsports,social
+scuba_diving,Scuba Diving,social
+recycling,Recycling,social
+science,Science,social
+history_edu,History Edu,social
+face_4,Face 4,social
+whatsapp,Whatsapp,social
+woman,Woman,social
+man_4,Man 4,social
+notifications_off,Notifications Off,social
+transgender,Transgender,social
+group,Group,social
+travel_explore,Travel Explore,social
+flood,Flood,social
+fitbit,Fitbit,social
+reduce_capacity,Reduce Capacity,social
+workspace_premium,Workspace Premium,social
+kitesurfing,Kitesurfing,social
+sentiment_very_dissatisfied,Sentiment Very Dissatisfied,social
+precision_manufacturing,Precision Manufacturing,social
+sentiment_very_satisfied,Sentiment Very Satisfied,social
+cake,Cake,social
+sports_mma,Sports Mma,social
+snowshoeing,Snowshoeing,social
+severe_cold,Severe Cold,social
+sentiment_dissatisfied,Sentiment Dissatisfied,social
+man_2,Man 2,social
+emoji_objects,Emoji Objects,social
+safety_divider,Safety Divider,social
+public_off,Public Off,social
+pages,Pages,social
+compost,Compost,social
+person_remove,Person Remove,social
+domain,Domain,social
+real_estate_agent,Real Estate Agent,social
+girl,Girl,social
+interests,Interests,social
+elderly,Elderly,social
+wallet,Wallet,social
+thumb_up_alt,Thumb Up Alt,social
+catching_pokemon,Catching Pokemon,social
+kayaking,Kayaking,social
+emoji_people,Emoji People,social
+female,Female,social
+group_remove,Group Remove,social
+masks,Masks,social
+sports,Sports,social
+south_america,South America,social
+nordic_walking,Nordic Walking,social
+sports_cricket,Sports Cricket,social
+hiking,Hiking,social
+tornado,Tornado,social
+person_outline,Person Outline,social
+person_remove_alt_1,Person Remove Alt 1,social
+notifications_none,Notifications None,social
+people_alt,People Alt,social
+mood,Mood,social
+groups_2,Groups 2,social
+person_add_alt,Person Add Alt,social
+psychology,Psychology,social
+recommend,Recommend,social
+switch_account,Switch Account,social
+military_tech,Military Tech,social
+person_add,Person Add,social
+ios_share,Ios Share,social
+emoji_symbols,Emoji Symbols,social
+sports_tennis,Sports Tennis,social
+scoreboard,Scoreboard,social
+school,School,social
+edit_notifications,Edit Notifications,social
+people,People,social
+sick,Sick,social
+snowboarding,Snowboarding,social
+person_3,Person 3,social
+sports_basketball,Sports Basketball,social
+dew_point,Dew Point,social
+sanitizer,Sanitizer,social
+emoji_food_beverage,Emoji Food Beverage,social
+fireplace,Fireplace,social
+handshake,Handshake,social
+location_city,Location City,social
+notification_add,Notification Add,social
+woman_2,Woman 2,social
+diversity_2,Diversity 2,social
+connect_without_contact,Connect Without Contact,social
+group_add,Group Add,social
+6_ft_apart,6 Ft Apart,social
+king_bed,King Bed,social
+emoji_events,Emoji Events,social
+nights_stay,Nights Stay,social
+luggage,Luggage,social
+notifications_paused,Notifications Paused,social
+cookie,Cookie,social
+co2,Co2,social
+groups_3,Groups 3,social
+group_off,Group Off,social
+front_hand,Front Hand,social
+cyclone,Cyclone,social
+self_improvement,Self Improvement,social
+architecture,Architecture,social
+sports_martial_arts,Sports Martial Arts,social
+clean_hands,Clean Hands,social
+man,Man,social
+diversity_3,Diversity 3,social
+add_reaction,Add Reaction,social
+person_off,Person Off,social
+groups,Groups,social
+cruelty_free,Cruelty Free,social
+personal_injury,Personal Injury,social
+sports_baseball,Sports Baseball,social
+outdoor_grill,Outdoor Grill,social
+sentiment_satisfied,Sentiment Satisfied,social
+domain_add,Domain Add,social
+landslide,Landslide,social
+facebook,Facebook,social
+face_5,Face 5,social
+sports_esports,Sports Esports,social
+man_3,Man 3,social
+person_add_alt_1,Person Add Alt 1,social
+18_up_rating,18 Up Rating,social
+emoji_flags,Emoji Flags,social
+mood_bad,Mood Bad,social
+remove_moderator,Remove Moderator,social
+people_outline,People Outline,social
+emoji_nature,Emoji Nature,social
+boy,Boy,social
+elderly_woman,Elderly Woman,social
+volcano,Volcano,social
+pix,Pix,social
+coronavirus,Coronavirus,social
+psychology_alt,Psychology Alt,social
+social_distance,Social Distance,social
+face_2,Face 2,social
+emoji_emotions,Emoji Emotions,social
+person_4,Person 4,social
+downhill_skiing,Downhill Skiing,social
+sentiment_neutral,Sentiment Neutral,social
+tsunami,Tsunami,social
+surfing,Surfing,social
+follow_the_signs,Follow The Signs,social
+scale,Scale,social
+back_hand,Back Hand,social
+skateboarding,Skateboarding,social
+thunderstorm,Thunderstorm,social
+sports_volleyball,Sports Volleyball,social
+public,Public,social
+sign_language,Sign Language,social
+deck,Deck,social
+diversity_1,Diversity 1,social
+thumb_down_alt,Thumb Down Alt,social
+face_3,Face 3,social
+no_adult_content,No Adult Content,social
+add_moderator,Add Moderator,social
+plus_one,Plus One,social
+share,Share,social
+construction,Construction,social
+notifications,Notifications,social
+sports_football,Sports Football,social
+sports_kabaddi,Sports Kabaddi,social
+paragliding,Paragliding,social
+sports_hockey,Sports Hockey,social
+water_drop,Water Drop,social
+sports_gymnastics,Sports Gymnastics,social
+blind,Blind,social
+sports_rugby,Sports Rugby,social
+vaccines,Vaccines,social
+hive,Hive,social
+roller_skating,Roller Skating,social
+health_and_safety,Health And Safety,social
+poll,Poll,social
+party_mode,Party Mode,social
+emoji_transportation,Emoji Transportation,social
+person_2,Person 2,social
+heart_broken,Heart Broken,social
+single_bed,Single Bed,social
+assist_walker,Assist Walker,social
+male,Male,social
+sports_handball,Sports Handball,social
+face_6,Face 6,social
+piano,Piano,social
+sports_soccer,Sports Soccer,social
+engineering,Engineering,social
+sports_golf,Sports Golf,social
+whatshot,Whatshot,social
+sledding,Sledding,social
+person,Person,social
+no_luggage,No Luggage,social
+piano_off,Piano Off,social
+ice_skating,Ice Skating,social
+waving_hand,Waving Hand,social
+file_upload,File Upload,file
+topic,Topic,file
+cloud_sync,Cloud Sync,file
+file_download_off,File Download Off,file
+file_open,File Open,file
+upload,Upload,file
+drive_folder_upload,Drive Folder Upload,file
+cloud,Cloud,file
+rule_folder,Rule Folder,file
+cloud_done,Cloud Done,file
+download_for_offline,Download For Offline,file
+folder,Folder,file
+file_upload_off,File Upload Off,file
+text_snippet,Text Snippet,file
+workspaces_outline,Workspaces Outline,file
+grid_view,Grid View,file
+folder_off,Folder Off,file
+cloud_upload,Cloud Upload,file
+snippet_folder,Snippet Folder,file
+folder_open,Folder Open,file
+file_download_done,File Download Done,file
+newspaper,Newspaper,file
+workspaces,Workspaces,file
+format_overline,Format Overline,file
+create_new_folder,Create New Folder,file
+file_download,File Download,file
+cloud_off,Cloud Off,file
+attachment,Attachment,file
+workspaces_filled,Workspaces Filled,file
+downloading,Downloading,file
+drive_file_move,Drive File Move,file
+approval,Approval,file
+cloud_download,Cloud Download,file
+cloud_circle,Cloud Circle,file
+folder_zip,Folder Zip,file
+drive_file_rename_outline,Drive File Rename Outline,file
+attach_email,Attach Email,file
+cloud_queue,Cloud Queue,file
+folder_shared,Folder Shared,file
+drive_file_move_outline,Drive File Move Outline,file
+download_done,Download Done,file
+request_quote,Request Quote,file
+folder_delete,Folder Delete,file
+download,Download,file
+folder_copy,Folder Copy,file
+upload_file,Upload File,file
+difference,Difference,file
+drive_file_move_rtl,Drive File Move Rtl,file
+notification_important,Notification Important,alert
+auto_delete,Auto Delete,alert
+warning,Warning,alert
+warning_amber,Warning Amber,alert
+add_alert,Add Alert,alert
+error_outline,Error Outline,alert
+error,Error,alert
+hdr_plus,Hdr Plus,image
+mic_external_off,Mic External Off,image
+panorama_wide_angle_select,Panorama Wide Angle Select,image
+hide_image,Hide Image,image
+photo_size_select_actual,Photo Size Select Actual,image
+wb_auto,Wb Auto,image
+slideshow,Slideshow,image
+crop_16_9,Crop 16 9,image
+rotate_90_degrees_cw,Rotate 90 Degrees Cw,image
+blur_off,Blur Off,image
+motion_photos_auto,Motion Photos Auto,image
+filter_none,Filter None,image
+dirty_lens,Dirty Lens,image
+currency_franc,Currency Franc,image
+color_lens,Color Lens,image
+11mp,11mp,image
+filter_4,Filter 4,image
+circle,Circle,image
+exposure_neg_1,Exposure Neg 1,image
+brightness_1,Brightness 1,image
+add_a_photo,Add A Photo,image
+brightness_2,Brightness 2,image
+photo_camera,Photo Camera,image
+camera_alt,Camera Alt,image
+auto_fix_off,Auto Fix Off,image
+motion_photos_paused,Motion Photos Paused,image
+details,Details,image
+23mp,23mp,image
+crop_din,Crop Din,image
+image_search,Image Search,image
+21mp,21mp,image
+motion_photos_off,Motion Photos Off,image
+brightness_3,Brightness 3,image
+blur_circular,Blur Circular,image
+euro,Euro,image
+bedtime,Bedtime,image
+17mp,17mp,image
+colorize,Colorize,image
+wb_iridescent,Wb Iridescent,image
+filter_hdr,Filter Hdr,image
+crop_portrait,Crop Portrait,image
+auto_fix_normal,Auto Fix Normal,image
+5mp,5mp,image
+photo_filter,Photo Filter,image
+exposure_neg_2,Exposure Neg 2,image
+panorama_photosphere,Panorama Photosphere,image
+grid_on,Grid On,image
+landscape,Landscape,image
+timer_off,Timer Off,image
+timer_3,Timer 3,image
+video_camera_front,Video Camera Front,image
+style,Style,image
+view_compact,View Compact,image
+straighten,Straighten,image
+crop_square,Crop Square,image
+auto_awesome_mosaic,Auto Awesome Mosaic,image
+leak_add,Leak Add,image
+filter_8,Filter 8,image
+vrpano,Vrpano,image
+blur_linear,Blur Linear,image
+exposure,Exposure,image
+flash_off,Flash Off,image
+control_point,Control Point,image
+wb_shade,Wb Shade,image
+switch_video,Switch Video,image
+camera_front,Camera Front,image
+flash_on,Flash On,image
+flip,Flip,image
+mp,Mp,image
+palette,Palette,image
+filter_tilt_shift,Filter Tilt Shift,image
+cases,Cases,image
+looks_3,Looks 3,image
+exposure_plus_1,Exposure Plus 1,image
+tune,Tune,image
+photo_album,Photo Album,image
+photo_size_select_large,Photo Size Select Large,image
+camera_rear,Camera Rear,image
+movie_creation,Movie Creation,image
+motion_photos_on,Motion Photos On,image
+assistant_photo,Assistant Photo,image
+autofps_select,Autofps Select,image
+filter_2,Filter 2,image
+15mp,15mp,image
+logo_dev,Logo Dev,image
+currency_bitcoin,Currency Bitcoin,image
+looks_one,Looks One,image
+leak_remove,Leak Remove,image
+raw_on,Raw On,image
+rotate_right,Rotate Right,image
+mic_external_on,Mic External On,image
+14mp,14mp,image
+movie_filter,Movie Filter,image
+motion_photos_pause,Motion Photos Pause,image
+hdr_enhanced_select,Hdr Enhanced Select,image
+music_off,Music Off,image
+currency_yen,Currency Yen,image
+currency_lira,Currency Lira,image
+brightness_6,Brightness 6,image
+24mp,24mp,image
+currency_yuan,Currency Yuan,image
+flip_camera_android,Flip Camera Android,image
+auto_fix_high,Auto Fix High,image
+hevc,Hevc,image
+healing,Healing,image
+burst_mode,Burst Mode,image
+auto_awesome,Auto Awesome,image
+9mp,9mp,image
+currency_rupee,Currency Rupee,image
+remove_red_eye,Remove Red Eye,image
+photo_camera_front,Photo Camera Front,image
+nature,Nature,image
+looks_4,Looks 4,image
+filter_1,Filter 1,image
+exposure_plus_2,Exposure Plus 2,image
+compare,Compare,image
+brush,Brush,image
+13mp,13mp,image
+hdr_off,Hdr Off,image
+30fps_select,30fps Select,image
+7mp,7mp,image
+thermostat_auto,Thermostat Auto,image
+panorama_vertical_select,Panorama Vertical Select,image
+portrait,Portrait,image
+video_camera_back,Video Camera Back,image
+hdr_weak,Hdr Weak,image
+timer_10,Timer 10,image
+grid_off,Grid Off,image
+loupe,Loupe,image
+crop_original,Crop Original,image
+hdr_on,Hdr On,image
+rotate_90_degrees_ccw,Rotate 90 Degrees Ccw,image
+filter_7,Filter 7,image
+bedtime_off,Bedtime Off,image
+photo_size_select_small,Photo Size Select Small,image
+brightness_4,Brightness 4,image
+incomplete_circle,Incomplete Circle,image
+filter_9,Filter 9,image
+10mp,10mp,image
+currency_ruble,Currency Ruble,image
+picture_as_pdf,Picture As Pdf,image
+currency_pound,Currency Pound,image
+flip_camera_ios,Flip Camera Ios,image
+exposure_zero,Exposure Zero,image
+blur_on,Blur On,image
+collections_bookmark,Collections Bookmark,image
+center_focus_weak,Center Focus Weak,image
+filter_3,Filter 3,image
+photo_library,Photo Library,image
+collections,Collections,image
+filter_center_focus,Filter Center Focus,image
+filter_9_plus,Filter 9 Plus,image
+12mp,12mp,image
+auto_awesome_motion,Auto Awesome Motion,image
+camera_roll,Camera Roll,image
+grain,Grain,image
+panorama_fish_eye,Panorama Fish Eye,image
+image,Image,image
+tonality,Tonality,image
+deblur,Deblur,image
+texture,Texture,image
+navigate_before,Navigate Before,image
+looks,Looks,image
+photo,Photo,image
+face_retouching_natural,Face Retouching Natural,image
+2mp,2mp,image
+filter_5,Filter 5,image
+crop_7_5,Crop 7 5,image
+16mp,16mp,image
+receipt_long,Receipt Long,image
+panorama_wide_angle,Panorama Wide Angle,image
+wb_sunny,Wb Sunny,image
+video_stable,Video Stable,image
+wb_twilight,Wb Twilight,image
+wb_twighlight,Wb Twighlight,image
+filter_b_and_w,Filter B And W,image
+filter_frames,Filter Frames,image
+20mp,20mp,image
+dehaze,Dehaze,image
+center_focus_strong,Center Focus Strong,image
+control_point_duplicate,Control Point Duplicate,image
+broken_image,Broken Image,image
+panorama,Panorama,image
+panorama_horizontal_select,Panorama Horizontal Select,image
+looks_two,Looks Two,image
+brightness_7,Brightness 7,image
+vignette,Vignette,image
+raw_off,Raw Off,image
+filter_6,Filter 6,image
+hdr_strong,Hdr Strong,image
+music_note,Music Note,image
+filter_drama,Filter Drama,image
+rotate_left,Rotate Left,image
+audiotrack,Audiotrack,image
+panorama_horizontal,Panorama Horizontal,image
+4mp,4mp,image
+tag_faces,Tag Faces,image
+image_not_supported,Image Not Supported,image
+timelapse,Timelapse,image
+19mp,19mp,image
+add_to_photos,Add To Photos,image
+18mp,18mp,image
+panorama_vertical,Panorama Vertical,image
+crop_free,Crop Free,image
+navigate_next,Navigate Next,image
+timer,Timer,image
+image_aspect_ratio,Image Aspect Ratio,image
+filter,Filter,image
+adjust,Adjust,image
+looks_6,Looks 6,image
+edit,Edit,image
+6mp,6mp,image
+crop_rotate,Crop Rotate,image
+linked_camera,Linked Camera,image
+60fps_select,60fps Select,image
+3mp,3mp,image
+8mp,8mp,image
+nature_people,Nature People,image
+crop_5_4,Crop 5 4,image
+filter_vintage,Filter Vintage,image
+brightness_5,Brightness 5,image
+wb_cloudy,Wb Cloudy,image
+looks_5,Looks 5,image
+photo_camera_back,Photo Camera Back,image
+panorama_photosphere_select,Panorama Photosphere Select,image
+animation,Animation,image
+22mp,22mp,image
+camera,Camera,image
+wb_incandescent,Wb Incandescent,image
+iso,Iso,image
+flash_auto,Flash Auto,image
+flare,Flare,image
+monochrome_photos,Monochrome Photos,image
+assistant,Assistant,image
+view_comfy,View Comfy,image
+switch_camera,Switch Camera,image
+auto_stories,Auto Stories,image
+crop,Crop,image
+contrast,Contrast,image
+face_retouching_off,Face Retouching Off,image
+gradient,Gradient,image
+transform,Transform,image
+lens,Lens,image
+add_photo_alternate,Add Photo Alternate,image
+shutter_speed,Shutter Speed,image
+crop_3_2,Crop 3 2,image
+crop_landscape,Crop Landscape,image
+published_with_changes,Published With Changes,action
+swap_horizontal_circle,Swap Horizontal Circle,action
+power_settings_new,Power Settings New,action
+pin_end,Pin End,action
+gif,Gif,action
+view_sidebar,View Sidebar,action
+commit,Commit,action
+view_quilt,View Quilt,action
+width_normal,Width Normal,action
+settings_applications,Settings Applications,action
+spatial_tracking,Spatial Tracking,action
+123,123,action
+api,Api,action
+text_rotation_angleup,Text Rotation Angleup,action
+settings_voice,Settings Voice,action
+book_online,Book Online,action
+assignment_late,Assignment Late,action
+aspect_ratio,Aspect Ratio,action
+spellcheck,Spellcheck,action
+change_history,Change History,action
+account_box,Account Box,action
+open_in_new,Open In New,action
+upgrade,Upgrade,action
+settings_input_component,Settings Input Component,action
+toll,Toll,action
+edit_calendar,Edit Calendar,action
+exit_to_app,Exit To App,action
+arrow_circle_left,Arrow Circle Left,action
+leaderboard,Leaderboard,action
+arrow_right_alt,Arrow Right Alt,action
+swap_vertical_circle,Swap Vertical Circle,action
+help,Help,action
+rocket,Rocket,action
+commute,Commute,action
+edit_square,Edit Square,action
+view_cozy,View Cozy,action
+accessibility,Accessibility,action
+token,Token,action
+lock_person,Lock Person,action
+history,History,action
+view_compact_alt,View Compact Alt,action
+flutter_dash,Flutter Dash,action
+highlight_alt,Highlight Alt,action
+browse_gallery,Browse Gallery,action
+text_rotate_vertical,Text Rotate Vertical,action
+perm_contact_calendar,Perm Contact Calendar,action
+pregnant_woman,Pregnant Woman,action
+perm_identity,Perm Identity,action
+network_ping,Network Ping,action
+extension_off,Extension Off,action
+description,Description,action
+bookmark_added,Bookmark Added,action
+find_replace,Find Replace,action
+hide_source,Hide Source,action
+fit_screen,Fit Screen,action
+contact_support,Contact Support,action
+settings_cell,Settings Cell,action
+width_wide,Width Wide,action
+pageview,Pageview,action
+print,Print,action
+build,Build,action
+work,Work,action
+payment,Payment,action
+spatial_audio_off,Spatial Audio Off,action
+book,Book,action
+fingerprint,Fingerprint,action
+view_headline,View Headline,action
+translate,Translate,action
+check_circle_outline,Check Circle Outline,action
+bookmark,Bookmark,action
+face,Face,action
+line_weight,Line Weight,action
+hotel_class,Hotel Class,action
+next_plan,Next Plan,action
+all_inbox,All Inbox,action
+rule,Rule,action
+dashboard_customize,Dashboard Customize,action
+class,Class,action
+shop_two,Shop Two,action
+explore_off,Explore Off,action
+event_seat,Event Seat,action
+thumb_up,Thumb Up,action
+width_full,Width Full,action
+visibility,Visibility,action
+outgoing_mail,Outgoing Mail,action
+turned_in,Turned In,action
+css,Css,action
+minimize,Minimize,action
+reorder,Reorder,action
+euro_symbol,Euro Symbol,action
+hls_off,Hls Off,action
+important_devices,Important Devices,action
+switch_access_shortcut_add,Switch Access Shortcut Add,action
+flip_to_back,Flip To Back,action
+subtitles_off,Subtitles Off,action
+source,Source,action
+eject,Eject,action
+picture_in_picture,Picture In Picture,action
+accessible_forward,Accessible Forward,action
+text_rotation_none,Text Rotation None,action
+account_balance_wallet,Account Balance Wallet,action
+android,Android,action
+comment_bank,Comment Bank,action
+alarm_add,Alarm Add,action
+rounded_corner,Rounded Corner,action
+accessible,Accessible,action
+outbox,Outbox,action
+swipe_down,Swipe Down,action
+event,Event,action
+perm_phone_msg,Perm Phone Msg,action
+polymer,Polymer,action
+trending_down,Trending Down,action
+logout,Logout,action
+flight_land,Flight Land,action
+thumbs_up_down,Thumbs Up Down,action
+circle_notifications,Circle Notifications,action
+calendar_today,Calendar Today,action
+offline_pin,Offline Pin,action
+verified,Verified,action
+history_toggle_off,History Toggle Off,action
+hourglass_empty,Hourglass Empty,action
+join_inner,Join Inner,action
+credit_card_off,Credit Card Off,action
+repartition,Repartition,action
+view_array,View Array,action
+install_desktop,Install Desktop,action
+swipe_up,Swipe Up,action
+noise_control_off,Noise Control Off,action
+sensors_off,Sensors Off,action
+install_mobile,Install Mobile,action
+g_translate,G Translate,action
+arrow_circle_down,Arrow Circle Down,action
+highlight_off,Highlight Off,action
+get_app,Get App,action
+paid,Paid,action
+check_circle,Check Circle,action
+manage_accounts,Manage Accounts,action
+open_with,Open With,action
+lightbulb_outline,Lightbulb Outline,action
+speaker_notes_off,Speaker Notes Off,action
+edit_document,Edit Document,action
+add_card,Add Card,action
+fact_check,Fact Check,action
+turned_in_not,Turned In Not,action
+assignment_add,Assignment Add,action
+restore,Restore,action
+open_in_full,Open In Full,action
+verified_user,Verified User,action
+mark_as_unread,Mark As Unread,action
+integration_instructions,Integration Instructions,action
+code,Code,action
+close_fullscreen,Close Fullscreen,action
+dashboard,Dashboard,action
+dynamic_form,Dynamic Form,action
+rocket_launch,Rocket Launch,action
+view_module,View Module,action
+system_update_alt,System Update Alt,action
+wysiwyg,Wysiwyg,action
+assignment_ind,Assignment Ind,action
+view_column,View Column,action
+density_medium,Density Medium,action
+swap_vert,Swap Vert,action
+language,Language,action
+shopping_cart,Shopping Cart,action
+code_off,Code Off,action
+explore,Explore,action
+arrow_circle_up,Arrow Circle Up,action
+delete,Delete,action
+lightbulb_circle,Lightbulb Circle,action
+offline_bolt,Offline Bolt,action
+data_thresholding,Data Thresholding,action
+batch_prediction,Batch Prediction,action
+wifi_protected_setup,Wifi Protected Setup,action
+unpublished,Unpublished,action
+rebase_edit,Rebase Edit,action
+swipe_down_alt,Swipe Down Alt,action
+gif_box,Gif Box,action
+smart_button,Smart Button,action
+text_rotation_down,Text Rotation Down,action
+outlet,Outlet,action
+open_in_browser,Open In Browser,action
+disabled_visible,Disabled Visible,action
+outbond,Outbond,action
+label_important_outline,Label Important Outline,action
+3d_rotation,3d Rotation,action
+cached,Cached,action
+record_voice_over,Record Voice Over,action
+group_work,Group Work,action
+view_comfy_alt,View Comfy Alt,action
+tips_and_updates,Tips And Updates,action
+preview,Preview,action
+tab_unselected,Tab Unselected,action
+lock_open,Lock Open,action
+pan_tool_alt,Pan Tool Alt,action
+send_and_archive,Send And Archive,action
+toc,Toc,action
+supervised_user_circle,Supervised User Circle,action
+article,Article,action
+credit_card,Credit Card,action
+vertical_split,Vertical Split,action
+play_for_work,Play For Work,action
+favorite_border,Favorite Border,action
+store,Store,action
+card_giftcard,Card Giftcard,action
+spatial_audio,Spatial Audio,action
+sync_alt,Sync Alt,action
+drag_indicator,Drag Indicator,action
+flaky,Flaky,action
+supervisor_account,Supervisor Account,action
+add_task,Add Task,action
+shopping_bag,Shopping Bag,action
+perm_scan_wifi,Perm Scan Wifi,action
+bookmark_remove,Bookmark Remove,action
+shop_2,Shop 2,action
+update,Update,action
+settings_ethernet,Settings Ethernet,action
+grading,Grading,action
+tab,Tab,action
+request_page,Request Page,action
+alarm,Alarm,action
+ads_click,Ads Click,action
+find_in_page,Find In Page,action
+login,Login,action
+lock_reset,Lock Reset,action
+help_outline,Help Outline,action
+private_connectivity,Private Connectivity,action
+barcode_reader,Barcode Reader,action
+mediation,Mediation,action
+free_cancellation,Free Cancellation,action
+flip_to_front,Flip To Front,action
+stars,Stars,action
+arrow_circle_right,Arrow Circle Right,action
+settings_brightness,Settings Brightness,action
+assignment_return,Assignment Return,action
+account_circle,Account Circle,action
+question_mark,Question Mark,action
+hourglass_disabled,Hourglass Disabled,action
+assignment_turned_in,Assignment Turned In,action
+shopping_cart_checkout,Shopping Cart Checkout,action
+settings_power,Settings Power,action
+label_off,Label Off,action
+card_membership,Card Membership,action
+youtube_searched_for,Youtube Searched For,action
+thumb_down,Thumb Down,action
+help_center,Help Center,action
+dangerous,Dangerous,action
+label_important,Label Important,action
+bookmark_border,Bookmark Border,action
+display_settings,Display Settings,action
+zoom_in,Zoom In,action
+assessment,Assessment,action
+arrow_outward,Arrow Outward,action
+bookmark_add,Bookmark Add,action
+dns,Dns,action
+report_problem,Report Problem,action
+unfold_more_double,Unfold More Double,action
+thumb_up_off_alt,Thumb Up Off Alt,action
+hourglass_full,Hourglass Full,action
+feedback,Feedback,action
+plagiarism,Plagiarism,action
+sticky_note_2,Sticky Note 2,action
+join_right,Join Right,action
+settings,Settings,action
+filter_alt_off,Filter Alt Off,action
+compress,Compress,action
+build_circle,Build Circle,action
+task_alt,Task Alt,action
+join_left,Join Left,action
+generating_tokens,Generating Tokens,action
+backup,Backup,action
+switch_access_shortcut,Switch Access Shortcut,action
+face_unlock,Face Unlock,action
+not_started,Not Started,action
+bookmarks,Bookmarks,action
+maximize,Maximize,action
+picture_in_picture_alt,Picture In Picture Alt,action
+visibility_off,Visibility Off,action
+admin_panel_settings,Admin Panel Settings,action
+view_list,View List,action
+javascript,Javascript,action
+info_outline,Info Outline,action
+view_timeline,View Timeline,action
+outbound,Outbound,action
+pets,Pets,action
+lock_clock,Lock Clock,action
+swipe_right_alt,Swipe Right Alt,action
+settings_phone,Settings Phone,action
+swap_horiz,Swap Horiz,action
+settings_overscan,Settings Overscan,action
+segment,Segment,action
+announcement,Announcement,action
+calendar_view_day,Calendar View Day,action
+date_range,Date Range,action
+list,List,action
+production_quantity_limits,Production Quantity Limits,action
+pan_tool,Pan Tool,action
+swipe_right,Swipe Right,action
+shopping_basket,Shopping Basket,action
+percent,Percent,action
+opacity,Opacity,action
+donut_large,Donut Large,action
+saved_search,Saved Search,action
+hls,Hls,action
+eco,Eco,action
+line_style,Line Style,action
+donut_small,Donut Small,action
+backup_table,Backup Table,action
+autorenew,Autorenew,action
+trending_flat,Trending Flat,action
+swipe_left_alt,Swipe Left Alt,action
+density_large,Density Large,action
+model_training,Model Training,action
+calendar_view_month,Calendar View Month,action
+pending,Pending,action
+settings_input_hdmi,Settings Input Hdmi,action
+file_present,File Present,action
+support,Support,action
+unfold_less_double,Unfold Less Double,action
+add_shopping_cart,Add Shopping Cart,action
+label_outline,Label Outline,action
+thumb_down_off_alt,Thumb Down Off Alt,action
+chrome_reader_mode,Chrome Reader Mode,action
+manage_history,Manage History,action
+app_shortcut,App Shortcut,action
+table_view,Table View,action
+perm_camera_mic,Perm Camera Mic,action
+perm_device_information,Perm Device Information,action
+transcribe,Transcribe,action
+http,Http,action
+done_all,Done All,action
+swipe_vertical,Swipe Vertical,action
+settings_bluetooth,Settings Bluetooth,action
+view_day,View Day,action
+home,Home,action
+watch_later,Watch Later,action
+try,Try,action
+webhook,Webhook,action
+swipe_left,Swipe Left,action
+remove_shopping_cart,Remove Shopping Cart,action
+compare_arrows,Compare Arrows,action
+speaker_notes,Speaker Notes,action
+voice_over_off,Voice Over Off,action
+settings_accessibility,Settings Accessibility,action
+anchor,Anchor,action
+terminal,Terminal,action
+restore_from_trash,Restore From Trash,action
+view_carousel,View Carousel,action
+online_prediction,Online Prediction,action
+extension,Extension,action
+density_small,Density Small,action
+work_off,Work Off,action
+perm_media,Perm Media,action
+input,Input,action
+info,Info,action
+satellite_alt,Satellite Alt,action
+settings_input_antenna,Settings Input Antenna,action
+assured_workload,Assured Workload,action
+swipe_up_alt,Swipe Up Alt,action
+swipe,Swipe,action
+filter_alt,Filter Alt,action
+account_balance,Account Balance,action
+accessibility_new,Accessibility New,action
+all_out,All Out,action
+shop,Shop,action
+star_rate,Star Rate,action
+redeem,Redeem,action
+edit_off,Edit Off,action
+remove_done,Remove Done,action
+horizontal_split,Horizontal Split,action
+quickreply,Quickreply,action
+search,Search,action
+pin_invoke,Pin Invoke,action
+flight_takeoff,Flight Takeoff,action
+abc,Abc,action
+done,Done,action
+perm_data_setting,Perm Data Setting,action
+calendar_view_week,Calendar View Week,action
+privacy_tip,Privacy Tip,action
+update_disabled,Update Disabled,action
+html,Html,action
+lightbulb,Lightbulb,action
+alarm_off,Alarm Off,action
+settings_remote,Settings Remote,action
+note_add,Note Add,action
+php,Php,action
+search_off,Search Off,action
+camera_enhance,Camera Enhance,action
+invert_colors,Invert Colors,action
+view_agenda,View Agenda,action
+addchart,Addchart,action
+question_answer,Question Answer,action
+work_outline,Work Outline,action
+settings_input_composite,Settings Input Composite,action
+view_in_ar,View In Ar,action
+text_rotation_angledown,Text Rotation Angledown,action
+zoom_out,Zoom Out,action
+filter_list_alt,Filter List Alt,action
+copyright,Copyright,action
+card_travel,Card Travel,action
+space_dashboard,Space Dashboard,action
+room,Room,action
+timeline,Timeline,action
+home_filled,Home Filled,action
+savings,Savings,action
+app_blocking,App Blocking,action
+no_accounts,No Accounts,action
+favorite,Favorite,action
+markunread_mailbox,Markunread Mailbox,action
+grade,Grade,action
+troubleshoot,Troubleshoot,action
+view_kanban,View Kanban,action
+data_exploration,Data Exploration,action
+not_accessible,Not Accessible,action
+add_to_drive,Add To Drive,action
+schedule_send,Schedule Send,action
+text_rotate_up,Text Rotate Up,action
+subject,Subject,action
+open_in_new_off,Open In New Off,action
+join_full,Join Full,action
+fax,Fax,action
+analytics,Analytics,action
+delete_outline,Delete Outline,action
+today,Today,action
+touch_app,Touch App,action
+balance,Balance,action
+cancel_schedule_send,Cancel Schedule Send,action
+new_label,New Label,action
+currency_exchange,Currency Exchange,action
+label,Label,action
+assignment_returned,Assignment Returned,action
+on_device_training,On Device Training,action
+settings_backup_restore,Settings Backup Restore,action
+add_home,Add Home,action
+noise_aware,Noise Aware,action
+track_changes,Track Changes,action
+view_stream,View Stream,action
+restore_page,Restore Page,action
+done_outline,Done Outline,action
+contact_page,Contact Page,action
+launch,Launch,action
+theaters,Theaters,action
+event_repeat,Event Repeat,action
+expand,Expand,action
+trending_up,Trending Up,action
+loyalty,Loyalty,action
+pending_actions,Pending Actions,action
+sensors,Sensors,action
+view_week,View Week,action
+output,Output,action
+disabled_by_default,Disabled By Default,action
+nightlight_round,Nightlight Round,action
+tour,Tour,action
+https,Https,action
+rowing,Rowing,action
+receipt,Receipt,action
+lock,Lock,action
+calendar_month,Calendar Month,action
+alarm_on,Alarm On,action
+gavel,Gavel,action
+schedule,Schedule,action
+bug_report,Bug Report,action
+contactless,Contactless,action
+pinch,Pinch,action
+query_builder,Query Builder,action
+lock_outline,Lock Outline,action
+settings_input_svideo,Settings Input Svideo,action
+work_history,Work History,action
+assignment,Assignment,action
+delete_forever,Delete Forever,action
+shield_moon,Shield Moon,home
+vertical_shades,Vertical Shades,home
+electric_bolt,Electric Bolt,home
+nest_cam_wired_stand,Nest Cam Wired Stand,home
+shelves,Shelves,home
+roller_shades,Roller Shades,home
+propane,Propane,home
+sensor_door,Sensor Door,home
+energy_savings_leaf,Energy Savings Leaf,home
+mode_fan_off,Mode Fan Off,home
+electric_meter,Electric Meter,home
+vertical_shades_closed,Vertical Shades Closed,home
+blinds_closed,Blinds Closed,home
+broadcast_on_personal,Broadcast On Personal,home
+gas_meter,Gas Meter,home
+auto_mode,Auto Mode,home
+heat_pump,Heat Pump,home
+solar_power,Solar Power,home
+sunny_snowing,Sunny Snowing,home
+cloudy_snowing,Cloudy Snowing,home
+sunny,Sunny,home
+propane_tank,Propane Tank,home
+wind_power,Wind Power,home
+blinds,Blinds,home
+roller_shades_closed,Roller Shades Closed,home
+oil_barrel,Oil Barrel,home
+sensor_occupied,Sensor Occupied,home
+sensor_window,Sensor Window,home
+broadcast_on_home,Broadcast On Home,home
+curtains,Curtains,home
+curtains_closed,Curtains Closed,home
+foggy,Foggy,home
+snowing,Snowing,home
+turn_sharp_right,Turn Sharp Right,maps
+warehouse,Warehouse,maps
+person_pin_circle,Person Pin Circle,maps
+car_rental,Car Rental,maps
+factory,Factory,maps
+no_meals_ouline,No Meals Ouline,maps
+no_transfer,No Transfer,maps
+edit_location_alt,Edit Location Alt,maps
+sailing,Sailing,maps
+plumbing,Plumbing,maps
+menu_book,Menu Book,maps
+fire_truck,Fire Truck,maps
+emergency_share,Emergency Share,maps
+hotel,Hotel,maps
+remove_road,Remove Road,maps
+volunteer_activism,Volunteer Activism,maps
+airline_stops,Airline Stops,maps
+not_listed_location,Not Listed Location,maps
+delivery_dining,Delivery Dining,maps
+compass_calibration,Compass Calibration,maps
+directions_subway,Directions Subway,maps
+run_circle,Run Circle,maps
+home_repair_service,Home Repair Service,maps
+temple_hindu,Temple Hindu,maps
+map,Map,maps
+local_laundry_service,Local Laundry Service,maps
+pest_control,Pest Control,maps
+icecream,Icecream,maps
+nightlife,Nightlife,maps
+electric_moped,Electric Moped,maps
+breakfast_dining,Breakfast Dining,maps
+add_location_alt,Add Location Alt,maps
+pin_drop,Pin Drop,maps
+electric_rickshaw,Electric Rickshaw,maps
+hail,Hail,maps
+electric_scooter,Electric Scooter,maps
+wine_bar,Wine Bar,maps
+flight_class,Flight Class,maps
+straight,Straight,maps
+transit_enterexit,Transit Enterexit,maps
+taxi_alert,Taxi Alert,maps
+dinner_dining,Dinner Dining,maps
+directions_boat,Directions Boat,maps
+handyman,Handyman,maps
+two_wheeler,Two Wheeler,maps
+turn_left,Turn Left,maps
+ev_station,Ev Station,maps
+roundabout_left,Roundabout Left,maps
+local_airport,Local Airport,maps
+train,Train,maps
+fire_hydrant_alt,Fire Hydrant Alt,maps
+snowmobile,Snowmobile,maps
+pest_control_rodent,Pest Control Rodent,maps
+directions,Directions,maps
+zoom_in_map,Zoom In Map,maps
+directions_walk,Directions Walk,maps
+merge,Merge,maps
+emergency,Emergency,maps
+design_services,Design Services,maps
+departure_board,Departure Board,maps
+celebration,Celebration,maps
+local_bar,Local Bar,maps
+directions_railway_filled,Directions Railway Filled,maps
+forest,Forest,maps
+directions_transit,Directions Transit,maps
+signpost,Signpost,maps
+local_offer,Local Offer,maps
+local_activity,Local Activity,maps
+pedal_bike,Pedal Bike,maps
+maps_ugc,Maps Ugc,maps
+crisis_alert,Crisis Alert,maps
+add_road,Add Road,maps
+directions_run,Directions Run,maps
+roundabout_right,Roundabout Right,maps
+mosque,Mosque,maps
+local_fire_department,Local Fire Department,maps
+local_dining,Local Dining,maps
+local_cafe,Local Cafe,maps
+ramp_right,Ramp Right,maps
+zoom_out_map,Zoom Out Map,maps
+near_me,Near Me,maps
+festival,Festival,maps
+local_shipping,Local Shipping,maps
+minor_crash,Minor Crash,maps
+store_mall_directory,Store Mall Directory,maps
+my_location,My Location,maps
+local_phone,Local Phone,maps
+turn_right,Turn Right,maps
+satellite,Satellite,maps
+rate_review,Rate Review,maps
+safety_check,Safety Check,maps
+subway,Subway,maps
+moped,Moped,maps
+diamond,Diamond,maps
+layers,Layers,maps
+medical_information,Medical Information,maps
+directions_car,Directions Car,maps
+wrong_location,Wrong Location,maps
+directions_bus,Directions Bus,maps
+fork_right,Fork Right,maps
+edit_road,Edit Road,maps
+directions_car_filled,Directions Car Filled,maps
+local_drink,Local Drink,maps
+connecting_airports,Connecting Airports,maps
+castle,Castle,maps
+local_car_wash,Local Car Wash,maps
+liquor,Liquor,maps
+airlines,Airlines,maps
+temple_buddhist,Temple Buddhist,maps
+multiple_stop,Multiple Stop,maps
+railway_alert,Railway Alert,maps
+traffic,Traffic,maps
+museum,Museum,maps
+360,360,maps
+local_hotel,Local Hotel,maps
+local_post_office,Local Post Office,maps
+badge,Badge,maps
+miscellaneous_services,Miscellaneous Services,maps
+sos,Sos,maps
+turn_sharp_left,Turn Sharp Left,maps
+lunch_dining,Lunch Dining,maps
+no_crash,No Crash,maps
+kebab_dining,Kebab Dining,maps
+directions_boat_filled,Directions Boat Filled,maps
+local_gas_station,Local Gas Station,maps
+attractions,Attractions,maps
+beenhere,Beenhere,maps
+local_police,Local Police,maps
+agriculture,Agriculture,maps
+local_play,Local Play,maps
+local_florist,Local Florist,maps
+streetview,Streetview,maps
+screen_rotation_alt,Screen Rotation Alt,maps
+park,Park,maps
+local_library,Local Library,maps
+add_location,Add Location,maps
+set_meal,Set Meal,maps
+mode_of_travel,Mode Of Travel,maps
+place,Place,maps
+transfer_within_a_station,Transfer Within A Station,maps
+tire_repair,Tire Repair,maps
+local_hospital,Local Hospital,maps
+bakery_dining,Bakery Dining,maps
+money,Money,maps
+atm,Atm,maps
+theater_comedy,Theater Comedy,maps
+u_turn_right,U Turn Right,maps
+electric_bike,Electric Bike,maps
+egg,Egg,maps
+trip_origin,Trip Origin,maps
+directions_railway,Directions Railway,maps
+navigation,Navigation,maps
+church,Church,maps
+moving,Moving,maps
+tram,Tram,maps
+synagogue,Synagogue,maps
+route,Route,maps
+u_turn_left,U Turn Left,maps
+fastfood,Fastfood,maps
+terrain,Terrain,maps
+bike_scooter,Bike Scooter,maps
+layers_clear,Layers Clear,maps
+restaurant_menu,Restaurant Menu,maps
+local_taxi,Local Taxi,maps
+add_business,Add Business,maps
+local_mall,Local Mall,maps
+directions_transit_filled,Directions Transit Filled,maps
+local_atm,Local Atm,maps
+local_grocery_store,Local Grocery Store,maps
+egg_alt,Egg Alt,maps
+restaurant,Restaurant,maps
+emergency_recording,Emergency Recording,maps
+hardware,Hardware,maps
+edit_attributes,Edit Attributes,maps
+near_me_disabled,Near Me Disabled,maps
+alt_route,Alt Route,maps
+car_crash,Car Crash,maps
+local_printshop,Local Printshop,maps
+cleaning_services,Cleaning Services,maps
+local_convenience_store,Local Convenience Store,maps
+no_meals,No Meals,maps
+local_pharmacy,Local Pharmacy,maps
+fort,Fort,maps
+directions_bike,Directions Bike,maps
+car_repair,Car Repair,maps
+edit_location,Edit Location,maps
+stadium,Stadium,maps
+category,Category,maps
+local_see,Local See,maps
+location_pin,Location Pin,maps
+flight,Flight,maps
+local_parking,Local Parking,maps
+brunch_dining,Brunch Dining,maps
+ramen_dining,Ramen Dining,maps
+dry_cleaning,Dry Cleaning,maps
+electrical_services,Electrical Services,maps
+medical_services,Medical Services,maps
+takeout_dining,Takeout Dining,maps
+local_pizza,Local Pizza,maps
+turn_slight_left,Turn Slight Left,maps
+hvac,Hvac,maps
+turn_slight_right,Turn Slight Right,maps
+local_movies,Local Movies,maps
+directions_subway_filled,Directions Subway Filled,maps
+electric_car,Electric Car,maps
+soup_kitchen,Soup Kitchen,maps
+directions_bus_filled,Directions Bus Filled,maps
+bus_alert,Bus Alert,maps
+ramp_left,Ramp Left,maps
+person_pin,Person Pin,maps
+fork_left,Fork Left,maps
+chair,Chair,search
+light,Light,search
+bed,Bed,search
+camera_indoor,Camera Indoor,search
+manage_search,Manage Search,search
+coffee_maker,Coffee Maker,search
+camera_outdoor,Camera Outdoor,search
+window,Window,search
+living,Living,search
+garage,Garage,search
+bedroom_child,Bedroom Child,search
+coffee,Coffee,search
+bathroom,Bathroom,search
+door_back,Door Back,search
+flatware,Flatware,search
+chair_alt,Chair Alt,search
+door_front,Door Front,search
+table_bar,Table Bar,search
+bedroom_parent,Bedroom Parent,search
+table_restaurant,Table Restaurant,search
+door_sliding,Door Sliding,search
+podcasts,Podcasts,search
+blender,Blender,search
+yard,Yard,search
+dining,Dining,search
+shower,Shower,search
+doorbell,Doorbell,search
+bedroom_baby,Bedroom Baby,search
+feed,Feed,search
+legend_toggle,Legend Toggle,navigation
+arrow_forward_ios,Arrow Forward Ios,navigation
+west,West,navigation
+arrow_drop_down_circle,Arrow Drop Down Circle,navigation
+subdirectory_arrow_left,Subdirectory Arrow Left,navigation
+arrow_back_ios,Arrow Back Ios,navigation
+unfold_more,Unfold More,navigation
+home_work,Home Work,navigation
+north_east,North East,navigation
+switch_left,Switch Left,navigation
+payments,Payments,navigation
+arrow_upward,Arrow Upward,navigation
+south_east,South East,navigation
+expand_less,Expand Less,navigation
+fullscreen_exit,Fullscreen Exit,navigation
+arrow_forward,Arrow Forward,navigation
+waterfall_chart,Waterfall Chart,navigation
+check,Check,navigation
+apps,Apps,navigation
+arrow_drop_down,Arrow Drop Down,navigation
+arrow_back_ios_new,Arrow Back Ios New,navigation
+expand_circle_down,Expand Circle Down,navigation
+pivot_table_chart,Pivot Table Chart,navigation
+cancel,Cancel,navigation
+arrow_back,Arrow Back,navigation
+assistant_direction,Assistant Direction,navigation
+north,North,navigation
+north_west,North West,navigation
+assistant_navigation,Assistant Navigation,navigation
+fullscreen,Fullscreen,navigation
+south,South,navigation
+campaign,Campaign,navigation
+first_page,First Page,navigation
+unfold_less,Unfold Less,navigation
+add_home_work,Add Home Work,navigation
+refresh,Refresh,navigation
+double_arrow,Double Arrow,navigation
+arrow_downward,Arrow Downward,navigation
+arrow_right,Arrow Right,navigation
+subdirectory_arrow_right,Subdirectory Arrow Right,navigation
+apps_outage,Apps Outage,navigation
+chevron_left,Chevron Left,navigation
+switch_right,Switch Right,navigation
+menu,Menu,navigation
+arrow_drop_up,Arrow Drop Up,navigation
+last_page,Last Page,navigation
+chevron_right,Chevron Right,navigation
+app_settings_alt,App Settings Alt,navigation
+more_horiz,More Horiz,navigation
+menu_open,Menu Open,navigation
+offline_share,Offline Share,navigation
+more_vert,More Vert,navigation
+close,Close,navigation
+expand_more,Expand More,navigation
+arrow_left,Arrow Left,navigation
+maps_home_work,Maps Home Work,navigation
+east,East,navigation
+south_west,South West,navigation
+short_text,Short Text,editor
+format_italic,Format Italic,editor
+publish,Publish,editor
+format_align_left,Format Align Left,editor
+align_horizontal_right,Align Horizontal Right,editor
+pie_chart,Pie Chart,editor
+space_bar,Space Bar,editor
+format_list_bulleted,Format List Bulleted,editor
+text_decrease,Text Decrease,editor
+border_clear,Border Clear,editor
+height,Height,editor
+vertical_align_top,Vertical Align Top,editor
+type_specimen,Type Specimen,editor
+format_indent_decrease,Format Indent Decrease,editor
+numbers,Numbers,editor
+vertical_align_bottom,Vertical Align Bottom,editor
+move_down,Move Down,editor
+border_style,Border Style,editor
+strikethrough_s,Strikethrough S,editor
+vertical_distribute,Vertical Distribute,editor
+table_chart,Table Chart,editor
+table_rows,Table Rows,editor
+format_indent_increase,Format Indent Increase,editor
+drag_handle,Drag Handle,editor
+data_array,Data Array,editor
+shape_line,Shape Line,editor
+format_underlined,Format Underlined,editor
+pentagon,Pentagon,editor
+bar_chart,Bar Chart,editor
+align_horizontal_left,Align Horizontal Left,editor
+format_list_numbered_rtl,Format List Numbered Rtl,editor
+format_quote,Format Quote,editor
+border_horizontal,Border Horizontal,editor
+padding,Padding,editor
+align_vertical_top,Align Vertical Top,editor
+border_left,Border Left,editor
+border_outer,Border Outer,editor
+subscript,Subscript,editor
+linear_scale,Linear Scale,editor
+format_align_justify,Format Align Justify,editor
+border_right,Border Right,editor
+mode_edit_outline,Mode Edit Outline,editor
+line_axis,Line Axis,editor
+functions,Functions,editor
+format_clear,Format Clear,editor
+align_horizontal_center,Align Horizontal Center,editor
+insert_chart,Insert Chart,editor
+format_color_reset,Format Color Reset,editor
+border_vertical,Border Vertical,editor
+border_inner,Border Inner,editor
+insert_comment,Insert Comment,editor
+schema,Schema,editor
+notes,Notes,editor
+add_comment,Add Comment,editor
+score,Score,editor
+checklist,Checklist,editor
+mode_edit,Mode Edit,editor
+checklist_rtl,Checklist Rtl,editor
+hexagon,Hexagon,editor
+format_list_bulleted_add,Format List Bulleted Add,editor
+wrap_text,Wrap Text,editor
+align_vertical_bottom,Align Vertical Bottom,editor
+mode_comment,Mode Comment,editor
+format_list_numbered,Format List Numbered,editor
+scatter_plot,Scatter Plot,editor
+merge_type,Merge Type,editor
+polyline,Polyline,editor
+format_color_text,Format Color Text,editor
+auto_graph,Auto Graph,editor
+text_increase,Text Increase,editor
+multiline_chart,Multiline Chart,editor
+pie_chart_outline,Pie Chart Outline,editor
+vertical_align_center,Vertical Align Center,editor
+format_line_spacing,Format Line Spacing,editor
+border_color,Border Color,editor
+highlight,Highlight,editor
+format_align_center,Format Align Center,editor
+horizontal_distribute,Horizontal Distribute,editor
+monetization_on,Monetization On,editor
+format_textdirection_r_to_l,Format Textdirection R To L,editor
+stacked_line_chart,Stacked Line Chart,editor
+mode,Mode,editor
+draw,Draw,editor
+data_object,Data Object,editor
+money_off_csred,Money Off Csred,editor
+format_size,Format Size,editor
+edit_note,Edit Note,editor
+superscript,Superscript,editor
+insert_link,Insert Link,editor
+insert_chart_outlined,Insert Chart Outlined,editor
+format_textdirection_l_to_r,Format Textdirection L To R,editor
+add_chart,Add Chart,editor
+pie_chart_outlined,Pie Chart Outlined,editor
+horizontal_rule,Horizontal Rule,editor
+format_paint,Format Paint,editor
+border_top,Border Top,editor
+format_color_fill,Format Color Fill,editor
+title,Title,editor
+format_align_right,Format Align Right,editor
+format_strikethrough,Format Strikethrough,editor
+rectangle,Rectangle,editor
+align_vertical_center,Align Vertical Center,editor
+insert_photo,Insert Photo,editor
+query_stats,Query Stats,editor
+move_up,Move Up,editor
+square,Square,editor
+bubble_chart,Bubble Chart,editor
+attach_file,Attach File,editor
+area_chart,Area Chart,editor
+margin,Margin,editor
+border_all,Border All,editor
+border_bottom,Border Bottom,editor
+insert_drive_file,Insert Drive File,editor
+insert_emoticon,Insert Emoticon,editor
+money_off,Money Off,editor
+post_add,Post Add,editor
+candlestick_chart,Candlestick Chart,editor
+format_shapes,Format Shapes,editor
+insert_invitation,Insert Invitation,editor
+attach_money,Attach Money,editor
+text_fields,Text Fields,editor
+insert_page_break,Insert Page Break,editor
+format_bold,Format Bold,editor
+show_chart,Show Chart,editor
+stay_primary_portrait,Stay Primary Portrait,communication
+stay_current_portrait,Stay Current Portrait,communication
+location_on,Location On,communication
+mark_chat_unread,Mark Chat Unread,communication
+call,Call,communication
+read_more,Read More,communication
+pause_presentation,Pause Presentation,communication
+clear_all,Clear All,communication
+qr_code_2,Qr Code 2,communication
+mobile_screen_share,Mobile Screen Share,communication
+desktop_access_disabled,Desktop Access Disabled,communication
+3p,3p,communication
+key_off,Key Off,communication
+rss_feed,Rss Feed,communication
+comments_disabled,Comments Disabled,communication
+contact_emergency,Contact Emergency,communication
+send_time_extension,Send Time Extension,communication
+phone_disabled,Phone Disabled,communication
+present_to_all,Present To All,communication
+vpn_key,Vpn Key,communication
+print_disabled,Print Disabled,communication
+hourglass_bottom,Hourglass Bottom,communication
+stay_current_landscape,Stay Current Landscape,communication
+chat,Chat,communication
+phone_enabled,Phone Enabled,communication
+import_contacts,Import Contacts,communication
+comment,Comment,communication
+hub,Hub,communication
+contact_mail,Contact Mail,communication
+cell_wifi,Cell Wifi,communication
+location_off,Location Off,communication
+invert_colors_off,Invert Colors Off,communication
+co_present,Co Present,communication
+screen_share,Screen Share,communication
+import_export,Import Export,communication
+mark_chat_read,Mark Chat Read,communication
+sentiment_satisfied_alt,Sentiment Satisfied Alt,communication
+speaker_phone,Speaker Phone,communication
+stay_primary_landscape,Stay Primary Landscape,communication
+qr_code_scanner,Qr Code Scanner,communication
+phonelink_erase,Phonelink Erase,communication
+wifi_calling,Wifi Calling,communication
+call_received,Call Received,communication
+dialpad,Dialpad,communication
+chat_bubble_outline,Chat Bubble Outline,communication
+mail_outline,Mail Outline,communication
+mark_unread_chat_alt,Mark Unread Chat Alt,communication
+portable_wifi_off,Portable Wifi Off,communication
+add_ic_call,Add Ic Call,communication
+domain_verification,Domain Verification,communication
+no_sim,No Sim,communication
+more_time,More Time,communication
+dialer_sip,Dialer Sip,communication
+key,Key,communication
+sip,Sip,communication
+swap_calls,Swap Calls,communication
+app_registration,App Registration,communication
+call_end,Call End,communication
+spoke,Spoke,communication
+call_split,Call Split,communication
+document_scanner,Document Scanner,communication
+call_missed,Call Missed,communication
+textsms,Textsms,communication
+forward_to_inbox,Forward To Inbox,communication
+phonelink_setup,Phonelink Setup,communication
+contacts,Contacts,communication
+call_missed_outgoing,Call Missed Outgoing,communication
+chat_bubble,Chat Bubble,communication
+list_alt,List Alt,communication
+message,Message,communication
+vpn_key_off,Vpn Key Off,communication
+hourglass_top,Hourglass Top,communication
+call_made,Call Made,communication
+mail_lock,Mail Lock,communication
+unsubscribe,Unsubscribe,communication
+mark_email_unread,Mark Email Unread,communication
+cancel_presentation,Cancel Presentation,communication
+duo,Duo,communication
+qr_code,Qr Code,communication
+domain_disabled,Domain Disabled,communication
+email,Email,communication
+voicemail,Voicemail,communication
+person_search,Person Search,communication
+alternate_email,Alternate Email,communication
+forum,Forum,communication
+mark_email_read,Mark Email Read,communication
+person_add_disabled,Person Add Disabled,communication
+phone,Phone,communication
+live_help,Live Help,communication
+rtt,Rtt,communication
+contact_phone,Contact Phone,communication
+business,Business,communication
+phonelink_lock,Phonelink Lock,communication
+nat,Nat,communication
+cell_tower,Cell Tower,communication
+ring_volume,Ring Volume,communication
+phonelink_ring,Phonelink Ring,communication
+stop_screen_share,Stop Screen Share,communication
+call_merge,Call Merge,communication
+pallet,Pallet,hardware
+tablet_mac,Tablet Mac,hardware
+headset,Headset,hardware
+watch,Watch,hardware
+connected_tv,Connected Tv,hardware
+phonelink,Phonelink,hardware
+cast_connected,Cast Connected,hardware
+keyboard_double_arrow_up,Keyboard Double Arrow Up,hardware
+smart_screen,Smart Screen,hardware
+keyboard_option_key,Keyboard Option Key,hardware
+keyboard_return,Keyboard Return,hardware
+developer_board,Developer Board,hardware
+keyboard_arrow_right,Keyboard Arrow Right,hardware
+speaker,Speaker,hardware
+keyboard_double_arrow_right,Keyboard Double Arrow Right,hardware
+videogame_asset,Videogame Asset,hardware
+point_of_sale,Point Of Sale,hardware
+headphones_battery,Headphones Battery,hardware
+phone_iphone,Phone Iphone,hardware
+keyboard_tab,Keyboard Tab,hardware
+sim_card,Sim Card,hardware
+headphones,Headphones,hardware
+home_mini,Home Mini,hardware
+phonelink_off,Phonelink Off,hardware
+keyboard_command_key,Keyboard Command Key,hardware
+desktop_windows,Desktop Windows,hardware
+phone_android,Phone Android,hardware
+earbuds_battery,Earbuds Battery,hardware
+tablet,Tablet,hardware
+home_max,Home Max,hardware
+keyboard,Keyboard,hardware
+mouse,Mouse,hardware
+smart_display,Smart Display,hardware
+forklift,Forklift,hardware
+front_loader,Front Loader,hardware
+device_unknown,Device Unknown,hardware
+watch_off,Watch Off,hardware
+cast,Cast,hardware
+keyboard_double_arrow_down,Keyboard Double Arrow Down,hardware
+router,Router,hardware
+keyboard_voice,Keyboard Voice,hardware
+cast_for_education,Cast For Education,hardware
+browser_updated,Browser Updated,hardware
+keyboard_hide,Keyboard Hide,hardware
+tv,Tv,hardware
+keyboard_arrow_down,Keyboard Arrow Down,hardware
+laptop,Laptop,hardware
+conveyor_belt,Conveyor Belt,hardware
+smartphone,Smartphone,hardware
+videogame_asset_off,Videogame Asset Off,hardware
+device_hub,Device Hub,hardware
+dock,Dock,hardware
+laptop_mac,Laptop Mac,hardware
+security,Security,hardware
+adf_scanner,Adf Scanner,hardware
+memory,Memory,hardware
+keyboard_arrow_left,Keyboard Arrow Left,hardware
+keyboard_capslock,Keyboard Capslock,hardware
+devices_other,Devices Other,hardware
+headset_mic,Headset Mic,hardware
+browser_not_supported,Browser Not Supported,hardware
+power_input,Power Input,hardware
+monitor,Monitor,hardware
+keyboard_arrow_up,Keyboard Arrow Up,hardware
+keyboard_backspace,Keyboard Backspace,hardware
+speaker_group,Speaker Group,hardware
+smart_toy,Smart Toy,hardware
+start,Start,hardware
+computer,Computer,hardware
+toys,Toys,hardware
+gamepad,Gamepad,hardware
+tablet_android,Tablet Android,hardware
+trolley,Trolley,hardware
+keyboard_alt,Keyboard Alt,hardware
+laptop_windows,Laptop Windows,hardware
+headset_off,Headset Off,hardware
+scanner,Scanner,hardware
+desktop_mac,Desktop Mac,hardware
+keyboard_control_key,Keyboard Control Key,hardware
+earbuds,Earbuds,hardware
+laptop_chromebook,Laptop Chromebook,hardware
+keyboard_double_arrow_left,Keyboard Double Arrow Left,hardware
+developer_board_off,Developer Board Off,hardware
