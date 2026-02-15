@@ -15,13 +15,13 @@ qwen2.5
 qwen2.5-coder:7b
 
 # git
-ssh-keygen -t ed25519 -C "wen.g.gong@gmail.com"
+ssh-keygen -t ed25519 -C "wen.gong@gmail.com"
 # ~/.ssh/id_ed25519.pub
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_ed25519
 
-git config --global user.email "wen.g.gong@gmail.com"
-git config --global user.name "Gong,Wen"
+git config --global user.email "wen.gong@gmail.com"
+git config --global user.name "Gong"
 
 
 conda create -n zinets python=3.11
