@@ -18,9 +18,9 @@ ollama pull embeddinggemma:latest
 ollama pull phi4:latest 
 ollama pull gemma3:latest
 ollama pull gemma3:12b
-ollama run lfm2.5-thinking
-ollama run deepseek-ocr
-ollama run phi4-mini
+ollama pull lfm2.5-thinking
+ollama pull deepseek-ocr
+ollama pull phi4-mini
 ollama pull nomic-embed-text-v2-moe:latest
 ollama pull translategemma:latest
 ollama pull translategemma:12b
@@ -52,6 +52,28 @@ git clone git@github.com:digital-duck/orascope.git
 git clone git@github.com:digital-duck/SPL.git
 git clone git@github.com:digital-duck/SPL-flow.git
 git clone git@github.com:digital-duck/zinets.git
+
+# npm
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+command -v nvm
+nvm install --lts
+npm --version
+11.8.0
+node --version
+v24.13.1
+
+# claude
+npm install -g @anthropic-ai/claude-code
+claude --version
+2.1.42 (Claude Code)
+
+
+# gemini 
+npm install -g @google/gemini-cli
+gemini --version
+0.28.2
+
+
 
 
 # nvidia-smi
