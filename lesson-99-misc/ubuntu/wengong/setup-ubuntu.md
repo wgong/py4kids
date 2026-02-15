@@ -14,6 +14,18 @@ qwen3-embedding:4b
 qwen2.5
 qwen2.5-coder:7b
 
+ollama pull embeddinggemma:latest
+ollama pull phi4:latest 
+ollama pull gemma3:latest
+ollama pull gemma3:12b
+ollama run lfm2.5-thinking
+ollama run deepseek-ocr
+ollama run phi4-mini
+ollama pull nomic-embed-text-v2-moe:latest
+ollama pull translategemma:latest
+ollama pull translategemma:12b
+ollama pull qwen3-vl:4b
+
 # git
 ssh-keygen -t ed25519 -C "wen.gong@gmail.com"
 # ~/.ssh/id_ed25519.pub
@@ -28,10 +40,18 @@ conda create -n zinets python=3.11
 conda create -n st python=3.11
 
 # repos
-git@github.com:wgong/py4kids.git
-git@github.com:wgong/DeepCode.git
-
-git@github.com:digital-duck/zinets.git
+git clone git@github.com:wgong/py4kids.git
+git clone git@github.com:wgong/DeepCode.git
+git clone git@github.com:digital-duck/zinets_radicals.git
+git clone git@github.com:digital-duck/st_semantics.git
+git clone git@github.com:digital-duck/maniscope.git
+git clone git@github.com:digital-duck/semanscope.git
+git clone git@github.com:digital-duck/phate-manifold-metrics.git
+git clone git@github.com:digital-duck/oracle.git
+git clone git@github.com:digital-duck/orascope.git
+git clone git@github.com:digital-duck/SPL.git
+git clone git@github.com:digital-duck/SPL-flow.git
+git clone git@github.com:digital-duck/zinets.git
 
 
 # nvidia-smi
