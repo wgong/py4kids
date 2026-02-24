@@ -24,3 +24,6 @@ npm install -g vsce
 cd spl-llm
 vsce package
 ```
+
+
+# Google [Jules](https://jules.google/)
