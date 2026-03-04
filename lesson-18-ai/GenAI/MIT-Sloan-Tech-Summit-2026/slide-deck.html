@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MIT Sloan TECH Summit 2026 - Key Takeaways</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --bg-elevated: #12121a;
+      --fg: #f0f0f5;
+      --muted: #6b6b80;
+      --accent: #00d4aa;
+      --accent-dim: rgba(0, 212, 170, 0.15);
+      --card: #16161f;
+      --border: #2a2a3a;
+      --liquid: #3b82f6;
+      --cerebras: #f59e0b;
+      --gemini: #8b5cf6;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      margin: 0;
+      overflow: hidden;
+      min-height: 100vh;
+    }
+
+    .font-display {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    /* Background grid pattern */
+    .grid-bg {
+      background-image: 
+        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    /* Glow effects */
+    .glow-accent {
+      box-shadow: 0 0 60px rgba(0, 212, 170, 0.3);
+    }
+
+    .glow-liquid {
+      box-shadow: 0 0 40px rgba(59, 130, 246, 0.4);
+    }
+
+    .glow-cerebras {
+      box-shadow: 0 0 40px rgba(245, 158, 11, 0.4);
+    }
+
+    .glow-gemini {
+      box-shadow: 0 0 40px rgba(139, 92, 246, 0.4);
+    }
+
+    /* Slide container */
+    .slides-container {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      padding: 3rem 4rem;
+      opacity: 0;
+      transform: translateX(100px);
+      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: none;
+      overflow-y: auto;
+    }
+
+    .slide.active {
+      opacity: 1;
+      transform: translateX(0);
+      pointer-events: auto;
+    }
+
+    .slide.prev {
+      opacity: 0;
+      transform: translateX(-100px);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .slide {
+        transition: opacity 0.3s ease;
+        transform: none !important;
+      }
+      .slide.active { transform: none !important; }
+      .slide.prev { transform: none !important; }
+    }
+
+    /* Staggered animations */
+    .slide.active .animate-in {
+      animation: fadeSlideUp 0.5s ease forwards;
+    }
+
+    .animate-in {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    @keyframes fadeSlideUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .animate-in {
+        opacity: 1;
+        transform: none;
+        animation: none !important;
+      }
+    }
+
+    /* Progress bar */
+    .progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), #00ffcc);
+      transition: width 0.4s ease;
+      z-index: 100;
+    }
+
+    /* Navigation dots */
+    .nav-dots {
+      position: fixed;
+      right: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      z-index: 50;
+    }
+
+    .nav-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--border);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+    }
+
+    .nav-dot:hover {
+      background: var(--muted);
+      transform: scale(1.2);
+    }
+
+    .nav-dot.active {
+      background: var(--accent);
+      box-shadow: 0 0 12px var(--accent);
+    }
+
+    .nav-dot:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    /* Card styles */
+    .insight-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .insight-card:hover {
+      border-color: var(--muted);
+      transform: translateY(-2px);
+    }
+
+    /* Overview card - new style */
+    .overview-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2rem;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      min-height: 280px;
+    }
+
+    .overview-card:hover {
+      border-color: var(--muted);
+      transform: translateY(-4px);
+    }
+
+    .overview-card:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 4px;
+    }
+
+    /* Key stat */
+    .key-stat {
+      background: linear-gradient(135deg, var(--accent-dim), transparent);
+      border: 1px solid rgba(0, 212, 170, 0.3);
+      border-radius: 12px;
+      padding: 1rem 1.5rem;
+    }
+
+    /* Tag pills */
+    .tag {
+      display: inline-flex;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .tag-liquid {
+      background: rgba(59, 130, 246, 0.2);
+      color: #60a5fa;
+      border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+
+    .tag-cerebras {
+      background: rgba(245, 158, 11, 0.2);
+      color: #fbbf24;
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+
+    .tag-gemini {
+      background: rgba(139, 92, 246, 0.2);
+      color: #a78bfa;
+      border: 1px solid rgba(139, 92, 246, 0.3);
+    }
+
+    /* Keyboard hint */
+    .kbd {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 28px;
+      height: 28px;
+      padding: 0 8px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-family: 'Space Grotesk', monospace;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    /* Decorative elements */
+    .corner-accent {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    /* Profile image styles */
+    .profile-image {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid;
+      transition: transform 0.3s ease;
+    }
+
+    .profile-image:hover {
+      transform: scale(1.05);
+    }
+
+    .profile-image-liquid {
+      border-color: rgba(59, 130, 246, 0.5);
+      box-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
+    }
+
+    /* Wafer image */
+    .wafer-image {
+      max-width: 320px;
+      border-radius: 16px;
+      border: 2px solid;
+      transition: transform 0.3s ease;
+    }
+
+    .wafer-image:hover {
+      transform: scale(1.02);
+    }
+
+    .wafer-image-cerebras {
+      border-color: rgba(245, 158, 11, 0.4);
+      box-shadow: 0 0 40px rgba(245, 158, 11, 0.2);
+    }
+
+    /* Hero image */
+    .hero-image {
+      width: 100%;
+      max-width: 400px;
+      border-radius: 16px;
+      border: 2px solid;
+      transition: transform 0.3s ease;
+    }
+
+    .hero-image:hover {
+      transform: scale(1.02);
+    }
+
+    .hero-image-gemini {
+      border-color: rgba(139, 92, 246, 0.4);
+      box-shadow: 0 0 40px rgba(139, 92, 246, 0.2);
+    }
+
+    /* Link styles */
+    .company-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: inherit;
+      text-decoration: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .company-link:hover {
+      opacity: 0.8;
+    }
+
+    .company-link:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 4px;
+      border-radius: 4px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .slide {
+        padding: 2rem 1.5rem;
+      }
+      .nav-dots {
+        right: 1rem;
+      }
+      .profile-image {
+        width: 100px;
+        height: 100px;
+      }
+      .wafer-image {
+        max-width: 240px;
+      }
+      .hero-image {
+        max-width: 100%;
+      }
+      .overview-card {
+        min-height: auto;
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body class="grid-bg">
+  <!-- Progress Bar -->
+  <div class="progress-bar" id="progressBar"></div>
+
+  <!-- Navigation Dots -->
+  <nav class="nav-dots" id="navDots" aria-label="Slide navigation"></nav>
+
+  <!-- Slides Container -->
+  <main class="slides-container" id="slidesContainer">
+    
+    <!-- Slide 1: Title -->
+    <section class="slide active" data-slide="0">
+      <div class="corner-accent" style="background: var(--accent); top: -100px; right: -100px;"></div>
+      <div class="flex-1 flex flex-col justify-center items-center text-center">
+        <div class="animate-in" style="animation-delay: 0.1s;">
+          <span class="tag tag-liquid mb-4">February 2026</span>
+        </div>
+        <h1 class="font-display text-5xl md:text-7xl font-bold mb-6 animate-in" style="animation-delay: 0.2s;">
+          MIT Sloan<br>
+          <span style="color: var(--accent);">TECH Summit</span> 2026
+        </h1>
+        <p class="text-xl md:text-2xl max-w-2xl animate-in" style="color: var(--muted); animation-delay: 0.3s;">
+          Key takeaways from the frontier of AI innovation
+        </p>
+        <div class="mt-12 flex items-center gap-3 animate-in" style="animation-delay: 0.5s;">
+          <span style="color: var(--muted); font-size: 0.875rem;">Press</span>
+          <span class="kbd">→</span>
+          <span style="color: var(--muted); font-size: 0.875rem;">to navigate</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 2: Overview - REDESIGNED -->
+    <section class="slide" data-slide="1">
+      <div class="mb-8 animate-in">
+        <span style="color: var(--accent); font-size: 0.875rem; font-weight: 500; letter-spacing: 0.1em;">01 / OVERVIEW</span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold mt-2">Three Talks That Stood Out</h2>
+      </div>
+      <div class="flex-1 grid gap-6 md:grid-cols-3 items-stretch">
+        <!-- Liquid.AI Card -->
+        <a href="https://www.liquid.ai/" target="_blank" rel="noopener" class="overview-card animate-in" style="animation-delay: 0.15s;">
+          <div class="mb-6">
+            <span class="tag tag-liquid">Liquid.AI</span>
+          </div>
+          <h3 class="font-display text-2xl font-bold mb-3">Small Foundation Models</h3>
+          <p class="text-base mb-auto" style="color: var(--muted); line-height: 1.6;">
+            Compact, powerful AI designed for edge deployment without sacrificing capability.
+          </p>
+          <div class="mt-6 pt-4 border-t flex items-center gap-2" style="border-color: var(--border); color: var(--muted);">
+            <span class="text-sm">Visit liquid.ai</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="opacity: 0.5;">
+              <path d="M7 17L17 7M17 7H7M17 7v10"/>
+            </svg>
+          </div>
+        </a>
+
+        <!-- Cerebras Card -->
+        <a href="https://www.cerebras.ai/" target="_blank" rel="noopener" class="overview-card animate-in" style="animation-delay: 0.25s;">
+          <div class="mb-6">
+            <span class="tag tag-cerebras">Cerebras</span>
+          </div>
+          <h3 class="font-display text-2xl font-bold mb-3">Wafer-Scale Compute</h3>
+          <p class="text-base mb-auto" style="color: var(--muted); line-height: 1.6;">
+            Revolutionary hardware powering the next generation of AI with unprecedented scale.
+          </p>
+          <div class="mt-6 pt-4 border-t flex items-center gap-2" style="border-color: var(--border); color: var(--muted);">
+            <span class="text-sm">Visit cerebras.ai</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="opacity: 0.5;">
+              <path d="M7 17L17 7M17 7H7M17 7v10"/>
+            </svg>
+          </div>
+        </a>
+
+        <!-- Google Gemini Card -->
+        <a href="https://edu.google.com/intl/ALL_us/ai/gemini-for-education/" target="_blank" rel="noopener" class="overview-card animate-in" style="animation-delay: 0.35s;">
+          <div class="mb-6">
+            <span class="tag tag-gemini">Google</span>
+          </div>
+          <h3 class="font-display text-2xl font-bold mb-3">Gemini Education</h3>
+          <p class="text-base mb-auto" style="color: var(--muted); line-height: 1.6;">
+            AI-native tools transforming how students learn and educators teach.
+          </p>
+          <div class="mt-6 pt-4 border-t flex items-center gap-2" style="border-color: var(--border); color: var(--muted);">
+            <span class="text-sm">Visit Google Education</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="opacity: 0.5;">
+              <path d="M7 17L17 7M17 7H7M17 7v10"/>
+            </svg>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Slide 3: Liquid.AI Intro with Founder Image -->
+    <section class="slide" data-slide="2">
+      <div class="corner-accent" style="background: var(--liquid); bottom: -50px; left: -50px;"></div>
+      <div class="mb-6 animate-in">
+        <span class="tag tag-liquid">Talk 01</span>
+      </div>
+      <div class="flex-1 flex flex-col md:flex-row items-center justify-center gap-12">
+        <div class="flex-1 flex flex-col justify-center">
+          <h2 class="font-display text-5xl md:text-6xl font-bold mb-4 animate-in" style="animation-delay: 0.1s;">
+            <a href="https://www.liquid.ai/" target="_blank" rel="noopener" class="company-link" style="color: #60a5fa;">
+              Liquid.AI
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="opacity: 0.6;">
+                <path d="M7 17L17 7M17 7H7M17 7v10"/>
+              </svg>
+            </a>
+          </h2>
+          <p class="text-2xl md:text-3xl mb-6 animate-in" style="color: var(--muted); animation-delay: 0.2s;">
+            Small Models. Massive Impact.
+          </p>
+          <div class="key-stat inline-block max-w-md animate-in" style="animation-delay: 0.3s;">
+            <p class="text-lg" style="color: var(--fg);">Founded by MIT researchers, Liquid.AI is rethinking AI architecture from first principles.</p>
+          </div>
+        </div>
+        <div class="flex flex-col items-center gap-4 animate-in" style="animation-delay: 0.4s;">
+          <img 
+            src="https://cdn.prod.website-files.com/67cb8aa6e9184b6e44813189/69a1bee9427f280a4b8bdcc7_ramin.avif" 
+            alt="Ramin Hasani, Liquid.AI Co-founder" 
+            class="profile-image profile-image-liquid"
+          >
+          <p class="text-sm text-center" style="color: var(--muted);">Ramin Hasani, Co-founder</p>
+          <p class="text-xs text-center" style="color: var(--accent);">I know him personally</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 4: Liquid.AI Details -->
+    <section class="slide" data-slide="3">
+      <div class="mb-6 animate-in">
+        <div class="flex items-center gap-3">
+          <span class="tag tag-liquid">Liquid.AI</span>
+          <a href="https://www.liquid.ai/" target="_blank" rel="noopener" class="text-sm hover:underline" style="color: var(--muted);">
+            liquid.ai
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; margin-left: 4px;">
+              <path d="M7 17L17 7M17 7H7M17 7v10"/>
+            </svg>
+          </a>
+        </div>
+        <h2 class="font-display text-3xl md:text-4xl font-bold mt-2">Why Small Models Matter</h2>
+      </div>
+      <div class="flex-1 grid gap-6 md:grid-cols-2 items-start">
+        <div class="space-y-4">
+          <div class="insight-card animate-in" style="animation-delay: 0.1s;">
+            <h4 class="font-display font-semibold mb-2 flex items-center gap-2">
+              <span style="color: #60a5fa;">01</span> Edge Deployment
+            </h4>
+            <p style="color: var(--muted);">Run sophisticated AI locally on devices without cloud dependency. Critical for privacy and latency-sensitive applications.</p>
+          </div>
+          <div class="insight-card animate-in" style="animation-delay: 0.2s;">
+            <h4 class="font-display font-semibold mb-2 flex items-center gap-2">
+              <span style="color: #60a5fa;">02</span> Novel Architecture
+            </h4>
+            <p style="color: var(--muted);">Not just compressed LLMs. Built on liquid neural networks that adapt in real-time with fewer parameters.</p>
+          </div>
+          <div class="insight-card animate-in" style="animation-delay: 0.3s;">
+            <h4 class="font-display font-semibold mb-2 flex items-center gap-2">
+              <span style="color: #60a5fa;">03</span> Efficiency Gains
+            </h4>
+            <p style="color: var(--muted);">10-100x more efficient than comparable transformers at specific tasks while maintaining quality.</p>
+          </div>
+        </div>
+        <div class="animate-in" style="animation-delay: 0.4s;">
+          <div class="p-6 rounded-2xl glow-liquid" style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), transparent); border: 1px solid rgba(59, 130, 246, 0.3);">
+            <p class="font-display text-lg font-semibold mb-4" style="color: #60a5fa;">Key Insight</p>
+            <p class="text-lg leading-relaxed">"The future isn't just bigger models. It's smarter, smaller architectures that can run anywhere."</p>
+            <p class="mt-4 text-sm" style="color: var(--muted);">Implications for autonomous vehicles, IoT, and mobile applications</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 5: Cerebras Intro with Personal Wafer Photo -->
+    <section class="slide" data-slide="4">
+      <div class="corner-accent" style="background: var(--cerebras); top: 50%; right: -100px; transform: translateY(-50%);"></div>
+      <div class="mb-6 animate-in">
+        <span class="tag tag-cerebras">Talk 02</span>
+      </div>
+      <div class="flex-1 flex flex-col md:flex-row items-center justify-center gap-12">
+        <div class="flex-1 flex flex-col justify-center">
+          <h2 class="font-display text-5xl md:text-6xl font-bold mb-4 animate-in" style="animation-delay: 0.1s;">
+            <a href="https://www.cerebras.ai/" target="_blank" rel="noopener" class="company-link" style="color: #fbbf24;">
+              Cerebras
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="opacity: 0.6;">
+                <path d="M7 17L17 7M17 7H7M17 7v10"/>
+              </svg>
+            </a>
+          </h2>
+          <p class="text-2xl md:text-3xl mb-6 animate-in" style="color: var(--muted); animation-delay: 0.2s;">
+            Wafer-Scale Computing for AI
+          </p>
+          <div class="key-stat inline-block max-w-md animate-in" style="animation-delay: 0.3s; background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), transparent); border-color: rgba(245, 158, 11, 0.3);">
+            <p class="text-lg" style="color: var(--fg);">The world's largest chip, designed from the ground up for AI workloads.</p>
+          </div>
+        </div>
+        <div class="flex flex-col items-center gap-4 animate-in" style="animation-delay: 0.4s;">
+          <img 
+            src="https://z-cdn-media.chatglm.cn/files/83611e4c-5b26-4570-9938-def74d427178.png?auth_key=1872610056-5bc00c13bc944b75a13e93891a567953-0-f39a822ee370248d382b9df924cf9719" 
+            alt="Holding a Cerebras wafer prototype at the summit" 
+            class="wafer-image wafer-image-cerebras"
+          >
+          <p class="text-sm text-center" style="color: var(--muted);">Wafer-Scale Engine Prototype</p>
+          <p class="text-xs text-center" style="color: var(--accent);">My personal photo from the summit</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 6: Cerebras Details -->
+    <section class="slide" data-slide="5">
+      <div class="mb-6 animate-in">
+        <div class="flex items-center gap-3">
+          <span class="tag tag-cerebras">Cerebras</span>
+          <a href="https://www.cerebras.ai/" target="_blank" rel="noopener" class="text-sm hover:underline" style="color: var(--muted);">
+            cerebras.ai
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; margin-left: 4px;">
+              <path d="M7 17L17 7M17 7H7M17 7v10"/>
+            </svg>
+          </a>
+        </div>
+        <h2 class="font-display text-3xl md:text-4xl font-bold mt-2">Wafer-Scale + OpenAI Partnership</h2>
+      </div>
+      <div class="flex-1 grid gap-6 md:grid-cols-2 items-start">
+        <div class="space-y-4">
+          <div class="insight-card animate-in" style="animation-delay: 0.1s;">
+            <h4 class="font-display font-semibold mb-2">Full Wafer Processing</h4>
+            <p style="color: var(--muted);">Instead of cutting wafers into chips, Cerebras uses the entire wafer as one processor. 462mm of continuous compute.</p>
+          </div>
+          <div class="insight-card animate-in" style="animation-delay: 0.2s;">
+            <h4 class="font-display font-semibold mb-2">Memory Architecture</h4>
+            <p style="color: var(--muted);">900,000 cores with unified memory. Eliminates the memory bottleneck that plagues traditional GPU clusters.</p>
+          </div>
+          <div class="insight-card animate-in" style="animation-delay: 0.3s;">
+            <h4 class="font-display font-semibold mb-2">OpenAI Collaboration</h4>
+            <p style="color: var(--muted);">Partnership focuses on training speed and inference at scale. Dramatically faster iteration cycles for model development.</p>
+          </div>
+        </div>
+        <div class="animate-in" style="animation-delay: 0.4s;">
+          <div class="p-6 rounded-2xl glow-cerebras" style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), transparent); border: 1px solid rgba(245, 158, 11, 0.3);">
+            <p class="font-display text-lg font-semibold mb-4" style="color: #fbbf24;">The Numbers</p>
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <p class="font-display text-3xl font-bold" style="color: #fbbf24;">900K</p>
+                <p class="text-sm" style="color: var(--muted);">AI-optimized cores</p>
+              </div>
+              <div>
+                <p class="font-display text-3xl font-bold" style="color: #fbbf24;">462mm</p>
+                <p class="text-sm" style="color: var(--muted);">Wafer diameter</p>
+              </div>
+              <div>
+                <p class="font-display text-3xl font-bold" style="color: #fbbf24;">1000x</p>
+                <p class="text-sm" style="color: var(--muted);">More memory bandwidth</p>
+              </div>
+              <div>
+                <p class="font-display text-3xl font-bold" style="color: #fbbf24;">1</p>
+                <p class="text-sm" style="color: var(--muted);">Chip (not cluster)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 7: Gemini Intro -->
+    <section class="slide" data-slide="6">
+      <div class="corner-accent" style="background: var(--gemini); bottom: 0; left: 50%; transform: translateX(-50%);"></div>
+      <div class="mb-6 animate-in">
+        <span class="tag tag-gemini">Talk 03</span>
+      </div>
+      <div class="flex-1 flex flex-col justify-center">
+        <h2 class="font-display text-5xl md:text-6xl font-bold mb-4 animate-in" style="animation-delay: 0.1s;">
+          <a href="https://edu.google.com/intl/ALL_us/ai/gemini-for-education/" target="_blank" rel="noopener" class="company-link" style="color: #a78bfa;">
+            Google Gemini
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="opacity: 0.6;">
+              <path d="M7 17L17 7M17 7H7M17 7v10"/>
+            </svg>
+          </a>
+        </h2>
+        <p class="text-2xl md:text-3xl mb-8 animate-in" style="color: var(--muted); animation-delay: 0.2s;">
+          Education Reimagined
+        </p>
+        <div class="key-stat inline-block max-w-md animate-in" style="animation-delay: 0.3s; background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), transparent); border-color: rgba(139, 92, 246, 0.3);">
+          <p class="text-lg" style="color: var(--fg);">AI-native tools designed to transform how students learn and educators teach.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 8: Gemini Details with Hero Image -->
+    <section class="slide" data-slide="7">
+      <div class="mb-6 animate-in">
+        <div class="flex items-center gap-3">
+          <span class="tag tag-gemini">Gemini Education</span>
+          <a href="https://edu.google.com/intl/ALL_us/ai/gemini-for-education/" target="_blank" rel="noopener" class="text-sm hover:underline" style="color: var(--muted);">
+            edu.google.com/ai/gemini-for-education
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; margin-left: 4px;">
+              <path d="M7 17L17 7M17 7H7M17 7v10"/>
+            </svg>
+          </a>
+        </div>
+        <h2 class="font-display text-3xl md:text-4xl font-bold mt-2">Features & Implications</h2>
+      </div>
+      <div class="flex-1 grid gap-6 md:grid-cols-2 items-start">
+        <div class="space-y-4">
+          <div class="insight-card animate-in" style="animation-delay: 0.1s;">
+            <h4 class="font-display font-semibold mb-2">Personalized Tutoring</h4>
+            <p style="color: var(--muted);">Adaptive learning paths that adjust to each student's pace, strengths, and knowledge gaps in real-time.</p>
+          </div>
+          <div class="insight-card animate-in" style="animation-delay: 0.2s;">
+            <h4 class="font-display font-semibold mb-2">Multimodal Understanding</h4>
+            <p style="color: var(--muted);">Process text, images, code, and diagrams together. Students can ask questions about any content type.</p>
+          </div>
+          <div class="insight-card animate-in" style="animation-delay: 0.3s;">
+            <h4 class="font-display font-semibold mb-2">Educator Tools</h4>
+            <p style="color: var(--muted);">Automated grading, lesson plan generation, and insights into student progress. Teachers focus on teaching.</p>
+          </div>
+        </div>
+        <div class="flex flex-col gap-4 animate-in" style="animation-delay: 0.4s;">
+          <img 
+            src="https://storage.googleapis.com/gweb-uniblog-publish-prod/images/educators_learn_AI_literacy_Hero.width-1200.format-webp.webp" 
+            alt="Google Gemini for Education - AI literacy in the classroom" 
+            class="hero-image hero-image-gemini"
+          >
+          <div class="p-4 rounded-2xl" style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), transparent); border: 1px solid rgba(139, 92, 246, 0.3);">
+            <p class="font-display font-semibold mb-2" style="color: #a78bfa;">The Vision</p>
+            <p class="text-sm leading-relaxed">"Every student gets a personal tutor. Every teacher gets a teaching assistant."</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 9: Key Takeaways -->
+    <section class="slide" data-slide="8">
+      <div class="mb-8 animate-in">
+        <span style="color: var(--accent); font-size: 0.875rem; font-weight: 500; letter-spacing: 0.1em;">SYNTHESIS</span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold mt-2">Key Takeaways</h2>
+      </div>
+      <div class="flex-1 grid gap-4">
+        <div class="insight-card animate-in flex items-start gap-4" style="animation-delay: 0.1s;">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center shrink-0" style="background: var(--accent-dim);">
+            <span class="font-display text-xl font-bold" style="color: var(--accent);">1</span>
+          </div>
+          <div>
+            <h4 class="font-display font-semibold text-lg mb-1">AI is becoming multi-modal and multi-scale</h4>
+            <p style="color: var(--muted);">From edge devices to wafer-scale systems, AI is expanding in both directions simultaneously.</p>
+          </div>
+        </div>
+        <div class="insight-card animate-in flex items-start gap-4" style="animation-delay: 0.2s;">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center shrink-0" style="background: var(--accent-dim);">
+            <span class="font-display text-xl font-bold" style="color: var(--accent);">2</span>
+          </div>
+          <div>
+            <h4 class="font-display font-semibold text-lg mb-1">Hardware innovation is accelerating</h4>
+            <p style="color: var(--muted);">Cerebras proves we're not limited by GPU constraints. Purpose-built silicon is the new frontier.</p>
+          </div>
+        </div>
+        <div class="insight-card animate-in flex items-start gap-4" style="animation-delay: 0.3s;">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center shrink-0" style="background: var(--accent-dim);">
+            <span class="font-display text-xl font-bold" style="color: var(--accent);">3</span>
+          </div>
+          <div>
+            <h4 class="font-display font-semibold text-lg mb-1">Domain-specific AI is the next wave</h4>
+            <p style="color: var(--muted);">Education, healthcare, finance. Generic models give way to specialized, optimized solutions.</p>
+          </div>
+        </div>
+        <div class="insight-card animate-in flex items-start gap-4" style="animation-delay: 0.4s;">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center shrink-0" style="background: var(--accent-dim);">
+            <span class="font-display text-xl font-bold" style="color: var(--accent);">4</span>
+          </div>
+          <div>
+            <h4 class="font-display font-semibold text-lg mb-1">Efficiency is the new scaling</h4>
+            <p style="color: var(--muted);">Liquid.AI shows we don't always need bigger. Sometimes we need smarter architectures.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 10: Thank You -->
+    <section class="slide" data-slide="9">
+      <div class="corner-accent" style="background: var(--accent); top: 50%; left: 50%; transform: translate(-50%, -50%);"></div>
+      <div class="flex-1 flex flex-col justify-center items-center text-center">
+        <h2 class="font-display text-5xl md:text-7xl font-bold mb-6 animate-in">
+          Questions?
+        </h2>
+        <p class="text-xl md:text-2xl max-w-xl mb-8 animate-in" style="color: var(--muted); animation-delay: 0.1s;">
+          Happy to discuss any of these topics in more depth
+        </p>
+        <div class="animate-in" style="animation-delay: 0.2s;">
+          <div class="p-6 rounded-2xl glow-accent" style="background: var(--accent-dim); border: 1px solid rgba(0, 212, 170, 0.3);">
+            <p class="font-display text-lg mb-4">MIT Sloan TECH Summit 2026</p>
+            <div class="flex flex-col gap-2 text-sm" style="color: var(--muted);">
+              <a href="https://www.liquid.ai/" target="_blank" rel="noopener" class="hover:text-white transition-colors">liquid.ai</a>
+              <a href="https://www.cerebras.ai/" target="_blank" rel="noopener" class="hover:text-white transition-colors">cerebras.ai</a>
+              <a href="https://edu.google.com/intl/ALL_us/ai/gemini-for-education/" target="_blank" rel="noopener" class="hover:text-white transition-colors">edu.google.com/ai/gemini-for-education</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Bottom Navigation -->
+  <footer class="fixed bottom-0 left-0 right-0 p-4 flex justify-between items-center z-50" style="background: linear-gradient(transparent, var(--bg));">
+    <div class="flex items-center gap-3">
+      <button id="prevBtn" class="flex items-center gap-2 px-4 py-2 rounded-lg transition-all hover:scale-105" style="background: var(--card); border: 1px solid var(--border);" aria-label="Previous slide">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M15 18l-6-6 6-6"/>
+        </svg>
+        <span class="hidden sm:inline text-sm">Prev</span>
+      </button>
+      <button id="nextBtn" class="flex items-center gap-2 px-4 py-2 rounded-lg transition-all hover:scale-105" style="background: var(--accent); color: var(--bg);" aria-label="Next slide">
+        <span class="hidden sm:inline text-sm font-medium">Next</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 18l6-6-6-6"/>
+        </svg>
+      </button>
+    </div>
+    <div class="flex items-center gap-4">
+      <span id="slideCounter" class="font-display text-sm" style="color: var(--muted);">1 / 10</span>
+      <span class="hidden md:flex items-center gap-2 text-xs" style="color: var(--muted);">
+        <span class="kbd">←</span>
+        <span class="kbd">→</span>
+        to navigate
+      </span>
+    </div>
+  </footer>
+
+  <script>
+    // Initialize variables first
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+    let currentSlide = 0;
+    
+    const progressBar = document.getElementById('progressBar');
+    const navDots = document.getElementById('navDots');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const slideCounter = document.getElementById('slideCounter');
+
+    // Create navigation dots
+    function createNavDots() {
+      for (let i = 0; i < totalSlides; i++) {
+        const dot = document.createElement('button');
+        dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+        dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+        dot.addEventListener('click', () => goToSlide(i));
+        navDots.appendChild(dot);
+      }
+    }
+
+    // Update slide counter
+    function updateCounter() {
+      slideCounter.textContent = `${currentSlide + 1} / ${totalSlides}`;
+    }
+
+    // Update progress bar
+    function updateProgress() {
+      const progress = ((currentSlide + 1) / totalSlides) * 100;
+      progressBar.style.width = `${progress}%`;
+    }
+
+    // Go to specific slide
+    function goToSlide(index) {
+      if (index < 0 || index >= totalSlides) return;
+
+      slides[currentSlide].classList.remove('active');
+      slides[currentSlide].classList.add('prev');
+
+      currentSlide = index;
+
+      // Remove prev class from all slides
+      slides.forEach((slide, i) => {
+        if (i !== currentSlide) {
+          slide.classList.remove('active');
+          if (i < currentSlide) {
+            slide.classList.add('prev');
+          } else {
+            slide.classList.remove('prev');
+          }
+        }
+      });
+
+      slides[currentSlide].classList.remove('prev');
+      slides[currentSlide].classList.add('active');
+
+      // Update dots
+      document.querySelectorAll('.nav-dot').forEach((dot, i) => {
+        dot.classList.toggle('active', i === currentSlide);
+      });
+
+      updateCounter();
+      updateProgress();
+      updateButtonStates();
+    }
+
+    // Navigate to next slide
+    function nextSlide() {
+      if (currentSlide < totalSlides - 1) {
+        goToSlide(currentSlide + 1);
+      }
+    }
+
+    // Navigate to previous slide
+    function prevSlide() {
+      if (currentSlide > 0) {
+        goToSlide(currentSlide - 1);
+      }
+    }
+
+    // Update button states
+    function updateButtonStates() {
+      prevBtn.style.opacity = currentSlide === 0 ? '0.5' : '1';
+      prevBtn.disabled = currentSlide === 0;
+      nextBtn.style.opacity = currentSlide === totalSlides - 1 ? '0.5' : '1';
+      nextBtn.disabled = currentSlide === totalSlides - 1;
+    }
+
+    // Event listeners
+    prevBtn.addEventListener('click', prevSlide);
+    nextBtn.addEventListener('click', nextSlide);
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        e.preventDefault();
+        nextSlide();
+      } else if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        prevSlide();
+      }
+    });
+
+    // Touch/swipe support
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    document.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    document.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    }, { passive: true });
+
+    function handleSwipe() {
+      const swipeThreshold = 50;
+      const diff = touchStartX - touchEndX;
+      
+      if (Math.abs(diff) > swipeThreshold) {
+        if (diff > 0) {
+          nextSlide();
+        } else {
+          prevSlide();
+        }
+      }
+    }
+
+    // Initialize
+    createNavDots();
+    updateCounter();
+    updateProgress();
+    updateButtonStates();
+  </script>
+</body>
+</html>
