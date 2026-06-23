@@ -1,0 +1,3 @@
+- [Gemma 4 On Claude Code (using Ollama)](https://medium.com/@joe.njenga/i-tried-gemma-4-on-claude-code-and-found-new-free-google-coding-beast-6d0995ba8645)
+- [Local LLMs in Real Work: Gemma 4, Qwen 3.6, and Qwen Coder (using llama.cpp)](https://medium.com/@tort_mario/local-llms-in-real-work-gemma-4-qwen-3-6-and-qwen-coder-d43811c7e9b2)
+- [I Replaced Codex with Gemma 4 + Ollama](https://faun.pub/i-replaced-codex-with-gemma-4-ollama-heres-my-local-ai-coding-agent-e18307e35d6f)
