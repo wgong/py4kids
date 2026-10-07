@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Oracle Bone Scripts Gallery</title>
+<style>
+  html, body { height: 100%; margin: 0; }
+  body { display: flex; flex-direction: column; font-family: system-ui, sans-serif; background: #f4f1ea; color: #222; }
+  header { display: flex; align-items: center; justify-content: center; gap: 16px; padding: 10px; }
+  button { font-size: 16px; padding: 6px 16px; cursor: pointer; }
+  select { font-size: 16px; padding: 5px; }
+  main { flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; padding: 0 12px 12px; }
+  img { max-width: 100%; max-height: 100%; object-fit: contain; background: #fff; box-shadow: 0 1px 6px rgba(0,0,0,.3); }
+  #print { display: none; }
+  @media print {
+    @page { margin: 8mm; }
+    header, main { display: none; }
+    body { display: block; background: #fff; }
+    #print { display: block; }
+    #print img { display: block; max-width: 100%; max-height: 270mm; margin: 0 auto; box-shadow: none; break-after: page; }
+    #print img:last-child { break-after: auto; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <button id="prev">&larr; Prev</button>
+  <select id="sel"></select>
+  <span id="pos"></span>
+  <button id="next">Next &rarr;</button>
+  <button id="pdf" title="Opens the print dialog; choose 'Save as PDF'">PDF</button>
+</header>
+<main><img id="img" alt=""></main>
+<div id="print"></div>
+<script>
+  const N = 16;
+  const names = Array.from({length: N}, (_, i) => `obs-${String(i + 1).padStart(2, '0')}.png`);
+  const img = document.getElementById('img'), sel = document.getElementById('sel'), pos = document.getElementById('pos');
+  names.forEach((n, i) => sel.add(new Option(n, i)));
+  let cur = Math.max(0, Math.min(N - 1, (parseInt(location.hash.slice(1)) || 1) - 1));
+  function show(i) {
+    cur = (i + N) % N;
+    img.src = names[cur]; img.alt = names[cur];
+    sel.value = cur; pos.textContent = `${cur + 1} / ${N}`;
+    history.replaceState(null, '', '#' + (cur + 1));
+  }
+  document.getElementById('prev').onclick = () => show(cur - 1);
+  document.getElementById('next').onclick = () => show(cur + 1);
+  img.onclick = () => show(cur + 1);
+  sel.onchange = () => show(+sel.value);
+  document.onkeydown = e => {
+    if (e.key === 'ArrowLeft') show(cur - 1);
+    if (e.key === 'ArrowRight' || e.key === ' ') show(cur + 1);
+  };
+  document.getElementById('pdf').onclick = () => {
+    const box = document.getElementById('print');
+    box.innerHTML = '';
+    names.forEach(n => { const im = new Image(); im.src = n; box.appendChild(im); });
+    Promise.all([...box.children].map(im => im.decode().catch(() => {}))).then(() => window.print());
+  };
+  show(cur);
+</script>
+</body>
+</html>
